@@ -1,0 +1,33 @@
+import { NextResponse } from "next/server";
+import { prisma } from "../../../../lib/prisma";
+import { requireAdmin } from "../../../../lib/auth";
+import { slugify, uniqueSlug } from "../../../../lib/slugify";
+
+export async function GET() {
+  if (!requireAdmin()) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  const posts = await prisma.blogPost.findMany({ orderBy: { id: "desc" } });
+  return NextResponse.json(posts);
+}
+
+export async function POST(request) {
+  if (!requireAdmin()) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+
+  try {
+    const body = await request.json();
+    const { date, title, excerpt, readTime, content, coverImage, slug: rawSlug } = body;
+
+    if (!date || !title || !excerpt || !readTime) {
+      return NextResponse.json({ error: "Todos os campos são obrigatórios" }, { status: 400 });
+    }
+
+    const base = rawSlug ? slugify(rawSlug) : slugify(title).slice(0, 70).replace(/-+$/, "");
+    const slug = await uniqueSlug(base, async (s) => !!(await prisma.blogPost.findFirst({ where: { slug: s } })));
+
+    const post = await prisma.blogPost.create({
+      data: { date, title, excerpt, readTime, content: content ?? "", coverImage: coverImage ?? "", slug },
+    });
+    return NextResponse.json(post, { status: 201 });
+  } catch {
+    return NextResponse.json({ error: "Erro ao criar artigo" }, { status: 500 });
+  }
+}

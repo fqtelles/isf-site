@@ -1,0 +1,11 @@
+services:
+  web:
+    image: node:20-alpine
+    container_name: isf-site
+    restart: always
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    command: sh -c "apk add --no-cache openssl && npx prisma generate && npm run dev"

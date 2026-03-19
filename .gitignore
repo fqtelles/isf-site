@@ -1,0 +1,19 @@
+# Dependências
+node_modules/
+
+# Next.js build
+.next/
+out/
+
+# Variáveis de ambiente locais
+.env
+.env.local
+.env.*.local
+
+# Uploads (gerenciados via volume em produção)
+public/uploads/*
+!public/uploads/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db

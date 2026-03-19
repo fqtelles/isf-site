@@ -1,0 +1,34 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  brand       String
+  category    String
+  image       String
+  images      String   @default("[]")
+  description String   @default("")
+  video       String   @default("")
+  slug        String?  @unique
+  createdAt   DateTime @default(now())
+}
+
+model BlogPost {
+  id          Int      @id @default(autoincrement())
+  date        String
+  title       String
+  excerpt     String
+  readTime    String
+  content     String   @default("")
+  coverImage  String   @default("")
+  slug        String?  @unique
+  createdAt   DateTime @default(now())
+}

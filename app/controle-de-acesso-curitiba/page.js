@@ -1,0 +1,112 @@
+import LandingPage from "../components/LandingPage";
+
+export const metadata = {
+  title: "Controle de Acesso em Curitiba — Biometria e Cartão | ISF Segurança Eletrônica",
+  description:
+    "Instalação de controle de acesso em Curitiba: catracas, biometria, cartão de proximidade e reconhecimento facial. Ideal para condomínios e empresas. Orçamento gratuito.",
+  openGraph: {
+    title: "Controle de Acesso em Curitiba | ISF Segurança",
+    description: "Catracas, biometria e controle de acesso em Curitiba. Orçamento gratuito.",
+    url: "https://isf.com.br/controle-de-acesso-curitiba",
+    type: "website",
+    images: [{ url: "https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png", width: 1200, height: 630 }],
+  },
+  twitter: { card: "summary_large_image" },
+  alternates: { canonical: "https://isf.com.br/controle-de-acesso-curitiba" },
+};
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "Controle de Acesso em Curitiba",
+  description: "Instalação de sistemas de controle de acesso em condomínios, empresas e áreas restritas em Curitiba e Região Metropolitana.",
+  provider: {
+    "@type": "LocalBusiness",
+    "@id": "https://isf.com.br/#organization",
+    name: "ISF Segurança Eletrônica",
+  },
+  areaServed: { "@type": "City", name: "Curitiba" },
+  url: "https://isf.com.br/controle-de-acesso-curitiba",
+};
+
+const service = {
+  name: "Controle de Acesso",
+  badge: "Controle de Acesso em Curitiba",
+  h1: "Controle de Acesso em Curitiba — Biometria, Cartão e Reconhecimento Facial",
+  subtitle:
+    "Gerencie com precisão quem entra e sai do seu imóvel. A ISF instala catracas, leitores biométricos, cartão de proximidade e reconhecimento facial para condomínios, empresas e áreas de acesso restrito em Curitiba e RMC.",
+  formPlaceholder: "Descreva o local (condomínio, empresa, portaria) e quantos pontos de acesso deseja controlar...",
+  benefits: [
+    {
+      icon: "finger",
+      title: "Leitores biométricos",
+      desc: "Acesso por impressão digital sem necessidade de chaves ou cartões. Alta precisão e velocidade de leitura, ideal para ambientes com grande fluxo.",
+    },
+    {
+      icon: "card",
+      title: "Cartão de proximidade",
+      desc: "Controle fácil por cartão ou tag RFID. Emissão e bloqueio instantâneo de credenciais, sem necessidade de troca de fechaduras.",
+    },
+    {
+      icon: "face",
+      title: "Reconhecimento facial",
+      desc: "Tecnologia de ponta para identificação por rosto. Acesso rápido, sem contato e com alto nível de segurança.",
+    },
+    {
+      icon: "barrier",
+      title: "Catracas e cancelas",
+      desc: "Instalação de catracas para pedestres e cancelas para veículos. Controle de fluxo preciso para condomínios, garagens e empresas.",
+    },
+    {
+      icon: "chart",
+      title: "Registro e relatórios",
+      desc: "Histórico completo de entradas e saídas com data, hora e usuário. Relatórios detalhados para auditoria e controle de ponto.",
+    },
+    {
+      icon: "phone",
+      title: "Gerenciamento remoto",
+      desc: "Cadastre usuários, conceda ou bloqueie acessos pelo computador ou smartphone, de qualquer lugar.",
+    },
+  ],
+  checklist: [
+    "Visita técnica gratuita e projeto personalizado",
+    "Leitores biométricos, de cartão ou facial conforme necessidade",
+    "Software de gerenciamento com interface intuitiva",
+    "Catracas para pedestres ou cancelas para veículos (se aplicável)",
+    "Integração com sistema de alarme e câmeras existentes",
+    "Fechaduras eletromagnéticas e eletromecânicas",
+    "Cadastro inicial de usuários e treinamento da equipe",
+    "Relatórios de acesso e controle de ponto",
+    "Suporte técnico pós-venda e garantia de 1 ano",
+  ],
+  faqs: [
+    {
+      q: "Controle de acesso funciona para condomínio residencial?",
+      a: "Sim, é uma das aplicações mais comuns. Instalamos catracas ou portões com leitura biométrica ou de cartão para moradores, com registro de todos os acessos. Também é possível integrar com intercomunicadores e câmeras existentes.",
+    },
+    {
+      q: "É possível bloquear o acesso de um funcionário demitido imediatamente?",
+      a: "Sim. O bloqueio é feito em segundos pelo software de gerenciamento, sem necessidade de recolher chaves ou trocar fechaduras. Basta desativar a credencial do usuário no sistema.",
+    },
+    {
+      q: "O sistema registra os horários de entrada e saída?",
+      a: "Sim. Todos os eventos são registrados com data, hora e usuário. O relatório pode ser exportado e serve como base para controle de ponto ou auditoria de segurança.",
+    },
+    {
+      q: "O controle de acesso funciona sem energia elétrica?",
+      a: "Com um nobreak instalado, o sistema continua funcionando durante quedas de energia. Podemos dimensionar a autonomia conforme a necessidade do local.",
+    },
+  ],
+};
+
+export default function ControleAcessoPage() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <LandingPage service={service} />
+    </>
+  );
+}

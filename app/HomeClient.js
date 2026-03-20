@@ -280,6 +280,15 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       const j = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
+    // Ensure at least one camera is visible in the first VISIBLE slots
+    const hasCameraFirst = arr.slice(0, VISIBLE).some(p => p.category === "Câmeras");
+    if (!hasCameraFirst) {
+      const cameraIdx = arr.findIndex(p => p.category === "Câmeras");
+      if (cameraIdx !== -1) {
+        const swapPos = Math.floor(Math.random() * VISIBLE);
+        [arr[swapPos], arr[cameraIdx]] = [arr[cameraIdx], arr[swapPos]];
+      }
+    }
     return arr;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

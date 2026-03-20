@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 export async function POST(req) {
   try {
@@ -13,29 +13,18 @@ export async function POST(req) {
       );
     }
 
-    const missingVars = ["SMTP_HOST", "SMTP_USER", "SMTP_PASS", "CONTACT_EMAIL"].filter(
-      (v) => !process.env[v]
-    );
-    if (missingVars.length > 0) {
-      console.error("Variáveis de ambiente faltando:", missingVars.join(", "));
+    if (!process.env.RESEND_API_KEY) {
+      console.error("RESEND_API_KEY não configurada.");
       return NextResponse.json(
         { error: "Configuração de email incompleta no servidor." },
         { status: 500 }
       );
     }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: process.env.SMTP_SECURE === "true",
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-    const origem = pagina || servico || "Site";
-    const assunto = `Orçamento ISF: ${servico || pagina || "Contato"} — ${nome}`;
+    const origem = servico || pagina || "Site";
+    const assunto = `Orçamento ISF: ${origem} — ${nome}`;
 
     const html = `
 <!DOCTYPE html>
@@ -80,19 +69,24 @@ export async function POST(req) {
       </table>
     </div>
     <div style="background:#f9fafb;padding:16px 28px;font-size:0.78rem;color:#9ca3af;">
-      Enviado via formulário do site isf.com.br em ${new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })}
+      Enviado via formulário do site em ${new Date().toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })}
     </div>
   </div>
 </body>
 </html>`;
 
-    await transporter.sendMail({
-      from: `"ISF Site" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
+    const { error } = await resend.emails.send({
+      from: process.env.RESEND_FROM || "ISF Site <onboarding@resend.dev>",
       to: process.env.CONTACT_EMAIL,
       replyTo: email || undefined,
       subject: assunto,
       html,
     });
+
+    if (error) {
+      console.error("Resend error:", error);
+      return NextResponse.json({ error: "Erro ao enviar mensagem." }, { status: 500 });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err) {

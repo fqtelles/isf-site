@@ -308,7 +308,7 @@ export default function SiteShell({ children }) {
             }}
           >
             <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>
-              © {new Date().getFullYear()} ISF Segurança Eletrônica · Todos os direitos reservados
+              © {new Date().getFullYear()} ISF Soluções em Segurança · Todos os direitos reservados
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>

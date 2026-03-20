@@ -76,7 +76,7 @@ const CATEGORY_FAQS = {
     { q: "Preciso de linha telefônica para o alarme funcionar?",    a: "Não. Os sistemas modernos usam comunicação por IP (internet) ou GSM (rede celular) como backup, eliminando a dependência de linha telefônica fixa." },
   ],
   "Cerca Elétrica": [
-    { q: "Cerca elétrica é perigosa para crianças e animais?",      a: "Quando instalada corretamente e dentro da ABNT NBR 15791, o pulso elétrico é de alta tensão porém baixíssima corrente. O efeito é um choque doloroso e temporário — não letal. A instalação em altura mínima de 2,5 m do solo também protege crianças e animais." },
+    { q: "Cerca elétrica é perigosa para crianças e animais?",      a: "Quando instalada corretamente e dentro da ABNT NBR IEC 60335-2-76, o pulso elétrico é de alta tensão porém baixíssima corrente. O efeito é um choque doloroso e temporário — não letal. A instalação em altura mínima de 2,5 m do solo também protege crianças e animais." },
     { q: "É legal instalar cerca elétrica em Curitiba?",            a: "Sim, é completamente legal quando instalada por empresa habilitada, em conformidade com as normas técnicas e a legislação municipal. A ISF realiza toda a instalação dentro das normas e emite a documentação necessária." },
     { q: "A cerca funciona normalmente na chuva e na umidade?",     a: "Sim. Os equipamentos e isoladores são projetados para todas as condições climáticas. A eletrônica de controle é protegida contra umidade e variações de temperatura. A manutenção periódica garante o desempenho contínuo." },
     { q: "Com que frequência a cerca precisa de manutenção?",       a: "Recomendamos manutenção semestral ou anual conforme o ambiente. A ISF oferece contratos de manutenção preventiva que garantem o funcionamento contínuo e prolongam a vida útil dos equipamentos." },
@@ -101,7 +101,7 @@ const SERVICES = [
   { icon: "alarm",      title: "Alarmes",           desc: "Proteção 24h, com e sem fio, para residências e comércios.",        href: "/alarmes-curitiba" },
   { icon: "camera",     title: "Câmeras CFTV",       desc: "Câmeras HD, visão noturna e acesso remoto pelo celular.",           href: "/cameras-seguranca-curitiba" },
   { icon: "bolt",       title: "Cerca Elétrica",     desc: "Proteção perimetral com choque e alarme sonoro integrado.",         href: "/cerca-eletrica-curitiba" },
-  { icon: "lock",       title: "Controle de Acesso", desc: "Biometria, reconhecimento facial, cartão e catracas.",              href: "/controle-de-acesso-curitiba" },
+  { icon: "lock",       title: "Controle de Acesso", desc: "Biometria, reconhecimento facial e cartão.",                       href: "/controle-de-acesso-curitiba" },
   { icon: "shield",     title: "Monitoramento",      desc: "Central de monitoramento 24h com protocolo de resposta imediata.", href: "/monitoramento-curitiba" },
   { icon: "smartphone", title: "App de Segurança",   desc: "Acesse câmeras e alarmes de qualquer lugar pelo smartphone.",       href: "/app-de-seguranca" },
 ];

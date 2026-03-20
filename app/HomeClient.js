@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -274,8 +274,18 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
   const [products, setProducts] = useState(initialProducts);
   const [blogPosts, setBlogPosts] = useState(initialBlogPosts);
 
+  const shuffledProducts = useMemo(() => {
+    const arr = [...products];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const filteredProducts = activeCategory === "Todos"
-    ? products
+    ? shuffledProducts
     : products.filter(p => p.category === activeCategory);
   const maxIndex = Math.max(0, filteredProducts.length - VISIBLE);
 

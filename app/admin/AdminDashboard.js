@@ -124,6 +124,7 @@ function ProductsTab({ products, setProducts }) {
     setForm({ name: p.name, brand: p.brand, category: p.category, image: p.image, imageMode: "url", images: imgs, description: p.description || "", video: p.video || "", slug: p.slug || "" });
     setPreviewUrl(p.image);
     setFormError(""); setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function cancelForm() {
@@ -471,6 +472,7 @@ function BlogTab({ posts, setPosts }) {
     setForm({ date: p.date, title: p.title, excerpt: p.excerpt, readTime: p.readTime, content: p.content || "", coverImage: p.coverImage || "", coverImageMode: "url", slug: p.slug || "" });
     setCoverPreview(p.coverImage || "");
     setError(""); setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
   function cancelForm() { setShowForm(false); setEditId(null); setForm(emptyForm); setCoverPreview(""); setError(""); }
 

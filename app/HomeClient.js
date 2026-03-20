@@ -14,9 +14,9 @@ const SERVICES = [
   { icon: "alarm",      title: "Alarmes",           desc: "Garanta proteção 24 horas para o seu patrimônio, uma medida de segurança que traz tranquilidade. Oferecemos soluções com e sem fio.",                                          tag: "Mais popular", href: "/alarmes-curitiba" },
   { icon: "camera",     title: "Câmeras CFTV",       desc: "Instalação de câmeras HD, zoom, infravermelho, auto-íris ou imagem noturna. Trabalhamos com várias marcas para atender a sua necessidade.",                                    tag: null,           href: "/cameras-seguranca-curitiba" },
   { icon: "bolt",       title: "Cerca Elétrica",     desc: "Proteção perimetral com choque e alarme sonoro integrado. Solução de alto impacto para imóveis residenciais e comerciais.",                                                    tag: null,           href: "/cerca-eletrica-curitiba" },
-  { icon: "lock",       title: "Controle de Acesso", desc: "Catracas, leitores biométricos, cartão de proximidade e reconhecimento facial. Ideal para condomínios e áreas restritas.",                                                    tag: null,           href: "/controle-de-acesso-curitiba" },
+  { icon: "lock",       title: "Controle de Acesso", desc: "Leitores biométricos, cartão de proximidade e reconhecimento facial. Ideal para condomínios e áreas restritas.",                                                         tag: null,           href: "/controle-de-acesso-curitiba" },
   { icon: "shield",     title: "Monitoramento",      desc: "Conte com uma equipe 24 horas dedicada ao monitoramento do seu patrimônio. A ISF trabalha em parceria com as melhores empresas do ramo.",                                      tag: null,           href: "/monitoramento-curitiba" },
-  { icon: "smartphone", title: "App de Segurança",   desc: "Em um clique acesse pelo seu smartphone todas as câmeras do seu patrimônio, não importa onde estiver, basta estar conectado à internet.",                                      tag: "Novidade",     href: "/app-de-seguranca" },
+  { icon: "smartphone", title: "App de Segurança",   desc: "Em um clique acesse pelo seu smartphone todas as câmeras do seu patrimônio, não importa onde estiver, basta estar conectado à internet.",                                      tag: "Comodidade",   href: "/app-de-seguranca" },
 ];
 
 const STATS = [
@@ -41,7 +41,7 @@ const FAQS = [
   },
   {
     q: "Cerca elétrica é permitida em Curitiba?",
-    a: "Sim, a cerca elétrica é permitida em Curitiba mediante instalação por empresa habilitada e seguindo as normas da ABNT NBR 17240. A ISF realiza toda a instalação em conformidade com a legislação vigente.",
+    a: "Sim, a cerca elétrica é permitida em Curitiba mediante instalação por empresa habilitada e seguindo as normas da ABNT NBR IEC 60335-2-76. A ISF realiza toda a instalação em conformidade com a legislação vigente.",
   },
   {
     q: "Quais bairros e cidades a ISF atende?",
@@ -267,6 +267,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [formData, setFormData] = useState({ nome: "", email: "", telefone: "", servico: "", mensagem: "" });
   const [formSent, setFormSent] = useState(false);
+  const [formSending, setFormSending] = useState(false);
+  const [formError, setFormError] = useState("");
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [products, setProducts] = useState(initialProducts);
@@ -315,9 +317,24 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
     return () => clearInterval(timer);
   }, [blogMaxIndex, blogCarouselPaused]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormSent(true);
+    setFormSending(true);
+    setFormError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, pagina: "Homepage" }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Erro desconhecido");
+      setFormSent(true);
+    } catch (err) {
+      setFormError(err.message || "Erro ao enviar. Tente pelo WhatsApp.");
+    } finally {
+      setFormSending(false);
+    }
   };
 
   return (
@@ -399,12 +416,12 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               <span style={{ borderBottom: "4px solid #126798", paddingBottom: 2 }}>segurança</span>
             </h1>
             <p className="fade-up fade-up-3" style={{ fontSize: "1.05rem", lineHeight: 1.72, color: "#6b7280", marginBottom: 36, maxWidth: 480 }}>
-              A necessidade de segurança sempre existiu. É o que move a ISF Segurança Eletrônica todos os dias para entregar a melhor proteção ao seu imóvel, família, funcionários e patrimônio.
+              A necessidade de segurança sempre existiu. É o que move a ISF Soluções em Segurança todos os dias para entregar a melhor proteção ao seu imóvel, família, funcionários e patrimônio.
             </p>
             <div className="fade-up fade-up-4 hero-btns" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#contato" className="btn-primary">Solicitar Orçamento Grátis</a>
+              <a href="#contato" className="btn-primary">Solicitar orçamento grátis</a>
               <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
-              <a href="#servicos" className="btn-outline">Conheça os Serviços</a>
+              <a href="#servicos" className="btn-outline">Conheça os serviços</a>
             </div>
             <div className="fade-up fade-up-4" style={{ marginTop: 40, display: "flex", gap: 28, flexWrap: "wrap" }}>
               {["✔ 35+ anos de experiência", "✔ Revenda autorizada Intelbras", "✔ Monitoramento 24/7"].map(b => (
@@ -590,7 +607,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <div className="section-label">Sobre a ISF Segurança</div>
             <div className="divider" />
             <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", marginBottom: 20, lineHeight: 1.2, letterSpacing: "-0.02em" }}>A melhor proteção com quem tem 35 anos de mercado</h2>
-            <p style={{ color: "#6b7280", lineHeight: 1.78, marginBottom: 16, fontSize: "0.97rem" }}>A ISF atua no mercado de segurança eletrônica há mais de 35 anos, atendendo Curitiba e Região Metropolitana. Associada à ABERC desde 1993 e membro da ABESE, a empresa é referência em qualidade e confiabilidade.</p>
+            <p style={{ color: "#6b7280", lineHeight: 1.78, marginBottom: 16, fontSize: "0.97rem" }}>A ISF atua no mercado de segurança eletrônica há mais de 35 anos, atendendo Curitiba e Região Metropolitana. Membro da ABESE, a empresa é referência em qualidade e confiabilidade.</p>
             <p style={{ color: "#6b7280", lineHeight: 1.78, marginBottom: 36, fontSize: "0.97rem" }}>Somos revenda autorizada Intelbras e trabalhamos com as principais marcas do setor, com uma equipe técnica certificada e sempre atualizada para oferecer o que há de mais moderno em segurança eletrônica.</p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a href="#contato" className="btn-primary">Fale com um especialista</a>
@@ -599,7 +616,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {[
-              { icon: "trophy", title: "Associada ABERC desde 1993", desc: "Mais de 35 anos filiada à Associação Brasileira de Empresas de Rastreamento e Controle." },
+              { icon: "trophy", title: "35+ anos de mercado", desc: "Empresa sólida e experiente, referência em segurança eletrônica em Curitiba desde 1988." },
               { icon: "handshake", title: "Membro da ABESE", desc: "Associação Brasileira das Empresas de Sistemas Eletrônicos de Segurança." },
               { icon: "check", title: "Revenda autorizada Intelbras", desc: "Respeito ao cliente e produtos originais com garantia de fábrica." },
               { icon: "pin", title: "Curitiba e Região Metropolitana", desc: "Atendimento local com rapidez e equipe técnica própria treinada." },
@@ -765,7 +782,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           <div style={{ textAlign: "center", marginTop: 40 }}>
             <p style={{ color: "#6b7280", fontSize: "0.9rem", marginBottom: 16 }}>Ainda tem dúvidas? Fale diretamente com nossa equipe.</p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="#contato" className="btn-primary">Solicitar Orçamento Grátis</a>
+              <a href="#contato" className="btn-primary">Solicitar orçamento grátis</a>
               <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
             </div>
           </div>
@@ -822,7 +839,10 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                     <option>Outros</option>
                   </select>
                   <textarea className="form-input" placeholder="Descreva brevemente sua necessidade..." rows={4} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
-                  <button type="submit" className="btn-primary" style={{ width: "100%", textAlign: "center", borderRadius: 8 }}>Enviar Mensagem</button>
+                  <button type="submit" className="btn-primary" disabled={formSending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: formSending ? 0.7 : 1 }}>
+                    {formSending ? "Enviando…" : "Enviar Mensagem"}
+                  </button>
+                  {formError && <p style={{ fontSize: "0.82rem", color: "#dc2626", textAlign: "center", margin: 0 }}>{formError}</p>}
                   <p style={{ fontSize: "0.75rem", color: "#9ca3af", textAlign: "center" }}>Seus dados estão seguros. Nunca enviamos spam.</p>
                 </form>
               )}
@@ -888,7 +908,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             </div>
           </div>
           <div style={{ borderTop: "1px solid #2d3137", paddingTop: 20, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-            <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>© 2025 ISF Segurança Eletrônica · Todos os direitos reservados</div>
+            <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>© 2025 ISF Soluções em Segurança · Todos os direitos reservados</div>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>CNPJ registrado · Curitiba, PR</div>
               <div style={{ display: "flex", gap: 10 }}>

@@ -60,11 +60,11 @@ const service = {
     {
       icon: "chart",
       title: "Relatórios de eventos",
-      desc: "Histórico completo de todos os eventos registrados — armamentos, desarmes, disparos e aberturas de zonas.",
+      desc: "Histórico completo de todos os eventos registrados — armes, desarmes, disparos e aberturas de zonas.",
     },
     {
       icon: "coin",
-      title: "Mensalidade acessível",
+      title: "Planos acessíveis",
       desc: "Planos a partir de um valor mensal acessível. Sem fidelidade e sem taxa de adesão para clientes ISF.",
     },
   ],

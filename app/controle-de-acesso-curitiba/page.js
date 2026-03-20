@@ -34,7 +34,7 @@ const service = {
   badge: "Controle de Acesso em Curitiba",
   h1: "Controle de Acesso em Curitiba — Biometria, Cartão e Reconhecimento Facial",
   subtitle:
-    "Gerencie com precisão quem entra e sai do seu imóvel. A ISF instala catracas, leitores biométricos, cartão de proximidade e reconhecimento facial para condomínios, empresas e áreas de acesso restrito em Curitiba e RMC.",
+    "Gerencie com precisão quem entra e sai do seu imóvel. A ISF instala leitores biométricos, cartão de proximidade e reconhecimento facial para condomínios, empresas e áreas de acesso restrito em Curitiba e RMC.",
   formPlaceholder: "Descreva o local (condomínio, empresa, portaria) e quantos pontos de acesso deseja controlar...",
   benefits: [
     {
@@ -53,11 +53,6 @@ const service = {
       desc: "Tecnologia de ponta para identificação por rosto. Acesso rápido, sem contato e com alto nível de segurança.",
     },
     {
-      icon: "barrier",
-      title: "Catracas e cancelas",
-      desc: "Instalação de catracas para pedestres e cancelas para veículos. Controle de fluxo preciso para condomínios, garagens e empresas.",
-    },
-    {
       icon: "chart",
       title: "Registro e relatórios",
       desc: "Histórico completo de entradas e saídas com data, hora e usuário. Relatórios detalhados para auditoria e controle de ponto.",
@@ -72,8 +67,7 @@ const service = {
     "Visita técnica gratuita e projeto personalizado",
     "Leitores biométricos, de cartão ou facial conforme necessidade",
     "Software de gerenciamento com interface intuitiva",
-    "Catracas para pedestres ou cancelas para veículos (se aplicável)",
-    "Integração com sistema de alarme e câmeras existentes",
+"Integração com sistema de alarme e câmeras existentes",
     "Fechaduras eletromagnéticas e eletromecânicas",
     "Cadastro inicial de usuários e treinamento da equipe",
     "Relatórios de acesso e controle de ponto",
@@ -82,7 +76,7 @@ const service = {
   faqs: [
     {
       q: "Controle de acesso funciona para condomínio residencial?",
-      a: "Sim, é uma das aplicações mais comuns. Instalamos catracas ou portões com leitura biométrica ou de cartão para moradores, com registro de todos os acessos. Também é possível integrar com intercomunicadores e câmeras existentes.",
+      a: "Sim, é uma das aplicações mais comuns. Instalamos portões com leitura biométrica ou de cartão para moradores, com registro de todos os acessos. Também é possível integrar com intercomunicadores e câmeras existentes.",
     },
     {
       q: "É possível bloquear o acesso de um funcionário demitido imediatamente?",

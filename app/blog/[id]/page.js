@@ -219,7 +219,7 @@ function renderPost(post) {
                 WhatsApp
               </a>
               <a href="/#contato" style={{ display: "inline-block", background: "#126798", color: "#fff", padding: "11px 24px", borderRadius: 9999, fontWeight: 600, fontSize: "0.88rem" }}>
-                Solicitar Orçamento Grátis →
+                Solicitar orçamento grátis →
               </a>
             </div>
           </div>
@@ -227,7 +227,7 @@ function renderPost(post) {
       </main>
 
       <ConversionStyles />
-      <StatsStrip headline="ISF Segurança Eletrônica — 35+ anos protegendo famílias e empresas em Curitiba" />
+      <StatsStrip headline="ISF Soluções em Segurança — 35+ anos protegendo famílias e empresas em Curitiba" />
       <ServiceLinks />
       <BlogFaq />
       <FinalCta context={post.title} />

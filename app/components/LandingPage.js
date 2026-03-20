@@ -123,7 +123,7 @@ export default function LandingPage({ service }) {
               {service.subtitle}
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#orcamento" className="lp-btn">Solicitar Orçamento Grátis</a>
+              <a href="#orcamento" className="lp-btn">Solicitar orçamento grátis</a>
               <a href={waHref} target="_blank" rel="noopener noreferrer" className="lp-btn lp-btn-wa"><WaIcon />WhatsApp</a>
             </div>
             <div style={{ marginTop: 28, display: "flex", gap: 24, flexWrap: "wrap" }}>
@@ -179,7 +179,7 @@ export default function LandingPage({ service }) {
       <section style={{ padding: "64px 5%", background: "#32373c" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
           <h2 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, color: "#fff", marginBottom: 12, letterSpacing: "-0.02em" }}>
-            ISF Segurança Eletrônica — desde 1988
+            ISF Soluções em Segurança — desde 1988
           </h2>
           <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.97rem", marginBottom: 40 }}>
             Mais de 35 anos protegendo Curitiba e Região Metropolitana.

@@ -14,9 +14,9 @@ const SERVICES = [
   { icon: "alarm",      title: "Alarmes",           desc: "Garanta proteção 24 horas para o seu patrimônio, uma medida de segurança que traz tranquilidade. Oferecemos soluções com e sem fio.",                                          tag: "Mais popular", href: "/alarmes-curitiba" },
   { icon: "camera",     title: "Câmeras CFTV",       desc: "Instalação de câmeras HD, zoom, infravermelho, auto-íris ou imagem noturna. Trabalhamos com várias marcas para atender a sua necessidade.",                                    tag: null,           href: "/cameras-seguranca-curitiba" },
   { icon: "bolt",       title: "Cerca Elétrica",     desc: "Proteção perimetral com choque e alarme sonoro integrado. Solução de alto impacto para imóveis residenciais e comerciais.",                                                    tag: null,           href: "/cerca-eletrica-curitiba" },
-  { icon: "lock",       title: "Controle de Acesso", desc: "Catracas, leitores biométricos, cartão de proximidade e reconhecimento facial. Ideal para condomínios e áreas restritas.",                                                    tag: null,           href: "/controle-de-acesso-curitiba" },
+  { icon: "lock",       title: "Controle de Acesso", desc: "Leitores biométricos, cartão de proximidade e reconhecimento facial. Ideal para condomínios e áreas restritas.",                                                         tag: null,           href: "/controle-de-acesso-curitiba" },
   { icon: "shield",     title: "Monitoramento",      desc: "Conte com uma equipe 24 horas dedicada ao monitoramento do seu patrimônio. A ISF trabalha em parceria com as melhores empresas do ramo.",                                      tag: null,           href: "/monitoramento-curitiba" },
-  { icon: "smartphone", title: "App de Segurança",   desc: "Em um clique acesse pelo seu smartphone todas as câmeras do seu patrimônio, não importa onde estiver, basta estar conectado à internet.",                                      tag: "Novidade",     href: "/app-de-seguranca" },
+  { icon: "smartphone", title: "App de Segurança",   desc: "Em um clique acesse pelo seu smartphone todas as câmeras do seu patrimônio, não importa onde estiver, basta estar conectado à internet.",                                      tag: "Comodidade",   href: "/app-de-seguranca" },
 ];
 
 const STATS = [
@@ -41,7 +41,7 @@ const FAQS = [
   },
   {
     q: "Cerca elétrica é permitida em Curitiba?",
-    a: "Sim, a cerca elétrica é permitida em Curitiba mediante instalação por empresa habilitada e seguindo as normas da ABNT NBR 17240. A ISF realiza toda a instalação em conformidade com a legislação vigente.",
+    a: "Sim, a cerca elétrica é permitida em Curitiba mediante instalação por empresa habilitada e seguindo as normas da ABNT NBR IEC 60335-2-76. A ISF realiza toda a instalação em conformidade com a legislação vigente.",
   },
   {
     q: "Quais bairros e cidades a ISF atende?",
@@ -399,12 +399,12 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               <span style={{ borderBottom: "4px solid #126798", paddingBottom: 2 }}>segurança</span>
             </h1>
             <p className="fade-up fade-up-3" style={{ fontSize: "1.05rem", lineHeight: 1.72, color: "#6b7280", marginBottom: 36, maxWidth: 480 }}>
-              A necessidade de segurança sempre existiu. É o que move a ISF Segurança Eletrônica todos os dias para entregar a melhor proteção ao seu imóvel, família, funcionários e patrimônio.
+              A necessidade de segurança sempre existiu. É o que move a ISF Soluções em Segurança todos os dias para entregar a melhor proteção ao seu imóvel, família, funcionários e patrimônio.
             </p>
             <div className="fade-up fade-up-4 hero-btns" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#contato" className="btn-primary">Solicitar Orçamento Grátis</a>
+              <a href="#contato" className="btn-primary">Solicitar orçamento grátis</a>
               <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
-              <a href="#servicos" className="btn-outline">Conheça os Serviços</a>
+              <a href="#servicos" className="btn-outline">Conheça os serviços</a>
             </div>
             <div className="fade-up fade-up-4" style={{ marginTop: 40, display: "flex", gap: 28, flexWrap: "wrap" }}>
               {["✔ 35+ anos de experiência", "✔ Revenda autorizada Intelbras", "✔ Monitoramento 24/7"].map(b => (
@@ -765,7 +765,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           <div style={{ textAlign: "center", marginTop: 40 }}>
             <p style={{ color: "#6b7280", fontSize: "0.9rem", marginBottom: 16 }}>Ainda tem dúvidas? Fale diretamente com nossa equipe.</p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="#contato" className="btn-primary">Solicitar Orçamento Grátis</a>
+              <a href="#contato" className="btn-primary">Solicitar orçamento grátis</a>
               <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
             </div>
           </div>
@@ -888,7 +888,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             </div>
           </div>
           <div style={{ borderTop: "1px solid #2d3137", paddingTop: 20, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-            <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>© 2025 ISF Segurança Eletrônica · Todos os direitos reservados</div>
+            <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>© 2025 ISF Soluções em Segurança · Todos os direitos reservados</div>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>CNPJ registrado · Curitiba, PR</div>
               <div style={{ display: "flex", gap: 10 }}>

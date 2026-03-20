@@ -2,6 +2,7 @@
 import { useState, useEffect, useCallback } from "react";
 import SiteShell from "../../components/SiteShell";
 import { StatsStrip, WhyISF, CategoryFaq, FinalCta, ConversionStyles } from "../../components/ConversionSections";
+import QuoteModal from "../../components/QuoteModal";
 
 function WaIcon() {
   return (
@@ -233,9 +234,12 @@ export default function ProductDetail({ product, related }) {
                 >
                   <WaIcon /> WhatsApp
                 </a>
-                <a href="/#contato" className="btn-primary" style={{ fontSize: "0.85rem", padding: "12px 24px" }}>
-                  Solicitar Orçamento
-                </a>
+                <QuoteModal
+                  label="Solicitar Orçamento"
+                  context={`Produto: ${product.name}`}
+                  buttonClass="btn-primary"
+                  buttonStyle={{ fontSize: "0.85rem", padding: "12px 24px" }}
+                />
               </div>
             </div>
           </div>

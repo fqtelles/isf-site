@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import QuoteModal from "./QuoteModal";
 
 const WA_HREF =
   "https://api.whatsapp.com/send?phone=5541999919191&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
@@ -294,18 +295,14 @@ export function FinalCta({ context }) {
           Orçamento gratuito e sem compromisso. Atendemos Curitiba e toda a Região Metropolitana há mais de 35 anos.
         </p>
         <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-          <a
-            href="/#contato"
-            style={{
+          <QuoteModal
+            label="Solicitar Orçamento"
+            context={context || "Site"}
+            buttonStyle={{
               background: "#fff", color: "#126798", padding: "13px 28px",
               borderRadius: 9999, fontWeight: 700, fontSize: "0.9rem",
-              textDecoration: "none", transition: "all 0.25s",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#f0f7fc"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; }}
-          >
-            Solicitar Orçamento
-          </a>
+          />
           <a
             href={waHref}
             target="_blank"

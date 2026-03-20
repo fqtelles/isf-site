@@ -267,6 +267,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [formData, setFormData] = useState({ nome: "", email: "", telefone: "", servico: "", mensagem: "" });
   const [formSent, setFormSent] = useState(false);
+  const [formSending, setFormSending] = useState(false);
+  const [formError, setFormError] = useState("");
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [products, setProducts] = useState(initialProducts);
@@ -315,9 +317,24 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
     return () => clearInterval(timer);
   }, [blogMaxIndex, blogCarouselPaused]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormSent(true);
+    setFormSending(true);
+    setFormError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, pagina: "Homepage" }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Erro desconhecido");
+      setFormSent(true);
+    } catch (err) {
+      setFormError(err.message || "Erro ao enviar. Tente pelo WhatsApp.");
+    } finally {
+      setFormSending(false);
+    }
   };
 
   return (
@@ -822,7 +839,10 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                     <option>Outros</option>
                   </select>
                   <textarea className="form-input" placeholder="Descreva brevemente sua necessidade..." rows={4} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
-                  <button type="submit" className="btn-primary" style={{ width: "100%", textAlign: "center", borderRadius: 8 }}>Enviar Mensagem</button>
+                  <button type="submit" className="btn-primary" disabled={formSending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: formSending ? 0.7 : 1 }}>
+                    {formSending ? "Enviando…" : "Enviar Mensagem"}
+                  </button>
+                  {formError && <p style={{ fontSize: "0.82rem", color: "#dc2626", textAlign: "center", margin: 0 }}>{formError}</p>}
                   <p style={{ fontSize: "0.75rem", color: "#9ca3af", textAlign: "center" }}>Seus dados estão seguros. Nunca enviamos spam.</p>
                 </form>
               )}

@@ -110,7 +110,7 @@ const faqSchema = {
       name: "Cerca elétrica é permitida em Curitiba?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sim, a cerca elétrica é permitida em Curitiba mediante instalação por empresa habilitada e seguindo as normas da ABNT NBR 17240. A ISF realiza toda a instalação em conformidade com a legislação vigente.",
+        text: "Sim, a cerca elétrica é permitida em Curitiba mediante instalação por empresa habilitada e seguindo as normas da ABNT NBR IEC 60335-2-76. A ISF realiza toda a instalação em conformidade com a legislação vigente.",
       },
     },
     {

@@ -97,12 +97,29 @@ function FaqItem({ q, a }) {
 export default function LandingPage({ service }) {
   const [formData, setFormData] = useState({ nome: "", telefone: "", mensagem: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [formError, setFormError] = useState("");
 
   const waHref = `https://api.whatsapp.com/send?phone=5541999919191&text=Olá%2C%20quero%20um%20orçamento%20de%20${encodeURIComponent(service.name)}!`;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSent(true);
+    setSending(true);
+    setFormError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, servico: service.name }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Erro desconhecido");
+      setSent(true);
+    } catch (err) {
+      setFormError(err.message || "Erro ao enviar. Tente pelo WhatsApp.");
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -123,7 +140,7 @@ export default function LandingPage({ service }) {
               {service.subtitle}
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#orcamento" className="lp-btn">Solicitar Orçamento Grátis</a>
+              <a href="#orcamento" className="lp-btn">Solicitar orçamento grátis</a>
               <a href={waHref} target="_blank" rel="noopener noreferrer" className="lp-btn lp-btn-wa"><WaIcon />WhatsApp</a>
             </div>
             <div style={{ marginTop: 28, display: "flex", gap: 24, flexWrap: "wrap" }}>
@@ -149,7 +166,10 @@ export default function LandingPage({ service }) {
                   <input className="lp-input" placeholder="Seu nome completo" required value={formData.nome} onChange={e => setFormData({ ...formData, nome: e.target.value })} />
                   <input className="lp-input" placeholder="Telefone / WhatsApp" required value={formData.telefone} onChange={e => setFormData({ ...formData, telefone: e.target.value })} />
                   <textarea className="lp-input" placeholder={service.formPlaceholder} rows={3} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
-                  <button type="submit" className="lp-btn" style={{ width: "100%", textAlign: "center", borderRadius: 8 }}>Solicitar Orçamento</button>
+                  <button type="submit" className="lp-btn" disabled={sending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: sending ? 0.7 : 1 }}>
+                    {sending ? "Enviando…" : "Solicitar Orçamento"}
+                  </button>
+                  {formError && <p style={{ fontSize: "0.82rem", color: "#dc2626", margin: 0 }}>{formError}</p>}
                 </form>
               </>
             )}
@@ -179,7 +199,7 @@ export default function LandingPage({ service }) {
       <section style={{ padding: "64px 5%", background: "#32373c" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
           <h2 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, color: "#fff", marginBottom: 12, letterSpacing: "-0.02em" }}>
-            ISF Segurança Eletrônica — desde 1988
+            ISF Soluções em Segurança — desde 1988
           </h2>
           <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.97rem", marginBottom: 40 }}>
             Mais de 35 anos protegendo Curitiba e Região Metropolitana.

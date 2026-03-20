@@ -126,8 +126,18 @@ export default function LandingPage({ service }) {
     <SiteShell>
       <style>{css}</style>
 
+      {/* Back link */}
+      <div style={{ background: "#f9fafb", padding: "20px 5% 0" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: "0.82rem", color: "#6b7280", textDecoration: "none", fontWeight: 500 }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Voltar
+          </a>
+        </div>
+      </div>
+
       {/* HERO */}
-      <section style={{ background: "#f9fafb", padding: "64px 5%" }}>
+      <section style={{ background: "#f9fafb", padding: "32px 5% 64px" }}>
         <div className="lp-hero-grid" style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 420px", gap: 56, alignItems: "center" }}>
           <div>
             <div style={{ display: "inline-block", background: "#e8f3f9", color: "#126798", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "5px 14px", borderRadius: 9999, marginBottom: 20 }}>

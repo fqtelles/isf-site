@@ -280,6 +280,15 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       const j = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
+    // Ensure at least one camera is visible in the first VISIBLE slots
+    const hasCameraFirst = arr.slice(0, VISIBLE).some(p => p.category === "Câmeras");
+    if (!hasCameraFirst) {
+      const cameraIdx = arr.findIndex(p => p.category === "Câmeras");
+      if (cameraIdx !== -1) {
+        const swapPos = Math.floor(Math.random() * VISIBLE);
+        [arr[swapPos], arr[cameraIdx]] = [arr[cameraIdx], arr[swapPos]];
+      }
+    }
     return arr;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -777,6 +786,26 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                 aria-label={`Slide ${i + 1}`}
               />
             ))}
+          </div>
+
+          {/* Ver todos os posts */}
+          <div style={{ textAlign: "center", marginTop: 40 }}>
+            <a
+              href="/blog"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                background: "#126798", color: "#fff",
+                padding: "14px 36px", borderRadius: 9999,
+                fontFamily: "inherit", fontWeight: 700, fontSize: "0.92rem",
+                textDecoration: "none", transition: "all 0.25s",
+                boxShadow: "0 4px 20px rgba(18,103,152,0.28)",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#0d5280"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "#126798"; e.currentTarget.style.transform = "none"; }}
+            >
+              Ver todos os artigos
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
           </div>
         </div>
       </section>

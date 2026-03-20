@@ -1,49 +1,46 @@
 "use client";
 import { useState } from "react";
 import SiteShell from "../components/SiteShell";
-import { StatsStrip, WhyISF, FinalCta, ConversionStyles } from "../components/ConversionSections";
+import { StatsStrip, BlogFaq, FinalCta, ConversionStyles } from "../components/ConversionSections";
 import QuoteModal from "../components/QuoteModal";
-
-const CATEGORIES = ["Todos", "Câmeras", "DVR / NVR", "Alarmes", "Cerca Elétrica", "Controle de Acesso"];
 
 const galleryCss = `
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  .gallery-hero {
+  .blog-hero {
     background: linear-gradient(135deg, #0d1b2a 0%, #126798 60%, #1a8bbf 100%);
     padding: 36px 5% 40px;
     position: relative;
     overflow: hidden;
   }
-  .gallery-hero::before {
+  .blog-hero::before {
     content: "";
     position: absolute;
     inset: 0;
     background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
-  .cat-tab {
-    padding: 10px 22px;
+  .blog-search {
+    width: 100%;
+    max-width: 440px;
+    padding: 11px 18px 11px 42px;
     border-radius: 9999px;
     border: 1.5px solid #e5e7eb;
-    background: #fff;
     font-family: inherit;
-    font-size: 0.84rem;
-    font-weight: 600;
-    color: #6b7280;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
+    font-size: 0.88rem;
+    color: #1a1d20;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .cat-tab:hover { border-color: #126798; color: #126798; background: #eff6ff; }
-  .cat-tab.active { background: #126798; color: #fff; border-color: #126798; box-shadow: 0 4px 14px rgba(18,103,152,0.28); }
+  .blog-search:focus { border-color: #126798; box-shadow: 0 0 0 3px rgba(18,103,152,0.12); }
 
-  .prod-grid {
+  .blog-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
   }
-  .prod-card {
+  .blog-card {
     background: #fff;
     border: 1.5px solid #e5e7eb;
     border-radius: 16px;
@@ -54,61 +51,80 @@ const galleryCss = `
     flex-direction: column;
     transition: all 0.28s;
   }
-  .prod-card:hover {
+  .blog-card:hover {
     border-color: #126798;
-    box-shadow: 0 10px 40px rgba(18,103,152,0.14);
+    box-shadow: 0 10px 40px rgba(18,103,152,0.13);
     transform: translateY(-4px);
   }
-  .prod-card-img {
-    background: #f9fafb;
+  .blog-card-img {
+    width: 100%;
+    height: 210px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #f0f4f8;
+  }
+  .blog-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.35s;
+  }
+  .blog-card:hover .blog-card-img img { transform: scale(1.04); }
+  .blog-card-img-placeholder {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 190px;
-    padding: 20px;
-    border-bottom: 1px solid #f0f0f0;
-    flex-shrink: 0;
+    background: linear-gradient(135deg, #e8f3f9, #c5ddef);
   }
-  .prod-card-img img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    transition: transform 0.3s;
-  }
-  .prod-card:hover .prod-card-img img { transform: scale(1.06); }
-  .prod-card-body {
-    padding: 16px 18px 20px;
+  .blog-card-body {
+    padding: 22px 24px 26px;
     display: flex;
     flex-direction: column;
     flex: 1;
   }
-  .prod-brand {
-    font-size: 0.6rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #fff;
-    background: #32373c;
-    display: inline-block;
-    padding: 3px 10px;
-    border-radius: 9999px;
-    margin-bottom: 10px;
+  .blog-card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
   }
-  .prod-name {
-    font-size: 0.88rem;
+  .blog-card-date {
+    font-size: 0.7rem;
     font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #126798;
+  }
+  .blog-card-read {
+    font-size: 0.7rem;
+    color: #9ca3af;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .blog-card-title {
+    font-size: 1rem;
+    font-weight: 800;
     color: #1a1d20;
     line-height: 1.4;
-    margin-bottom: 6px;
-    flex: 1;
+    margin-bottom: 10px;
   }
-  .prod-cat {
-    font-size: 0.7rem;
+  .blog-card-excerpt {
+    font-size: 0.84rem;
     color: #6b7280;
-    margin-bottom: 12px;
+    line-height: 1.65;
+    flex: 1;
+    margin-bottom: 18px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-  .prod-cta {
-    font-size: 0.73rem;
+  .blog-card-cta {
+    font-size: 0.78rem;
     color: #126798;
     font-weight: 700;
     display: flex;
@@ -124,14 +140,14 @@ const galleryCss = `
     padding: 4px 12px;
     border-radius: 9999px;
     border: 1px solid #c5ddef;
+    white-space: nowrap;
   }
 
-  @media (max-width: 1200px) { .prod-grid { grid-template-columns: repeat(4, 1fr); } }
-  @media (max-width: 900px)  { .prod-grid { grid-template-columns: repeat(3, 1fr); } .prod-card-img { height: 160px; } }
-  @media (max-width: 600px)  {
-    .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .prod-card-img { height: 130px; padding: 14px; }
-    .cat-tabs-wrap { flex-wrap: wrap; }
+  @media (max-width: 1024px) { .blog-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) {
+    .blog-grid { grid-template-columns: 1fr; gap: 16px; }
+    .blog-card-img { height: 180px; }
+    .blog-search { max-width: 100%; }
   }
 `;
 
@@ -143,15 +159,31 @@ function WaIcon() {
   );
 }
 
-export default function ProductsGallery({ products }) {
-  const [activeCategory, setActiveCategory] = useState("Todos");
+function ClockIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
+    </svg>
+  );
+}
 
-  const filtered = activeCategory === "Todos"
-    ? products
-    : products.filter(p => p.category === activeCategory);
+function SearchIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
+      <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+  );
+}
 
-  const countByCategory = (cat) =>
-    cat === "Todos" ? products.length : products.filter(p => p.category === cat).length;
+export default function BlogGallery({ posts }) {
+  const [search, setSearch] = useState("");
+
+  const filtered = search.trim()
+    ? posts.filter(p =>
+        p.title.toLowerCase().includes(search.toLowerCase()) ||
+        p.excerpt.toLowerCase().includes(search.toLowerCase())
+      )
+    : posts;
 
   return (
     <SiteShell>
@@ -159,26 +191,26 @@ export default function ProductsGallery({ products }) {
       <ConversionStyles />
 
       {/* ── HERO ── */}
-      <div className="gallery-hero">
+      <div className="blog-hero">
         <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
 
           {/* Breadcrumb */}
           <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.78rem", color: "rgba(255,255,255,0.55)", marginBottom: 18 }}>
             <a href="/" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>Home</a>
             <span>›</span>
-            <span style={{ color: "#fff" }}>Produtos</span>
+            <span style={{ color: "#fff" }}>Blog</span>
           </div>
 
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
             <div>
               <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: 8 }}>
-                Catálogo Completo
+                Dicas & Conteúdo
               </div>
               <h1 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, color: "#fff", lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: 10 }}>
-                Produtos de Segurança Eletrônica
+                Blog de Segurança Eletrônica
               </h1>
-              <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.72)", maxWidth: 520, lineHeight: 1.65 }}>
-                Revenda autorizada Intelbras. Câmeras, alarmes, DVR/NVR, cerca elétrica e controle de acesso com instalação profissional em Curitiba e região.
+              <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.72)", maxWidth: 480, lineHeight: 1.65 }}>
+                Artigos, dicas e novidades sobre câmeras, alarmes, cercas elétricas e controle de acesso da equipe técnica da ISF.
               </p>
             </div>
 
@@ -186,7 +218,7 @@ export default function ProductsGallery({ products }) {
             <div style={{ display: "flex", flexDirection: "column", gap: 12, minWidth: 220 }}>
               <QuoteModal
                 label="Solicitar Orçamento Grátis"
-                context="Catálogo de Produtos"
+                context="Blog ISF"
                 buttonStyle={{
                   background: "#fff",
                   color: "#126798",
@@ -199,7 +231,7 @@ export default function ProductsGallery({ products }) {
                 }}
               />
               <a
-                href="https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20cat%C3%A1logo%20de%20produtos%20e%20gostaria%20de%20um%20or%C3%A7amento!"
+                href="https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20blog%20da%20ISF%20e%20gostaria%20de%20um%20or%C3%A7amento!"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -220,53 +252,60 @@ export default function ProductsGallery({ products }) {
               </a>
             </div>
           </div>
-
         </div>
       </div>
 
-      {/* ── GALLERY ── */}
+      {/* ── POSTS GRID ── */}
       <section style={{ padding: "56px 5% 96px", background: "#f9fafb", minHeight: "60vh" }}>
-        <div style={{ maxWidth: 1300, margin: "0 auto" }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
 
-          {/* Category tabs + count */}
+          {/* Search + count bar */}
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap", marginBottom: 36 }}>
-            <div className="cat-tabs-wrap" style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-              {CATEGORIES.map(cat => (
-                <button
-                  key={cat}
-                  className={`cat-tab${activeCategory === cat ? " active" : ""}`}
-                  onClick={() => setActiveCategory(cat)}
-                >
-                  {cat}
-                  {" "}
-                  <span style={{ opacity: 0.65, fontWeight: 500 }}>({countByCategory(cat)})</span>
-                </button>
-              ))}
+            <div style={{ position: "relative" }}>
+              <SearchIcon />
+              <input
+                className="blog-search"
+                type="text"
+                placeholder="Buscar artigos..."
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+              />
             </div>
             <span className="count-badge">
-              {filtered.length} produto{filtered.length !== 1 ? "s" : ""}
+              {filtered.length} artigo{filtered.length !== 1 ? "s" : ""}
             </span>
           </div>
 
           {/* Grid */}
           {filtered.length === 0 ? (
             <div style={{ textAlign: "center", padding: "80px 0", color: "#6b7280" }}>
-              Nenhum produto encontrado nesta categoria.
+              Nenhum artigo encontrado para "{search}".
             </div>
           ) : (
-            <div className="prod-grid">
-              {filtered.map(p => (
-                <a key={p.id} href={`/produtos/${p.slug || p.id}`} className="prod-card">
-                  <div className="prod-card-img">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.image} alt={p.name} loading="lazy" />
+            <div className="blog-grid">
+              {filtered.map(post => (
+                <a key={post.id} href={`/blog/${post.slug || post.id}`} className="blog-card">
+                  <div className="blog-card-img">
+                    {post.coverImage ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={post.coverImage} alt={post.title} loading="lazy" />
+                    ) : (
+                      <div className="blog-card-img-placeholder">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#93c5e8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                      </div>
+                    )}
                   </div>
-                  <div className="prod-card-body">
-                    <span className="prod-brand">{p.brand}</span>
-                    <div className="prod-name">{p.name}</div>
-                    <div className="prod-cat">{p.category}</div>
-                    <div className="prod-cta">
-                      Ver detalhes
+                  <div className="blog-card-body">
+                    <div className="blog-card-meta">
+                      <span className="blog-card-date">{post.date}</span>
+                      <span className="blog-card-read"><ClockIcon />{post.readTime}</span>
+                    </div>
+                    <div className="blog-card-title">{post.title}</div>
+                    <div className="blog-card-excerpt">{post.excerpt}</div>
+                    <div className="blog-card-cta">
+                      Ler artigo
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
                     </div>
                   </div>
@@ -290,16 +329,16 @@ export default function ProductsGallery({ products }) {
           }}>
             <div>
               <h3 style={{ fontSize: "1.15rem", fontWeight: 800, color: "#1a1d20", marginBottom: 6 }}>
-                Não encontrou o produto que procura?
+                Ficou com alguma dúvida?
               </h3>
               <p style={{ fontSize: "0.88rem", color: "#6b7280", lineHeight: 1.6 }}>
-                Trabalhamos com diversos produtos e marcas além dos listados aqui. Fale com nosso time e encontramos a solução ideal para você.
+                Nossa equipe técnica está pronta para ajudar. Fale conosco e receba um orçamento gratuito.
               </p>
             </div>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", flexShrink: 0 }}>
               <QuoteModal
                 label="Solicitar Orçamento"
-                context="Catálogo de Produtos"
+                context="Blog ISF"
                 buttonStyle={{
                   background: "#126798",
                   color: "#fff",
@@ -310,7 +349,7 @@ export default function ProductsGallery({ products }) {
                 }}
               />
               <a
-                href="https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20n%C3%A3o%20encontrei%20o%20produto%20que%20preciso%20no%20cat%C3%A1logo%2C%20pode%20me%20ajudar%3F"
+                href="https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20li%20um%20artigo%20no%20blog%20da%20ISF%20e%20gostaria%20de%20tirar%20d%C3%BAvidas!"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -333,9 +372,9 @@ export default function ProductsGallery({ products }) {
         </div>
       </section>
 
-      <StatsStrip headline="ISF Segurança Eletrônica — números que comprovam a confiança" />
-      <WhyISF title="Por que adquirir com a ISF?" />
-      <FinalCta context="Catálogo de Produtos" />
+      <StatsStrip headline="ISF Soluções em Segurança — 35+ anos protegendo famílias e empresas em Curitiba" />
+      <BlogFaq />
+      <FinalCta context="Blog ISF" />
     </SiteShell>
   );
 }

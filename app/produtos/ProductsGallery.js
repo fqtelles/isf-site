@@ -221,19 +221,6 @@ export default function ProductsGallery({ products }) {
             </div>
           </div>
 
-          {/* Stat chips */}
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 36 }}>
-            {[
-              { label: `${products.length} produtos` },
-              { label: "5 categorias" },
-              { label: "Revenda autorizada" },
-              { label: "Instalação inclusa" },
-            ].map(s => (
-              <span key={s.label} style={{ background: "rgba(255,255,255,0.12)", color: "#fff", fontSize: "0.78rem", fontWeight: 600, padding: "6px 14px", borderRadius: 9999, backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.18)" }}>
-                {s.label}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
 

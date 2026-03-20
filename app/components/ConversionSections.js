@@ -94,7 +94,7 @@ const GENERAL_FAQS = [
   { q: "Quais regiões a ISF atende?",                           a: "Atendemos Curitiba e toda a Região Metropolitana, incluindo São José dos Pinhais, Colombo, Pinhais, Araucária, Campo Largo, Almirante Tamandaré e demais municípios da RMC." },
   { q: "Qual o prazo para instalação após a contratação?",      a: "Em geral, conseguimos agendar a instalação em até 5 dias úteis após a aprovação do orçamento. Projetos mais complexos (indústrias, condomínios) têm prazo específico definido na proposta." },
   { q: "A ISF oferece manutenção após a instalação?",           a: "Sim. Oferecemos contratos de manutenção preventiva para câmeras, alarmes, cercas elétricas e controle de acesso. A manutenção periódica garante o funcionamento contínuo e prolonga a vida útil dos equipamentos." },
-  { q: "A ISF é uma empresa autorizada e certificada?",         a: "Sim. Somos revendedor autorizado Intelbras, associados à ABERC desde 1993 e membros da ABESE. Nossa equipe técnica é certificada e constantemente atualizada com as últimas tecnologias do setor." },
+  { q: "A ISF é uma empresa autorizada e certificada?",         a: "Sim. Somos revendedor autorizado Intelbras e membros da ABESE. Nossa equipe técnica é certificada e constantemente atualizada com as últimas tecnologias do setor." },
 ];
 
 const SERVICES = [

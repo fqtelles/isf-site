@@ -590,7 +590,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <div className="section-label">Sobre a ISF Segurança</div>
             <div className="divider" />
             <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", marginBottom: 20, lineHeight: 1.2, letterSpacing: "-0.02em" }}>A melhor proteção com quem tem 35 anos de mercado</h2>
-            <p style={{ color: "#6b7280", lineHeight: 1.78, marginBottom: 16, fontSize: "0.97rem" }}>A ISF atua no mercado de segurança eletrônica há mais de 35 anos, atendendo Curitiba e Região Metropolitana. Associada à ABERC desde 1993 e membro da ABESE, a empresa é referência em qualidade e confiabilidade.</p>
+            <p style={{ color: "#6b7280", lineHeight: 1.78, marginBottom: 16, fontSize: "0.97rem" }}>A ISF atua no mercado de segurança eletrônica há mais de 35 anos, atendendo Curitiba e Região Metropolitana. Membro da ABESE, a empresa é referência em qualidade e confiabilidade.</p>
             <p style={{ color: "#6b7280", lineHeight: 1.78, marginBottom: 36, fontSize: "0.97rem" }}>Somos revenda autorizada Intelbras e trabalhamos com as principais marcas do setor, com uma equipe técnica certificada e sempre atualizada para oferecer o que há de mais moderno em segurança eletrônica.</p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a href="#contato" className="btn-primary">Fale com um especialista</a>
@@ -599,7 +599,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {[
-              { icon: "trophy", title: "Associada ABERC desde 1993", desc: "Mais de 35 anos filiada à Associação Brasileira de Empresas de Rastreamento e Controle." },
+              { icon: "trophy", title: "35+ anos de mercado", desc: "Empresa sólida e experiente, referência em segurança eletrônica em Curitiba desde 1988." },
               { icon: "handshake", title: "Membro da ABESE", desc: "Associação Brasileira das Empresas de Sistemas Eletrônicos de Segurança." },
               { icon: "check", title: "Revenda autorizada Intelbras", desc: "Respeito ao cliente e produtos originais com garantia de fábrica." },
               { icon: "pin", title: "Curitiba e Região Metropolitana", desc: "Atendimento local com rapidez e equipe técnica própria treinada." },

@@ -224,13 +224,13 @@ export default function ProductsGallery({ products }) {
           {/* Stat chips */}
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 36 }}>
             {[
-              { label: `${products.length} produtos`, icon: "📦" },
-              { label: "5 categorias",                icon: "🗂️" },
-              { label: "Revenda autorizada",          icon: "✅" },
-              { label: "Instalação inclusa",          icon: "🔧" },
+              { label: `${products.length} produtos` },
+              { label: "5 categorias" },
+              { label: "Revenda autorizada" },
+              { label: "Instalação inclusa" },
             ].map(s => (
               <span key={s.label} style={{ background: "rgba(255,255,255,0.12)", color: "#fff", fontSize: "0.78rem", fontWeight: 600, padding: "6px 14px", borderRadius: 9999, backdropFilter: "blur(4px)", border: "1px solid rgba(255,255,255,0.18)" }}>
-                {s.icon} {s.label}
+                {s.label}
               </span>
             ))}
           </div>
@@ -306,7 +306,7 @@ export default function ProductsGallery({ products }) {
                 Não encontrou o produto que procura?
               </h3>
               <p style={{ fontSize: "0.88rem", color: "#6b7280", lineHeight: 1.6 }}>
-                Trabalhamos com diversas marcas além das listadas aqui. Fale com nosso time e encontramos a solução ideal para você.
+                Trabalhamos com diversos produtos e marcas além dos listados aqui. Fale com nosso time e encontramos a solução ideal para você.
               </p>
             </div>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", flexShrink: 0 }}>

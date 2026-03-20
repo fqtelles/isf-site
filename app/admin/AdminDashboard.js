@@ -720,9 +720,21 @@ export default function AdminDashboard({ initialProducts, initialBlogPosts }) {
         }
       </div>
 
-      <div style={{ textAlign: "center", marginTop: 24 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 24 }}>
         <a href="/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem", color: C.muted, textDecoration: "none" }}>
           ← Ver site público
+        </a>
+        <a
+          href="/api/admin/export"
+          download
+          style={{
+            fontSize: "0.8rem", fontWeight: 700, color: C.green,
+            textDecoration: "none", border: `1px solid ${C.green}`,
+            borderRadius: 9999, padding: "6px 16px",
+            background: C.greenBg, transition: "all 0.2s",
+          }}
+        >
+          ↓ Exportar seed.js
         </a>
       </div>
     </div>

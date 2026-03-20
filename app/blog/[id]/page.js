@@ -108,7 +108,12 @@ function renderPost(post) {
       <main style={{ background: "#f9fafb", minHeight: "60vh" }}>
         <div style={{ maxWidth: 960, margin: "0 auto", padding: "56px 5% 80px" }}>
 
-          {/* Breadcrumb */}
+          {/* Back + Breadcrumb */}
+          <a href="/#blog" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: "0.82rem", color: "#6b7280", textDecoration: "none", fontWeight: 500, marginBottom: 16 }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Voltar
+          </a>
+
           <div
             style={{
               display: "flex",

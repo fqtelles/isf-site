@@ -100,7 +100,7 @@ export default function LandingPage({ service }) {
   const [sending, setSending] = useState(false);
   const [formError, setFormError] = useState("");
 
-  const waHref = `https://api.whatsapp.com/send?phone=5541999919191&text=Olá%2C%20quero%20um%20orçamento%20de%20${encodeURIComponent(service.name)}!`;
+  const waHref = `https://api.whatsapp.com/send?phone=554133787933&text=Olá%2C%20quero%20um%20orçamento%20de%20${encodeURIComponent(service.name)}!`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();

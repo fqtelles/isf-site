@@ -3,7 +3,7 @@ import { useState } from "react";
 import QuoteModal from "./QuoteModal";
 
 const WA_HREF =
-  "https://api.whatsapp.com/send?phone=5541999919191&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
+  "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
 
 // ── Icon helpers ──────────────────────────────────────────────────────────────
 
@@ -283,7 +283,7 @@ export function FinalCta({ context }) {
   const waText = context
     ? `Ol%C3%A1%2C%20li%20sobre%20${encodeURIComponent(context)}%20e%20gostaria%20de%20um%20or%C3%A7amento!`
     : "Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
-  const waHref = `https://api.whatsapp.com/send?phone=5541999919191&text=${waText}`;
+  const waHref = `https://api.whatsapp.com/send?phone=554133787933&text=${waText}`;
 
   return (
     <section style={{ padding: "80px 5%", background: "#126798" }}>

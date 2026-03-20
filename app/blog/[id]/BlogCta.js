@@ -2,7 +2,7 @@
 import QuoteModal from "../../components/QuoteModal";
 
 const WA_BLOG_HREF =
-  "https://api.whatsapp.com/send?phone=5541999919191&text=Ol%C3%A1%2C%20li%20um%20artigo%20no%20blog%20e%20gostaria%20de%20um%20or%C3%A7amento!";
+  "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20li%20um%20artigo%20no%20blog%20e%20gostaria%20de%20um%20or%C3%A7amento!";
 
 export default function BlogCta({ postTitle }) {
   return (

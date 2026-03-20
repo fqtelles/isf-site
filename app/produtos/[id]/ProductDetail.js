@@ -228,7 +228,7 @@ export default function ProductDetail({ product, related }) {
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <a
-                  href={`https://api.whatsapp.com/send?phone=5541999919191&text=Olá%2C%20tenho%20interesse%20no%20produto%20*${encodeURIComponent(product.name)}*%20e%20gostaria%20de%20um%20orçamento!`}
+                  href={`https://api.whatsapp.com/send?phone=554133787933&text=Olá%2C%20tenho%20interesse%20no%20produto%20*${encodeURIComponent(product.name)}*%20e%20gostaria%20de%20um%20orçamento!`}
                   target="_blank" rel="noopener noreferrer"
                   style={{ background: "#25d366", color: "#fff", fontSize: "0.85rem", padding: "12px 24px", borderRadius: 9999, fontFamily: "inherit", fontWeight: 600, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, transition: "all 0.25s" }}
                 >

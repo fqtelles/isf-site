@@ -299,9 +299,20 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
   const maxIndex = Math.max(0, filteredProducts.length - VISIBLE);
 
   const [carouselPaused, setCarouselPaused] = useState(false);
+  const prodTouchX = useRef(null);
 
   const prevSlide = () => setCarouselIndex(i => Math.max(0, i - 1));
   const nextSlide = () => setCarouselIndex(i => Math.min(maxIndex, i + 1));
+
+  const prodTouchStart = e => { prodTouchX.current = e.touches[0].clientX; setCarouselPaused(true); };
+  const prodTouchEnd = e => {
+    if (prodTouchX.current === null) return;
+    const dx = e.changedTouches[0].clientX - prodTouchX.current;
+    if (dx < -40) nextSlide();
+    else if (dx > 40) prevSlide();
+    prodTouchX.current = null;
+    setCarouselPaused(false);
+  };
 
   // Blog carousel
   const [blogCarouselIndex, setBlogCarouselIndex] = useState(0);
@@ -309,6 +320,17 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
   const blogMaxIndex = Math.max(0, blogPosts.length - BLOG_VISIBLE);
   const blogPrevSlide = () => setBlogCarouselIndex(i => Math.max(0, i - 1));
   const blogNextSlide = () => setBlogCarouselIndex(i => Math.min(blogMaxIndex, i + 1));
+  const blogTouchX = useRef(null);
+
+  const blogTouchStart = e => { blogTouchX.current = e.touches[0].clientX; setBlogCarouselPaused(true); };
+  const blogTouchEnd = e => {
+    if (blogTouchX.current === null) return;
+    const dx = e.changedTouches[0].clientX - blogTouchX.current;
+    if (dx < -40) blogNextSlide();
+    else if (dx > 40) blogPrevSlide();
+    blogTouchX.current = null;
+    setBlogCarouselPaused(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -579,7 +601,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             onMouseLeave={() => setCarouselPaused(false)}
           >
             <button className="carousel-btn carousel-btn-prev" onClick={prevSlide} onMouseDown={() => setCarouselPaused(true)} onMouseUp={() => setCarouselPaused(false)} disabled={carouselIndex === 0} aria-label="Anterior">‹</button>
-            <div className="carousel-overflow">
+            <div className="carousel-overflow" onTouchStart={prodTouchStart} onTouchEnd={prodTouchEnd} style={{ touchAction: "pan-y" }}>
               <div
                 className="carousel-track"
                 style={{ transform: `translateX(-${carouselIndex * (100 / VISIBLE)}%)` }}
@@ -735,7 +757,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               disabled={blogCarouselIndex === 0}
               aria-label="Anterior"
             >‹</button>
-            <div className="carousel-overflow">
+            <div className="carousel-overflow" onTouchStart={blogTouchStart} onTouchEnd={blogTouchEnd} style={{ touchAction: "pan-y" }}>
               <div
                 className="carousel-track"
                 style={{ transform: `translateX(-${blogCarouselIndex * (100 / BLOG_VISIBLE)}%)` }}

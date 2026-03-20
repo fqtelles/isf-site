@@ -11,7 +11,7 @@ const galleryCss = `
 
   .gallery-hero {
     background: linear-gradient(135deg, #0d1b2a 0%, #126798 60%, #1a8bbf 100%);
-    padding: 72px 5% 80px;
+    padding: 36px 5% 40px;
     position: relative;
     overflow: hidden;
   }
@@ -163,7 +163,7 @@ export default function ProductsGallery({ products }) {
         <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
 
           {/* Breadcrumb */}
-          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.78rem", color: "rgba(255,255,255,0.55)", marginBottom: 28 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.78rem", color: "rgba(255,255,255,0.55)", marginBottom: 18 }}>
             <a href="/" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>Home</a>
             <span>›</span>
             <span style={{ color: "#fff" }}>Produtos</span>
@@ -171,13 +171,13 @@ export default function ProductsGallery({ products }) {
 
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
             <div>
-              <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: 14 }}>
+              <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: 8 }}>
                 Catálogo Completo
               </div>
-              <h1 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", fontWeight: 800, color: "#fff", lineHeight: 1.15, letterSpacing: "-0.03em", marginBottom: 16 }}>
-                Produtos de<br />Segurança Eletrônica
+              <h1 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, color: "#fff", lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: 10 }}>
+                Produtos de Segurança Eletrônica
               </h1>
-              <p style={{ fontSize: "1rem", color: "rgba(255,255,255,0.72)", maxWidth: 520, lineHeight: 1.7 }}>
+              <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.72)", maxWidth: 520, lineHeight: 1.65 }}>
                 Revenda autorizada Intelbras. Câmeras, alarmes, DVR/NVR, cerca elétrica e controle de acesso com instalação profissional em Curitiba e região.
               </p>
             </div>

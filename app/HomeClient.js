@@ -337,7 +337,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
   // Blog carousel
   const [blogCarouselIndex, setBlogCarouselIndex] = useState(0);
   const [blogCarouselPaused, setBlogCarouselPaused] = useState(false);
-  const blogMaxIndex = Math.max(0, blogPosts.length - BLOG_VISIBLE);
+  const blogMaxIndex = Math.max(0, Math.ceil(blogPosts.length / BLOG_VISIBLE) - 1);
   const blogPrevSlide = () => setBlogCarouselIndex(i => Math.max(0, i - 1));
   const blogNextSlide = () => setBlogCarouselIndex(i => Math.min(blogMaxIndex, i + 1));
   const blogTouchX = useRef(null);
@@ -355,7 +355,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
     const dx = e.touches[0].clientX - blogTouchX.current;
     if (blogTrackRef.current) {
       blogTrackRef.current.style.transform =
-        `translateX(calc(-${blogIndexRef.current * (100 / BLOG_VISIBLE)}% + ${dx}px))`;
+        `translateX(calc(-${blogIndexRef.current * 100}% + ${dx}px))`;
     }
   };
   const blogTouchEnd = e => {
@@ -366,7 +366,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
     else if (dx > 30) blogPrevSlide();
     else if (blogTrackRef.current) {
       blogTrackRef.current.style.transform =
-        `translateX(-${blogIndexRef.current * (100 / BLOG_VISIBLE)}%)`;
+        `translateX(-${blogIndexRef.current * 100}%)`;
     }
     blogTouchX.current = null;
     setBlogCarouselPaused(false);
@@ -802,7 +802,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               <div
                 ref={blogTrackRef}
                 className="carousel-track"
-                style={{ transform: `translateX(-${blogCarouselIndex * (100 / BLOG_VISIBLE)}%)` }}
+                style={{ transform: `translateX(-${blogCarouselIndex * 100}%)` }}
               >
                 {blogPosts.map(post => (
                   <div key={post.id} className="blog-card-slide">

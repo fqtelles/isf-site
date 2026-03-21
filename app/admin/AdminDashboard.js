@@ -724,18 +724,32 @@ export default function AdminDashboard({ initialProducts, initialBlogPosts }) {
         <a href="/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem", color: C.muted, textDecoration: "none" }}>
           ← Ver site público
         </a>
-        <a
-          href="/api/admin/export"
-          download
-          style={{
-            fontSize: "0.8rem", fontWeight: 700, color: C.green,
-            textDecoration: "none", border: `1px solid ${C.green}`,
-            borderRadius: 9999, padding: "6px 16px",
-            background: C.greenBg, transition: "all 0.2s",
-          }}
-        >
-          ↓ Exportar seed.js
-        </a>
+        <div style={{ display: "flex", gap: 8 }}>
+          <a
+            href="/api/admin/backup/uploads"
+            download
+            style={{
+              fontSize: "0.8rem", fontWeight: 700, color: C.blue,
+              textDecoration: "none", border: `1px solid ${C.blue}`,
+              borderRadius: 9999, padding: "6px 16px",
+              background: C.blueBg, transition: "all 0.2s",
+            }}
+          >
+            ↓ Backup de imagens
+          </a>
+          <a
+            href="/api/admin/export"
+            download
+            style={{
+              fontSize: "0.8rem", fontWeight: 700, color: C.green,
+              textDecoration: "none", border: `1px solid ${C.green}`,
+              borderRadius: 9999, padding: "6px 16px",
+              background: C.greenBg, transition: "all 0.2s",
+            }}
+          >
+            ↓ Exportar seed.js
+          </a>
+        </div>
       </div>
     </div>
   );

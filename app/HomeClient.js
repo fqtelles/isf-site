@@ -317,7 +317,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
     const dx = e.touches[0].clientX - prodTouchX.current;
     if (prodTrackRef.current) {
       prodTrackRef.current.style.transform =
-        `translateX(calc(-${prodIndexRef.current * (100 / filteredProducts.length)}% + ${dx}px))`;
+        `translateX(calc(-${prodIndexRef.current * (100 / VISIBLE)}% + ${dx}px))`;
     }
   };
   const prodTouchEnd = e => {
@@ -328,7 +328,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
     else if (dx > 30) prevSlide();
     else if (prodTrackRef.current) {
       prodTrackRef.current.style.transform =
-        `translateX(-${prodIndexRef.current * (100 / filteredProducts.length)}%)`;
+        `translateX(-${prodIndexRef.current * (100 / VISIBLE)}%)`;
     }
     prodTouchX.current = null;
     setCarouselPaused(false);
@@ -355,7 +355,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
     const dx = e.touches[0].clientX - blogTouchX.current;
     if (blogTrackRef.current) {
       blogTrackRef.current.style.transform =
-        `translateX(calc(-${blogIndexRef.current * (100 / blogPosts.length)}% + ${dx}px))`;
+        `translateX(calc(-${blogIndexRef.current * (100 / BLOG_VISIBLE)}% + ${dx}px))`;
     }
   };
   const blogTouchEnd = e => {
@@ -366,7 +366,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
     else if (dx > 30) blogPrevSlide();
     else if (blogTrackRef.current) {
       blogTrackRef.current.style.transform =
-        `translateX(-${blogIndexRef.current * (100 / blogPosts.length)}%)`;
+        `translateX(-${blogIndexRef.current * (100 / BLOG_VISIBLE)}%)`;
     }
     blogTouchX.current = null;
     setBlogCarouselPaused(false);
@@ -645,7 +645,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               <div
                 ref={prodTrackRef}
                 className="carousel-track"
-                style={{ transform: `translateX(-${carouselIndex * (100 / filteredProducts.length)}%)` }}
+                style={{ transform: `translateX(-${carouselIndex * (100 / VISIBLE)}%)` }}
               >
                 {filteredProducts.map(p => (
                   <div key={p.id} className="product-card">
@@ -802,7 +802,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               <div
                 ref={blogTrackRef}
                 className="carousel-track"
-                style={{ transform: `translateX(-${blogCarouselIndex * (100 / blogPosts.length)}%)` }}
+                style={{ transform: `translateX(-${blogCarouselIndex * (100 / BLOG_VISIBLE)}%)` }}
               >
                 {blogPosts.map(post => (
                   <div key={post.id} className="blog-card-slide">

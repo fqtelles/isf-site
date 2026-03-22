@@ -163,6 +163,46 @@
       "rating": 5,
       "relativeDate": "6 meses atrás",
       "text": "Rápidos e eficientes"
+    },
+    {
+      "id": 21,
+      "author": "daniel telles",
+      "authorInitials": "DT",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Empresa de confiança e credibilidade."
+    },
+    {
+      "id": 22,
+      "author": "Leonardo Zocolotti",
+      "authorInitials": "LZ",
+      "rating": 5,
+      "relativeDate": "7 anos atrás",
+      "text": "Ótimo atendimento e preço."
+    },
+    {
+      "id": 23,
+      "author": "J0nnyZ",
+      "authorInitials": "JZ",
+      "rating": 5,
+      "relativeDate": "4 anos atrás",
+      "text": "Excente atendimento"
+    },
+    {
+      "id": 24,
+      "author": "Marcelo Ribeiro de Oliveira",
+      "authorInitials": "MO",
+      "rating": 5,
+      "relativeDate": "6 anos atrás",
+      "text": "Legal"
+    },
+    {
+      "id": 25,
+      "author": "Marcos Yanase",
+      "authorInitials": "MY",
+      "rating": 5,
+      "relativeDate": "2 semanas atrás",
+      "text": "Necessitei um serviço de instalação de cerca elétrica. Atendimento profissional desde o primeiro contato no WhatsApp; orçamento pontual e rápido com valor justo; instalação excelente, com atenção aos detalhes. Com certeza indicarei a qualquer familiar ou amigo que precisar."
     }
   ]
 }

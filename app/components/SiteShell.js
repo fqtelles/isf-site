@@ -20,7 +20,7 @@ const FOOTER_NAV = [
 ];
 
 const WA_HREF =
-  "https://api.whatsapp.com/send?phone=5541999919191&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
+  "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
 
 const shellCss = `
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -278,7 +278,7 @@ export default function SiteShell({ children }) {
                   (41) 3378-7933
                 </a>
                 <a
-                  href="https://api.whatsapp.com/send?phone=5541999919191"
+                  href="https://api.whatsapp.com/send?phone=554133787933"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="shell-footer-link"
@@ -308,7 +308,7 @@ export default function SiteShell({ children }) {
             }}
           >
             <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>
-              © {new Date().getFullYear()} ISF Segurança Eletrônica · Todos os direitos reservados
+              © {new Date().getFullYear()} ISF Soluções em Segurança · Todos os direitos reservados
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>

@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
+import QuoteModal from "./QuoteModal";
 
 const WA_HREF =
-  "https://api.whatsapp.com/send?phone=5541999919191&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
+  "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
 
 // ── Icon helpers ──────────────────────────────────────────────────────────────
 
@@ -76,7 +77,7 @@ const CATEGORY_FAQS = {
     { q: "Preciso de linha telefônica para o alarme funcionar?",    a: "Não. Os sistemas modernos usam comunicação por IP (internet) ou GSM (rede celular) como backup, eliminando a dependência de linha telefônica fixa." },
   ],
   "Cerca Elétrica": [
-    { q: "Cerca elétrica é perigosa para crianças e animais?",      a: "Quando instalada corretamente e dentro da ABNT NBR 15791, o pulso elétrico é de alta tensão porém baixíssima corrente. O efeito é um choque doloroso e temporário — não letal. A instalação em altura mínima de 2,5 m do solo também protege crianças e animais." },
+    { q: "Cerca elétrica é perigosa para crianças e animais?",      a: "Quando instalada corretamente e dentro da ABNT NBR IEC 60335-2-76, o pulso elétrico é de alta tensão porém baixíssima corrente. O efeito é um choque doloroso e temporário — não letal. A instalação em altura mínima de 2,5 m do solo também protege crianças e animais." },
     { q: "É legal instalar cerca elétrica em Curitiba?",            a: "Sim, é completamente legal quando instalada por empresa habilitada, em conformidade com as normas técnicas e a legislação municipal. A ISF realiza toda a instalação dentro das normas e emite a documentação necessária." },
     { q: "A cerca funciona normalmente na chuva e na umidade?",     a: "Sim. Os equipamentos e isoladores são projetados para todas as condições climáticas. A eletrônica de controle é protegida contra umidade e variações de temperatura. A manutenção periódica garante o desempenho contínuo." },
     { q: "Com que frequência a cerca precisa de manutenção?",       a: "Recomendamos manutenção semestral ou anual conforme o ambiente. A ISF oferece contratos de manutenção preventiva que garantem o funcionamento contínuo e prolongam a vida útil dos equipamentos." },
@@ -94,14 +95,14 @@ const GENERAL_FAQS = [
   { q: "Quais regiões a ISF atende?",                           a: "Atendemos Curitiba e toda a Região Metropolitana, incluindo São José dos Pinhais, Colombo, Pinhais, Araucária, Campo Largo, Almirante Tamandaré e demais municípios da RMC." },
   { q: "Qual o prazo para instalação após a contratação?",      a: "Em geral, conseguimos agendar a instalação em até 5 dias úteis após a aprovação do orçamento. Projetos mais complexos (indústrias, condomínios) têm prazo específico definido na proposta." },
   { q: "A ISF oferece manutenção após a instalação?",           a: "Sim. Oferecemos contratos de manutenção preventiva para câmeras, alarmes, cercas elétricas e controle de acesso. A manutenção periódica garante o funcionamento contínuo e prolonga a vida útil dos equipamentos." },
-  { q: "A ISF é uma empresa autorizada e certificada?",         a: "Sim. Somos revendedor autorizado Intelbras, associados à ABERC desde 1993 e membros da ABESE. Nossa equipe técnica é certificada e constantemente atualizada com as últimas tecnologias do setor." },
+  { q: "A ISF é uma empresa autorizada e certificada?",         a: "Sim. Somos revendedor autorizado Intelbras e membros da ABESE. Nossa equipe técnica é certificada e constantemente atualizada com as últimas tecnologias do setor." },
 ];
 
 const SERVICES = [
   { icon: "alarm",      title: "Alarmes",           desc: "Proteção 24h, com e sem fio, para residências e comércios.",        href: "/alarmes-curitiba" },
   { icon: "camera",     title: "Câmeras CFTV",       desc: "Câmeras HD, visão noturna e acesso remoto pelo celular.",           href: "/cameras-seguranca-curitiba" },
   { icon: "bolt",       title: "Cerca Elétrica",     desc: "Proteção perimetral com choque e alarme sonoro integrado.",         href: "/cerca-eletrica-curitiba" },
-  { icon: "lock",       title: "Controle de Acesso", desc: "Biometria, reconhecimento facial, cartão e catracas.",              href: "/controle-de-acesso-curitiba" },
+  { icon: "lock",       title: "Controle de Acesso", desc: "Biometria, reconhecimento facial e cartão.",                       href: "/controle-de-acesso-curitiba" },
   { icon: "shield",     title: "Monitoramento",      desc: "Central de monitoramento 24h com protocolo de resposta imediata.", href: "/monitoramento-curitiba" },
   { icon: "smartphone", title: "App de Segurança",   desc: "Acesse câmeras e alarmes de qualquer lugar pelo smartphone.",       href: "/app-de-seguranca" },
 ];
@@ -282,7 +283,7 @@ export function FinalCta({ context }) {
   const waText = context
     ? `Ol%C3%A1%2C%20li%20sobre%20${encodeURIComponent(context)}%20e%20gostaria%20de%20um%20or%C3%A7amento!`
     : "Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
-  const waHref = `https://api.whatsapp.com/send?phone=5541999919191&text=${waText}`;
+  const waHref = `https://api.whatsapp.com/send?phone=554133787933&text=${waText}`;
 
   return (
     <section style={{ padding: "80px 5%", background: "#126798" }}>
@@ -294,18 +295,14 @@ export function FinalCta({ context }) {
           Orçamento gratuito e sem compromisso. Atendemos Curitiba e toda a Região Metropolitana há mais de 35 anos.
         </p>
         <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-          <a
-            href="/#contato"
-            style={{
+          <QuoteModal
+            label="Solicitar Orçamento"
+            context={context || "Site"}
+            buttonStyle={{
               background: "#fff", color: "#126798", padding: "13px 28px",
               borderRadius: 9999, fontWeight: 700, fontSize: "0.9rem",
-              textDecoration: "none", transition: "all 0.25s",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#f0f7fc"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "#fff"; }}
-          >
-            Solicitar Orçamento
-          </a>
+          />
           <a
             href={waHref}
             target="_blank"

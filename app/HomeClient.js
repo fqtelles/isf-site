@@ -1,5 +1,6 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
+import GoogleReviewsWidget from "./components/GoogleReviewsWidget";
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -14,9 +15,9 @@ const SERVICES = [
   { icon: "alarm",      title: "Alarmes",           desc: "Garanta proteção 24 horas para o seu patrimônio, uma medida de segurança que traz tranquilidade. Oferecemos soluções com e sem fio.",                                          tag: "Mais popular", href: "/alarmes-curitiba" },
   { icon: "camera",     title: "Câmeras CFTV",       desc: "Instalação de câmeras HD, zoom, infravermelho, auto-íris ou imagem noturna. Trabalhamos com várias marcas para atender a sua necessidade.",                                    tag: null,           href: "/cameras-seguranca-curitiba" },
   { icon: "bolt",       title: "Cerca Elétrica",     desc: "Proteção perimetral com choque e alarme sonoro integrado. Solução de alto impacto para imóveis residenciais e comerciais.",                                                    tag: null,           href: "/cerca-eletrica-curitiba" },
-  { icon: "lock",       title: "Controle de Acesso", desc: "Catracas, leitores biométricos, cartão de proximidade e reconhecimento facial. Ideal para condomínios e áreas restritas.",                                                    tag: null,           href: "/controle-de-acesso-curitiba" },
+  { icon: "lock",       title: "Controle de Acesso", desc: "Leitores biométricos, cartão de proximidade e reconhecimento facial. Ideal para condomínios e áreas restritas.",                                                         tag: null,           href: "/controle-de-acesso-curitiba" },
   { icon: "shield",     title: "Monitoramento",      desc: "Conte com uma equipe 24 horas dedicada ao monitoramento do seu patrimônio. A ISF trabalha em parceria com as melhores empresas do ramo.",                                      tag: null,           href: "/monitoramento-curitiba" },
-  { icon: "smartphone", title: "App de Segurança",   desc: "Em um clique acesse pelo seu smartphone todas as câmeras do seu patrimônio, não importa onde estiver, basta estar conectado à internet.",                                      tag: "Novidade",     href: "/app-de-seguranca" },
+  { icon: "smartphone", title: "App de Segurança",   desc: "Em um clique acesse pelo seu smartphone todas as câmeras do seu patrimônio, não importa onde estiver, basta estar conectado à internet.",                                      tag: "Comodidade",   href: "/app-de-seguranca" },
 ];
 
 const STATS = [
@@ -41,7 +42,7 @@ const FAQS = [
   },
   {
     q: "Cerca elétrica é permitida em Curitiba?",
-    a: "Sim, a cerca elétrica é permitida em Curitiba mediante instalação por empresa habilitada e seguindo as normas da ABNT NBR 17240. A ISF realiza toda a instalação em conformidade com a legislação vigente.",
+    a: "Sim, a cerca elétrica é permitida em Curitiba mediante instalação por empresa habilitada e seguindo as normas da ABNT NBR IEC 60335-2-76. A ISF realiza toda a instalação em conformidade com a legislação vigente.",
   },
   {
     q: "Quais bairros e cidades a ISF atende?",
@@ -53,7 +54,7 @@ const FAQS = [
   },
 ];
 
-const WA_HREF = "https://api.whatsapp.com/send?phone=5541999919191&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
+const WA_HREF = "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
 
 const WaIcon = () => (
   <svg viewBox="0 0 24 24" fill="currentColor" width="17" height="17" style={{ display: "block", flexShrink: 0 }}>
@@ -141,19 +142,6 @@ function FaqItem({ q, a }) {
   );
 }
 
-function TrustIndexWidget() {
-  const containerRef = useRef(null);
-  useEffect(() => {
-    if (!containerRef.current) return;
-    if (containerRef.current.querySelector('script')) return;
-    const script = document.createElement('script');
-    script.src = "https://cdn.trustindex.io/loader.js?9c7189a677af24401466b727f55";
-    script.defer = true;
-    script.async = true;
-    containerRef.current.appendChild(script);
-  }, []);
-  return <div ref={containerRef} style={{ width: "100%", minHeight: "100px", marginBottom: "-16px" }} suppressHydrationWarning />;
-}
 
 const css = `
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -267,27 +255,110 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [formData, setFormData] = useState({ nome: "", email: "", telefone: "", servico: "", mensagem: "" });
   const [formSent, setFormSent] = useState(false);
+  const [formSending, setFormSending] = useState(false);
+  const [formError, setFormError] = useState("");
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [carouselIndex, setCarouselIndex] = useState(0);
   const [products, setProducts] = useState(initialProducts);
   const [blogPosts, setBlogPosts] = useState(initialBlogPosts);
 
+  const shuffledProducts = useMemo(() => {
+    const arr = [...products];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    // Ensure at least one camera is visible in the first VISIBLE slots
+    const hasCameraFirst = arr.slice(0, VISIBLE).some(p => p.category === "Câmeras");
+    if (!hasCameraFirst) {
+      const cameraIdx = arr.findIndex(p => p.category === "Câmeras");
+      if (cameraIdx !== -1) {
+        const swapPos = Math.floor(Math.random() * VISIBLE);
+        [arr[swapPos], arr[cameraIdx]] = [arr[cameraIdx], arr[swapPos]];
+      }
+    }
+    return arr;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const filteredProducts = activeCategory === "Todos"
-    ? products
+    ? shuffledProducts
     : products.filter(p => p.category === activeCategory);
   const maxIndex = Math.max(0, filteredProducts.length - VISIBLE);
 
   const [carouselPaused, setCarouselPaused] = useState(false);
+  const prodTouchX = useRef(null);
+  const prodTrackRef = useRef(null);
+  const prodIndexRef = useRef(carouselIndex);
+  prodIndexRef.current = carouselIndex;
 
   const prevSlide = () => setCarouselIndex(i => Math.max(0, i - 1));
   const nextSlide = () => setCarouselIndex(i => Math.min(maxIndex, i + 1));
 
+  const prodTouchStart = e => {
+    prodTouchX.current = e.touches[0].clientX;
+    setCarouselPaused(true);
+    if (prodTrackRef.current) prodTrackRef.current.style.transition = "none";
+  };
+  const prodTouchMove = e => {
+    if (prodTouchX.current === null) return;
+    const dx = e.touches[0].clientX - prodTouchX.current;
+    if (prodTrackRef.current) {
+      prodTrackRef.current.style.transform =
+        `translateX(calc(-${prodIndexRef.current * (100 / VISIBLE)}% + ${dx}px))`;
+    }
+  };
+  const prodTouchEnd = e => {
+    if (prodTouchX.current === null) return;
+    const dx = e.changedTouches[0].clientX - prodTouchX.current;
+    if (prodTrackRef.current) prodTrackRef.current.style.transition = "";
+    if (dx < -30) nextSlide();
+    else if (dx > 30) prevSlide();
+    else if (prodTrackRef.current) {
+      prodTrackRef.current.style.transform =
+        `translateX(-${prodIndexRef.current * (100 / VISIBLE)}%)`;
+    }
+    prodTouchX.current = null;
+    setCarouselPaused(false);
+  };
+
   // Blog carousel
   const [blogCarouselIndex, setBlogCarouselIndex] = useState(0);
   const [blogCarouselPaused, setBlogCarouselPaused] = useState(false);
-  const blogMaxIndex = Math.max(0, blogPosts.length - BLOG_VISIBLE);
+  const blogMaxIndex = Math.max(0, Math.ceil(blogPosts.length / BLOG_VISIBLE) - 1);
   const blogPrevSlide = () => setBlogCarouselIndex(i => Math.max(0, i - 1));
   const blogNextSlide = () => setBlogCarouselIndex(i => Math.min(blogMaxIndex, i + 1));
+  const blogTouchX = useRef(null);
+  const blogTrackRef = useRef(null);
+  const blogIndexRef = useRef(blogCarouselIndex);
+  blogIndexRef.current = blogCarouselIndex;
+
+  const blogTouchStart = e => {
+    blogTouchX.current = e.touches[0].clientX;
+    setBlogCarouselPaused(true);
+    if (blogTrackRef.current) blogTrackRef.current.style.transition = "none";
+  };
+  const blogTouchMove = e => {
+    if (blogTouchX.current === null) return;
+    const dx = e.touches[0].clientX - blogTouchX.current;
+    if (blogTrackRef.current) {
+      blogTrackRef.current.style.transform =
+        `translateX(calc(-${blogIndexRef.current * 100}% + ${dx}px))`;
+    }
+  };
+  const blogTouchEnd = e => {
+    if (blogTouchX.current === null) return;
+    const dx = e.changedTouches[0].clientX - blogTouchX.current;
+    if (blogTrackRef.current) blogTrackRef.current.style.transition = "";
+    if (dx < -30) blogNextSlide();
+    else if (dx > 30) blogPrevSlide();
+    else if (blogTrackRef.current) {
+      blogTrackRef.current.style.transform =
+        `translateX(-${blogIndexRef.current * 100}%)`;
+    }
+    blogTouchX.current = null;
+    setBlogCarouselPaused(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -315,9 +386,24 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
     return () => clearInterval(timer);
   }, [blogMaxIndex, blogCarouselPaused]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormSent(true);
+    setFormSending(true);
+    setFormError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, pagina: "Homepage" }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Erro desconhecido");
+      setFormSent(true);
+    } catch (err) {
+      setFormError(err.message || "Erro ao enviar. Tente pelo WhatsApp.");
+    } finally {
+      setFormSending(false);
+    }
   };
 
   return (
@@ -325,7 +411,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       <style>{css}</style>
 
       {/* WhatsApp FAB */}
-      <a href="https://api.whatsapp.com/send?phone=5541999919191&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!" className="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
+      <a href="https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!" className="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
         <svg viewBox="0 0 24 24" fill="white" width="30" height="30">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
         </svg>
@@ -399,12 +485,12 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               <span style={{ borderBottom: "4px solid #126798", paddingBottom: 2 }}>segurança</span>
             </h1>
             <p className="fade-up fade-up-3" style={{ fontSize: "1.05rem", lineHeight: 1.72, color: "#6b7280", marginBottom: 36, maxWidth: 480 }}>
-              A necessidade de segurança sempre existiu. É o que move a ISF Segurança Eletrônica todos os dias para entregar a melhor proteção ao seu imóvel, família, funcionários e patrimônio.
+              A necessidade de segurança sempre existiu. É o que move a ISF Soluções em Segurança todos os dias para entregar a melhor proteção ao seu imóvel, família, funcionários e patrimônio.
             </p>
             <div className="fade-up fade-up-4 hero-btns" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#contato" className="btn-primary">Solicitar Orçamento Grátis</a>
+              <a href="#contato" className="btn-primary">Solicitar orçamento grátis</a>
               <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
-              <a href="#servicos" className="btn-outline">Conheça os Serviços</a>
+              <a href="#servicos" className="btn-outline">Conheça os serviços</a>
             </div>
             <div className="fade-up fade-up-4" style={{ marginTop: 40, display: "flex", gap: 28, flexWrap: "wrap" }}>
               {["✔ 35+ anos de experiência", "✔ Revenda autorizada Intelbras", "✔ Monitoramento 24/7"].map(b => (
@@ -543,8 +629,9 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             onMouseLeave={() => setCarouselPaused(false)}
           >
             <button className="carousel-btn carousel-btn-prev" onClick={prevSlide} onMouseDown={() => setCarouselPaused(true)} onMouseUp={() => setCarouselPaused(false)} disabled={carouselIndex === 0} aria-label="Anterior">‹</button>
-            <div className="carousel-overflow">
+            <div className="carousel-overflow" onTouchStart={prodTouchStart} onTouchMove={prodTouchMove} onTouchEnd={prodTouchEnd} style={{ touchAction: "pan-y" }}>
               <div
+                ref={prodTrackRef}
                 className="carousel-track"
                 style={{ transform: `translateX(-${carouselIndex * (100 / VISIBLE)}%)` }}
               >
@@ -580,6 +667,26 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               />
             ))}
           </div>
+
+          {/* Ver todos */}
+          <div style={{ textAlign: "center", marginTop: 40 }}>
+            <a
+              href="/produtos"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                background: "#126798", color: "#fff",
+                padding: "14px 36px", borderRadius: 9999,
+                fontFamily: "inherit", fontWeight: 700, fontSize: "0.92rem",
+                textDecoration: "none", transition: "all 0.25s",
+                boxShadow: "0 4px 20px rgba(18,103,152,0.28)",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#0d5280"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "#126798"; e.currentTarget.style.transform = "none"; }}
+            >
+              Ver catálogo completo
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -590,7 +697,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <div className="section-label">Sobre a ISF Segurança</div>
             <div className="divider" />
             <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", marginBottom: 20, lineHeight: 1.2, letterSpacing: "-0.02em" }}>A melhor proteção com quem tem 35 anos de mercado</h2>
-            <p style={{ color: "#6b7280", lineHeight: 1.78, marginBottom: 16, fontSize: "0.97rem" }}>A ISF atua no mercado de segurança eletrônica há mais de 35 anos, atendendo Curitiba e Região Metropolitana. Associada à ABERC desde 1993 e membro da ABESE, a empresa é referência em qualidade e confiabilidade.</p>
+            <p style={{ color: "#6b7280", lineHeight: 1.78, marginBottom: 16, fontSize: "0.97rem" }}>A ISF atua no mercado de segurança eletrônica há mais de 35 anos, atendendo Curitiba e Região Metropolitana. Membro da ABESE, a empresa é referência em qualidade e confiabilidade.</p>
             <p style={{ color: "#6b7280", lineHeight: 1.78, marginBottom: 36, fontSize: "0.97rem" }}>Somos revenda autorizada Intelbras e trabalhamos com as principais marcas do setor, com uma equipe técnica certificada e sempre atualizada para oferecer o que há de mais moderno em segurança eletrônica.</p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a href="#contato" className="btn-primary">Fale com um especialista</a>
@@ -599,7 +706,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
             {[
-              { icon: "trophy", title: "Associada ABERC desde 1993", desc: "Mais de 35 anos filiada à Associação Brasileira de Empresas de Rastreamento e Controle." },
+              { icon: "trophy", title: "35+ anos de mercado", desc: "Empresa sólida e experiente, referência em segurança eletrônica em Curitiba desde 1988." },
               { icon: "handshake", title: "Membro da ABESE", desc: "Associação Brasileira das Empresas de Sistemas Eletrônicos de Segurança." },
               { icon: "check", title: "Revenda autorizada Intelbras", desc: "Respeito ao cliente e produtos originais com garantia de fábrica." },
               { icon: "pin", title: "Curitiba e Região Metropolitana", desc: "Atendimento local com rapidez e equipe técnica própria treinada." },
@@ -679,10 +786,11 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               disabled={blogCarouselIndex === 0}
               aria-label="Anterior"
             >‹</button>
-            <div className="carousel-overflow">
+            <div className="carousel-overflow" onTouchStart={blogTouchStart} onTouchMove={blogTouchMove} onTouchEnd={blogTouchEnd} style={{ touchAction: "pan-y" }}>
               <div
+                ref={blogTrackRef}
                 className="carousel-track"
-                style={{ transform: `translateX(-${blogCarouselIndex * (100 / BLOG_VISIBLE)}%)` }}
+                style={{ transform: `translateX(-${blogCarouselIndex * 100}%)` }}
               >
                 {blogPosts.map(post => (
                   <div key={post.id} className="blog-card-slide">
@@ -731,6 +839,26 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               />
             ))}
           </div>
+
+          {/* Ver todos os posts */}
+          <div style={{ textAlign: "center", marginTop: 40 }}>
+            <a
+              href="/blog"
+              style={{
+                display: "inline-flex", alignItems: "center", gap: 8,
+                background: "#126798", color: "#fff",
+                padding: "14px 36px", borderRadius: 9999,
+                fontFamily: "inherit", fontWeight: 700, fontSize: "0.92rem",
+                textDecoration: "none", transition: "all 0.25s",
+                boxShadow: "0 4px 20px rgba(18,103,152,0.28)",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = "#0d5280"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+              onMouseLeave={e => { e.currentTarget.style.background = "#126798"; e.currentTarget.style.transform = "none"; }}
+            >
+              Ver todos os artigos
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </div>
         </div>
       </section>
 
@@ -744,7 +872,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <p style={{ color: "#6b7280", fontSize: "1rem", maxWidth: 520, margin: "12px auto 0" }}>A satisfação e proteção de nossos clientes são a nossa maior prioridade.</p>
           </div>
           <div style={{ width: "100%", overflow: "hidden", paddingTop: 16 }}>
-            <TrustIndexWidget />
+            <GoogleReviewsWidget />
           </div>
         </div>
       </section>
@@ -765,7 +893,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           <div style={{ textAlign: "center", marginTop: 40 }}>
             <p style={{ color: "#6b7280", fontSize: "0.9rem", marginBottom: 16 }}>Ainda tem dúvidas? Fale diretamente com nossa equipe.</p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="#contato" className="btn-primary">Solicitar Orçamento Grátis</a>
+              <a href="#contato" className="btn-primary">Solicitar orçamento grátis</a>
               <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
             </div>
           </div>
@@ -822,7 +950,10 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                     <option>Outros</option>
                   </select>
                   <textarea className="form-input" placeholder="Descreva brevemente sua necessidade..." rows={4} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
-                  <button type="submit" className="btn-primary" style={{ width: "100%", textAlign: "center", borderRadius: 8 }}>Enviar Mensagem</button>
+                  <button type="submit" className="btn-primary" disabled={formSending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: formSending ? 0.7 : 1 }}>
+                    {formSending ? "Enviando…" : "Enviar Mensagem"}
+                  </button>
+                  {formError && <p style={{ fontSize: "0.82rem", color: "#dc2626", textAlign: "center", margin: 0 }}>{formError}</p>}
                   <p style={{ fontSize: "0.75rem", color: "#9ca3af", textAlign: "center" }}>Seus dados estão seguros. Nunca enviamos spam.</p>
                 </form>
               )}
@@ -881,14 +1012,14 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 14 }}>Contato</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 <a href="tel:4133787933" style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>(41) 3378-7933</a>
-                <a href="https://api.whatsapp.com/send?phone=5541999919191" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>WhatsApp (41) 99991-9191</a>
+                <a href="https://api.whatsapp.com/send?phone=554133787933" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>WhatsApp (41) 99991-9191</a>
                 <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.4)" }}>Seg–Sex: 8h30–18h00</span>
                 <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.4)" }}>R. Omar Dutra, 52 — Curitiba, PR</span>
               </div>
             </div>
           </div>
           <div style={{ borderTop: "1px solid #2d3137", paddingTop: 20, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-            <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>© 2025 ISF Segurança Eletrônica · Todos os direitos reservados</div>
+            <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>© 2025 ISF Soluções em Segurança · Todos os direitos reservados</div>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
               <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>CNPJ registrado · Curitiba, PR</div>
               <div style={{ display: "flex", gap: 10 }}>

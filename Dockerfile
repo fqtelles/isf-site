@@ -18,6 +18,9 @@ COPY . .
 # Build de produção
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+# DATABASE_URL aponta para o banco seed durante o build; em runtime o entrypoint
+# sobrescreve para /data/dev.db (volume persistente)
+ENV DATABASE_URL="file:/app/prisma/dev.db"
 
 RUN npm run build
 

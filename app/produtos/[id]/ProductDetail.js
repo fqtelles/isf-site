@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import SiteShell from "../../components/SiteShell";
 import { StatsStrip, WhyISF, CategoryFaq, FinalCta, ConversionStyles } from "../../components/ConversionSections";
+import QuoteModal from "../../components/QuoteModal";
 
 function WaIcon() {
   return (
@@ -35,6 +36,70 @@ const C = {
   white:  "#ffffff",
 };
 
+function Lightbox({ images, index, onClose, onPrev, onNext }) {
+  useEffect(() => {
+    function onKey(e) {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") onNext();
+      if (e.key === "ArrowLeft") onPrev();
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose, onNext, onPrev]);
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: "fixed", inset: 0, zIndex: 9999,
+        background: "rgba(0,0,0,0.88)",
+        display: "flex", alignItems: "center", justifyContent: "center",
+      }}
+    >
+      {/* Close */}
+      <button
+        onClick={onClose}
+        style={{ position: "absolute", top: 20, right: 24, background: "none", border: "none", color: "#fff", fontSize: "2rem", cursor: "pointer", lineHeight: 1 }}
+        aria-label="Fechar"
+      >×</button>
+
+      {/* Prev */}
+      {images.length > 1 && (
+        <button
+          onClick={e => { e.stopPropagation(); onPrev(); }}
+          style={{ position: "absolute", left: 16, background: "rgba(255,255,255,0.15)", border: "none", color: "#fff", fontSize: "1.8rem", borderRadius: "50%", width: 48, height: 48, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+          aria-label="Anterior"
+        >‹</button>
+      )}
+
+      {/* Image */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={images[index]}
+        alt=""
+        onClick={e => e.stopPropagation()}
+        style={{ maxWidth: "90vw", maxHeight: "90vh", objectFit: "contain", borderRadius: 8, boxShadow: "0 8px 48px rgba(0,0,0,0.6)" }}
+      />
+
+      {/* Next */}
+      {images.length > 1 && (
+        <button
+          onClick={e => { e.stopPropagation(); onNext(); }}
+          style={{ position: "absolute", right: 16, background: "rgba(255,255,255,0.15)", border: "none", color: "#fff", fontSize: "1.8rem", borderRadius: "50%", width: 48, height: 48, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+          aria-label="Próxima"
+        >›</button>
+      )}
+
+      {/* Counter */}
+      {images.length > 1 && (
+        <div style={{ position: "absolute", bottom: 20, left: "50%", transform: "translateX(-50%)", color: "rgba(255,255,255,0.7)", fontSize: "0.85rem" }}>
+          {index + 1} / {images.length}
+        </div>
+      )}
+    </div>
+  );
+}
+
 const productCss = `
   .btn-primary { background: #126798; color: #fff; border: none; padding: 14px 32px; border-radius: 9999px; font-family: inherit; font-weight: 700; font-size: 0.9rem; cursor: pointer; transition: all 0.25s; display: inline-block; }
   .btn-primary:hover { background: #0d5280; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(18,103,152,0.35); }
@@ -54,23 +119,42 @@ const productCss = `
 export default function ProductDetail({ product, related }) {
   const allImages = [product.image, ...(product.images || [])].filter(Boolean);
   const [active, setActive] = useState(0);
+  const [lightbox, setLightbox] = useState(false);
   const embedUrl = getYoutubeEmbed(product.video);
+
+  const lbPrev = useCallback(() => setActive(i => (i - 1 + allImages.length) % allImages.length), [allImages.length]);
+  const lbNext = useCallback(() => setActive(i => (i + 1) % allImages.length), [allImages.length]);
 
   return (
     <SiteShell>
       <style>{productCss}</style>
+      {lightbox && (
+        <Lightbox
+          images={allImages}
+          index={active}
+          onClose={() => setLightbox(false)}
+          onPrev={lbPrev}
+          onNext={lbNext}
+        />
+      )}
 
       <main style={{ maxWidth: 1100, margin: "0 auto", padding: "40px 5% 80px" }}>
 
-        {/* Breadcrumb */}
-        <div className="breadcrumb-row" style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 32, fontSize: "0.8rem", color: C.muted }}>
-          <a href="/" style={{ color: C.blue }}>Home</a>
-          <span>›</span>
-          <a href="/#produtos" style={{ color: C.blue }}>Produtos</a>
-          <span>›</span>
-          <span style={{ color: C.muted }}>{product.category}</span>
-          <span>›</span>
-          <span style={{ color: C.dark, fontWeight: 600 }}>{product.name}</span>
+        {/* Back + Breadcrumb */}
+        <div style={{ marginBottom: 32 }}>
+          <a href="/#produtos" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: "0.82rem", color: "#6b7280", textDecoration: "none", fontWeight: 500, marginBottom: 12 }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Voltar
+          </a>
+          <div className="breadcrumb-row" style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.8rem", color: C.muted }}>
+            <a href="/" style={{ color: C.blue }}>Home</a>
+            <span>›</span>
+            <a href="/#produtos" style={{ color: C.blue }}>Produtos</a>
+            <span>›</span>
+            <span style={{ color: C.muted }}>{product.category}</span>
+            <span>›</span>
+            <span style={{ color: C.dark, fontWeight: 600 }}>{product.name}</span>
+          </div>
         </div>
 
         {/* Main grid */}
@@ -79,7 +163,11 @@ export default function ProductDetail({ product, related }) {
           {/* Left — gallery */}
           <div>
             {/* Main image */}
-            <div style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 16, padding: 32, display: "flex", alignItems: "center", justifyContent: "center", height: 560, marginBottom: 16, position: "relative", overflow: "hidden" }}>
+            <div
+              onClick={() => setLightbox(true)}
+              style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 16, padding: 32, display: "flex", alignItems: "center", justifyContent: "center", height: 560, marginBottom: 16, position: "relative", overflow: "hidden", cursor: "zoom-in" }}
+              title="Clique para ampliar"
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={allImages[active]}
@@ -146,15 +234,18 @@ export default function ProductDetail({ product, related }) {
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <a
-                  href={`https://api.whatsapp.com/send?phone=5541999919191&text=Olá%2C%20tenho%20interesse%20no%20produto%20*${encodeURIComponent(product.name)}*%20e%20gostaria%20de%20um%20orçamento!`}
+                  href={`https://api.whatsapp.com/send?phone=554133787933&text=Olá%2C%20tenho%20interesse%20no%20produto%20*${encodeURIComponent(product.name)}*%20e%20gostaria%20de%20um%20orçamento!`}
                   target="_blank" rel="noopener noreferrer"
                   style={{ background: "#25d366", color: "#fff", fontSize: "0.85rem", padding: "12px 24px", borderRadius: 9999, fontFamily: "inherit", fontWeight: 600, textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, transition: "all 0.25s" }}
                 >
                   <WaIcon /> WhatsApp
                 </a>
-                <a href="/#contato" className="btn-primary" style={{ fontSize: "0.85rem", padding: "12px 24px" }}>
-                  Solicitar Orçamento
-                </a>
+                <QuoteModal
+                  label="Solicitar Orçamento"
+                  context={`Produto: ${product.name}`}
+                  buttonClass="btn-primary"
+                  buttonStyle={{ fontSize: "0.85rem", padding: "12px 24px" }}
+                />
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import LandingPage from "../components/LandingPage";
 export const metadata = {
   title: "Cerca Elétrica em Curitiba — Instalação e Manutenção | ISF Segurança Eletrônica",
   description:
-    "Instalação e manutenção de cerca elétrica em Curitiba e Região Metropolitana. Conforme ABNT NBR 17240. Residencial, comercial e condomínios. Orçamento gratuito.",
+    "Instalação e manutenção de cerca elétrica em Curitiba e Região Metropolitana. Conforme ABNT NBR IEC 60335-2-76. Residencial, comercial e condomínios. Orçamento gratuito.",
   openGraph: {
     title: "Cerca Elétrica em Curitiba | ISF Segurança",
     description: "Instalação de cerca elétrica em Curitiba. Norma ABNT. Orçamento gratuito.",
@@ -19,7 +19,7 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   name: "Instalação de Cerca Elétrica em Curitiba",
-  description: "Instalação e manutenção de cerca elétrica em residências, empresas e condomínios em Curitiba e Região Metropolitana, conforme ABNT NBR 17240.",
+  description: "Instalação e manutenção de cerca elétrica em residências, empresas e condomínios em Curitiba e Região Metropolitana, conforme ABNT NBR IEC 60335-2-76.",
   provider: {
     "@type": "LocalBusiness",
     "@id": "https://isf.com.br/#organization",
@@ -34,7 +34,7 @@ const service = {
   badge: "Cerca Elétrica em Curitiba",
   h1: "Cerca Elétrica em Curitiba — Instalação dentro da Norma ABNT",
   subtitle:
-    "Proteção perimetral com choque e alarme sonoro integrado. Instalação por empresa habilitada, em conformidade com a ABNT NBR 17240. Atendemos residências, empresas e condomínios em Curitiba e RMC.",
+    "Proteção perimetral com choque e alarme sonoro integrado. Instalação por empresa habilitada, em conformidade com a ABNT NBR IEC 60335-2-76. Atendemos residências, empresas e condomínios em Curitiba e RMC.",
   formPlaceholder: "Informe o tipo de imóvel (casa, empresa, condomínio) e o perímetro aproximado em metros...",
   benefits: [
     {
@@ -44,7 +44,7 @@ const service = {
     },
     {
       icon: "clipboard",
-      title: "Conforme ABNT NBR 17240",
+      title: "Conforme ABNT NBR IEC 60335-2-76",
       desc: "Instalação por empresa habilitada em conformidade com a norma brasileira. Laudo técnico entregue após a instalação.",
     },
     {
@@ -70,7 +70,7 @@ const service = {
   ],
   checklist: [
     "Visita técnica e medição do perímetro gratuitamente",
-    "Projeto personalizado conforme norma ABNT NBR 17240",
+    "Projeto personalizado conforme norma ABNT NBR IEC 60335-2-76",
     "Módulo eletrificador de alta qualidade (Genno, Pulsart ou similar)",
     "Instalação de fios, esticadores e isoladores",
     "Aterramento elétrico e proteção contra raios",
@@ -83,11 +83,11 @@ const service = {
   faqs: [
     {
       q: "Cerca elétrica é permitida em Curitiba?",
-      a: "Sim, é permitida mediante instalação por empresa habilitada e em conformidade com a ABNT NBR 17240. A norma exige sinalização obrigatória, aterramento correto e choque dentro de limites seguros. A ISF entrega laudo técnico após cada instalação.",
+      a: "Sim, é permitida mediante instalação por empresa habilitada e em conformidade com a ABNT NBR IEC 60335-2-76. A norma exige sinalização obrigatória, aterramento correto e choque dentro de limites seguros. A ISF entrega laudo técnico após cada instalação.",
     },
     {
       q: "Cerca elétrica faz mal à saúde?",
-      a: "Não, quando instalada corretamente. A corrente é de alta tensão mas baixíssima amperagem — suficiente para causar dor e inibir a invasão, mas não perigosa para adultos saudáveis. A ABNT NBR 17240 regula exatamente esses limites.",
+      a: "Não, quando instalada corretamente. A corrente é de alta tensão mas baixíssima amperagem — suficiente para causar dor e inibir a invasão, mas não perigosa para adultos saudáveis. A ABNT NBR IEC 60335-2-76 regula exatamente esses limites.",
     },
     {
       q: "Quanto metros de cerca posso instalar?",

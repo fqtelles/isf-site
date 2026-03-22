@@ -1,56 +1,72 @@
 {
-  "businessName": "ISF Segurança Eletrônica",
+  "businessName": "ISF Soluções em Segurança",
   "rating": 4.8,
-  "totalReviews": 120,
+  "totalReviews": 33,
   "profileUrl": "https://maps.app.goo.gl/g4LfZgmNfKspRp8g6",
   "reviews": [
     {
       "id": 1,
-      "author": "Marcos Yanase",
-      "authorInitials": "MY",
+      "author": "Rita de Cassia Graf",
+      "authorInitials": "RG",
       "rating": 5,
-      "relativeDate": "há 2 semanas",
-      "text": "Necessitei um serviço de instalação de cerca elétrica. Atendimento profissional desde o primeiro contato no WhatsApp; orçamento pontual e rápido com valor justo. A equipe de instalação foi muito educada e eficiente, deixando tudo limpo após o serviço. Recomendo!"
+      "relativeDate": "recentemente",
+      "text": "Sempre muito bem atendida! Empresa com muita experiência e compromisso com o cliente!"
     },
     {
       "id": 2,
-      "author": "Ana Paula Ferreira",
-      "authorInitials": "AF",
+      "author": "Delson Volpato",
+      "authorInitials": "DV",
       "rating": 5,
-      "relativeDate": "há 1 mês",
-      "text": "Excelente empresa! Instalaram câmeras de segurança na minha residência com muito profissionalismo. Equipe pontual, organizada e atenciosa. O sistema ficou perfeito e o suporte pós-venda é ótimo. Super recomendo a ISF!"
+      "relativeDate": "recentemente",
+      "text": "Se você precisa de soluções em segurança e monitoramento, pode chamar a ISF. São extremamente profissionais e um atendimento nota 10. Indico muito."
     },
     {
       "id": 3,
-      "author": "Roberto Lima",
-      "authorInitials": "RL",
+      "author": "André Silva",
+      "authorInitials": "AS",
       "rating": 5,
-      "relativeDate": "há 1 mês",
-      "text": "Contratei o monitoramento residencial e estou muito satisfeito. A central atende rapidamente e a equipe é muito profissional. Preço justo e serviço de qualidade. Com certeza renovarei o contrato."
+      "relativeDate": "recentemente",
+      "text": "Bom serviço, rápido, pontual e extremamente profissional. Recomendo."
     },
     {
       "id": 4,
-      "author": "Fernanda Costa",
-      "authorInitials": "FC",
+      "author": "Juliana Ruaro",
+      "authorInitials": "JR",
       "rating": 5,
-      "relativeDate": "há 2 meses",
-      "text": "Instalação de alarme feita com perfeição. Os técnicos foram super atenciosos e explicaram tudo sobre o funcionamento do sistema. Atendimento impecável do início ao fim. Empresa de confiança!"
+      "relativeDate": "recentemente",
+      "text": "Atendimento rápido e eficiente, profissionais muito responsáveis de trabalho impecável!"
     },
     {
       "id": 5,
-      "author": "Carlos Eduardo Souza",
-      "authorInitials": "CS",
+      "author": "Paulo Anton Giffhorn",
+      "authorInitials": "PG",
       "rating": 5,
-      "relativeDate": "há 2 meses",
-      "text": "Ótimo serviço de instalação de controle de acesso na minha empresa. Profissionais qualificados, cumpriram o prazo e o preço foi dentro do esperado. Sistema funcionando perfeitamente. Muito obrigado à equipe ISF!"
+      "relativeDate": "recentemente",
+      "text": "Sou atendido por essa empresa na minha residência e no meu consultório por vários anos. Sempre com presteza procurando solucionar situações que foram se apresentando nesses anos, com bom material e uma boa equipe técnica. Recomendo."
     },
     {
       "id": 6,
-      "author": "Patricia Mendes",
-      "authorInitials": "PM",
+      "author": "Erick Willian",
+      "authorInitials": "EW",
       "rating": 5,
-      "relativeDate": "há 3 meses",
-      "text": "Empresa séria e comprometida. Instalaram câmeras e alarme na nossa loja e o resultado superou as expectativas. Atendimento via WhatsApp é muito ágil. Recomendo sem hesitar!"
+      "relativeDate": "recentemente",
+      "text": "A ISF Soluções é uma empresa séria e comprometida com a qualidade. Tenho ótimas referências sobre o trabalho deles e sei que prezam pelo profissionalismo e pela satisfação dos clientes. Se você busca segurança e tecnologia de ponta, vale a pena conhecer!"
+    },
+    {
+      "id": 7,
+      "author": "Hélio Luz",
+      "authorInitials": "HL",
+      "rating": 5,
+      "relativeDate": "recentemente",
+      "text": "Ótimo atendimento comercial e técnico."
+    },
+    {
+      "id": 8,
+      "author": "Fátima Pavão",
+      "authorInitials": "FP",
+      "rating": 5,
+      "relativeDate": "recentemente",
+      "text": "O atendimento é excelente e rápido, desde o orçamento até a finalização. A transparência no atendimento é um diferencial importantíssimo! Aprovei e recomendo!"
     }
   ]
 }

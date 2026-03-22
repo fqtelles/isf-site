@@ -1,0 +1,56 @@
+{
+  "businessName": "ISF Segurança Eletrônica",
+  "rating": 4.8,
+  "totalReviews": 120,
+  "profileUrl": "https://maps.app.goo.gl/g4LfZgmNfKspRp8g6",
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Marcos Yanase",
+      "authorInitials": "MY",
+      "rating": 5,
+      "relativeDate": "há 2 semanas",
+      "text": "Necessitei um serviço de instalação de cerca elétrica. Atendimento profissional desde o primeiro contato no WhatsApp; orçamento pontual e rápido com valor justo. A equipe de instalação foi muito educada e eficiente, deixando tudo limpo após o serviço. Recomendo!"
+    },
+    {
+      "id": 2,
+      "author": "Ana Paula Ferreira",
+      "authorInitials": "AF",
+      "rating": 5,
+      "relativeDate": "há 1 mês",
+      "text": "Excelente empresa! Instalaram câmeras de segurança na minha residência com muito profissionalismo. Equipe pontual, organizada e atenciosa. O sistema ficou perfeito e o suporte pós-venda é ótimo. Super recomendo a ISF!"
+    },
+    {
+      "id": 3,
+      "author": "Roberto Lima",
+      "authorInitials": "RL",
+      "rating": 5,
+      "relativeDate": "há 1 mês",
+      "text": "Contratei o monitoramento residencial e estou muito satisfeito. A central atende rapidamente e a equipe é muito profissional. Preço justo e serviço de qualidade. Com certeza renovarei o contrato."
+    },
+    {
+      "id": 4,
+      "author": "Fernanda Costa",
+      "authorInitials": "FC",
+      "rating": 5,
+      "relativeDate": "há 2 meses",
+      "text": "Instalação de alarme feita com perfeição. Os técnicos foram super atenciosos e explicaram tudo sobre o funcionamento do sistema. Atendimento impecável do início ao fim. Empresa de confiança!"
+    },
+    {
+      "id": 5,
+      "author": "Carlos Eduardo Souza",
+      "authorInitials": "CS",
+      "rating": 5,
+      "relativeDate": "há 2 meses",
+      "text": "Ótimo serviço de instalação de controle de acesso na minha empresa. Profissionais qualificados, cumpriram o prazo e o preço foi dentro do esperado. Sistema funcionando perfeitamente. Muito obrigado à equipe ISF!"
+    },
+    {
+      "id": 6,
+      "author": "Patricia Mendes",
+      "authorInitials": "PM",
+      "rating": 5,
+      "relativeDate": "há 3 meses",
+      "text": "Empresa séria e comprometida. Instalaram câmeras e alarme na nossa loja e o resultado superou as expectativas. Atendimento via WhatsApp é muito ágil. Recomendo sem hesitar!"
+    }
+  ]
+}

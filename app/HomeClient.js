@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useMemo } from "react";
+import GoogleReviewsWidget from "./components/GoogleReviewsWidget";
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -141,19 +142,6 @@ function FaqItem({ q, a }) {
   );
 }
 
-function TrustIndexWidget() {
-  const containerRef = useRef(null);
-  useEffect(() => {
-    if (!containerRef.current) return;
-    if (containerRef.current.querySelector('script')) return;
-    const script = document.createElement('script');
-    script.src = "https://cdn.trustindex.io/loader.js?9c7189a677af24401466b727f55";
-    script.defer = true;
-    script.async = true;
-    containerRef.current.appendChild(script);
-  }, []);
-  return <div ref={containerRef} style={{ width: "100%", minHeight: "100px", marginBottom: "-16px" }} suppressHydrationWarning />;
-}
 
 const css = `
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -884,7 +872,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <p style={{ color: "#6b7280", fontSize: "1rem", maxWidth: 520, margin: "12px auto 0" }}>A satisfação e proteção de nossos clientes são a nossa maior prioridade.</p>
           </div>
           <div style={{ width: "100%", overflow: "hidden", paddingTop: 16 }}>
-            <TrustIndexWidget />
+            <GoogleReviewsWidget />
           </div>
         </div>
       </section>

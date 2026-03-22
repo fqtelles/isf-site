@@ -83,6 +83,46 @@
       "rating": 5,
       "relativeDate": "um ano atrás",
       "text": "Empresa ISF Soluções em segurança ..produtos de primeira linha,trabalho impecável,proficionais responsáveis. Super indico"
+    },
+    {
+      "id": 11,
+      "author": "Espaço Saúde",
+      "authorInitials": "ES",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Empresa confiável, sempre tem a solução para o que preciso. Recomendo"
+    },
+    {
+      "id": 12,
+      "author": "Daniella Lorenzo Richter",
+      "authorInitials": "DR",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Super indico, profissionais qualificados e atendimento rápido."
+    },
+    {
+      "id": 13,
+      "author": "Flora Baggio Pereira",
+      "authorInitials": "FP",
+      "rating": 5,
+      "relativeDate": "2 semanas atrás",
+      "text": "Atendimento perfeito!!!"
+    },
+    {
+      "id": 14,
+      "author": "Maria Clara Schuarts",
+      "authorInitials": "MS",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Uma empresa que podemos confiar de olhos fechado, muito boa mesmo"
+    },
+    {
+      "id": 15,
+      "author": "Cassiano Camargo",
+      "authorInitials": "CC",
+      "rating": 5,
+      "relativeDate": "8 meses atrás",
+      "text": "Bom atendimento, agilidade e preços justos"
     }
   ]
 }

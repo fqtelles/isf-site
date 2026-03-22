@@ -123,6 +123,46 @@
       "rating": 5,
       "relativeDate": "8 meses atrás",
       "text": "Bom atendimento, agilidade e preços justos"
+    },
+    {
+      "id": 16,
+      "author": "paulo cesar",
+      "authorInitials": "PC",
+      "rating": 5,
+      "relativeDate": "10 meses atrás",
+      "text": "Empresa seria com ótimos técnicos e suporte com ótimos aparelhos tbm"
+    },
+    {
+      "id": 17,
+      "author": "Marcelo Dea",
+      "authorInitials": "MD",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Responsabilidade e eficiência, pessoal estritamente competente, super indico"
+    },
+    {
+      "id": 18,
+      "author": "jose baggio",
+      "authorInitials": "JB",
+      "rating": 5,
+      "relativeDate": "11 meses atrás",
+      "text": "atendimento e serviços EXCELENTES!!! Parabéns ISF soluções em segurança!!"
+    },
+    {
+      "id": 19,
+      "author": "Ana Claudia Jesbick",
+      "authorInitials": "AJ",
+      "rating": 5,
+      "relativeDate": "7 anos atrás",
+      "text": "Trabalham com ótimos produtos de segurança eletrônica! Instalação impecável e ótimo atendimento. Recomendo!"
+    },
+    {
+      "id": 20,
+      "author": "Maria Angélica Soares",
+      "authorInitials": "MS",
+      "rating": 5,
+      "relativeDate": "6 meses atrás",
+      "text": "Rápidos e eficientes"
     }
   ]
 }

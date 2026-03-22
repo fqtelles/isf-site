@@ -17,10 +17,10 @@ cd "$APP_DIR"
 
 echo "[1/5] Atualizando código..."
 git fetch origin
-git stash
+# Descarta apenas arquivos auto-gerados que sempre conflitam no pull
+git checkout -- package-lock.json prisma/schema.prisma 2>/dev/null || true
 git checkout "$BRANCH"
 git pull origin "$BRANCH"
-git stash pop || true
 
 echo "[2/5] Instalando dependências..."
 npm ci --omit=dev

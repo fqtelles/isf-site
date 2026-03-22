@@ -1,34 +1,259 @@
+// seed.js gerado automaticamente em 2026-03-22T22:13:50.404Z
+// Para usar: node prisma/seed.js
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 const products = [
-  // Câmeras
-  { name: "Câmera Bullet VHL 1220 B",         brand: "Intelbras", category: "Câmeras",            image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2025-04/vhl_1220_b-persp_esq_0.png" },
-  { name: "Câmera Dome VHL 1220 D",           brand: "Intelbras", category: "Câmeras",            image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2025-04/vhl_1220_d-frontal_1.png" },
-  { name: "Speed Dome VHD 5220 SD",           brand: "Intelbras", category: "Câmeras",            image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2021-10/vhd-5220-sd-front.png" },
-  { name: "Câmera Bullet VHD 3230 B Slim",    brand: "Intelbras", category: "Câmeras",            image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2022-09/vhd-3230-b-sl-articulada_0.png" },
-  { name: "Câmera Dome VHD 3230 D Slim",      brand: "Intelbras", category: "Câmeras",            image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2022-09/vhd-3230-d-sl-frontal.png" },
-  { name: "Câmera Dual Color VHD 5240",       brand: "Intelbras", category: "Câmeras",            image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2024-04/vhd-5240-dual-color-%2B-persp-esq-2.png" },
-  // DVR / NVR
-  { name: "DVR HDCVI 3008",                   brand: "Intelbras", category: "DVR / NVR",          image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2019-01/hdcvi_3008_frente.png?itok=0d7DbK9f" },
-  { name: "Gravador XBP 400 HD",              brand: "Intelbras", category: "DVR / NVR",          image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/integration/xbp_400_hd_persp_esq.png?itok=Fc9fd2EI" },
-  { name: "NVR XPE 3200 Plus IP",             brand: "Intelbras", category: "DVR / NVR",          image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2025-09/xpe-3200-plus-ip_0.png?itok=J-kFoCQV" },
-  // Alarmes
-  { name: "Sensor Ativo Barreira 30m",        brand: "Dtech",     category: "Alarmes",            image: "https://isf.com.br/wp-content/uploads/2020/10/SENSOR-BARREIRA-ATIVO-DUPLO-FEIXE-30MTS-PB-30HD-AJUSTE-A-LASER-DETECTOR-IMP-.jpg" },
-  { name: "Sensor IVP 8000",                  brand: "Intelbras", category: "Alarmes",            image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2023-01/ivp_8000_front%201000px.png?itok=lquTZN5z" },
-  { name: "Teclado de Alarme XAT 4000 LCD",  brand: "Intelbras", category: "Alarmes",            image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2019-01/xat_4000_lcd_front.png?itok=dago6Tg_" },
-  { name: "Sirene BLA 2200",                  brand: "Intelbras", category: "Alarmes",            image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/integration/bla_2200_front_aceso.png?itok=vVKeowmH" },
-  { name: "Sensor Infravermelho IVA 7100 Hexa", brand: "Intelbras", category: "Alarmes",          image: "https://isf.com.br/wp-content/uploads/2020/10/SENSOR-ATIVO-IVA-7100-HEXA.jpg" },
-  // Cerca Elétrica
-  { name: "Central de Cerca Elétrica",        brand: "ISF",       category: "Cerca Elétrica",     image: "https://isf.com.br/wp-content/uploads/2020/10/Central-de-cerca-eletrica.jpg" },
-  { name: "Módulo de Choque",                 brand: "ISF",       category: "Cerca Elétrica",     image: "https://isf.com.br/wp-content/uploads/2020/10/Modulo-de-choque.jpg" },
-  { name: "Haste Industrial Alumínio 25x25",  brand: "Confiseg",  category: "Cerca Elétrica",     image: "https://isf.com.br/wp-content/uploads/2020/10/HASTE-INDUSTRIAL-ALUMINIO-25X25-1.00-MT-6-ISOL-%E2%80%93-CONFISEG.jpg" },
-  { name: "Cabo de Aço Galvanizado 100m",     brand: "Vonder",    category: "Cerca Elétrica",     image: "https://isf.com.br/wp-content/uploads/2020/10/CABO-DE-ACO-AF-ALMA-DE-FIBRA-GALVANIZADO-1-16-6X7-100MTS-.jpg" },
-  // Controle de Acesso
-  { name: "Leitor Facial FR 330 EXT",         brand: "Intelbras", category: "Controle de Acesso", image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/integration/fr_330_ext_front_led.png?itok=eymWt2dR" },
-  { name: "Leitor Biométrico SS 420 MF",      brand: "Intelbras", category: "Controle de Acesso", image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2019-01/ss_420_mf_front_03.png?itok=XRtJvua4" },
-  { name: "Leitor Facial SS 3540 MF Face EX", brand: "Intelbras", category: "Controle de Acesso", image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2022-03/ss-3540-mf-face-ex-frontal.png?itok=patXGbfM" },
-  { name: "Controle Remoto XAC 4000",         brand: "Intelbras", category: "Controle de Acesso", image: "https://isf.com.br/wp-content/uploads/2020/10/Controle-remoto-XAC-4000-Smart-control.jpg" },
+  {
+    name: "Câmera Bullet VHD 1220 B",
+    brand: "Intelbras",
+    category: "Câmeras",
+    image: "/uploads/1774034497153-c_mera_intelbras_vhd1220b.jpg",
+    images: ["https://backend.intelbras.com/sites/default/files/styles/large/public/2024-12/nova-tecnologia-full-color-e-ir-vhd-1220-b-full-color%2B_0.jpg","https://backend.intelbras.com/sites/default/files/styles/large/public/2024-12/maior-definicao-de-imagem-full-hd-vhd-1220-b-full-color%2B_0.jpg"],
+    description: "Ideal para projetos de monitoramento noturno, garante imagens coloridas de maneira inteligente, mesmo no escuro total.\nInstalação recomendada para fachadas, estacionamentos, garagens e perímetros externos de imóveis residenciais e comerciais. Com maior definição, a câmera Full HD 1080p proporciona imagens mais nítidas e ricas em detalhes, sendo a solução ideal para quem deseja imagens em alta resolução.",
+    video: "https://www.youtube.com/watch?v=nfWmC1LE4Vs",
+    slug: "camera-bullet-vhd-1220-b",
+  },
+  {
+    name: "Câmera Dome VHD 1220 D Full Color",
+    brand: "Intelbras",
+    category: "Câmeras",
+    image: "/uploads/1774034604239-c_mera_intelbras_vhd1220d.jpg",
+    images: ["https://backend.intelbras.com/sites/default/files/styles/large/public/2024-12/maior-definicao-de-imagem-full-hd-vhd-1220-d-full-color%2B.jpg"],
+    description: "Ideal para projetos de monitoramento noturno, garante imagens coloridas de maneira inteligente, mesmo no escuro total. Instalação recomendada para ambientes internos de imóveis residenciais e comerciais. Com maior definição, a câmera Full HD 1080p proporciona imagens mais nítidas e ricas em detalhes, sendo a solução ideal para quem deseja imagens em alta resolução.",
+    video: "https://www.youtube.com/watch?v=nfWmC1LE4Vs",
+    slug: "camera-dome-vhl-1220-d",
+  },
+  {
+    name: "Speed Dome VIP 3225 SD IR com IA",
+    brand: "Intelbras",
+    category: "Câmeras",
+    image: "/uploads/1774036193558-c_mera_intelbras_speed_dome_3225_ip.webp",
+    images: ["https://backend.intelbras.com/sites/default/files/styles/large/public/2022-02/capture-movimentos-com-qualidade-vip-3225-sd-ir-ia.jpg"],
+    description: "A câmera IP da série 3000 com recursos de Inteligência Artificial, 100 metros de IR e zoom de até 25x.\nZoom óptico de 25x - aproxima a imagem em até 25 vezes sem perda de qualidade. Isso ajudará na melhor identificação de perfis de pessoas ou placas de automóveis.\nEvite alarmes falsos - com os recursos de Inteligência Artificial, defina que o alarme dispare somente quando veículos ou pessoas ultrapassarem áreas pré-determinadas.\nCapture movimentos com qualidade - com a taxa de frames de 60 FPS, é possível capturar imagens em movimento com mais qualidade.",
+    video: "https://www.youtube.com/watch?v=qMrXAq1gaqQ",
+    slug: "speed-dome-vip-3225-ia",
+  },
+  {
+    name: "Câmera Bullet VHD 3230 B Multi HD",
+    brand: "Intelbras",
+    category: "Câmeras",
+    image: "/uploads/1774037358664-c_mera_intelbras_3230_b_multi_hd.jpg",
+    images: ["https://backend.intelbras.com/sites/default/files/styles/large/public/2020-12/Flyer-Digital-VHD-3230-B-G6_12.jpg","https://backend.intelbras.com/sites/default/files/styles/large/public/2020-12/Flyer-Digital-VHD-3230-B-G6_14.jpg"],
+    description: "Ótimo custo-benefício para projetos robustos, pelo acabamento metálico da câmera e imagens em Full HD (1080p).\nAmpliando sua visão - possui sensor com 1/2.8\", 2 megapixels CMOS e lente de 3.6 mm, capaz de monitorar ambientes amplos, garantindo maior qualidade e abertura na imagem.\nEnxergue no escuro total - com o infravermelho, a câmera alcança uma distância de até 30 metros no escuro, podendo ser utilizada em ambientes com pouca ou nenhuma luminosidade.\nMais proteção com durabilidade - possui circuito adicional de proteção contra surtos de tensão e case metálico com proteção IP67, para instalação em ambientes internos e externos.",
+    video: "",
+    slug: "camera-bullet-vhd-3230-b-multi",
+  },
+  {
+    name: "Câmera Dome VHD 3230 D Multi HD",
+    brand: "Intelbras",
+    category: "Câmeras",
+    image: "/uploads/1774038173945-c_mera_intelbras_vhd_3230_d_multi_hd.jpg",
+    images: ["https://backend.intelbras.com/sites/default/files/styles/large/public/2022-06/visao-ampliada-da-cena-vhd-3230-d-g7.jpg","https://backend.intelbras.com/sites/default/files/2022-06/camera-infravermelho-multi-hd-vhd-3230-d-g7.jpg"],
+    description: "Câmera Infravermelho Multi HD com ótimo custo-benefício para projetos robustos, pelo acabamento metálico da câmera e imagens em Full HD (1080p).\nMonitoramento eficiente até na escuridão - com o infravermelho, a câmera alcança uma distância de até 30 metros no escuro, podendo ser utilizada em ambientes com pouca ou nenhuma luminosidade.\nVisão ampliada da cena - com ângulo de abertura de 109°, a lente da VHD 3230 D G8 é capaz de se adaptar a diversos ambientes, garantindo maior abertura na imagem para monitorar locais amplos.\nDurabilidade a toda prova - o modelo possui circuito adicional de proteção contra surtos de tensão e case metálico com proteção IP67, para instalações em ambientes internos e externos.",
+    video: "",
+    slug: "camera-dome-vhd-3230-d-multi",
+  },
+  {
+    name: "Câmera Dual Color VHD 5240",
+    brand: "Intelbras",
+    category: "Câmeras",
+    image: "/uploads/1774038488540-c_mera_intelbras_vhd_5240_b_dual_color.jpg",
+    images: ["https://backend.intelbras.com/sites/default/files/styles/large/public/2024-04/nova-tecnologia-full-color-%2B-ir-vhd-5240-dual-color-%2B.jpg"],
+    description: "Câmera com visão noturna e alarme sonoro, ideal para projetos com monitoramento noturno, garantindo imagens coloridas no escuro total e em definição Full HD.\nNova tecnologia Full Color + IR - sensor de alta sensibilidade, aciona a função Full Color de maneira inteligente e captura os detalhes do ambiente mesmo durante a noite.\nMonitoramento eficiente para o seu projeto - possibilita gerar alertas visuais e sonoros, tornando seu monitoramento mais seguro e completo.",
+    video: "https://www.youtube.com/watch?v=gmA-gALEjhM",
+    slug: "camera-dual-color-vhd-5240",
+  },
+  {
+    name: "DVR HDCVI 3008",
+    brand: "Intelbras",
+    category: "DVR / NVR",
+    image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2019-01/hdcvi_3008_frente.png?itok=0d7DbK9f",
+    images: [],
+    description: "Gravador digital de vídeo 8 canais HDCVI com suporte a resolução Full HD 1080p em todos os canais simultaneamente. Compatível com câmeras HDCVI, AHD, CVBS e IP, oferecendo flexibilidade para ampliar ou modernizar sistemas existentes.\nInterface intuitiva com acesso via browser ou app iSIC para visualização e gravação remota em tempo real. Suporte a HD de até 10TB para armazenamento de longa duração.\nInclui detecção inteligente de movimentos por zona, gravação programada e notificação por e-mail em caso de eventos. Saídas de vídeo VGA e HDMI para monitoramento local.",
+    video: "https://www.youtube.com/watch?v=awW9ymXDsdA",
+    slug: "dvr-hdcvi-3008",
+  },
+  {
+    name: "Baluns passivos",
+    brand: "Intelbras",
+    category: "Câmeras",
+    image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/integration/xbp_400_hd_persp_esq.png?itok=Fc9fd2EI",
+    images: [],
+    description: "Proteção contra surtos de tensão e filtro contra interferência e ruídos.\nConector de borne com parafuso para engate do cabo UTP. Conector BNC macho.\nCompatíveis com o formato de vídeo NTSC e com as tecnologias analógicas tradicionais, HD, Full HD, 4MP e 4K.",
+    video: "",
+    slug: "gravador-xbp-400-hd",
+  },
+  {
+    name: "Vídeo-porteiro XPE 3200 Plus IP",
+    brand: "Intelbras",
+    category: "Controle de Acesso",
+    image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2025-09/xpe-3200-plus-ip_0.png?itok=J-kFoCQV",
+    images: [],
+    description: "Vídeo-porteiro para ambientes internos e externos com reconhecimento facial, câmera para chamadas, acesso por QR Code e muito mais. Acesso rápido, prático e seguro. O XPE 3200 PLUS IP conta com leitura facial de alta precisão, garantindo um acesso muito mais rápido, podendo armazenar até 10.000 faces.",
+    video: "",
+    slug: "nvr-xpe-3200-plus-ip",
+  },
+  {
+    name: "Sensor Ativo Barreira 30m",
+    brand: "Dtech",
+    category: "Alarmes",
+    image: "https://isf.com.br/wp-content/uploads/2020/10/SENSOR-BARREIRA-ATIVO-DUPLO-FEIXE-30MTS-PB-30HD-AJUSTE-A-LASER-DETECTOR-IMP-.jpg",
+    images: [],
+    description: "Sensor de barreira ativa com duplo feixe infravermelho e alcance de até 30 metros entre emissor e receptor. Disparo de alarme somente quando ambos os feixes são interrompidos simultaneamente, reduzindo drasticamente falsos alarmes por pássaros, folhas ou vento.\nAjuste fino do alinhamento via laser, garantindo precisão na instalação mesmo em longas distâncias. Resistente a intempéries — ideal para perímetros externos, muros, portões e galpões.\nSaída de relé compatível com qualquer central de alarme do mercado. Tensão de alimentação 12Vcc. Certificação IP65 para uso externo.",
+    video: "",
+    slug: "sensor-ativo-barreira-30m",
+  },
+  {
+    name: "Sensor IVP 8000",
+    brand: "Intelbras",
+    category: "Alarmes",
+    image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2023-01/ivp_8000_front%201000px.png?itok=lquTZN5z",
+    images: [],
+    description: "Sensor de presença PIR (infravermelho passivo) da linha 8000, com cobertura de até 12 metros e ângulo de detecção de 90°. Tecnologia antimascaramento impede que criminosos cubram o sensor para anular sua função.\nProteção antissabotagem integrada: aciona alarme imediatamente se o sensor for removido ou danificado. Compatível com as centrais de alarme Intelbras das linhas iON, AMT e XAM.\nAlta imunidade a interferências de luz solar, lâmpadas fluorescentes e variações de temperatura. Instalação em parede ou teto. Indicado para ambientes internos residenciais e comerciais.",
+    video: "https://www.youtube.com/watch?v=8r0_wo_7mFw",
+    slug: "sensor-ivp-8000",
+  },
+  {
+    name: "Teclado de Alarme XAT 4000 LCD",
+    brand: "Intelbras",
+    category: "Alarmes",
+    image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2019-01/xat_4000_lcd_front.png?itok=dago6Tg_",
+    images: [],
+    description: "Teclado de comando com display LCD retroiluminado para controle intuitivo de centrais de alarme Intelbras. Compatível com as centrais das linhas iON e AMT via barramento RS-485.\nExibe informações em tempo real: zonas abertas, estado do sistema (armado/desarmado), falhas e eventos registrados. Até 8 zonas de acionamento direto via teclas dedicadas.\nDesign moderno e resistente. Permite armar e desarmar o sistema, programar partições e acessar o histórico de eventos sem necessidade de notebook ou computador. Ideal para residências e pequenos comércios.",
+    video: "",
+    slug: "teclado-de-alarme-xat-4000-lcd",
+  },
+  {
+    name: "Sensor Infravermelho IVA 7100 Hexa",
+    brand: "Intelbras",
+    category: "Alarmes",
+    image: "https://isf.com.br/wp-content/uploads/2020/10/SENSOR-ATIVO-IVA-7100-HEXA.jpg",
+    images: [],
+    description: "Sensor PIR com tecnologia Hexa — seis elementos piroelétricos dispostos em configuração exclusiva para detecção mais precisa e ampla cobertura. Reduz substancialmente falsos alarmes causados por animais de estimação de até 20 kg.\nAlcance de 12 metros com ângulo de detecção de 90°. Lens segmentada proporciona detecção em múltiplas camadas, eliminando pontos cegos. Imunidade a interferências de luz solar e lâmpadas fluorescentes.\nCompatível com centrais de alarme da Intelbras e do mercado em geral. Ideal para residências com pets e ambientes com grande variação de temperatura.",
+    video: "",
+    slug: "sensor-infravermelho-iva-7100-hexa",
+  },
+  {
+    name: "Central de Cerca Elétrica",
+    brand: "ISF",
+    category: "Cerca Elétrica",
+    image: "https://isf.com.br/wp-content/uploads/2020/10/Central-de-cerca-eletrica.jpg",
+    images: [],
+    description: "Central de controle para sistemas de cerca elétrica residenciais e comerciais. Gera pulsos de alta tensão e baixa corrente (conforme ABNT NBR 15791) que causam choque doloroso e temporariamente incapacitante — não letal.\nSinalização luminosa de estado: armado, desarmado e corte de fio. Alimentação bivolt (110/220V) com proteção contra sobrecarga e curto-circuito. Saída para sirene integrada ativada automaticamente no corte do fio.\nCompatível com teclados de controle remoto e sistemas de monitoramento. Instalação em paralelo com central de alarme para notificação imediata de eventos perimetrais.",
+    video: "",
+    slug: "central-de-cerca-eletrica",
+  },
+  {
+    name: "Módulo de Choque",
+    brand: "ISF",
+    category: "Cerca Elétrica",
+    image: "https://isf.com.br/wp-content/uploads/2020/10/Modulo-de-choque.jpg",
+    images: [],
+    description: "Módulo gerador de pulsos elétricos para expansão ou reposição em sistemas de cerca elétrica existentes. Pulsos de alta tensão e baixíssima corrente, em conformidade com a norma ABNT NBR 15791 para segurança de pessoas e animais.\nPermite configurar múltiplas zonas de cerca em um único sistema, com monitoramento independente por setor. Integração com centrais de alarme via saída de relé seco.\nAlimentação 12Vcc. Invólucro robusto para instalação em caixas de proteção externas. Indicado para projetos de cerca elétrica de médio e grande porte.",
+    video: "",
+    slug: "modulo-de-choque",
+  },
+  {
+    name: "Haste Industrial Alumínio 25x25",
+    brand: "Confiseg",
+    category: "Cerca Elétrica",
+    image: "https://isf.com.br/wp-content/uploads/2020/10/HASTE-INDUSTRIAL-ALUMINIO-25X25-1.00-MT-6-ISOL-%E2%80%93-CONFISEG.jpg",
+    images: [],
+    description: "Haste para cerca elétrica em alumínio anodizado de perfil quadrado 25x25mm com 1 metro de comprimento e 6 isoladores inclusos. Material nobre que oferece alta resistência à corrosão e durabilidade em ambientes externos.\nIsoladores em polipropileno de alta resistência dielétrica para garantir a integridade do sistema. Compatível com todos os tipos de fio, cabo de aço galvanizado e fio de aço inox para cerca elétrica.\nFixação em muros de alvenaria, concreto ou estruturas metálicas. Ideal para perímetros industriais e comerciais que demandam robustez e resistência mecânica superior.",
+    video: "",
+    slug: "haste-industrial-aluminio-25x25",
+  },
+  {
+    name: "Leitor Facial FR 330 EXT",
+    brand: "Intelbras",
+    category: "Controle de Acesso",
+    image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/integration/fr_330_ext_front_led.png?itok=eymWt2dR",
+    images: [],
+    description: "Leitor biométrico facial para ambientes externos com reconhecimento em menos de 1 segundo mesmo com máscara, óculos ou chapéu. Suporte a até 3.000 templates faciais armazenados localmente.\nTecnologia anti-spoofing (Anti-Fake) impede o uso de fotos ou vídeos para enganar o sistema. LED de status colorido e buzzer informam o resultado da autenticação em tempo real.\nCertificação IP65 para uso em ambientes externos com chuva e poeira. Interfaces de comunicação: Wiegand 26/34, RS-485 e TCP/IP. Saída relé para acionamento de cancelas, fechaduras e portões.",
+    video: "",
+    slug: "leitor-facial-fr-330-ext",
+  },
+  {
+    name: "Leitor Biométrico SS 420 MF",
+    brand: "Intelbras",
+    category: "Controle de Acesso",
+    image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2019-01/ss_420_mf_front_03.png?itok=XRtJvua4",
+    images: [],
+    description: "Controlador de acesso com leitura biométrica de impressão digital e cartão MIFARE (MF). Suporte a até 500 templates de digitais e 500 cartões de proximidade armazenados localmente.\nDisplay LCD retroiluminado e teclado numérico para entrada de senha como método alternativo ou complementar de autenticação. Interface Wiegand 26 para integração com controladoras de acesso e sistemas de terceiros.\nAlimentação 12Vcc. Saída relé para acionamento de fechaduras elétricas, catracas e portões. Ideal para controle de acesso em condomínios, escritórios e áreas restritas.",
+    video: "https://www.youtube.com/watch?v=-hGzmoFOT4o",
+    slug: "leitor-biometrico-ss-420-mf",
+  },
+  {
+    name: "Leitor Facial SS 3540 MF Face EX",
+    brand: "Intelbras",
+    category: "Controle de Acesso",
+    image: "https://backend.intelbras.com/sites/default/files/styles/medium/public/2022-03/ss-3540-mf-face-ex-frontal.png?itok=patXGbfM",
+    images: [],
+    description: "Controlador de acesso facial de alto desempenho para ambientes externos, com reconhecimento facial ultrarrápido e tecnologia Anti-Fake de terceira geração que detecta e rejeita tentativas de fraude com fotos, vídeos ou máscaras 3D.\nSuporte a até 3.000 templates faciais e 10.000 cartões MIFARE. Múltiplos métodos de autenticação: facial, cartão, digital ou combinação de dois fatores para maior segurança.\nInterfaces TCP/IP, RS-485 e Wiegand 26/34 para integração com os principais sistemas de controle de acesso. Certificação IP65 para uso externo. Saída relé para cancelas, fechaduras e portões automáticos.",
+    video: "https://www.youtube.com/watch?v=6-ph-pdSVUs",
+    slug: "leitor-facial-ss-3540-mf-face-ex",
+  },
+  {
+    name: "Controle Remoto XAC 4000",
+    brand: "Intelbras",
+    category: "Alarmes",
+    image: "https://isf.com.br/wp-content/uploads/2020/10/Controle-remoto-XAC-4000-Smart-control.jpg",
+    images: [],
+    description: "Controle remoto de alta segurança para acionamento de centrais de alarme, portões e sistemas de acesso. Tecnologia de código rotativo (rolling code) — o código de transmissão muda a cada acionamento, impedindo clonagem por captura de sinal.\nAlcance de até 100 metros em campo aberto. Compatível com as centrais de alarme Intelbras das linhas iON e AMT, além de módulos de acionamento remoto XAM. Frequência de operação 433MHz.\nDesign ergonômico com botões programáveis para diferentes funções (armar, desarmar, acionar sirene). Bateria de longa duração com indicador de carga baixa.",
+    video: "",
+    slug: "controle-remoto-xac-4000",
+  },
+  {
+    name: "Vídeo-porteiro Allo wT7",
+    brand: "Intelbras",
+    category: "Controle de Acesso",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbWZ7vzMi4yx6foOuDfXI2P9zY0fxtg3FJqg&s",
+    images: [],
+    description: "Atendimento, visualização e abertura de portas remotamente, integração com câmeras Multi HD® e controle de tudo pelo app Allo Plus. Conexão Wi-Fi.\nTecnologia Multi HD® de alta qualidade de imagem no display touch screen 7" e compatibilidade com câmeras extras HD e Full HD.\n",
+    video: "",
+    slug: "v",
+  },
+  {
+    name: "Vídeo-porteiro IV7010 com monofone",
+    brand: "Intelbras",
+    category: "Controle de Acesso",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_2iAbpKcSSovEDnaaS5NwsDrBETXsyYF_RA&s",
+    images: [],
+    description: "O IV 7010 HS possui capacidade para 4 canais de vídeo permitindo a visualização de até quatro ambientes diferentes, e, graças aos LEDs infravermelhos, é possível captar imagens mesmo em locais sem iluminação. Além disso, o vídeo-porteiro permite inúmeras configurações, podendo, inclusive, ser conectado a centrais de alarme, DVRs (gravadores digitais de vídeo) e central telefônica, realizando a função \"siga-me\" para um telefone fixo ou celular.",
+    video: "",
+    slug: "v-2",
+  },
+  {
+    name: "Câmera iM7 Full Color 360º",
+    brand: "Intelbras",
+    category: "Câmeras",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5m3MltwVcJRcveDSKtEFsUs5MMCdXMKi_lg&s",
+    images: ["https://backend.intelbras.com/sites/default/files/styles/large/public/2022-06/tecnologia-full-color-im7-full-color.jpg","https://backend.intelbras.com/sites/default/files/styles/large/public/2023-08/monitoramento-360-com-imagens-em%20full-hd-im7-full-color.jpg"],
+    description: "Resolução Full HD, tecnologia Full Color e proteção contra chuva e poeira, para você não perder nenhum detalhe. O amplo campo de visão de 360° captura imagens em Full HD e possibilita acompanhar tudo apenas movimentando a câmera pelo aplicativo Mibo Cam. Com a proteção IP66, você conta com um monitoramento de qualidade e em todas as ocasiões, faça chuva ou faça sol. Tecnologia Full Color - com a luz branca da iM7 Full Color é possível ter um monitoramento com imagens coloridas 24 horas por dia, mesmo em ambientes sem luminosidade.\nPermite armazenar gravações no cartão micro SD, em DVR/NVR com tecnologia Onvif ou na nuvem via Mibo Cloud (adquiridos separadamente).",
+    video: "",
+    slug: "camaera-im7-full-360",
+  },
+  {
+    name: "Câmera iM5 SC Full HD",
+    brand: "Intelbras",
+    category: "Câmeras",
+    image: "/uploads/1774033944867-c_mera_im5_sc_full_hd.jpg",
+    images: ["/uploads/1774034021850-c_mera_im5_sc_full_hd_chuva_e_poeira.jpg","/uploads/1774034192724-c_mera_im5_sc_full_hd_alta_defini__o.jpg"],
+    description: "Câmera Mibo com amplo campo de visão, imagens em alta definição, sensor infravermelho, armazenamento em nuvem e muito mais.\nVisão noturna de qualidade - o infravermelho com alcance de até 30 metros permite que a câmera faça um monitoramento com imagens claras, mesmo em ambientes com pouca luminosidade.\nImagens em alta definição e amplo campo de visão - para não perder nenhum detalhe: a câmera capta imagens em qualidade Full HD (1080p), além de contar com amplo campo de visão e zoom digital de até 8×.\nPermite armazenar gravações no cartão micro SD, em DVR/NVR com tecnologia Onvif ou na nuvem via Mibo Cloud (adquiridos separadamente).",
+    video: "",
+    slug: "c-2",
+  },
+  {
+    name: "Câmera iM3 Full HD Interna",
+    brand: "Intelbras",
+    category: "Câmeras",
+    image: "/uploads/1774034927240-mibo_interna.png",
+    images: ["/uploads/1774034936825-c_mera_mibo_im3_interna.jpg","https://backend.intelbras.com/sites/default/files/styles/large/public/2022-02/funcao-baba-eletronica-im3.jpg","/uploads/1774035254216-c_mera_mibo_im3_interna_vis_o_superwide.jpg"],
+    description: "Imagens em alta definição, armazenamento em nuvem, instalação rápida e descomplicada.\nFunção Babá Eletrônica - você acompanha todos os momentos sem interrupções e em tempo real, através do aplicativo Mibo Cam. Graças a inteligência artificial integrada, a câmera detecta barulhos no ambiente para que você receba alertas e fique de olho em tudo de onde estiver. \nInteração por voz - é possível ver, ouvir e falar com quem está no ambiente monitorado.\nVisão superwide e imagens Full HD - o campo de visão de 131° aliado aos sensores de alta tecnologia capturam imagens claras mesmo no escuro, para que você não perca nenhum detalhe.\nPermite armazenar gravações no cartão micro SD, em DVR/NVR com tecnologia Onvif ou na nuvem via Mibo Cloud (adquiridos separadamente).",
+    video: "",
+    slug: "camera-im3-full-interna",
+  },
 ];
 
 const blogPosts = [
@@ -37,126 +262,67 @@ const blogPosts = [
     title: "5 sinais de que sua câmera de segurança está desatualizada",
     excerpt: "Tecnologia avança rápido. Descubra se o seu sistema ainda oferece proteção real.",
     readTime: "4 min",
-    content: `A segurança do seu imóvel depende diretamente da qualidade e atualidade do sistema de monitoramento instalado. Câmeras antigas podem criar uma falsa sensação de proteção — e é justamente aí que mora o perigo.
-
-Neste artigo, listamos cinco sinais concretos de que chegou a hora de atualizar o seu sistema de câmeras.
-
-1. Resolução de imagem baixa
-
-Se as imagens gravadas são pixeladas ou embaçadas, o sistema não é capaz de identificar rostos, placas de veículos ou detalhes importantes em caso de incidente. Sistemas modernos oferecem resolução Full HD ou 4K, com nitidez suficiente para uso como prova em processos judiciais.
-
-2. Ausência de visão noturna ou visão noturna colorida
-
-Câmeras antigas só oferecem infravermelho monocromático com alcance limitado. As novas gerações contam com tecnologias como Dual Light e Color Night Vision, que entregam imagens coloridas mesmo em ambientes com pouca luz.
-
-3. Armazenamento local sem backup em nuvem
-
-Se o seu DVR ou NVR fica fisicamente no local monitorado, um ladrão experiente pode simplesmente levá-lo junto. Sistemas atuais permitem backup automático em nuvem ou armazenamento remoto, garantindo que as imagens estejam protegidas independentemente do que aconteça no local.
-
-4. Sem acesso remoto pelo celular
-
-Não consegue acompanhar as câmeras em tempo real pelo smartphone? Isso é um sinal claro de obsolescência. Hoje, qualquer sistema de entrada já permite visualização ao vivo, receber alertas de movimento e acessar gravações de qualquer lugar do mundo.
-
-5. Falta de integração com alarmes e controle de acesso
-
-Um sistema de segurança eficiente é integrado: câmeras, alarmes, cercas elétricas e controle de acesso funcionam em conjunto. Se o seu sistema trabalha de forma isolada, você está perdendo eficiência e capacidade de resposta.
-
-Se você identificou um ou mais desses sinais no seu sistema atual, entre em contato com a ISF para uma avaliação técnica gratuita. Nossa equipe pode recomendar as melhores soluções para o seu perfil de imóvel e orçamento.`,
+    content: "<p>A segurança do seu imóvel depende diretamente da qualidade e atualidade do sistema de monitoramento instalado. <strong>Câmeras antigas podem criar uma falsa sensação de proteção</strong> — e é justamente aí que mora o perigo.</p>\n<p>Neste artigo, listamos cinco sinais concretos de que chegou a hora de atualizar o seu sistema de câmeras.</p>\n<h2>1. Resolução de imagem baixa</h2>\n<p>Se as imagens gravadas são <strong>pixeladas ou embaçadas</strong>, o sistema não é capaz de identificar rostos, placas de veículos ou detalhes importantes em caso de incidente. Sistemas modernos oferecem resolução <strong>Full HD ou 4K</strong>, com nitidez suficiente para uso como prova em processos judiciais.</p>\n<h2>2. Ausência de visão noturna ou visão noturna colorida</h2>\n<p>Câmeras antigas só oferecem infravermelho monocromático com alcance limitado. As novas gerações contam com tecnologias como <strong>Dual Light</strong> e <strong>Color Night Vision</strong>, que entregam imagens coloridas mesmo em ambientes com pouca luz.</p>\n<h2>3. Armazenamento local sem backup em nuvem</h2>\n<p>Se o seu DVR ou NVR fica fisicamente no local monitorado, um invasor experiente pode simplesmente <strong>levá-lo junto</strong>. Sistemas atuais permitem backup automático em nuvem ou armazenamento remoto, garantindo que as imagens estejam protegidas independentemente do que aconteça no local.</p>\n<h2>4. Sem acesso remoto pelo celular</h2>\n<p>Não consegue acompanhar as câmeras em tempo real pelo smartphone? Isso é um sinal claro de obsolescência. Hoje, qualquer sistema de entrada já permite <strong>visualização ao vivo</strong>, receber alertas de movimento e acessar gravações de qualquer lugar do mundo.</p>\n<h2>5. Falta de integração com alarmes e controle de acesso</h2>\n<p>Um sistema de segurança eficiente é <strong>integrado</strong>: câmeras, alarmes, cercas elétricas e controle de acesso funcionam em conjunto. Se o seu sistema trabalha de forma isolada, você está perdendo eficiência e capacidade de resposta.</p>\n<p>Se você identificou um ou mais desses sinais no seu sistema atual, <strong>entre em contato com a ISF para uma avaliação técnica gratuita</strong>. Nossa equipe pode recomendar as melhores soluções para o seu perfil de imóvel e orçamento.</p>",
+    coverImage: "https://images.unsplash.com/photo-1688584270249-0749b896df74?w=1200&h=630&fit=crop&auto=format",
+    slug: "5-sinais-de-que-sua-camera-de-seguranca-esta-desatualizada",
   },
   {
     date: "Fev 2025",
     title: "Cerca elétrica: mitos e verdades que todo proprietário deve saber",
     excerpt: "Esclareça as dúvidas mais comuns antes de instalar sua cerca elétrica.",
     readTime: "5 min",
-    content: `A cerca elétrica é um dos sistemas de segurança perimetral mais eficazes disponíveis no mercado. Mesmo assim, ainda existe muita desinformação sobre seu funcionamento, segurança e legalidade. Vamos esclarecer os principais pontos.
-
-MITO: Cerca elétrica mata pessoas e animais.
-
-VERDADE: Sistemas instalados adequadamente por empresas certificadas, como a ISF, utilizam pulsos elétricos de alta tensão, mas baixíssima corrente (amperes). O efeito é um choque doloroso e temporariamente incapacitante — não letal. As normas brasileiras (ABNT NBR 15791) regulamentam os limites de corrente exatamente para garantir a segurança de pessoas e animais.
-
-MITO: Cerca elétrica é ilegal no Brasil.
-
-VERDADE: É completamente legal quando instalada em conformidade com as normas técnicas e as legislações municipais. A maioria das cidades regulamenta a altura mínima de instalação (geralmente acima de 2,5 metros do nível do solo) e exige sinalização de advertência.
-
-MITO: Chuva e umidade tornam o sistema perigoso para quem passar perto.
-
-VERDADE: Sistemas corretamente instalados são projetados para operar em todas as condições climáticas. Os isoladores e a eletrônica de controle são preparados para suportar chuva, umidade e variações de temperatura.
-
-VERDADE: Manutenção periódica é indispensável.
-
-Cercas elétricas expostas ao tempo, vegetação em crescimento e pequenos animais demandam inspeções regulares. A ISF oferece contratos de manutenção preventiva que garantem o funcionamento contínuo e a vida útil prolongada do equipamento.
-
-VERDADE: A cerca elétrica é mais eficaz quando integrada a outros sistemas.
-
-O potencial máximo da cerca elétrica é atingido quando ela está integrada a alarmes, câmeras e monitoramento 24 horas. Um toque na cerca pode acionar automaticamente câmeras na região afetada e notificar a central de monitoramento — tudo em milissegundos.
-
-Tem dúvidas sobre a instalação de cerca elétrica no seu imóvel? Fale com nossos especialistas.`,
+    content: "<p>A cerca elétrica é um dos sistemas de segurança perimetral mais eficazes disponíveis no mercado. Mesmo assim, ainda existe muita desinformação sobre seu funcionamento, segurança e legalidade. <strong>Vamos esclarecer os principais pontos.</strong></p>\n<h2>Mito: Cerca elétrica mata pessoas e animais</h2>\n<p><strong>Verdade:</strong> Sistemas instalados adequadamente por empresas certificadas utilizam pulsos elétricos de alta tensão, mas <strong>baixíssima corrente (amperes)</strong>. O efeito é um choque doloroso e temporariamente incapacitante — não letal. As normas brasileiras (<strong>ABNT NBR 15791</strong>) regulamentam os limites exatamente para garantir a segurança de pessoas e animais.</p>\n<h2>Mito: Cerca elétrica é ilegal no Brasil</h2>\n<p><strong>Verdade:</strong> É completamente legal quando instalada em conformidade com as normas técnicas e as legislações municipais. A maioria das cidades regulamenta a <strong>altura mínima de instalação</strong> (geralmente acima de 2,5 metros do nível do solo) e exige sinalização de advertência.</p>\n<h2>Mito: Chuva e umidade tornam o sistema perigoso</h2>\n<p><strong>Verdade:</strong> Sistemas corretamente instalados são projetados para operar em <strong>todas as condições climáticas</strong>. Os isoladores e a eletrônica de controle são preparados para suportar chuva, umidade e variações de temperatura sem risco algum.</p>\n<h2>Verdade: Manutenção periódica é indispensável</h2>\n<p>Cercas elétricas expostas ao tempo, vegetação em crescimento e pequenos animais demandam <strong>inspeções regulares</strong>. A ISF oferece contratos de manutenção preventiva que garantem o funcionamento contínuo e a vida útil prolongada do equipamento.</p>\n<h2>Verdade: A cerca elétrica é mais eficaz quando integrada</h2>\n<p>O potencial máximo da cerca elétrica é atingido quando ela está integrada a <strong>alarmes, câmeras e monitoramento 24 horas</strong>. Um toque na cerca pode acionar automaticamente câmeras na região afetada e notificar a central de monitoramento — tudo em milissegundos.</p>\n<p>Tem dúvidas sobre a instalação de cerca elétrica no seu imóvel? <strong>Fale com nossos especialistas.</strong></p>",
+    coverImage: "https://images.unsplash.com/photo-1549109926-9620d1b9bfa2?w=1200&h=630&fit=crop&auto=format",
+    slug: "cerca-eletrica-mitos-e-verdades-que-todo-proprietario-deve-saber",
   },
   {
     date: "Jan 2025",
     title: "Como escolher o sistema de alarme ideal para seu imóvel",
     excerpt: "Residencial, comercial ou industrial — cada espaço pede uma solução diferente.",
     readTime: "6 min",
-    content: `Escolher o sistema de alarme certo para o seu imóvel não é simplesmente comprar o modelo mais caro ou o mais barato disponível. É entender as características do espaço, os riscos específicos e os recursos necessários para uma proteção eficaz.
-
-Neste guia, apresentamos os principais critérios de escolha para cada tipo de imóvel.
-
-IMÓVEIS RESIDENCIAIS
-
-Para casas e apartamentos, a prioridade é o equilíbrio entre proteção e praticidade. Os moradores precisam conseguir armar e desarmar o sistema facilmente, sem disparos falsos frequentes.
-
-Recomendamos sistemas com:
-- Sensores infravermelhos de dupla tecnologia (evitam falsos alarmes por pets ou variações de temperatura)
-- Teclado LCD ou por aplicativo no celular
-- Sirene externa audível
-- Comunicação com central de monitoramento via IP ou linha telefônica (com backup)
-
-IMÓVEIS COMERCIAIS
-
-Lojas, escritórios e pequenos comércios têm necessidades específicas: grande circulação de pessoas durante o dia e total segurança no período fechado.
-
-Pontos essenciais:
-- Zonas de alarme separadas por área (loja, depósito, escritório)
-- Sensores de abertura em portas e janelas, além de sensores de movimento
-- Integração com câmeras para verificação remota de disparos
-- Controle de acesso nas entradas principais
-
-IMÓVEIS INDUSTRIAIS E GALPÕES
-
-Galpões e indústrias apresentam desafios únicos: grandes áreas abertas, pé-direito alto e presença de máquinas que podem gerar interferência nos sensores.
-
-Soluções recomendadas:
-- Sensores de barreira ativa (feixe infravermelho) para perímetros externos
-- Câmeras com análise de vídeo inteligente (detecção de intrusão por IA)
-- Central de alarme de alta capacidade com múltiplas zonas
-- Monitoramento 24 horas com protocolo de resposta definido
-
-O PAPEL DO MONITORAMENTO REMOTO
-
-Independentemente do tipo de imóvel, conectar o alarme a uma central de monitoramento profissional multiplica a eficácia do sistema. Em caso de disparo, a central verifica a situação, contata o responsável e aciona as autoridades se necessário — tudo de forma rápida e estruturada.
-
-A ISF realiza avaliações técnicas gratuitas para ajudá-lo a escolher a solução ideal. Entre em contato e agende uma visita.`,
+    content: "<p>Escolher o sistema de alarme certo para o seu imóvel não é simplesmente comprar o modelo mais caro ou o mais barato disponível. É <strong>entender as características do espaço, os riscos específicos e os recursos necessários</strong> para uma proteção eficaz.</p>\n<p>Neste guia, apresentamos os principais critérios de escolha para cada tipo de imóvel.</p>\n<h2>Imóveis residenciais</h2>\n<p>Para casas e apartamentos, a prioridade é o equilíbrio entre <strong>proteção e praticidade</strong>. Os moradores precisam conseguir armar e desarmar o sistema facilmente, sem disparos falsos frequentes.</p>\n<p><strong>Recomendamos sistemas com:</strong></p>\n<ul><li>Sensores infravermelhos de <strong>dupla tecnologia</strong> (evitam falsos alarmes por pets)</li><li>Teclado LCD ou por <strong>aplicativo no celular</strong></li><li>Sirene externa audível</li><li>Comunicação via IP com backup GSM</li></ul>\n<h2>Imóveis comerciais</h2>\n<p>Lojas, escritórios e pequenos comércios têm necessidades específicas: <strong>grande circulação de pessoas durante o dia</strong> e total segurança no período fechado.</p>\n<ul><li>Zonas de alarme separadas por área (loja, depósito, escritório)</li><li>Sensores de abertura em portas e janelas</li><li><strong>Integração com câmeras</strong> para verificação remota de disparos</li><li>Controle de acesso nas entradas principais</li></ul>\n<h2>Imóveis industriais e galpões</h2>\n<p>Galpões e indústrias apresentam desafios únicos: grandes áreas abertas, pé-direito alto e presença de máquinas que podem gerar interferência nos sensores.</p>\n<ul><li>Sensores de barreira ativa (feixe infravermelho) para perímetros externos</li><li>Câmeras com <strong>análise de vídeo inteligente</strong> por IA</li><li>Central de alarme de alta capacidade com múltiplas zonas</li><li>Monitoramento 24 horas com protocolo de resposta definido</li></ul>\n<h2>O papel do monitoramento remoto</h2>\n<p>Independentemente do tipo de imóvel, conectar o alarme a uma <strong>central de monitoramento profissional</strong> multiplica a eficácia do sistema. Em caso de disparo, a central verifica a situação, contata o responsável e aciona as autoridades — tudo de forma rápida e estruturada.</p>\n<p>A ISF realiza <strong>avaliações técnicas gratuitas</strong>. Entre em contato e agende uma visita.</p>",
+    coverImage: "https://images.unsplash.com/photo-1581431019684-bfd38511b924?w=1200&h=630&fit=crop&auto=format",
+    slug: "como-escolher-o-sistema-de-alarme-ideal-para-seu-imovel",
+  },
+  {
+    date: "Mar 2026",
+    title: "Monitoramento 24h vs. alarme sem monitoramento: qual realmente protege?",
+    excerpt: "Ter um alarme não é o mesmo que estar protegido. Entenda a diferença que pode mudar tudo.",
+    readTime: "5 min",
+    content: "<p>Muita gente instala um alarme e acredita que o imóvel está protegido. E de fato, um alarme é uma ótima barreira dissuasiva. Mas existe uma diferença fundamental entre <strong>um alarme que dispara e some no silêncio</strong> e um sistema que aciona uma resposta real.</p>\n<h2>O que acontece quando o alarme dispara sem monitoramento</h2>\n<p>A sirene toca. Vizinhos olham pela janela, talvez alguém ligue para você. Mas e se você estiver dormindo, em uma reunião, ou simplesmente não ouvir a notificação no celular?</p>\n<p>Pesquisas mostram que <strong>a maioria dos disparos de alarme não gera nenhuma resposta em menos de 10 minutos</strong> — tempo mais do que suficiente para um invasor concluir o que veio fazer e desaparecer.</p>\n<h2>O que muda com o monitoramento 24 horas</h2>\n<p>Com um contrato de monitoramento ativo, o sinal do alarme chega instantaneamente à central de operações, onde um operador treinado:</p>\n<ol><li>Verifica o tipo de evento (disparo de movimento, abertura de zona, pânico)</li><li>Tenta <strong>contato imediato</strong> com o responsável pelo imóvel</li><li>Se não houver confirmação de falso alarme, aciona <strong>Guarda Municipal, PM ou empresa de ronda</strong> — em minutos</li></ol>\n<p>Esse processo acontece <strong>24 horas por dia</strong>, inclusive nos feriados que você passa viajando com a família.</p>\n<h2>Quanto custa a diferença</h2>\n<p>Um alarme básico sem monitoramento pode custar entre <strong>R$ 800 e R$ 2.000</strong> instalado. O monitoramento mensal adiciona um custo acessível — e elimina o ponto cego mais perigoso do sistema: <em>a ausência de resposta</em>.</p>\n<blockquote><p>O alarme inibe o invasor. O monitoramento garante a resposta quando a inibição não foi suficiente.</p></blockquote>\n<h2>O que a ISF oferece</h2>\n<p>Monitoramos alarmes das principais marcas (<strong>Intelbras, JFL, DSC, Paradox</strong>) via IP com backup GSM — mesmo se a internet cair, o sinal chega à nossa central. Nossos planos são <strong>sem fidelidade</strong> e incluem instalação do módulo de comunicação.</p>\n<p>Está na hora de transformar seu alarme em um sistema completo. <strong>Solicite um orçamento gratuito.</strong></p>",
+    coverImage: "https://images.unsplash.com/photo-1714596282575-82d224db8c70?w=1200&h=630&fit=crop&auto=format",
+    slug: "monitoramento-24h-vs-alarme-sem-monitoramento-qual-realmente-protege",
+  },
+  {
+    date: "Fev 2026",
+    title: "Por que câmeras de segurança não impedem furtos — e o que realmente impede",
+    excerpt: "Câmeras registram. Sistemas integrados protegem. Veja qual é a diferença na prática.",
+    readTime: "6 min",
+    content: "<p>A câmera de segurança virou símbolo de proteção. Todo imóvel que se preocupa com segurança tem pelo menos uma. Mas existe <strong>uma ilusão perigosa que precisa ser desmontada</strong>: câmeras, sozinhas, não impedem furtos.</p>\n<h2>O que a câmera faz (e o que não faz)</h2>\n<p>Uma câmera <strong>registra</strong> o que acontece. Ela pode ajudar a identificar um suspeito após o fato, servir como prova para a polícia e até dissuadir oportunistas menos experientes.</p>\n<p><strong>O que ela não faz:</strong> ela não reage. Ela não avisa ninguém em tempo real. Ela não aciona uma sirene. Ela não chama a polícia.</p>\n<p>Um invasor experiente sabe disso. Ele entra, age e sai antes que qualquer pessoa revise as imagens.</p>\n<h2>A proteção real vem da integração</h2>\n<p>O que realmente impede uma invasão — ou minimiza seus danos — é a combinação de <strong>barreiras físicas e sistemas que reagem em tempo real</strong>:</p>\n<h3>Detecção</h3>\n<p>Sensores de movimento, abertura de portas e janelas, e câmeras com <strong>análise inteligente de vídeo</strong> identificam o invasor no momento em que ele tenta entrar.</p>\n<h3>Inibição</h3>\n<p>Sirenes externas, cerca elétrica e iluminação automática criam barreiras que dificultam e assustam — <strong>a maioria dos invasores abandona a ação</strong> diante de resistência sonora e visual.</p>\n<h3>Resposta</h3>\n<p>Um sistema conectado a uma <strong>central de monitoramento 24h</strong> garante que a ação humana (polícia, ronda, segurança) seja acionada em minutos — e não horas depois, quando você revisa as gravações.</p>\n<h2>O que fazer se você já tem câmeras</h2>\n<ol><li>Verificar se elas têm <strong>resolução adequada</strong> (mínimo Full HD) para identificação</li><li>Garantir que há <strong>detecção de movimento</strong> configurada com notificações no celular</li><li>Integrar com um <strong>alarme</strong> e, idealmente, com <strong>monitoramento 24h</strong></li></ol>\n<blockquote><p>Câmeras sem alarme são evidência. Câmeras com alarme e monitoramento são proteção.</p></blockquote>\n<p>A ISF realiza <strong>diagnóstico gratuito</strong> do seu sistema atual e recomenda as evoluções necessárias. <strong>Fale com nossa equipe.</strong></p>",
+    coverImage: "https://images.unsplash.com/photo-1765121690880-1883ad310822?w=1200&h=630&fit=crop&auto=format",
+    slug: "por-que-cameras-de-seguranca-nao-impedem-furtos-e-o-que-realmente-impede",
+  },
+  {
+    date: "Jan 2026",
+    title: "Controle de acesso em condomínios: como reduzir furtos internos e conflitos",
+    excerpt: "Prestadores, ex-moradores, acesso sem registro — veja como um sistema moderno resolve isso.",
+    readTime: "5 min",
+    content: "<p>Condomínios residenciais e comerciais enfrentam um desafio de segurança específico e frequentemente subestimado: <strong>o problema não está sempre em quem vem de fora, mas em quem circula por dentro sem controle.</strong></p>\n<h2>O problema do acesso sem registro</h2>\n<p>Em condomínios com controle de acesso deficiente ou inexistente, é comum encontrar:</p>\n<ul><li>Prestadores de serviço circulando <strong>sem identificação registrada</strong></li><li>Ex-moradores ou ex-funcionários que ainda possuem cópia de chave ou código de acesso</li><li>Visitantes que entram com um morador e <strong>saem sozinhos mais tarde</strong></li><li>Ausência de registro de quem estava no condomínio em determinado horário</li></ul>\n<p>Em caso de furto ou incidente, <strong>a investigação começa praticamente do zero.</strong></p>\n<h2>Como o controle de acesso moderno resolve</h2>\n<h3>Credenciais individuais</h3>\n<p>Cada morador, funcionário e prestador cadastrado recebe uma <strong>credencial única</strong> (cartão, biometria ou facial). Não existe acesso genérico ou compartilhado.</p>\n<h3>Bloqueio imediato</h3>\n<p>Funcionário dispensado? A credencial é <strong>bloqueada em segundos</strong> pelo software, sem necessidade de trocar fechaduras ou recolher chaves físicas.</p>\n<h3>Registro completo</h3>\n<p>Cada acesso é <strong>registrado com data, hora e identidade</strong>. Em caso de incidente, o histórico está disponível em segundos.</p>\n<h3>Integração com câmeras</h3>\n<p>A câmera posicionada na catraca ou portão registra a imagem de quem passa, <strong>cruzando com o registro do controle de acesso</strong> — criando uma prova visual vinculada à identidade.</p>\n<h2>Resultado prático</h2>\n<ul><li><strong>Redução significativa</strong> de furtos internos</li><li>Eliminação de conflitos sobre quem autorizou determinado acesso</li><li>Melhora na percepção de segurança e <strong>valorização das unidades</strong></li><li>Facilidade no controle de prestadores e equipe de limpeza</li></ul>\n<p>A ISF projeta e instala sistemas para condomínios de todos os portes, com <strong>biometria, cartão de proximidade e reconhecimento facial</strong>. <strong>Solicite uma visita técnica gratuita.</strong></p>",
+    coverImage: "https://images.unsplash.com/photo-1697382608786-bcf4c113b86e?w=1200&h=630&fit=crop&auto=format",
+    slug: "controle-de-acesso-em-condominios-como-reduzir-furtos-internos-e-conflitos",
   },
 ];
 
 async function main() {
   console.log("Iniciando seed...");
 
-  const existingProducts = await prisma.product.count();
-  if (existingProducts === 0) {
-    await prisma.product.createMany({ data: products });
-    console.log(`✓ ${products.length} produtos inseridos`);
-  } else {
-    console.log(`! Produtos já existem (${existingProducts}), pulando seed de produtos`);
-  }
+  await prisma.product.deleteMany();
+  await prisma.product.createMany({ data: products });
+  console.log(`✓ ${products.length} produtos inseridos`);
 
-  const existingPosts = await prisma.blogPost.count();
-  if (existingPosts === 0) {
-    await prisma.blogPost.createMany({ data: blogPosts });
-    console.log(`✓ ${blogPosts.length} artigos inseridos`);
-  } else {
-    console.log(`! Artigos já existem (${existingPosts}), pulando seed de blog`);
-  }
+  await prisma.blogPost.deleteMany();
+  await prisma.blogPost.createMany({ data: blogPosts });
+  console.log(`✓ ${blogPosts.length} artigos inseridos`);
 
   console.log("Seed concluído!");
 }

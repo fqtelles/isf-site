@@ -1,13 +1,13 @@
 #!/bin/bash
 # =============================================================================
 # deploy.sh — Atualização do site ISF Segurança na VPS
-# Executar na VPS sempre que houver uma nova versão na branch deploy/vps
+# Executar na VPS sempre que houver uma nova versão na branch main
 # =============================================================================
 
 set -e
 
 APP_DIR="/var/www/isf-site"
-BRANCH="deploy/vps"
+BRANCH="main"
 
 echo "========================================"
 echo "  Deploy ISF Segurança"

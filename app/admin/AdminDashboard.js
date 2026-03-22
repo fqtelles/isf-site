@@ -124,6 +124,7 @@ function ProductsTab({ products, setProducts }) {
     setForm({ name: p.name, brand: p.brand, category: p.category, image: p.image, imageMode: "url", images: imgs, description: p.description || "", video: p.video || "", slug: p.slug || "" });
     setPreviewUrl(p.image);
     setFormError(""); setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function cancelForm() {
@@ -471,6 +472,7 @@ function BlogTab({ posts, setPosts }) {
     setForm({ date: p.date, title: p.title, excerpt: p.excerpt, readTime: p.readTime, content: p.content || "", coverImage: p.coverImage || "", coverImageMode: "url", slug: p.slug || "" });
     setCoverPreview(p.coverImage || "");
     setError(""); setShowForm(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
   function cancelForm() { setShowForm(false); setEditId(null); setForm(emptyForm); setCoverPreview(""); setError(""); }
 
@@ -718,10 +720,36 @@ export default function AdminDashboard({ initialProducts, initialBlogPosts }) {
         }
       </div>
 
-      <div style={{ textAlign: "center", marginTop: 24 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 24 }}>
         <a href="/" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.8rem", color: C.muted, textDecoration: "none" }}>
           ← Ver site público
         </a>
+        <div style={{ display: "flex", gap: 8 }}>
+          <a
+            href="/api/admin/backup/uploads"
+            download
+            style={{
+              fontSize: "0.8rem", fontWeight: 700, color: C.blue,
+              textDecoration: "none", border: `1px solid ${C.blue}`,
+              borderRadius: 9999, padding: "6px 16px",
+              background: C.blueBg, transition: "all 0.2s",
+            }}
+          >
+            ↓ Backup de imagens
+          </a>
+          <a
+            href="/api/admin/export"
+            download
+            style={{
+              fontSize: "0.8rem", fontWeight: 700, color: C.green,
+              textDecoration: "none", border: `1px solid ${C.green}`,
+              borderRadius: 9999, padding: "6px 16px",
+              background: C.greenBg, transition: "all 0.2s",
+            }}
+          >
+            ↓ Exportar seed.js
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,8 @@
 import { prisma } from "../../lib/prisma";
 import AdminDashboard from "./AdminDashboard";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminPage() {
   const [products, blogPosts] = await Promise.all([
     prisma.product.findMany({ orderBy: { id: "asc" } }),

@@ -1,0 +1,208 @@
+{
+  "businessName": "ISF Soluções em Segurança",
+  "rating": 4.8,
+  "totalReviews": 33,
+  "profileUrl": "https://maps.app.goo.gl/g4LfZgmNfKspRp8g6",
+  "reviews": [
+    {
+      "id": 1,
+      "author": "Rita de Cassia Graf",
+      "authorInitials": "RG",
+      "rating": 5,
+      "relativeDate": "2 semanas atrás",
+      "text": "Sempre muito bem atendida! Empresa com muita experiência e compromisso com o cliente!"
+    },
+    {
+      "id": 2,
+      "author": "Delson Volpato",
+      "authorInitials": "DV",
+      "rating": 5,
+      "relativeDate": "5 meses atrás",
+      "text": "Se você precisa de soluções em segurança e monitoramento, pode chamar a ISF. São extremamente profissionais e um atendimento nota 10. Indico muito."
+    },
+    {
+      "id": 3,
+      "author": "André Silva",
+      "authorInitials": "AS",
+      "rating": 5,
+      "relativeDate": "2 meses atrás",
+      "text": "Bom serviço, rápido, pontual e extremamente profissional. Recomendo."
+    },
+    {
+      "id": 4,
+      "author": "Juliana Ruaro",
+      "authorInitials": "JR",
+      "rating": 5,
+      "relativeDate": "5 meses atrás",
+      "text": "Atendimento rápido e eficiente, profissionais muito responsáveis de trabalho impecável!"
+    },
+    {
+      "id": 5,
+      "author": "Paulo Anton Giffhorn",
+      "authorInitials": "PG",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Sou atendido por essa empresa na minha residência e no meu consultório por vários anos. Sempre com presteza procurando solucionar situações que foram se apresentando nesses anos, com bom material e uma boa equipe técnica. Recomendo."
+    },
+    {
+      "id": 6,
+      "author": "Erick Willian",
+      "authorInitials": "EW",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "A ISF Soluções é uma empresa séria e comprometida com a qualidade. Tenho ótimas referências sobre o trabalho deles e sei que prezam pelo profissionalismo e pela satisfação dos clientes. Se você busca segurança e tecnologia de ponta, vale a pena conhecer!"
+    },
+    {
+      "id": 7,
+      "author": "Hélio Luz",
+      "authorInitials": "HL",
+      "rating": 5,
+      "relativeDate": "3 meses atrás",
+      "text": "Ótimo atendimento comercial e técnico."
+    },
+    {
+      "id": 8,
+      "author": "Fátima Pavão",
+      "authorInitials": "FP",
+      "rating": 5,
+      "relativeDate": "Editado um ano atrás",
+      "text": "O atendimento é excelente e rápido, desde o orçamento até a finalização. A transparência no atendimento é um diferencial importantíssimo! Aprovei e recomendo!"
+    },
+    {
+      "id": 9,
+      "author": "Michelle Reis",
+      "authorInitials": "MR",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Empresa com anos de mercado, me atendeu super bem, orçamento justo e produtos de qualidade. Atendimento e pós venda de qualidade!"
+    },
+    {
+      "id": 10,
+      "author": "Bernardete Bondan",
+      "authorInitials": "BB",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Empresa ISF Soluções em segurança ..produtos de primeira linha,trabalho impecável,proficionais responsáveis. Super indico"
+    },
+    {
+      "id": 11,
+      "author": "Espaço Saúde",
+      "authorInitials": "ES",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Empresa confiável, sempre tem a solução para o que preciso. Recomendo"
+    },
+    {
+      "id": 12,
+      "author": "Daniella Lorenzo Richter",
+      "authorInitials": "DR",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Super indico, profissionais qualificados e atendimento rápido."
+    },
+    {
+      "id": 13,
+      "author": "Flora Baggio Pereira",
+      "authorInitials": "FP",
+      "rating": 5,
+      "relativeDate": "2 semanas atrás",
+      "text": "Atendimento perfeito!!!"
+    },
+    {
+      "id": 14,
+      "author": "Maria Clara Schuarts",
+      "authorInitials": "MS",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Uma empresa que podemos confiar de olhos fechado, muito boa mesmo"
+    },
+    {
+      "id": 15,
+      "author": "Cassiano Camargo",
+      "authorInitials": "CC",
+      "rating": 5,
+      "relativeDate": "8 meses atrás",
+      "text": "Bom atendimento, agilidade e preços justos"
+    },
+    {
+      "id": 16,
+      "author": "paulo cesar",
+      "authorInitials": "PC",
+      "rating": 5,
+      "relativeDate": "10 meses atrás",
+      "text": "Empresa seria com ótimos técnicos e suporte com ótimos aparelhos tbm"
+    },
+    {
+      "id": 17,
+      "author": "Marcelo Dea",
+      "authorInitials": "MD",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Responsabilidade e eficiência, pessoal estritamente competente, super indico"
+    },
+    {
+      "id": 18,
+      "author": "jose baggio",
+      "authorInitials": "JB",
+      "rating": 5,
+      "relativeDate": "11 meses atrás",
+      "text": "atendimento e serviços EXCELENTES!!! Parabéns ISF soluções em segurança!!"
+    },
+    {
+      "id": 19,
+      "author": "Ana Claudia Jesbick",
+      "authorInitials": "AJ",
+      "rating": 5,
+      "relativeDate": "7 anos atrás",
+      "text": "Trabalham com ótimos produtos de segurança eletrônica! Instalação impecável e ótimo atendimento. Recomendo!"
+    },
+    {
+      "id": 20,
+      "author": "Maria Angélica Soares",
+      "authorInitials": "MS",
+      "rating": 5,
+      "relativeDate": "6 meses atrás",
+      "text": "Rápidos e eficientes"
+    },
+    {
+      "id": 21,
+      "author": "daniel telles",
+      "authorInitials": "DT",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Empresa de confiança e credibilidade."
+    },
+    {
+      "id": 22,
+      "author": "Leonardo Zocolotti",
+      "authorInitials": "LZ",
+      "rating": 5,
+      "relativeDate": "7 anos atrás",
+      "text": "Ótimo atendimento e preço."
+    },
+    {
+      "id": 23,
+      "author": "J0nnyZ",
+      "authorInitials": "JZ",
+      "rating": 5,
+      "relativeDate": "4 anos atrás",
+      "text": "Excente atendimento"
+    },
+    {
+      "id": 24,
+      "author": "Marcelo Ribeiro de Oliveira",
+      "authorInitials": "MO",
+      "rating": 5,
+      "relativeDate": "6 anos atrás",
+      "text": "Legal"
+    },
+    {
+      "id": 25,
+      "author": "Marcos Yanase",
+      "authorInitials": "MY",
+      "rating": 5,
+      "relativeDate": "2 semanas atrás",
+      "text": "Necessitei um serviço de instalação de cerca elétrica. Atendimento profissional desde o primeiro contato no WhatsApp; orçamento pontual e rápido com valor justo; instalação excelente, com atenção aos detalhes. Com certeza indicarei a qualquer familiar ou amigo que precisar."
+    }
+  ]
+}

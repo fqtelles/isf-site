@@ -7,7 +7,7 @@
 set -e
 
 APP_DIR="/var/www/isf-site"
-REPO_URL="https://github.com/SEU_USUARIO/isf-site.git"   # <-- ajuste aqui
+REPO_URL="https://github.com/fqtelles/isf-site.git"
 BRANCH="deploy/vps"
 DOMAIN="www.isf.com.br"
 

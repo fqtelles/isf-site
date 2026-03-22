@@ -56,7 +56,28 @@
       "WebFetch(domain:images.unsplash.com)",
       "Bash(New-Item -ItemType File -Force \"C:\\\\Users\\\\Felipe\\\\OneDrive\\\\Documents\\\\isf-site\\\\public\\\\uploads\\\\.gitkeep\")",
       "Bash(Out-Null)",
-      "Bash(Write-Output \"created\")"
+      "Bash(Write-Output \"created\")",
+      "Bash(gh repo:*)",
+      "Bash(git config:*)",
+      "Bash(echo $GITHUB_TOKEN)",
+      "Bash(printenv)",
+      "Bash(cmd /c \"npm install next@^14.2.35 2>&1\")",
+      "Bash(cmd /c \"npm install next@^14.2.35\")",
+      "Bash(cmd /c \"cd /d C:\\\\Users\\\\Felipe\\\\OneDrive\\\\Documents\\\\isf-site && npm install next@14.2.35 && node -e \"\"const p=require\\(''./package.json''\\); console.log\\(''next:'', p.dependencies.next\\)\"\"\")",
+      "Bash(powershell -Command \"Set-Location ''C:\\\\Users\\\\Felipe\\\\OneDrive\\\\Documents\\\\isf-site''; npm install next@14.2.35; Write-Host ''Done''\")",
+      "Bash(where.exe npm:*)",
+      "Bash(find /c /d npm)",
+      "Bash(docker run:*)",
+      "Bash(where node:*)",
+      "Bash(where npm:*)",
+      "Read(//c//**)",
+      "Read(//c/ProgramData/**)",
+      "Bash(cmd /c \"where node 2>nul && where npm 2>nul\")",
+      "Bash(cmd /c \"where node\")",
+      "Bash(cmd /c \"where npm\")",
+      "Bash(powershell -Command \"Get-Command node -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source; Get-Command npm -ErrorAction SilentlyContinue | Select-Object -ExpandProperty Source\")",
+      "Bash(powershell.exe -Command \"Get-Command node,npm | Select Source\")",
+      "Bash(cmd /c \"for %i in \\(node.exe npm.cmd\\) do @where %i 2>nul\")"
     ]
   }
 }

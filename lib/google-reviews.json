@@ -49,7 +49,7 @@
       "author": "Erick Willian",
       "authorInitials": "EW",
       "rating": 5,
-      "relativeDate": "recentemente",
+      "relativeDate": "um ano atrás",
       "text": "A ISF Soluções é uma empresa séria e comprometida com a qualidade. Tenho ótimas referências sobre o trabalho deles e sei que prezam pelo profissionalismo e pela satisfação dos clientes. Se você busca segurança e tecnologia de ponta, vale a pena conhecer!"
     },
     {
@@ -57,7 +57,7 @@
       "author": "Hélio Luz",
       "authorInitials": "HL",
       "rating": 5,
-      "relativeDate": "recentemente",
+      "relativeDate": "3 meses atrás",
       "text": "Ótimo atendimento comercial e técnico."
     },
     {
@@ -65,8 +65,24 @@
       "author": "Fátima Pavão",
       "authorInitials": "FP",
       "rating": 5,
-      "relativeDate": "recentemente",
+      "relativeDate": "Editado um ano atrás",
       "text": "O atendimento é excelente e rápido, desde o orçamento até a finalização. A transparência no atendimento é um diferencial importantíssimo! Aprovei e recomendo!"
+    },
+    {
+      "id": 9,
+      "author": "Michelle Reis",
+      "authorInitials": "MR",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Empresa com anos de mercado, me atendeu super bem, orçamento justo e produtos de qualidade. Atendimento e pós venda de qualidade!"
+    },
+    {
+      "id": 10,
+      "author": "Bernardete Bondan",
+      "authorInitials": "BB",
+      "rating": 5,
+      "relativeDate": "um ano atrás",
+      "text": "Empresa ISF Soluções em segurança ..produtos de primeira linha,trabalho impecável,proficionais responsáveis. Super indico"
     }
   ]
 }

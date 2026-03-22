@@ -18,7 +18,7 @@ cd "$APP_DIR"
 echo "[1/5] Atualizando código..."
 git fetch origin
 git checkout "$BRANCH"
-git pull origin "$BRANCH"
+git reset --hard "origin/$BRANCH"
 
 echo "[2/5] Instalando dependências..."
 npm ci --omit=dev

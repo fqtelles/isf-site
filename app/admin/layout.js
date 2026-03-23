@@ -57,7 +57,7 @@ export default function AdminLayout({ children }) {
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+              src="/ISF_SolucoesEmSeguranca_Logo.png"
               alt="ISF"
               style={{ height: 28, filter: "brightness(0) invert(1)", objectFit: "contain" }}
             />

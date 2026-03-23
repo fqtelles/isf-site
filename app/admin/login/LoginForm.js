@@ -54,7 +54,7 @@ export default function LoginForm() {
         <div style={{ textAlign: "center", marginBottom: 28 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+            src="/ISF_SolucoesEmSeguranca_Logo.png"
             alt="ISF Segurança"
             style={{ height: 40, objectFit: "contain" }}
           />

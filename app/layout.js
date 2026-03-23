@@ -14,7 +14,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png",
+        url: "https://isf.com.br/home-1dobra-m.png",
         width: 1200,
         height: 630,
         alt: "ISF Segurança Eletrônica — Curitiba",
@@ -25,7 +25,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "ISF Soluções em Segurança | Curitiba",
     description: "35+ anos protegendo patrimônios em Curitiba. Alarmes, câmeras, cerca elétrica e monitoramento 24h.",
-    images: ["https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png"],
+    images: ["https://isf.com.br/home-1dobra-m.png"],
   },
   robots: { index: true, follow: true },
   alternates: { canonical: "https://isf.com.br" },
@@ -43,9 +43,9 @@ const localBusinessSchema = {
   foundingDate: "1988",
   priceRange: "$$",
   image:
-    "https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png",
+    "/ISF_SolucoesEmSeguranca_Logo.png",
   logo:
-    "https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png",
+    "/ISF_SolucoesEmSeguranca_Logo.png",
   address: {
     "@type": "PostalAddress",
     streetAddress: "R. Omar Dutra, 52",

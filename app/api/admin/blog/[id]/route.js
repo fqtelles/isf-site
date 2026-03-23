@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "../../../../../lib/prisma";
 import { requireAdmin } from "../../../../../lib/auth";
 import { slugify, uniqueSlug } from "../../../../../lib/slugify";
@@ -35,6 +36,7 @@ export async function PUT(request, { params }) {
         ...slugData,
       },
     });
+    revalidatePath("/sitemap.xml");
     return NextResponse.json(post);
   } catch {
     return NextResponse.json({ error: "Artigo não encontrado" }, { status: 404 });
@@ -49,6 +51,7 @@ export async function DELETE(request, { params }) {
 
   try {
     await prisma.blogPost.delete({ where: { id } });
+    revalidatePath("/sitemap.xml");
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Artigo não encontrado" }, { status: 404 });

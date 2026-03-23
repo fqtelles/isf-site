@@ -1,5 +1,7 @@
 import { prisma } from "../lib/prisma";
 
+export const revalidate = 86400; // 24 horas
+
 export default async function sitemap() {
   const [posts, products] = await Promise.all([
     prisma.blogPost.findMany({

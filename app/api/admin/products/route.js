@@ -37,6 +37,7 @@ export async function POST(request) {
       },
     });
     revalidatePath("/");
+    revalidatePath("/sitemap.xml");
     return NextResponse.json(product, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Erro ao criar produto" }, { status: 500 });

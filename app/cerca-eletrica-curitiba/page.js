@@ -9,7 +9,7 @@ export const metadata = {
     description: "Instalação de cerca elétrica em Curitiba. Norma ABNT. Orçamento gratuito.",
     url: "https://isf.com.br/cerca-eletrica-curitiba",
     type: "website",
-    images: [{ url: "https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png", width: 1200, height: 630 }],
+    images: [{ url: "https://isf.com.br/home-1dobra-m.png", width: 1200, height: 630 }],
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "https://isf.com.br/cerca-eletrica-curitiba" },

@@ -107,7 +107,7 @@ export default function SiteShell({ children }) {
         <a href="/" style={{ display: "flex", alignItems: "center" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+            src="/ISF_SolucoesEmSeguranca_Logo.png"
             alt="ISF Segurança Eletrônica"
             style={{ height: 58, width: "auto", objectFit: "contain" }}
           />
@@ -221,7 +221,7 @@ export default function SiteShell({ children }) {
             <div style={{ maxWidth: 280 }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+                src="/ISF_SolucoesEmSeguranca_Logo.png"
                 alt="ISF Segurança Eletrônica"
                 style={{
                   height: 36,

@@ -20,7 +20,7 @@ export async function generateMetadata({ params }) {
       type: "article",
       images: [
         {
-          url: post.coverImage || "https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png",
+          url: post.coverImage || "https://isf.com.br/home-1dobra-m.png",
           width: 1200,
           height: 630,
         },
@@ -89,7 +89,7 @@ function renderPost(post) {
       name: "ISF Segurança Eletrônica",
       logo: {
         "@type": "ImageObject",
-        url: "https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png",
+        url: "/ISF_SolucoesEmSeguranca_Logo.png",
       },
     },
     mainEntityOfPage: {

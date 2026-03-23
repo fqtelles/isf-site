@@ -431,7 +431,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
         <a href="#home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+            src="/ISF_SolucoesEmSeguranca_Logo.png"
             alt="ISF Segurança Eletrônica"
             style={{ height: 58, width: "auto", objectFit: "contain" }}
           />
@@ -547,7 +547,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             {/* Logo */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+              src="/ISF_SolucoesEmSeguranca_Logo.png"
               alt="ISF Segurança Eletrônica"
               style={{ width: "100%", height: "auto", objectFit: "contain", filter: "drop-shadow(0 4px 10px rgba(18,103,152,0.1))" }}
             />
@@ -987,7 +987,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <div style={{ maxWidth: 280 }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+                src="/ISF_SolucoesEmSeguranca_Logo.png"
                 alt="ISF Segurança Eletrônica"
                 style={{ height: 36, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", marginBottom: 14 }}
               />

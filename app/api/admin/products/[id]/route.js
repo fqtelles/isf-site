@@ -39,6 +39,7 @@ export async function PUT(request, { params }) {
       },
     });
     revalidatePath("/");
+    revalidatePath("/sitemap.xml");
     return NextResponse.json(product);
   } catch {
     return NextResponse.json({ error: "Produto não encontrado" }, { status: 404 });
@@ -54,6 +55,7 @@ export async function DELETE(request, { params }) {
   try {
     await prisma.product.delete({ where: { id } });
     revalidatePath("/");
+    revalidatePath("/sitemap.xml");
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Produto não encontrado" }, { status: 404 });

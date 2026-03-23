@@ -143,7 +143,7 @@ const faqSchema = {
       name: "A ISF é revendedora autorizada Intelbras?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sim, somos revenda autorizada Intelbras e trabalhamos com produtos originais com garantia de fábrica. Também trabalhamos com outras marcas referência como Dtech, Vonder e Confiseg.",
+        text: "Sim, somos revenda autorizada Intelbras e trabalhamos com produtos originais com garantia de fábrica. Também trabalhamos com outras marcas referência como Dtech, Hikvision, Paradox, Viaweb, JFL e outras.",
       },
     },
   ],

@@ -144,6 +144,30 @@ function WaIcon() {
   );
 }
 
+function ProductCard({ p }) {
+  const [imgError, setImgError] = useState(false);
+  return (
+    <a href={`/produtos/${p.slug || p.id}`} className="prod-card">
+      <div className="prod-card-img" style={{ position: "relative" }}>
+        {p.image && !imgError ? (
+          <Image src={p.image} alt={p.name} fill sizes="(max-width: 768px) 50vw, 25vw" style={{ objectFit: "contain" }} onError={() => setImgError(true)} />
+        ) : (
+          <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", background: "#f3f4f6", color: "#9ca3af", fontSize: "0.75rem" }}>Sem imagem</div>
+        )}
+      </div>
+      <div className="prod-card-body">
+        <span className="prod-brand">{p.brand}</span>
+        <div className="prod-name">{p.name}</div>
+        <div className="prod-cat">{p.category}</div>
+        <div className="prod-cta">
+          Ver detalhes
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+    </a>
+  );
+}
+
 export default function ProductsGallery({ products }) {
   const [activeCategory, setActiveCategory] = useState("Todos");
 
@@ -257,20 +281,7 @@ export default function ProductsGallery({ products }) {
           ) : (
             <div className="prod-grid">
               {filtered.map(p => (
-                <a key={p.id} href={`/produtos/${p.slug || p.id}`} className="prod-card">
-                  <div className="prod-card-img" style={{ position: "relative" }}>
-                    <Image src={p.image} alt={p.name} fill sizes="(max-width: 768px) 50vw, 25vw" style={{ objectFit: "contain" }} />
-                  </div>
-                  <div className="prod-card-body">
-                    <span className="prod-brand">{p.brand}</span>
-                    <div className="prod-name">{p.name}</div>
-                    <div className="prod-cat">{p.category}</div>
-                    <div className="prod-cta">
-                      Ver detalhes
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-                    </div>
-                  </div>
-                </a>
+                <ProductCard key={p.id} p={p} />
               ))}
             </div>
           )}

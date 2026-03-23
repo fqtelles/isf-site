@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "../../../../../lib/prisma";
 import { requireAdmin } from "../../../../../lib/auth";
 import { slugify, uniqueSlug } from "../../../../../lib/slugify";
@@ -37,6 +38,7 @@ export async function PUT(request, { params }) {
         ...slugData,
       },
     });
+    revalidatePath("/");
     return NextResponse.json(product);
   } catch {
     return NextResponse.json({ error: "Produto não encontrado" }, { status: 404 });
@@ -51,6 +53,7 @@ export async function DELETE(request, { params }) {
 
   try {
     await prisma.product.delete({ where: { id } });
+    revalidatePath("/");
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Produto não encontrado" }, { status: 404 });

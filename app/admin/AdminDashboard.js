@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
 import RichTextEditor from "../components/RichTextEditor";
+import { slugify } from "../../lib/slugify";
 
 const CATEGORIES = ["Câmeras", "DVR / NVR", "Alarmes", "Cerca Elétrica", "Controle de Acesso"];
 
@@ -98,6 +99,7 @@ function ProductsTab({ products, setProducts }) {
     description: "",
     video: "",
     slug: "",
+    slugEdited: false,
   };
 
   const [showForm, setShowForm]     = useState(false);
@@ -121,7 +123,7 @@ function ProductsTab({ products, setProducts }) {
   function openEdit(p) {
     const imgs = (() => { try { return JSON.parse(p.images || "[]"); } catch { return []; } })();
     setEditId(p.id);
-    setForm({ name: p.name, brand: p.brand, category: p.category, image: p.image, imageMode: "url", images: imgs, description: p.description || "", video: p.video || "", slug: p.slug || "" });
+    setForm({ name: p.name, brand: p.brand, category: p.category, image: p.image, imageMode: "url", images: imgs, description: p.description || "", video: p.video || "", slug: p.slug || "", slugEdited: true });
     setPreviewUrl(p.image);
     setFormError(""); setShowForm(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -214,8 +216,7 @@ function ProductsTab({ products, setProducts }) {
                 setForm(f => ({
                   ...f,
                   name,
-                  // Auto-fill slug from name only when slug is still empty
-                  slug: f.slug ? f.slug : name,
+                  slug: f.slugEdited ? f.slug : slugify(name),
                 }));
               }} placeholder="ex: Câmera Bullet VHL 1220 B" required />
               <Input label="Marca" value={form.brand} onChange={e => setForm(f => ({ ...f, brand: e.target.value }))} placeholder="ex: Intelbras" required />
@@ -229,7 +230,7 @@ function ProductsTab({ products, setProducts }) {
                 <input
                   type="text"
                   value={form.slug}
-                  onChange={e => setForm(f => ({ ...f, slug: e.target.value }))}
+                  onChange={e => setForm(f => ({ ...f, slug: e.target.value, slugEdited: true }))}
                   placeholder="ex: camera-dome-intelbras-vhl-1220-d"
                   style={{ flex: 1, background: C.bg, border: `1px solid ${C.border}`, borderRadius: 8, padding: "10px 12px", fontFamily: "inherit", fontSize: "0.88rem", color: C.blue, outline: "none", boxSizing: "border-box" }}
                 />
@@ -454,7 +455,7 @@ function ProductsTab({ products, setProducts }) {
 // BLOG TAB
 // ──────────────────────────────────────────────
 function BlogTab({ posts, setPosts }) {
-  const emptyForm = { date: "", title: "", excerpt: "", readTime: "", content: "", coverImage: "", coverImageMode: "url", slug: "" };
+  const emptyForm = { date: "", title: "", excerpt: "", readTime: "", content: "", coverImage: "", coverImageMode: "url", slug: "", slugEdited: false };
   const [showForm, setShowForm]     = useState(false);
   const [form, setForm]             = useState(emptyForm);
   const [editId, setEditId]         = useState(null);
@@ -469,7 +470,7 @@ function BlogTab({ posts, setPosts }) {
   function openCreate() { setEditId(null); setForm(emptyForm); setCoverPreview(""); setError(""); setShowForm(true); }
   function openEdit(p)  {
     setEditId(p.id);
-    setForm({ date: p.date, title: p.title, excerpt: p.excerpt, readTime: p.readTime, content: p.content || "", coverImage: p.coverImage || "", coverImageMode: "url", slug: p.slug || "" });
+    setForm({ date: p.date, title: p.title, excerpt: p.excerpt, readTime: p.readTime, content: p.content || "", coverImage: p.coverImage || "", coverImageMode: "url", slug: p.slug || "", slugEdited: true });
     setCoverPreview(p.coverImage || "");
     setError(""); setShowForm(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -525,7 +526,7 @@ function BlogTab({ posts, setPosts }) {
             </div>
             <Input label="Título" value={form.title} onChange={e => {
               const title = e.target.value;
-              setForm(f => ({ ...f, title, slug: f.slug ? f.slug : title }));
+              setForm(f => ({ ...f, title, slug: f.slugEdited ? f.slug : slugify(title) }));
             }} placeholder="ex: 5 dicas de segurança para o inverno" required />
 
             {/* Slug */}
@@ -536,7 +537,7 @@ function BlogTab({ posts, setPosts }) {
                 <input
                   type="text"
                   value={form.slug}
-                  onChange={e => setForm(f => ({ ...f, slug: e.target.value }))}
+                  onChange={e => setForm(f => ({ ...f, slug: e.target.value, slugEdited: true }))}
                   placeholder="ex: como-escolher-sistema-de-alarme"
                   style={{ flex: 1, background: C.bg, border: `1px solid ${C.border}`, borderRadius: 8, padding: "10px 12px", fontFamily: "inherit", fontSize: "0.88rem", color: C.blue, outline: "none", boxSizing: "border-box" }}
                 />

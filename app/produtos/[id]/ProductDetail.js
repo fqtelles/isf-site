@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import SiteShell from "../../components/SiteShell";
 import { StatsStrip, WhyISF, CategoryFaq, FinalCta, ConversionStyles } from "../../components/ConversionSections";
 import QuoteModal from "../../components/QuoteModal";
@@ -168,11 +169,14 @@ export default function ProductDetail({ product, related }) {
               style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 16, padding: 32, display: "flex", alignItems: "center", justifyContent: "center", height: 560, marginBottom: 16, position: "relative", overflow: "hidden", cursor: "zoom-in" }}
               title="Clique para ampliar"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={allImages[active]}
                 alt={product.name}
-                style={{ objectFit: "contain", transition: "opacity 0.2s", width: "100%", height: "100%" }}
+                fill
+                unoptimized
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ objectFit: "contain", transition: "opacity 0.2s" }}
+                priority
               />
               {allImages.length > 1 && (
                 <div style={{ position: "absolute", top: 12, right: 12, background: "rgba(0,0,0,0.45)", color: "#fff", fontSize: "0.72rem", fontWeight: 700, padding: "4px 10px", borderRadius: 9999 }}>

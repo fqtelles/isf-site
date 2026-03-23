@@ -9,15 +9,11 @@ UPLOADS_DIR="$DATA_DIR/uploads"
 echo "==> Preparando diretórios persistentes..."
 mkdir -p "$DATA_DIR" "$UPLOADS_DIR"
 
-# Primeiro deploy: copia o banco seed se o volume estiver vazio
+# Primeiro deploy: marca para popular com seed após criar o schema
+FIRST_DEPLOY=0
 if [ ! -f "$DB_PATH" ]; then
-  if [ -f "/app/prisma/dev.db" ]; then
-    echo "==> Primeiro deploy: copiando banco de dados inicial..."
-    cp /app/prisma/dev.db "$DB_PATH"
-    echo "==> Banco copiado com sucesso."
-  else
-    echo "==> Nenhum banco seed encontrado, será criado do zero."
-  fi
+  echo "==> Primeiro deploy detectado: banco será criado e populado."
+  FIRST_DEPLOY=1
 fi
 
 # Link da pasta de uploads para o volume persistente
@@ -32,6 +28,11 @@ export DATABASE_URL="file:$DB_PATH"
 
 echo "==> Aplicando migrações do banco..."
 npx prisma db push --accept-data-loss
+
+if [ "$FIRST_DEPLOY" = "1" ]; then
+  echo "==> Populando banco com dados iniciais (seed)..."
+  node prisma/seed.js
+fi
 
 echo "==> Iniciando Next.js na porta ${PORT:-3000}..."
 exec node_modules/.bin/next start -p "${PORT:-3000}" -H 0.0.0.0

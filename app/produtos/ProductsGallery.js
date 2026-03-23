@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import SiteShell from "../components/SiteShell";
 import { StatsStrip, WhyISF, FinalCta, ConversionStyles } from "../components/ConversionSections";
 import QuoteModal from "../components/QuoteModal";
@@ -257,9 +258,8 @@ export default function ProductsGallery({ products }) {
             <div className="prod-grid">
               {filtered.map(p => (
                 <a key={p.id} href={`/produtos/${p.slug || p.id}`} className="prod-card">
-                  <div className="prod-card-img">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.image} alt={p.name} loading="lazy" />
+                  <div className="prod-card-img" style={{ position: "relative" }}>
+                    <Image src={p.image} alt={p.name} fill sizes="(max-width: 768px) 50vw, 25vw" style={{ objectFit: "contain" }} />
                   </div>
                   <div className="prod-card-body">
                     <span className="prod-brand">{p.brand}</span>

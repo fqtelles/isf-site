@@ -1,4 +1,5 @@
 import LandingPage from "../components/LandingPage";
+import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
   title: "Controle de Acesso em Curitiba — Biometria e Cartão | ISF Segurança Eletrônica",
@@ -9,7 +10,7 @@ export const metadata = {
     description: "Catracas, biometria e controle de acesso em Curitiba. Orçamento gratuito.",
     url: "https://isf.com.br/controle-de-acesso-curitiba",
     type: "website",
-    images: [{ url: "https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png", width: 1200, height: 630 }],
+    images: [{ url: "https://isf.com.br/og-image.png", width: 1200, height: 630, alt: "Controle de Acesso em Curitiba — ISF Segurança Eletrônica" }],
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "https://isf.com.br/controle-de-acesso-curitiba" },
@@ -96,6 +97,11 @@ const service = {
 export default function ControleAcessoPage() {
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://isf.com.br" },
+        { name: "Serviços", url: "https://isf.com.br/#servicos" },
+        { name: "Controle de Acesso em Curitiba" },
+      ]} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}

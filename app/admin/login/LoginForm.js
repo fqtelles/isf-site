@@ -39,7 +39,7 @@ export default function LoginForm() {
       justifyContent: "center",
       background: "#f5f5f5",
       padding: "24px",
-      fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
+      fontFamily: "var(--font-inter), 'Helvetica Neue', Arial, sans-serif",
     }}>
       <div style={{
         background: "#fff",
@@ -54,7 +54,7 @@ export default function LoginForm() {
         <div style={{ textAlign: "center", marginBottom: 28 }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+            src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
             alt="ISF Segurança"
             style={{ height: 40, objectFit: "contain" }}
           />

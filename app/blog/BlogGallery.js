@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import SiteShell from "../components/SiteShell";
 import { StatsStrip, BlogFaq, FinalCta, ConversionStyles } from "../components/ConversionSections";
 import QuoteModal from "../components/QuoteModal";
@@ -285,10 +286,9 @@ export default function BlogGallery({ posts }) {
             <div className="blog-grid">
               {filtered.map(post => (
                 <a key={post.id} href={`/blog/${post.slug || post.id}`} className="blog-card">
-                  <div className="blog-card-img">
+                  <div className="blog-card-img" style={{ position: "relative" }}>
                     {post.coverImage ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={post.coverImage} alt={post.title} loading="lazy" />
+                      <Image src={post.coverImage} alt={post.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: "cover" }} />
                     ) : (
                       <div className="blog-card-img-placeholder">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#93c5e8" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

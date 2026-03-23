@@ -4,7 +4,7 @@ import SiteShell from "./SiteShell";
 
 const css = `
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; color: #1a1d20; background: #fff; }
+  body { font-family: var(--font-inter), 'Helvetica Neue', Arial, sans-serif; color: #1a1d20; background: #fff; }
   .lp-btn { background: #126798; color: #fff; border: none; padding: 13px 28px; border-radius: 9999px; font-family: inherit; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block; letter-spacing: 0.01em; }
   .lp-btn:hover { background: #0d5280; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(18,103,152,0.35); }
   .lp-btn-wa { background: #25d366; color: #fff; display: inline-flex; align-items: center; gap: 8px; }

@@ -1,6 +1,7 @@
 import { prisma } from "../../../lib/prisma";
 import { notFound, permanentRedirect } from "next/navigation";
 import ProductDetail from "./ProductDetail";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 
 export async function generateMetadata({ params }) {
   const slugOrId = params.id;
@@ -59,5 +60,42 @@ async function renderProduct(product) {
     images: (() => { try { return JSON.parse(p.images); } catch { return []; } })(),
   }));
 
-  return <ProductDetail product={serialized} related={relatedSerialized} />;
+  const productUrl = `https://isf.com.br/produtos/${product.slug || product.id}`;
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description || `${product.name} — ${product.brand}`,
+    brand: {
+      "@type": "Brand",
+      name: product.brand,
+    },
+    image: product.image,
+    url: productUrl,
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "LocalBusiness",
+        "@id": "https://isf.com.br/#organization",
+        name: "ISF Segurança Eletrônica",
+      },
+    },
+  };
+
+  return (
+    <>
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://isf.com.br" },
+        { name: "Produtos", url: "https://isf.com.br/produtos" },
+        { name: product.name },
+      ]} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+      />
+      <ProductDetail product={serialized} related={relatedSerialized} />
+    </>
+  );
 }

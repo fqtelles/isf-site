@@ -1,7 +1,7 @@
 import { prisma } from "../lib/prisma";
 import HomeClient from "./HomeClient";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // ISR: revalida a cada 1 hora
 
 export default async function HomePage() {
   const [products, blogPosts] = await Promise.all([

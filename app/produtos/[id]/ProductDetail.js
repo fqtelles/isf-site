@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import SiteShell from "../../components/SiteShell";
 import { StatsStrip, WhyISF, CategoryFaq, FinalCta, ConversionStyles } from "../../components/ConversionSections";
 import QuoteModal from "../../components/QuoteModal";
@@ -168,11 +169,13 @@ export default function ProductDetail({ product, related }) {
               style={{ background: C.bg, border: `1px solid ${C.border}`, borderRadius: 16, padding: 32, display: "flex", alignItems: "center", justifyContent: "center", height: 560, marginBottom: 16, position: "relative", overflow: "hidden", cursor: "zoom-in" }}
               title="Clique para ampliar"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={allImages[active]}
                 alt={product.name}
-                style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain", transition: "opacity 0.2s" }}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ objectFit: "contain", transition: "opacity 0.2s" }}
+                priority
               />
               {allImages.length > 1 && (
                 <div style={{ position: "absolute", top: 12, right: 12, background: "rgba(0,0,0,0.45)", color: "#fff", fontSize: "0.72rem", fontWeight: 700, padding: "4px 10px", borderRadius: 9999 }}>
@@ -275,9 +278,8 @@ export default function ProductDetail({ product, related }) {
             <div className="related-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
               {related.map(p => (
                 <a key={p.id} href={`/produtos/${p.slug || p.id}`} className="related-card">
-                  <div style={{ background: C.bg, padding: 20, display: "flex", alignItems: "center", justifyContent: "center", height: 160, borderBottom: `1px solid ${C.border}` }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.image} alt={p.name} style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                  <div style={{ background: C.bg, padding: 20, display: "flex", alignItems: "center", justifyContent: "center", height: 160, borderBottom: `1px solid ${C.border}`, position: "relative" }}>
+                    <Image src={p.image} alt={p.name} fill sizes="25vw" style={{ objectFit: "contain", padding: 20 }} />
                   </div>
                   <div style={{ padding: "14px 16px" }}>
                     <span style={{ fontSize: "0.62rem", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: C.white, background: C.gray, padding: "2px 8px", borderRadius: 9999, marginBottom: 8, display: "inline-block" }}>{p.brand}</span>

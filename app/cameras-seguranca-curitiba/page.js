@@ -1,4 +1,5 @@
 import LandingPage from "../components/LandingPage";
+import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
   title: "Câmeras de Segurança em Curitiba — CFTV e IP | ISF Segurança Eletrônica",
@@ -9,7 +10,7 @@ export const metadata = {
     description: "Instalação de câmeras CFTV em Curitiba. Full HD, visão noturna. Orçamento gratuito.",
     url: "https://isf.com.br/cameras-seguranca-curitiba",
     type: "website",
-    images: [{ url: "https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png", width: 1200, height: 630 }],
+    images: [{ url: "https://isf.com.br/og-image.png", width: 1200, height: 630, alt: "Câmeras de Segurança em Curitiba — ISF Segurança Eletrônica" }],
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "https://isf.com.br/cameras-seguranca-curitiba" },
@@ -102,6 +103,11 @@ const service = {
 export default function CamerasPage() {
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://isf.com.br" },
+        { name: "Serviços", url: "https://isf.com.br/#servicos" },
+        { name: "Câmeras de Segurança em Curitiba" },
+      ]} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}

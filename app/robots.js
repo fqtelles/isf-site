@@ -4,7 +4,7 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin", "/api/admin"],
+        disallow: ["/admin", "/api/"],
       },
     ],
     sitemap: "https://isf.com.br/sitemap.xml",

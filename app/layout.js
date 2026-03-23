@@ -1,3 +1,12 @@
+import { Inter } from "next/font/google";
+import Script from "next/script";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
 export const metadata = {
   title: "ISF Soluções em Segurança | Alarmes, Câmeras e Monitoramento em Curitiba",
   description:
@@ -14,7 +23,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png",
+        url: "https://isf.com.br/og-image.png",
         width: 1200,
         height: 630,
         alt: "ISF Segurança Eletrônica — Curitiba",
@@ -25,10 +34,20 @@ export const metadata = {
     card: "summary_large_image",
     title: "ISF Soluções em Segurança | Curitiba",
     description: "35+ anos protegendo patrimônios em Curitiba. Alarmes, câmeras, cerca elétrica e monitoramento 24h.",
-    images: ["https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png"],
+    images: ["https://isf.com.br/og-image.png"],
   },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    "max-image-preview": "large",
+    "max-snippet": -1,
+    "max-video-preview": -1,
+  },
   alternates: { canonical: "https://isf.com.br" },
+  manifest: "/manifest.json",
+  other: {
+    "theme-color": "#126798",
+  },
 };
 
 const localBusinessSchema = {
@@ -42,10 +61,8 @@ const localBusinessSchema = {
   telephone: "+554133787933",
   foundingDate: "1988",
   priceRange: "$$",
-  image:
-    "https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png",
-  logo:
-    "https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png",
+  image: "https://isf.com.br/og-image.png",
+  logo: "https://isf.com.br/og-image.png",
   address: {
     "@type": "PostalAddress",
     streetAddress: "R. Omar Dutra, 52",
@@ -134,14 +151,21 @@ const faqSchema = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={inter.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
-          rel="stylesheet"
+        {/* Google Analytics 4 — substitua G-XXXXXXXXXX pelo seu ID */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          strategy="afterInteractive"
         />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-XXXXXXXXXX');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
@@ -152,10 +176,6 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body style={{ margin: 0, padding: 0 }}>
-        {/* Termos alternativos para indexação — oculto visualmente */}
-        <span aria-hidden="true" style={{ position: "absolute", width: 1, height: 1, padding: 0, margin: -1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>
-          ISF Segurança Eletrônica, ISF Soluções em Segurança, segurança eletrônica Curitiba, alarmes Curitiba, câmeras de segurança Curitiba, monitoramento 24 horas Curitiba, cerca elétrica Curitiba, controle de acesso Curitiba
-        </span>
         {children}
       </body>
     </html>

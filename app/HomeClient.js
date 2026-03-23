@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef, useMemo } from "react";
+import Image from "next/image";
 import GoogleReviewsWidget from "./components/GoogleReviewsWidget";
 
 const NAV_LINKS = [
@@ -160,7 +161,7 @@ const css = `
     --blue-light: #e8f3f9;
   }
   html { scroll-behavior: smooth; }
-  body { background: #ffffff; color: #32373c; font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; }
+  body { background: #ffffff; color: #32373c; font-family: var(--font-inter), 'Helvetica Neue', Arial, sans-serif; }
   .nav-link { color: #32373c; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
   .nav-link:hover { color: #126798; }
   .nav-social-icon:hover { color: #32373c !important; }
@@ -431,7 +432,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
         <a href="#home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+            src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
             alt="ISF Segurança Eletrônica"
             style={{ height: 58, width: "auto", objectFit: "contain" }}
           />
@@ -547,7 +548,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             {/* Logo */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+              src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
               alt="ISF Segurança Eletrônica"
               style={{ width: "100%", height: "auto", objectFit: "contain", filter: "drop-shadow(0 4px 10px rgba(18,103,152,0.1))" }}
             />
@@ -638,9 +639,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                 {filteredProducts.map(p => (
                   <div key={p.id} className="product-card">
                     <a href={`/produtos/${p.slug || p.id}`} className="product-card-inner" style={{ display: "block", textDecoration: "none", color: "inherit" }}>
-                      <div className="product-img-wrap">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={p.image} alt={p.name} loading="lazy" />
+                      <div className="product-img-wrap" style={{ position: "relative" }}>
+                        <Image src={p.image} alt={p.name} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "contain" }} />
                       </div>
                       <div className="product-info">
                         <span className="product-brand">{p.brand}</span>
@@ -796,13 +796,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                   <div key={post.id} className="blog-card-slide">
                     <a href={`/blog/${post.slug || post.id}`} className="blog-card" style={{ padding: 0, overflow: "hidden" }}>
                       {post.coverImage && (
-                        <div style={{ width: "100%", height: 160, overflow: "hidden", flexShrink: 0 }}>
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img src={post.coverImage} alt={post.title}
-                            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transition: "transform 0.35s ease" }}
-                            onMouseEnter={e => e.currentTarget.style.transform = "scale(1.04)"}
-                            onMouseLeave={e => e.currentTarget.style.transform = "scale(1)"}
-                          />
+                        <div style={{ width: "100%", height: 160, overflow: "hidden", flexShrink: 0, position: "relative" }}>
+                          <Image src={post.coverImage} alt={post.title} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "cover" }} />
                         </div>
                       )}
                       <div style={{ padding: "20px 22px 22px" }}>
@@ -987,7 +982,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <div style={{ maxWidth: 280 }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+                src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
                 alt="ISF Segurança Eletrônica"
                 style={{ height: 36, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", marginBottom: 14 }}
               />

@@ -1,6 +1,7 @@
 import { notFound, permanentRedirect } from "next/navigation";
 import { prisma } from "../../../lib/prisma";
 import SiteShell from "../../components/SiteShell";
+import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 import { StatsStrip, ServiceLinks, BlogFaq, FinalCta, ConversionStyles } from "../../components/ConversionSections";
 import BlogCta from "./BlogCta";
 
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }) {
       type: "article",
       images: [
         {
-          url: post.coverImage || "https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png",
+          url: post.coverImage || "https://isf.com.br/og-image.png",
           width: 1200,
           height: 630,
         },
@@ -89,7 +90,7 @@ function renderPost(post) {
       name: "ISF Segurança Eletrônica",
       logo: {
         "@type": "ImageObject",
-        url: "https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png",
+        url: "https://isf.com.br/og-image.png",
       },
     },
     mainEntityOfPage: {
@@ -100,6 +101,11 @@ function renderPost(post) {
 
   return (
     <SiteShell>
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://isf.com.br" },
+        { name: "Blog", url: "https://isf.com.br/blog" },
+        { name: post.title },
+      ]} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}

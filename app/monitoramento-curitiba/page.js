@@ -1,4 +1,5 @@
 import LandingPage from "../components/LandingPage";
+import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
   title: "Monitoramento de Alarmes 24h em Curitiba | ISF Segurança Eletrônica",
@@ -9,7 +10,7 @@ export const metadata = {
     description: "Monitoramento de alarmes e câmeras 24h em Curitiba. Orçamento gratuito.",
     url: "https://isf.com.br/monitoramento-curitiba",
     type: "website",
-    images: [{ url: "https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png", width: 1200, height: 630 }],
+    images: [{ url: "https://isf.com.br/og-image.png", width: 1200, height: 630, alt: "Monitoramento 24h em Curitiba — ISF Segurança Eletrônica" }],
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "https://isf.com.br/monitoramento-curitiba" },
@@ -102,6 +103,11 @@ const service = {
 export default function MonitoramentoPage() {
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://isf.com.br" },
+        { name: "Serviços", url: "https://isf.com.br/#servicos" },
+        { name: "Monitoramento 24h em Curitiba" },
+      ]} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}

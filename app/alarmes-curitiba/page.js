@@ -1,4 +1,5 @@
 import LandingPage from "../components/LandingPage";
+import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
   title: "Alarme Residencial e Empresarial em Curitiba | ISF Segurança Eletrônica",
@@ -9,7 +10,7 @@ export const metadata = {
     description: "Instalação de alarmes em Curitiba. 35 anos de experiência. Orçamento gratuito.",
     url: "https://isf.com.br/alarmes-curitiba",
     type: "website",
-    images: [{ url: "https://isf.com.br/wp-content/uploads/2020/10/home-1dobra-m.png", width: 1200, height: 630 }],
+    images: [{ url: "https://isf.com.br/og-image.png", width: 1200, height: 630, alt: "Alarmes em Curitiba — ISF Segurança Eletrônica" }],
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "https://isf.com.br/alarmes-curitiba" },
@@ -102,6 +103,11 @@ const service = {
 export default function AlarmesPage() {
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://isf.com.br" },
+        { name: "Serviços", url: "https://isf.com.br/#servicos" },
+        { name: "Alarmes em Curitiba" },
+      ]} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}

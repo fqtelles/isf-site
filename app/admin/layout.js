@@ -40,7 +40,7 @@ export default function AdminLayout({ children }) {
   const isLogin = pathname === "/admin/login";
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f5f5f5", fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "#f5f5f5", fontFamily: "var(--font-inter), 'Helvetica Neue', Arial, sans-serif" }}>
       {!isLogin && (
         <nav style={{
           background: "#1a1d20",
@@ -57,7 +57,7 @@ export default function AdminLayout({ children }) {
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="https://isf.com.br/wp-content/uploads/2020/09/ISF_SolucoesEmSeguranca_Logo.png"
+              src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
               alt="ISF"
               style={{ height: 28, filter: "brightness(0) invert(1)", objectFit: "contain" }}
             />

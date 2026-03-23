@@ -18,6 +18,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "**.intelbras.com",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
   async rewrites() {

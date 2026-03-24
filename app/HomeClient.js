@@ -459,35 +459,35 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       )}
 
       {/* HERO */}
-      <section id="home" style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "120px 5% 80px", position: "relative", overflow: "hidden" }}>
+      <section id="home" className="hero-section" style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "120px 5% 80px", position: "relative", overflow: "hidden" }}>
         {/* Full-bleed background slider */}
-        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+        <div className="hero-slider-bg" style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           <HeroSlider />
         </div>
 
         {/* Dark gradient overlay for text readability */}
-        <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.50) 45%, rgba(0,0,0,0.18) 75%, rgba(0,0,0,0.10) 100%)", pointerEvents: "none" }} />
+        <div className="hero-slider-bg" style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.50) 45%, rgba(0,0,0,0.18) 75%, rgba(0,0,0,0.10) 100%)", pointerEvents: "none" }} />
 
         {/* Text content */}
         <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%", position: "relative", zIndex: 2 }}>
           <div style={{ maxWidth: 620 }}>
-            <div className="fade-up fade-up-1" style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
-            <h1 className="fade-up fade-up-2" style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff", marginBottom: 24 }}>
+            <div className="fade-up fade-up-1 hero-supertitle" style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
+            <h1 className="fade-up fade-up-2 hero-title" style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff", marginBottom: 24 }}>
               Há mais de 35 anos<br />
               garantindo a sua{" "}
               <span style={{ borderBottom: "4px solid #126798", paddingBottom: 2 }}>segurança</span>
             </h1>
-            <p className="fade-up fade-up-3" style={{ fontSize: "1.12rem", lineHeight: 1.78, color: "rgba(255,255,255,0.82)", marginBottom: 40, maxWidth: 540 }}>
+            <p className="fade-up fade-up-3 hero-desc" style={{ fontSize: "1.12rem", lineHeight: 1.78, color: "rgba(255,255,255,0.82)", marginBottom: 40, maxWidth: 540 }}>
               A necessidade de segurança sempre existiu. É o que move a ISF Soluções em Segurança todos os dias para entregar a melhor proteção ao seu imóvel, família, funcionários e patrimônio.
             </p>
             <div className="fade-up fade-up-4 hero-btns" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a href="#contato" className="btn-primary">Solicitar orçamento grátis</a>
               <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
-              <a href="#servicos" className="btn-outline-white">Conheça os serviços</a>
+              <a href="#servicos" className="btn-outline-white hero-btn-outline">Conheça os serviços</a>
             </div>
             <div className="fade-up fade-up-4" style={{ marginTop: 40, display: "flex", gap: 28, flexWrap: "wrap" }}>
               {["✔ 35+ anos de experiência", "✔ Revenda autorizada Intelbras", "✔ Monitoramento 24/7"].map(b => (
-                <span key={b} style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.65)" }}>{b}</span>
+                <span key={b} className="hero-badge-text" style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.65)" }}>{b}</span>
               ))}
             </div>
           </div>

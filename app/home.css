@@ -101,4 +101,13 @@ select.form-input option { background: #fff; }
   .blog-card-slide { flex: 0 0 100%; }
   .carousel-btn-prev { left: -12px; }
   .carousel-btn-next { right: -12px; }
+
+  /* Hero mobile: sem imagem, fundo branco */
+  .hero-slider-bg { display: none !important; }
+  .hero-supertitle { color: #126798 !important; }
+  .hero-title { color: #1a1a2e !important; }
+  .hero-desc { color: #4b5563 !important; }
+  .hero-badge-text { color: #4b5563 !important; }
+  .hero-btn-outline { color: #126798 !important; border-color: #126798 !important; }
+  .hero-btn-outline:hover { background: #126798 !important; color: #fff !important; }
 }

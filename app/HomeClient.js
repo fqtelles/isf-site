@@ -474,6 +474,21 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
         </div>
       </section>
 
+      {/* REVIEWS */}
+      <section style={{ padding: "80px 5%", background: "#f9fafb", borderTop: "1px solid #e5e7eb" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <div className="section-label">O que dizem sobre nós</div>
+            <div className="divider" style={{ margin: "0 auto 20px" }} />
+            <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em" }}>Avaliações de Clientes</h2>
+            <p style={{ color: "#6b7280", fontSize: "1rem", maxWidth: 520, margin: "12px auto 0" }}>A satisfação e proteção de nossos clientes são a nossa maior prioridade.</p>
+          </div>
+          <div style={{ width: "100%", overflow: "hidden", paddingTop: 16 }}>
+            <GoogleReviewsWidget />
+          </div>
+        </div>
+      </section>
+
       {/* SERVICES */}
       <section id="servicos" style={{ padding: "96px 5%", background: "#f9fafb", backgroundImage: "radial-gradient(rgba(18,103,152,0.15) 1px, transparent 1px)", backgroundSize: "26px 26px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
@@ -750,21 +765,6 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               Ver todos os artigos
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
             </a>
-          </div>
-        </div>
-      </section>
-
-      {/* REVIEWS */}
-      <section style={{ padding: "96px 5% 0", background: "#fff", borderTop: "1px solid #e5e7eb" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <div className="section-label">O que dizem sobre nós</div>
-            <div className="divider" style={{ margin: "0 auto 20px" }} />
-            <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em" }}>Avaliações de Clientes</h2>
-            <p style={{ color: "#6b7280", fontSize: "1rem", maxWidth: 520, margin: "12px auto 0" }}>A satisfação e proteção de nossos clientes são a nossa maior prioridade.</p>
-          </div>
-          <div style={{ width: "100%", overflow: "hidden", paddingTop: 16 }}>
-            <GoogleReviewsWidget />
           </div>
         </div>
       </section>

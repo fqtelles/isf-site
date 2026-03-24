@@ -50,7 +50,7 @@ const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "@id": "https://isf.com.br/#organization",
-  name: "ISF Segurança Eletrônica",
+  name: "ISF Soluções em Segurança",
   description:
     "Empresa especializada em segurança eletrônica em Curitiba com mais de 35 anos de mercado. Instalação de alarmes, câmeras CFTV, cerca elétrica, controle de acesso e monitoramento 24 horas.",
   url: "https://isf.com.br",
@@ -58,7 +58,7 @@ const localBusinessSchema = {
   foundingDate: "1988",
   priceRange: "$$",
   image: "https://isf.com.br/og-image.png",
-  logo: "https://isf.com.br/og-image.png",
+  logo: "https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png",
   address: {
     "@type": "PostalAddress",
     streetAddress: "R. Omar Dutra, 52",

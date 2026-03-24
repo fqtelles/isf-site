@@ -475,7 +475,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       </section>
 
       {/* REVIEWS */}
-      <section style={{ padding: "80px 5%", background: "#f9fafb", borderTop: "1px solid #e5e7eb" }}>
+      <section style={{ padding: "80px 5% 24px", background: "#f9fafb", borderTop: "1px solid #e5e7eb" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <div className="section-label">O que dizem sobre nós</div>

@@ -173,6 +173,7 @@ export default function ProductDetail({ product, related }) {
                 src={allImages[active]}
                 alt={product.name}
                 fill
+                unoptimized
                 sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ objectFit: "contain", transition: "opacity 0.2s" }}
                 priority

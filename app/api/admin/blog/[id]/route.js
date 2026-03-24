@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "../../../../../lib/prisma";
 import { requireAdmin } from "../../../../../lib/auth";
 import { slugify, uniqueSlug } from "../../../../../lib/slugify";
@@ -6,7 +7,8 @@ import { slugify, uniqueSlug } from "../../../../../lib/slugify";
 export async function PUT(request, { params }) {
   if (!requireAdmin()) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
 
-  const id = parseInt(params.id, 10);
+  const { id: rawId } = await params;
+  const id = parseInt(rawId, 10);
   if (isNaN(id)) return NextResponse.json({ error: "ID inválido" }, { status: 400 });
 
   try {
@@ -35,6 +37,7 @@ export async function PUT(request, { params }) {
         ...slugData,
       },
     });
+    revalidatePath("/sitemap.xml");
     return NextResponse.json(post);
   } catch {
     return NextResponse.json({ error: "Artigo não encontrado" }, { status: 404 });
@@ -44,11 +47,13 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   if (!requireAdmin()) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
 
-  const id = parseInt(params.id, 10);
+  const { id: rawId } = await params;
+  const id = parseInt(rawId, 10);
   if (isNaN(id)) return NextResponse.json({ error: "ID inválido" }, { status: 400 });
 
   try {
     await prisma.blogPost.delete({ where: { id } });
+    revalidatePath("/sitemap.xml");
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Artigo não encontrado" }, { status: 404 });

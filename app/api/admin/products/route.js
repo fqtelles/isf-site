@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "../../../../lib/prisma";
 import { requireAdmin } from "../../../../lib/auth";
 import { slugify, uniqueSlug } from "../../../../lib/slugify";
@@ -35,6 +36,8 @@ export async function POST(request) {
         slug,
       },
     });
+    revalidatePath("/");
+    revalidatePath("/sitemap.xml");
     return NextResponse.json(product, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Erro ao criar produto" }, { status: 500 });

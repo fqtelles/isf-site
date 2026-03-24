@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    resolve: {
+      symlinks: false,
+    },
+  },
   images: {
     remotePatterns: [
       {
@@ -17,6 +22,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "**.intelbras.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
       },
     ],
   },

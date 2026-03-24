@@ -10,6 +10,6 @@ export const metadata = {
 };
 
 export default async function ProdutosPage() {
-  const products = await prisma.product.findMany({ orderBy: { id: "asc" } });
+  const products = await prisma.product.findMany({ orderBy: { name: "asc" } });
   return <ProductsGallery products={products} />;
 }

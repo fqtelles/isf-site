@@ -1,11 +1,4 @@
-import { Inter } from "next/font/google";
 import Script from "next/script";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
 
 export const metadata = {
   title: "ISF Soluções em Segurança | Alarmes, Câmeras e Monitoramento em Curitiba",
@@ -143,7 +136,7 @@ const faqSchema = {
       name: "A ISF é revendedora autorizada Intelbras?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Sim, somos revenda autorizada Intelbras e trabalhamos com produtos originais com garantia de fábrica. Também trabalhamos com outras marcas referência como Dtech, Vonder e Confiseg.",
+        text: "Sim, somos revenda autorizada Intelbras e trabalhamos com produtos originais com garantia de fábrica. Também trabalhamos com outras marcas referência como Hikvision, Paradox, Viaweb, JFL e outras.",
       },
     },
   ],
@@ -151,8 +144,12 @@ const faqSchema = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR" className={inter.variable}>
+    <html lang="pt-BR">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" />
+        <style>{`:root { --font-inter: 'Inter'; }`}</style>
         {/* Google Analytics 4 */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-80H81158R9"

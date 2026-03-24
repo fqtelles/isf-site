@@ -4,7 +4,7 @@ import ProductDetail from "./ProductDetail";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 
 export async function generateMetadata({ params }) {
-  const slugOrId = params.id;
+  const { id: slugOrId } = await params;
   const product = await findProduct(slugOrId);
   if (!product) return {};
   return {
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function ProductPage({ params }) {
-  const slugOrId = params.id;
+  const { id: slugOrId } = await params;
 
   // Numeric ID → permanent redirect to slug URL (301, keeps SEO juice)
   if (/^\d+$/.test(slugOrId)) {

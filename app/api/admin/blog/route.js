@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "../../../../lib/prisma";
 import { requireAdmin } from "../../../../lib/auth";
 import { slugify, uniqueSlug } from "../../../../lib/slugify";
@@ -26,6 +27,7 @@ export async function POST(request) {
     const post = await prisma.blogPost.create({
       data: { date, title, excerpt, readTime, content: content ?? "", coverImage: coverImage ?? "", slug },
     });
+    revalidatePath("/sitemap.xml");
     return NextResponse.json(post, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Erro ao criar artigo" }, { status: 500 });

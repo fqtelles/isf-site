@@ -11,7 +11,7 @@ const MIME_TYPES = {
 };
 
 export async function GET(request, { params }) {
-  const pathParts = params.path;
+  const { path: pathParts } = await params;
   if (!pathParts || pathParts.length === 0) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }

@@ -51,7 +51,7 @@ const FAQS = [
   },
   {
     q: "A ISF é revendedora autorizada Intelbras?",
-    a: "Sim, somos revenda autorizada Intelbras e trabalhamos com produtos originais com garantia de fábrica. Também trabalhamos com outras marcas referência como Dtech, Vonder e Confiseg.",
+    a: "Sim, somos revenda autorizada Intelbras e trabalhamos com produtos originais com garantia de fábrica. Também trabalhamos com outras marcas referência como Hikvision, Paradox, Viaweb, JFL e outras.",
   },
 ];
 
@@ -909,8 +909,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 48 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {[
-                { icon: "phone", label: "Telefone", val: "(41) 3378-7933" },
-                { icon: "chat", label: "WhatsApp", val: "(41) 99991-9191" },
+                { icon: "chat", label: "Telefone / WhatsApp", val: "(41) 3378-7933", href: "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!" },
                 { icon: "pin", label: "Endereço", val: "R. Omar Dutra, 52 — São Lourenço, Curitiba-PR" },
                 { icon: "clock", label: "Horário de atendimento", val: "Segunda a sexta: 8h30 – 18h00" },
               ].map(item => (
@@ -918,7 +917,9 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                   <div style={{ flexShrink: 0, marginTop: 2 }}><Icon d={ICONS[item.icon]} size={18} color="#6b7280" /></div>
                   <div>
                     <div style={{ fontSize: "0.72rem", color: "#6b7280", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 2 }}>{item.label}</div>
-                    <div style={{ color: "#1a1d20", fontSize: "0.9rem", fontWeight: 500 }}>{item.val}</div>
+                    <div style={{ color: "#1a1d20", fontSize: "0.9rem", fontWeight: 500 }}>
+                      {item.href ? <a href={item.href} target="_blank" rel="noopener noreferrer" style={{ color: "#1a1d20", textDecoration: "none" }}>{item.val}</a> : item.val}
+                    </div>
                   </div>
                 </div>
               ))}

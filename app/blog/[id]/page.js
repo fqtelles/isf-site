@@ -6,7 +6,7 @@ import { StatsStrip, ServiceLinks, BlogFaq, FinalCta, ConversionStyles } from ".
 import BlogCta from "./BlogCta";
 
 export async function generateMetadata({ params }) {
-  const slugOrId = params.id;
+  const { id: slugOrId } = await params;
   const post = await findPost(slugOrId);
   if (!post) return {};
   return {
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function BlogPostPage({ params }) {
-  const slugOrId = params.id;
+  const { id: slugOrId } = await params;
 
   // Numeric ID → permanent redirect to slug URL (SEO 301)
   if (/^\d+$/.test(slugOrId)) {

@@ -7,7 +7,8 @@ import { slugify, uniqueSlug } from "../../../../../lib/slugify";
 export async function PUT(request, { params }) {
   if (!requireAdmin()) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
 
-  const id = parseInt(params.id, 10);
+  const { id: rawId } = await params;
+  const id = parseInt(rawId, 10);
   if (isNaN(id)) return NextResponse.json({ error: "ID inválido" }, { status: 400 });
 
   try {
@@ -49,7 +50,8 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   if (!requireAdmin()) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
 
-  const id = parseInt(params.id, 10);
+  const { id: rawId } = await params;
+  const id = parseInt(rawId, 10);
   if (isNaN(id)) return NextResponse.json({ error: "ID inválido" }, { status: 400 });
 
   try {

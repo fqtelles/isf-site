@@ -205,7 +205,7 @@ export default function SiteShell({ children }) {
       )}
 
       {/* ── PAGE CONTENT ── */}
-      {children}
+      <main>{children}</main>
 
       {/* ── FOOTER ── */}
       <footer style={{ padding: "48px 5% 32px", background: "#1a1d20", borderTop: "1px solid #2d3137" }}>
@@ -311,7 +311,7 @@ export default function SiteShell({ children }) {
               gap: 12,
             }}
           >
-            <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>
+            <div suppressHydrationWarning style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>
               © {new Date().getFullYear()} ISF Soluções em Segurança · Todos os direitos reservados
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>

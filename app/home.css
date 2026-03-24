@@ -27,7 +27,7 @@ body { background: #ffffff; color: #32373c; font-family: var(--font-inter), 'Hel
 .btn-whatsapp { background: #25d366; color: #fff; border: none; padding: 13px 24px; border-radius: 9999px; font-family: inherit; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; letter-spacing: 0.01em; }
 .btn-whatsapp:hover { background: #1fba58; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
 .hero-btns { flex-wrap: nowrap !important; }
-.hero-btns .btn-primary, .hero-btns .btn-whatsapp, .hero-btns .btn-outline { padding: 11px 20px; font-size: 0.82rem; }
+.hero-btns .btn-primary, .hero-btns .btn-whatsapp, .hero-btns .btn-outline, .hero-btns .btn-outline-white { padding: 11px 20px; font-size: 0.82rem; }
 .service-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 32px 28px; transition: all 0.3s; display: block; text-decoration: none; color: inherit; cursor: pointer; }
 .service-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-4px); border-color: #126798; }
 .service-card-arrow { font-size: 0.82rem; color: #126798; font-weight: 600; margin-top: 16px; display: block; }

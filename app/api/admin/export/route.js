@@ -1,5 +1,6 @@
 import { requireAdmin } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
+import { slugify } from "../../../../lib/slugify";
 
 export async function GET() {
   if (!requireAdmin()) {
@@ -12,20 +13,31 @@ export async function GET() {
   const products = await prisma.product.findMany({ orderBy: { id: "asc" } });
   const blogPosts = await prisma.blogPost.findMany({ orderBy: { id: "asc" } });
 
+  // Build unique slugs for products, regenerating bad ones from the name
+  const usedProductSlugs = new Set();
+  function resolveSlug(name, existingSlug) {
+    const base = (existingSlug && existingSlug.length > 2) ? existingSlug : slugify(name);
+    let slug = base;
+    let i = 2;
+    while (usedProductSlugs.has(slug)) slug = `${base}-${i++}`;
+    usedProductSlugs.add(slug);
+    return slug;
+  }
+
   const productsCode = products
     .map((p) => {
-      const images = (() => {
-        try { return JSON.parse(p.images || "[]"); } catch { return []; }
-      })();
+      // images is stored as a JSON string in the DB; keep it that way in the seed
+      const imagesJson = p.images || "[]";
+      const slug = resolveSlug(p.name, p.slug);
       return `  {
     name: ${JSON.stringify(p.name)},
     brand: ${JSON.stringify(p.brand)},
     category: ${JSON.stringify(p.category)},
     image: ${JSON.stringify(p.image)},
-    images: ${JSON.stringify(images)},
+    images: ${JSON.stringify(imagesJson)},
     description: ${JSON.stringify(p.description || "")},
     video: ${JSON.stringify(p.video || "")},
-    slug: ${JSON.stringify(p.slug || "")},
+    slug: ${JSON.stringify(slug)},
   }`;
     })
     .join(",\n");

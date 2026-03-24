@@ -15,13 +15,13 @@ export const metadata = {
     siteName: "ISF Segurança Eletrônica",
     locale: "pt_BR",
     type: "website",
-    images: [{ url: "https://isf.com.br/og-image.png", width: 1200, height: 630, alt: "Blog — ISF Segurança Eletrônica" }],
+    images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "Blog — ISF Segurança Eletrônica" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Blog | ISF Segurança Eletrônica",
     description: "Dicas e artigos sobre segurança eletrônica em Curitiba.",
-    images: ["https://isf.com.br/og-image.png"],
+    images: ["https://isf.com.br/og-image.jpg"],
   },
 };
 

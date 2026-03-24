@@ -10,12 +10,11 @@ export async function GET() {
     });
   }
 
-  const DATA_DIR = process.env.DATA_DIR || "/data";
-  const uploadsDir = join(DATA_DIR, "uploads");
+  const uploadsDir = join(process.cwd(), "public", "uploads");
   const date = new Date().toISOString().split("T")[0];
   const filename = `uploads-backup-${date}.tar.gz`;
 
-  const tar = spawn("tar", ["czf", "-", "-C", DATA_DIR, "uploads"]);
+  const tar = spawn("tar", ["czf", "-", "-C", join(process.cwd(), "public"), "uploads"]);
 
   const stream = new ReadableStream({
     start(controller) {

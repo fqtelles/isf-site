@@ -19,6 +19,11 @@ fi
 # Link da pasta de uploads para o volume persistente
 if [ ! -L "/app/public/uploads" ]; then
   echo "==> Linkando uploads para volume persistente..."
+  # Se for uma pasta real com arquivos, migra para o volume antes de deletar
+  if [ -d "/app/public/uploads" ] && [ "$(ls -A /app/public/uploads 2>/dev/null)" ]; then
+    echo "==> Migrando arquivos existentes para o volume..."
+    cp -rn /app/public/uploads/. "$UPLOADS_DIR/"
+  fi
   rm -rf /app/public/uploads
   ln -s "$UPLOADS_DIR" /app/public/uploads
 fi

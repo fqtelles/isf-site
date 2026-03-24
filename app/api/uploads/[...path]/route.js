@@ -16,8 +16,7 @@ export async function GET(request, { params }) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const DATA_DIR = process.env.DATA_DIR || "/data";
-  const uploadsDir = join(DATA_DIR, "uploads");
+  const uploadsDir = join(process.cwd(), "public", "uploads");
   const filePath = resolve(join(uploadsDir, ...pathParts));
 
   // Prevent path traversal

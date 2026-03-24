@@ -191,7 +191,7 @@ function HeroSlider() {
             padding: "48px 20px 50px",
           }}>
             <p style={{
-              color: "#fff", fontSize: "0.78rem", fontWeight: 600, margin: 0,
+              color: "#fff", fontSize: "1.1rem", fontWeight: 600, margin: 0,
               letterSpacing: "0.02em", textShadow: "0 1px 4px rgba(0,0,0,0.3)",
             }}>
               {s.caption}

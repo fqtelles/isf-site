@@ -185,23 +185,11 @@ function HeroSlider() {
             alt={s.alt}
             style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: s.objectPosition || "center", display: "block" }}
           />
-          <div style={{
-            position: "absolute", bottom: 0, left: 0, right: 0,
-            background: "linear-gradient(to top, rgba(0,0,0,0.62) 0%, transparent 100%)",
-            padding: "48px 20px 50px",
-          }}>
-            <p style={{
-              color: "#fff", fontSize: "0.78rem", fontWeight: 600, margin: 0,
-              letterSpacing: "0.02em", textShadow: "0 1px 4px rgba(0,0,0,0.3)",
-            }}>
-              {s.caption}
-            </p>
-          </div>
         </div>
       ))}
       <div style={{
-        position: "absolute", bottom: 18, left: 0, right: 0,
-        display: "flex", justifyContent: "center", gap: 6, zIndex: 3,
+        position: "absolute", bottom: 32, right: 48,
+        display: "flex", gap: 8, zIndex: 3,
       }}>
         {HERO_SLIDES.map((_, i) => (
           <button
@@ -209,10 +197,10 @@ function HeroSlider() {
             onClick={() => go(i)}
             aria-label={`Slide ${i + 1}`}
             style={{
-              width: i === active ? 20 : 6,
-              height: 6,
-              borderRadius: 3,
-              background: i === active ? "#fff" : "rgba(255,255,255,0.5)",
+              width: i === active ? 28 : 8,
+              height: 8,
+              borderRadius: 4,
+              background: i === active ? "#fff" : "rgba(255,255,255,0.45)",
               border: "none",
               cursor: "pointer",
               padding: 0,
@@ -471,46 +459,38 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       )}
 
       {/* HERO */}
-      <section id="home" style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "120px 5% 80px", background: "#fff", position: "relative", overflow: "hidden" }}>
-        {/* Background decoration */}
-        <div style={{ position: "absolute", right: 0, top: 0, bottom: 0, width: "45%", background: "#f5f5f5", clipPath: "polygon(10% 0, 100% 0, 100% 100%, 0% 100%)", zIndex: 0 }} />
+      <section id="home" style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "120px 5% 80px", position: "relative", overflow: "hidden" }}>
+        {/* Full-bleed background slider */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+          <HeroSlider />
+        </div>
 
-        {/* Text Col container */}
-        <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%", display: "flex", alignItems: "center", position: "relative", zIndex: 1 }}>
-          <div style={{ maxWidth: 580, flex: 1, zIndex: 2 }}>
-            <div className="section-label fade-up fade-up-1">Desde 1988 · Curitiba e Região Metropolitana</div>
-            <h1 className="fade-up fade-up-2" style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#1a1d20", marginBottom: 20 }}>
-               Há mais de 35 anos<br />
-              <span style={{ color: "#32373c" }}>garantindo a sua</span>{" "}
+        {/* Dark gradient overlay for text readability */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.50) 45%, rgba(0,0,0,0.18) 75%, rgba(0,0,0,0.10) 100%)", pointerEvents: "none" }} />
+
+        {/* Text content */}
+        <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%", position: "relative", zIndex: 2 }}>
+          <div style={{ maxWidth: 620 }}>
+            <div className="fade-up fade-up-1" style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
+            <h1 className="fade-up fade-up-2" style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff", marginBottom: 24 }}>
+              Há mais de 35 anos<br />
+              garantindo a sua{" "}
               <span style={{ borderBottom: "4px solid #126798", paddingBottom: 2 }}>segurança</span>
             </h1>
-            <p className="fade-up fade-up-3" style={{ fontSize: "1.12rem", lineHeight: 1.78, color: "#6b7280", marginBottom: 36 }}>
+            <p className="fade-up fade-up-3" style={{ fontSize: "1.12rem", lineHeight: 1.78, color: "rgba(255,255,255,0.82)", marginBottom: 40, maxWidth: 540 }}>
               A necessidade de segurança sempre existiu. É o que move a ISF Soluções em Segurança todos os dias para entregar a melhor proteção ao seu imóvel, família, funcionários e patrimônio.
             </p>
             <div className="fade-up fade-up-4 hero-btns" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               <a href="#contato" className="btn-primary">Solicitar orçamento grátis</a>
               <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
-              <a href="#servicos" className="btn-outline">Conheça os serviços</a>
+              <a href="#servicos" className="btn-outline-white">Conheça os serviços</a>
             </div>
             <div className="fade-up fade-up-4" style={{ marginTop: 40, display: "flex", gap: 28, flexWrap: "wrap" }}>
               {["✔ 35+ anos de experiência", "✔ Revenda autorizada Intelbras", "✔ Monitoramento 24/7"].map(b => (
-                <span key={b} style={{ fontSize: "0.9rem", color: "#6b7280" }}>{b}</span>
+                <span key={b} style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.65)" }}>{b}</span>
               ))}
             </div>
           </div>
-        </div>
-
-        {/* Premium Animated Composition */}
-        <div className="hero-visual fade-up fade-up-3" style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: "45%", zIndex: 2, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
-
-          {/* Hero image slider */}
-          <div style={{ position: "relative", zIndex: 2, width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <HeroSlider />
-          </div>
-
-          {/* Soft left-edge transition */}
-          <div style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "22%", background: "linear-gradient(to right, #fff 0%, rgba(255,255,255,0) 100%)", zIndex: 3, pointerEvents: "none" }} />
-
         </div>
       </section>
 

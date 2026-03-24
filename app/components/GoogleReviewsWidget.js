@@ -234,6 +234,7 @@ export default function GoogleReviewsWidget() {
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12 }}>
             <button
               onClick={prev}
+              aria-label="Avaliação anterior"
               style={{
                 width: 36, height: 36, borderRadius: "50%",
                 border: "1px solid #e5e7eb", background: "#fff",
@@ -253,6 +254,7 @@ export default function GoogleReviewsWidget() {
                 <button
                   key={i}
                   onClick={() => setCurrent(i)}
+                  aria-label={`Avaliação ${i + 1}`}
                   style={{
                     width: i === current ? 20 : 8,
                     height: 8,
@@ -269,6 +271,7 @@ export default function GoogleReviewsWidget() {
 
             <button
               onClick={next}
+              aria-label="Próxima avaliação"
               style={{
                 width: 36, height: 36, borderRadius: "50%",
                 border: "1px solid #e5e7eb", background: "#fff",

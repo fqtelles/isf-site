@@ -82,12 +82,12 @@ function renderPost(post) {
     dateModified: post.createdAt,
     author: {
       "@type": "Organization",
-      name: "ISF Segurança Eletrônica",
+      name: "ISF Soluções em Segurança",
       url: "https://isf.com.br",
     },
     publisher: {
       "@type": "Organization",
-      name: "ISF Segurança Eletrônica",
+      name: "ISF Soluções em Segurança",
       logo: {
         "@type": "ImageObject",
         url: "https://isf.com.br/og-image.png",

@@ -79,7 +79,7 @@ async function renderProduct(product) {
       seller: {
         "@type": "LocalBusiness",
         "@id": "https://isf.com.br/#organization",
-        name: "ISF Segurança Eletrônica",
+        name: "ISF Soluções em Segurança",
       },
     },
   };

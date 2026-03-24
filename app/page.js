@@ -3,11 +3,66 @@ import HomeClient from "./HomeClient";
 
 export const revalidate = 3600; // ISR: revalida a cada 1 hora
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Quanto custa instalar câmeras de segurança em Curitiba?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "O valor varia conforme o número de câmeras, tipo de equipamento e área de cobertura. A ISF oferece orçamento gratuito e sem compromisso — entre em contato pelo WhatsApp ou formulário e nossa equipe visita o local para apresentar a melhor solução.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "A ISF faz monitoramento 24 horas?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sim. A ISF oferece serviço de monitoramento 24 horas em parceria com as melhores centrais do setor. Ao menor sinal de alarme, nossa equipe aciona os procedimentos de segurança imediatamente.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Cerca elétrica é permitida em Curitiba?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sim, a cerca elétrica é permitida em Curitiba mediante instalação por empresa habilitada e seguindo as normas da ABNT NBR IEC 60335-2-76. A ISF realiza toda a instalação em conformidade com a legislação vigente.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Quais bairros e cidades a ISF atende?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Atendemos Curitiba e toda a Região Metropolitana, incluindo São José dos Pinhais, Colombo, Pinhais, Araucária, Campo Largo, Almirante Tamandaré e demais municípios da RMC.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "A ISF é revendedora autorizada Intelbras?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Sim, somos revenda autorizada Intelbras e trabalhamos com produtos originais com garantia de fábrica. Também trabalhamos com outras marcas referência como Hikvision, Paradox, Viaweb, JFL e outras.",
+      },
+    },
+  ],
+};
+
 export default async function HomePage() {
   const [products, blogPosts] = await Promise.all([
     prisma.product.findMany({ orderBy: { id: "asc" } }),
     prisma.blogPost.findMany({ orderBy: { id: "asc" } }),
   ]);
 
-  return <HomeClient initialProducts={products} initialBlogPosts={blogPosts} />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <HomeClient initialProducts={products} initialBlogPosts={blogPosts} />
+    </>
+  );
 }

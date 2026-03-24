@@ -35,6 +35,24 @@ const PRODUCT_CATEGORIES = ["Todos", "Câmeras", "DVR / NVR", "Alarmes", "Cerca 
 const VISIBLE = 3;
 const BLOG_VISIBLE = 3;
 
+const HERO_SLIDES = [
+  {
+    src: "/hero-slide-1.jpg",
+    alt: "Técnico Autorizado ISF realizando instalação de sistema de segurança",
+    caption: "Instalação profissional por técnicos autorizados",
+  },
+  {
+    src: "/hero-slide-2.jpg",
+    alt: "Monitore seu imóvel de qualquer lugar pelo tablet",
+    caption: "Acesse suas câmeras de onde estiver",
+  },
+  {
+    src: "/hero-slide-3.jpg",
+    alt: "App de alarme residencial Intelbras no celular",
+    caption: "Controle total na palma da mão",
+  },
+];
+
 const FAQS = [
   {
     q: "Quanto custa instalar câmeras de segurança em Curitiba?",
@@ -119,6 +137,91 @@ function Counter({ value, suffix }) {
   }, [num]);
 
   return <span ref={ref}>{count}{suffix}</span>;
+}
+
+function HeroSlider() {
+  const [active, setActive] = useState(0);
+  const timerRef = useRef(null);
+
+  const startTimer = () => {
+    clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      setActive(p => (p + 1) % HERO_SLIDES.length);
+    }, 5000);
+  };
+
+  useEffect(() => {
+    startTimer();
+    return () => clearInterval(timerRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const go = (i) => {
+    setActive(i);
+    startTimer();
+  };
+
+  return (
+    <div style={{
+      position: "relative",
+      width: "clamp(240px, 24vw, 380px)",
+      aspectRatio: "3/4",
+      borderRadius: 20,
+      overflow: "hidden",
+      boxShadow: "0 40px 90px rgba(0,0,0,0.28), 0 10px 24px rgba(0,0,0,0.12)",
+    }}>
+      {HERO_SLIDES.map((s, i) => (
+        <div key={i} style={{
+          position: "absolute",
+          inset: 0,
+          opacity: i === active ? 1 : 0,
+          transition: "opacity 0.9s ease",
+          zIndex: i === active ? 1 : 0,
+        }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={s.src}
+            alt={s.alt}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+          />
+          <div style={{
+            position: "absolute", bottom: 0, left: 0, right: 0,
+            background: "linear-gradient(to top, rgba(0,0,0,0.62) 0%, transparent 100%)",
+            padding: "48px 20px 50px",
+          }}>
+            <p style={{
+              color: "#fff", fontSize: "0.78rem", fontWeight: 600, margin: 0,
+              letterSpacing: "0.02em", textShadow: "0 1px 4px rgba(0,0,0,0.3)",
+            }}>
+              {s.caption}
+            </p>
+          </div>
+        </div>
+      ))}
+      <div style={{
+        position: "absolute", bottom: 18, left: 0, right: 0,
+        display: "flex", justifyContent: "center", gap: 6, zIndex: 3,
+      }}>
+        {HERO_SLIDES.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => go(i)}
+            aria-label={`Slide ${i + 1}`}
+            style={{
+              width: i === active ? 20 : 6,
+              height: 6,
+              borderRadius: 3,
+              background: i === active ? "#fff" : "rgba(255,255,255,0.5)",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+              transition: "all 0.35s ease",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
 }
 
 function FaqItem({ q, a }) {
@@ -399,30 +502,9 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
         {/* Premium Animated Composition */}
         <div className="hero-visual fade-up fade-up-3" style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: "45%", zIndex: 2, display: "flex", alignItems: "center", justifyContent: "center", overflow: "visible" }}>
 
-          {/* Animated rings background */}
-          <div style={{ position: "absolute", width: "100%", height: "100%", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.7, zIndex: 1 }}>
-             <div style={{ position: "absolute", width: "clamp(400px, 50vw, 650px)", height: "clamp(400px, 50vw, 650px)", background: "radial-gradient(circle, rgba(18,103,152,0.12) 0%, rgba(18,103,152,0) 70%)", borderRadius: "50%", filter: "blur(20px)" }} />
-             <div className="animate-spin-slow" style={{ position: "absolute", width: "clamp(362px, 48.3vw, 665px)", height: "clamp(362px, 48.3vw, 665px)", border: "1px dashed rgba(18,103,152,0.25)", borderRadius: "50%" }} />
-             <div className="animate-spin-rev" style={{ position: "absolute", width: "clamp(302px, 36.2vw, 507px)", height: "clamp(302px, 36.2vw, 507px)", border: "1px solid rgba(18,103,152,0.15)", borderRadius: "50%" }} />
-             <div className="animate-spin-slow" style={{ position: "absolute", width: "clamp(217px, 26.6vw, 362px)", height: "clamp(217px, 26.6vw, 362px)", border: "1.5px solid rgba(18,103,152,0.2)", borderRadius: "50%", animationDuration: "30s" }} />
-          </div>
-
-          {/* Main Camera Image */}
-          <div style={{ position: "relative", zIndex: 2, width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", transform: "translateX(5%)" }}>
-            <Image
-              src="/camera-bullet.png"
-              alt="Câmera Bullet Intelbras HDCVI"
-              className="animate-float"
-              width={600}
-              height={600}
-              priority
-              style={{
-                width: "clamp(350px, 40vw, 600px)", height: "clamp(350px, 40vw, 600px)",
-                objectFit: "contain",
-                filter: "drop-shadow(0 32px 64px rgba(0,0,0,0.25)) drop-shadow(0 12px 24px rgba(0,0,0,0.15))",
-                animationDuration: "9s"
-              }}
-            />
+          {/* Hero image slider */}
+          <div style={{ position: "relative", zIndex: 2, width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <HeroSlider />
           </div>
 
           {/* Floating Glassmorphism Logo Card (Overlapping Composition) */}

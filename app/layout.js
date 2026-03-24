@@ -79,6 +79,12 @@ const localBusinessSchema = {
       opens: "08:30",
       closes: "18:00",
     },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Saturday", "Sunday"],
+      opens: "00:00",
+      closes: "00:00",
+    },
   ],
   areaServed: [
     { "@type": "City", name: "Curitiba" },
@@ -95,7 +101,10 @@ const localBusinessSchema = {
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Controle de Acesso" } },
     ],
   },
-  sameAs: ["https://www.facebook.com/isfsegurancaeletronica"],
+  sameAs: [
+    "https://www.facebook.com/isfsegurancaeletronica",
+    "https://www.instagram.com/isfsolucoesemseguranca/",
+  ],
 };
 
 

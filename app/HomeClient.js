@@ -40,16 +40,19 @@ const HERO_SLIDES = [
     src: "/hero-slide-1.png",
     alt: "Técnico Autorizado ISF realizando instalação de sistema de segurança",
     caption: "Instalação profissional por técnicos autorizados",
+    objectPosition: "50% 5%",
   },
   {
     src: "/hero-slide-2.png",
     alt: "Monitore seu imóvel de qualquer lugar pelo tablet",
     caption: "Acesse suas câmeras de onde estiver",
+    objectPosition: "center",
   },
   {
     src: "/hero-slide-3.png",
     alt: "App de alarme residencial Intelbras no celular",
     caption: "Controle total na palma da mão",
+    objectPosition: "center",
   },
 ];
 
@@ -180,7 +183,7 @@ function HeroSlider() {
           <img
             src={s.src}
             alt={s.alt}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: s.objectPosition || "center", display: "block" }}
           />
           <div style={{
             position: "absolute", bottom: 0, left: 0, right: 0,
@@ -481,7 +484,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               <span style={{ color: "#32373c" }}>garantindo a sua</span>{" "}
               <span style={{ borderBottom: "4px solid #126798", paddingBottom: 2 }}>segurança</span>
             </h1>
-            <p className="fade-up fade-up-3" style={{ fontSize: "1.05rem", lineHeight: 1.72, color: "#6b7280", marginBottom: 36, maxWidth: 480 }}>
+            <p className="fade-up fade-up-3" style={{ fontSize: "1.12rem", lineHeight: 1.78, color: "#6b7280", marginBottom: 36 }}>
               A necessidade de segurança sempre existiu. É o que move a ISF Soluções em Segurança todos os dias para entregar a melhor proteção ao seu imóvel, família, funcionários e patrimônio.
             </p>
             <div className="fade-up fade-up-4 hero-btns" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
@@ -491,19 +494,22 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             </div>
             <div className="fade-up fade-up-4" style={{ marginTop: 40, display: "flex", gap: 28, flexWrap: "wrap" }}>
               {["✔ 35+ anos de experiência", "✔ Revenda autorizada Intelbras", "✔ Monitoramento 24/7"].map(b => (
-                <span key={b} style={{ fontSize: "0.82rem", color: "#6b7280" }}>{b}</span>
+                <span key={b} style={{ fontSize: "0.9rem", color: "#6b7280" }}>{b}</span>
               ))}
             </div>
           </div>
         </div>
 
         {/* Premium Animated Composition */}
-        <div className="hero-visual fade-up fade-up-3" style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: "45%", zIndex: 2, display: "flex", alignItems: "center", justifyContent: "center", overflow: "visible" }}>
+        <div className="hero-visual fade-up fade-up-3" style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: "45%", zIndex: 2, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
 
           {/* Hero image slider */}
           <div style={{ position: "relative", zIndex: 2, width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <HeroSlider />
           </div>
+
+          {/* Soft left-edge transition */}
+          <div style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "22%", background: "linear-gradient(to right, #fff 0%, rgba(255,255,255,0) 100%)", zIndex: 3, pointerEvents: "none" }} />
 
         </div>
       </section>

@@ -3,7 +3,7 @@ import { join } from "path";
 import { spawn } from "child_process";
 
 export async function GET() {
-  if (!requireAdmin()) {
+  if (!(await requireAdmin())) {
     return new Response(JSON.stringify({ error: "Não autorizado" }), {
       status: 401,
       headers: { "Content-Type": "application/json" },

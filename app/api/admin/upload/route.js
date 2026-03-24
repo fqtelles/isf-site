@@ -7,7 +7,7 @@ const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
 
 export async function POST(request) {
-  if (!requireAdmin()) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  if (!(await requireAdmin())) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
 
   try {
     const formData = await request.formData();

@@ -5,13 +5,13 @@ import { requireAdmin } from "../../../../lib/auth";
 import { slugify, uniqueSlug } from "../../../../lib/slugify";
 
 export async function GET() {
-  if (!requireAdmin()) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  if (!(await requireAdmin())) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   const posts = await prisma.blogPost.findMany({ orderBy: { id: "desc" } });
   return NextResponse.json(posts);
 }
 
 export async function POST(request) {
-  if (!requireAdmin()) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  if (!(await requireAdmin())) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
 
   try {
     const body = await request.json();

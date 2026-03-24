@@ -7,14 +7,30 @@ export async function generateMetadata({ params }) {
   const { id: slugOrId } = await params;
   const product = await findProduct(slugOrId);
   if (!product) return {};
+  const desc = product.description ||
+    `${product.name} da ${product.brand}. Adquira com a ISF, revenda autorizada em Curitiba.`;
+  const url = `https://isf.com.br/produtos/${product.slug || product.id}`;
   return {
     title: `${product.name} — ISF Segurança Eletrônica`,
-    description:
-      product.description ||
-      `${product.name} da ${product.brand}. Adquira com a ISF, revenda autorizada em Curitiba.`,
-    alternates: product.slug
-      ? { canonical: `https://isf.com.br/produtos/${product.slug}` }
-      : undefined,
+    description: desc,
+    alternates: product.slug ? { canonical: url } : undefined,
+    openGraph: {
+      title: `${product.name} — ISF Segurança Eletrônica`,
+      description: desc,
+      url,
+      siteName: "ISF Segurança Eletrônica",
+      locale: "pt_BR",
+      type: "website",
+      images: product.image
+        ? [{ url: product.image, width: 600, height: 600, alt: product.name }]
+        : [{ url: "https://isf.com.br/og-image.png", width: 1200, height: 630, alt: product.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} — ISF Segurança Eletrônica`,
+      description: desc,
+      images: [product.image || "https://isf.com.br/og-image.png"],
+    },
   };
 }
 

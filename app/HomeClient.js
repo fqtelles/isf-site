@@ -934,11 +934,15 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               ) : (
                 <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-                    <input className="form-input" placeholder="Nome completo" required value={formData.nome} onChange={e => setFormData({ ...formData, nome: e.target.value })} />
-                    <input className="form-input" placeholder="E-mail" type="email" required value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
+                    <label htmlFor="contact-nome" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Nome completo</label>
+                    <input id="contact-nome" className="form-input" placeholder="Nome completo" required value={formData.nome} onChange={e => setFormData({ ...formData, nome: e.target.value })} />
+                    <label htmlFor="contact-email" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>E-mail</label>
+                    <input id="contact-email" className="form-input" placeholder="E-mail" type="email" required value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
                   </div>
-                  <input className="form-input" placeholder="Telefone / WhatsApp" value={formData.telefone} onChange={e => setFormData({ ...formData, telefone: e.target.value })} />
-                  <select className="form-input" value={formData.servico} onChange={e => setFormData({ ...formData, servico: e.target.value })}>
+                  <label htmlFor="contact-telefone" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Telefone / WhatsApp</label>
+                  <input id="contact-telefone" className="form-input" placeholder="Telefone / WhatsApp" value={formData.telefone} onChange={e => setFormData({ ...formData, telefone: e.target.value })} />
+                  <label htmlFor="contact-servico" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Serviço de interesse</label>
+                  <select id="contact-servico" className="form-input" value={formData.servico} onChange={e => setFormData({ ...formData, servico: e.target.value })}>
                     <option value="">Serviço de interesse</option>
                     <option>Alarmes</option>
                     <option>Câmeras CFTV</option>
@@ -947,7 +951,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                     <option>Controle de Acesso</option>
                     <option>Outros</option>
                   </select>
-                  <textarea className="form-input" placeholder="Descreva brevemente sua necessidade..." rows={4} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
+                  <label htmlFor="contact-mensagem" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Mensagem</label>
+                  <textarea id="contact-mensagem" className="form-input" placeholder="Descreva brevemente sua necessidade..." rows={4} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
                   <button type="submit" className="btn-primary" disabled={formSending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: formSending ? 0.7 : 1 }}>
                     {formSending ? "Enviando…" : "Enviar Mensagem"}
                   </button>

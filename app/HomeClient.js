@@ -179,11 +179,13 @@ function HeroSlider() {
           transition: "opacity 0.9s ease",
           zIndex: i === active ? 1 : 0,
         }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={s.src}
             alt={s.alt}
-            style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: s.objectPosition || "center", display: "block" }}
+            fill
+            priority={i === 0}
+            sizes="100vw"
+            style={{ objectFit: "cover", objectPosition: s.objectPosition || "center" }}
           />
         </div>
       ))}

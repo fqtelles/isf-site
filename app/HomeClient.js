@@ -150,7 +150,7 @@ function HeroSlider() {
     clearInterval(timerRef.current);
     timerRef.current = setInterval(() => {
       setActive(p => (p + 1) % HERO_SLIDES.length);
-    }, 5000);
+    }, 8000);
   };
 
   useEffect(() => {
@@ -188,7 +188,7 @@ function HeroSlider() {
         </div>
       ))}
       <div style={{
-        position: "absolute", bottom: 32, right: 48,
+        position: "absolute", bottom: 32, left: "50%", transform: "translateX(-50%)",
         display: "flex", gap: 8, zIndex: 3,
       }}>
         {HERO_SLIDES.map((_, i) => (

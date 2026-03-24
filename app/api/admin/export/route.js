@@ -3,7 +3,7 @@ import { prisma } from "../../../../lib/prisma";
 import { slugify } from "../../../../lib/slugify";
 
 export async function GET() {
-  if (!requireAdmin()) {
+  if (!(await requireAdmin())) {
     return new Response(JSON.stringify({ error: "Não autorizado" }), {
       status: 401,
       headers: { "Content-Type": "application/json" },

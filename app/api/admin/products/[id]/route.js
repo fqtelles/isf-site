@@ -5,7 +5,7 @@ import { requireAdmin } from "../../../../../lib/auth";
 import { slugify, uniqueSlug } from "../../../../../lib/slugify";
 
 export async function PUT(request, { params }) {
-  if (!requireAdmin()) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  if (!(await requireAdmin())) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
 
   const { id: rawId } = await params;
   const id = parseInt(rawId, 10);
@@ -48,7 +48,7 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
-  if (!requireAdmin()) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  if (!(await requireAdmin())) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
 
   const { id: rawId } = await params;
   const id = parseInt(rawId, 10);

@@ -23,13 +23,13 @@ export async function generateMetadata({ params }) {
       type: "website",
       images: product.image
         ? [{ url: product.image, width: 600, height: 600, alt: product.name }]
-        : [{ url: "https://isf.com.br/og-image.png", width: 1200, height: 630, alt: product.name }],
+        : [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: product.name }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${product.name} — ISF Segurança Eletrônica`,
       description: desc,
-      images: [product.image || "https://isf.com.br/og-image.png"],
+      images: [product.image || "https://isf.com.br/og-image.jpg"],
     },
   };
 }

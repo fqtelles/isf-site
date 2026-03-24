@@ -19,7 +19,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://isf.com.br/og-image.png",
+        url: "https://isf.com.br/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "ISF Segurança Eletrônica — Curitiba",
@@ -30,7 +30,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "ISF Soluções em Segurança | Curitiba",
     description: "35+ anos protegendo patrimônios em Curitiba. Alarmes, câmeras, cerca elétrica e monitoramento 24h.",
-    images: ["https://isf.com.br/og-image.png"],
+    images: ["https://isf.com.br/og-image.jpg"],
   },
   robots: {
     index: true,
@@ -57,7 +57,7 @@ const localBusinessSchema = {
   telephone: "+554133787933",
   foundingDate: "1988",
   priceRange: "$$",
-  image: "https://isf.com.br/og-image.png",
+  image: "https://isf.com.br/og-image.jpg",
   logo: "https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png",
   address: {
     "@type": "PostalAddress",

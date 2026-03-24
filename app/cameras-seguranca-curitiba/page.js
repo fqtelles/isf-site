@@ -24,7 +24,7 @@ const serviceSchema = {
   provider: {
     "@type": "LocalBusiness",
     "@id": "https://isf.com.br/#organization",
-    name: "ISF Segurança Eletrônica",
+    name: "ISF Soluções em Segurança",
   },
   areaServed: { "@type": "City", name: "Curitiba" },
   url: "https://isf.com.br/cameras-seguranca-curitiba",

@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    resolve: {
+      symlinks: false,
+    },
+  },
   images: {
     remotePatterns: [
       {

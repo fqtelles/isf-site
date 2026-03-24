@@ -10,7 +10,7 @@ export const metadata = {
     description: "Monitoramento de alarmes e câmeras 24h em Curitiba. Orçamento gratuito.",
     url: "https://isf.com.br/monitoramento-curitiba",
     type: "website",
-    images: [{ url: "https://isf.com.br/og-image.png", width: 1200, height: 630, alt: "Monitoramento 24h em Curitiba — ISF Segurança Eletrônica" }],
+    images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "Monitoramento 24h em Curitiba — ISF Segurança Eletrônica" }],
   },
   twitter: { card: "summary_large_image" },
   alternates: { canonical: "https://isf.com.br/monitoramento-curitiba" },

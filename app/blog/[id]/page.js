@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
       type: "article",
       images: [
         {
-          url: post.coverImage || "https://isf.com.br/og-image.png",
+          url: post.coverImage || "https://isf.com.br/og-image.jpg",
           width: 1200,
           height: 630,
         },
@@ -90,7 +90,7 @@ function renderPost(post) {
       name: "ISF Soluções em Segurança",
       logo: {
         "@type": "ImageObject",
-        url: "https://isf.com.br/og-image.png",
+        url: "https://isf.com.br/og-image.jpg",
       },
     },
     mainEntityOfPage: {

@@ -37,17 +37,17 @@ const BLOG_VISIBLE = 3;
 
 const HERO_SLIDES = [
   {
-    src: "/hero-slide-1.jpg",
+    src: "/hero-slide-1.png",
     alt: "Técnico Autorizado ISF realizando instalação de sistema de segurança",
     caption: "Instalação profissional por técnicos autorizados",
   },
   {
-    src: "/hero-slide-2.jpg",
+    src: "/hero-slide-2.png",
     alt: "Monitore seu imóvel de qualquer lugar pelo tablet",
     caption: "Acesse suas câmeras de onde estiver",
   },
   {
-    src: "/hero-slide-3.jpg",
+    src: "/hero-slide-3.png",
     alt: "App de alarme residencial Intelbras no celular",
     caption: "Controle total na palma da mão",
   },

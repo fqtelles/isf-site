@@ -164,11 +164,9 @@ function HeroSlider() {
   return (
     <div style={{
       position: "relative",
-      width: "clamp(240px, 24vw, 380px)",
-      aspectRatio: "3/4",
-      borderRadius: 20,
+      width: "100%",
+      height: "100%",
       overflow: "hidden",
-      boxShadow: "0 40px 90px rgba(0,0,0,0.28), 0 10px 24px rgba(0,0,0,0.12)",
     }}>
       {HERO_SLIDES.map((s, i) => (
         <div key={i} style={{
@@ -507,38 +505,6 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <HeroSlider />
           </div>
 
-          {/* Floating Glassmorphism Logo Card (Overlapping Composition) */}
-          <div style={{
-            position: "absolute", background: "rgba(255, 255, 255, 0.85)", WebkitBackdropFilter: "blur(24px)", backdropFilter: "blur(24px)",
-            border: "1px solid rgba(255, 255, 255, 0.9)", padding: "36px 32px", borderRadius: 20,
-            boxShadow: "0 24px 60px rgba(18,103,152,0.08), 0 8px 24px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(255,255,255,0.5)",
-            display: "flex", flexDirection: "column", alignItems: "center", zIndex: 3,
-            width: "clamp(220px, 20vw, 280px)",
-            top: "12%", left: "15%" /* Pushed visibly more to the right over the grey wrapper */
-          }}>
-            {/* Top border accent line */}
-            <div style={{ position: "absolute", top: 0, left: "15%", right: "15%", height: 3, background: "linear-gradient(90deg, transparent, #126798, transparent)", opacity: 0.8 }} />
-            
-            {/* Tag */}
-            <div style={{ position: "absolute", top: -12, right: -12, background: "#126798", color: "#fff", padding: "4px 14px", borderRadius: 9999, fontSize: "0.6rem", fontWeight: 800, letterSpacing: "0.05em", boxShadow: "0 8px 20px rgba(18,103,152,0.3)" }}>
-              DESDE 1988
-            </div>
-
-            {/* Logo */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
-              alt="ISF Segurança Eletrônica"
-              style={{ width: "100%", height: "auto", objectFit: "contain", filter: "drop-shadow(0 4px 10px rgba(18,103,152,0.1))" }}
-            />
-            
-            {/* Bottom details */}
-            <div style={{ width: 30, height: 2, background: "#126798", marginTop: 24, borderRadius: 2 }} />
-            <div style={{ marginTop: 14, fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.15em", color: "#6b7280", textTransform: "uppercase", textAlign: "center" }}>
-              A sua escolha ideal
-            </div>
-            
-          </div>
         </div>
       </section>
 

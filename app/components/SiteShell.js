@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const NAV_LINKS = [
   { label: "Home",     href: "/" },
@@ -105,10 +106,12 @@ export default function SiteShell({ children }) {
       >
         {/* Logo */}
         <a href="/" style={{ display: "flex", alignItems: "center" }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
             alt="ISF Segurança Eletrônica"
+            width={180}
+            height={58}
+            priority
             style={{ height: 58, width: "auto", objectFit: "contain" }}
           />
         </a>
@@ -219,10 +222,11 @@ export default function SiteShell({ children }) {
           >
             {/* Brand */}
             <div style={{ maxWidth: 280 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
                 alt="ISF Segurança Eletrônica"
+                width={160}
+                height={36}
                 style={{
                   height: 36,
                   width: "auto",

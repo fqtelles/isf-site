@@ -514,11 +514,13 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
 
           {/* Main Camera Image */}
           <div style={{ position: "relative", zIndex: 2, width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", transform: "translateX(5%)" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="/camera-bullet.png"
               alt="Câmera Bullet Intelbras HDCVI"
               className="animate-float"
+              width={600}
+              height={600}
+              priority
               style={{
                 width: "clamp(350px, 40vw, 600px)", height: "clamp(350px, 40vw, 600px)",
                 objectFit: "contain",

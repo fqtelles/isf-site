@@ -112,7 +112,7 @@ export default function SiteShell({ children }) {
             width={180}
             height={58}
             priority
-            style={{ height: 58, width: "auto", objectFit: "contain" }}
+            style={{ height: 58, width: 180, objectFit: "contain" }}
           />
         </a>
 
@@ -229,7 +229,7 @@ export default function SiteShell({ children }) {
                 height={36}
                 style={{
                   height: 36,
-                  width: "auto",
+                  width: 160,
                   objectFit: "contain",
                   filter: "brightness(0) invert(1)",
                   marginBottom: 14,

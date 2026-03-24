@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function LoginForm() {
   const [password, setPassword] = useState("");
@@ -52,11 +53,12 @@ export default function LoginForm() {
       }}>
         {/* Logo */}
         <div style={{ textAlign: "center", marginBottom: 28 }}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
             alt="ISF Segurança"
-            style={{ height: 40, objectFit: "contain" }}
+            width={140}
+            height={40}
+            style={{ height: 40, width: "auto", objectFit: "contain" }}
           />
           <p style={{ color: "#6b7280", fontSize: "0.82rem", marginTop: 10 }}>Acesso restrito — somente administradores</p>
         </div>

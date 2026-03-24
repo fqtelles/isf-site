@@ -173,9 +173,12 @@ export default function LandingPage({ service }) {
                 <h2 style={{ fontSize: "1.2rem", fontWeight: 800, color: "#111827", marginBottom: 6 }}>Orçamento gratuito</h2>
                 <p style={{ fontSize: "0.85rem", color: "#9ca3af", marginBottom: 22 }}>Sem compromisso. Respondemos em até 2h.</p>
                 <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  <input className="lp-input" placeholder="Seu nome completo" required value={formData.nome} onChange={e => setFormData({ ...formData, nome: e.target.value })} />
-                  <input className="lp-input" placeholder="Telefone / WhatsApp" required value={formData.telefone} onChange={e => setFormData({ ...formData, telefone: e.target.value })} />
-                  <textarea className="lp-input" placeholder={service.formPlaceholder} rows={3} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
+                  <label htmlFor="lp-nome" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Seu nome completo</label>
+                  <input id="lp-nome" className="lp-input" placeholder="Seu nome completo" required value={formData.nome} onChange={e => setFormData({ ...formData, nome: e.target.value })} />
+                  <label htmlFor="lp-telefone" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Telefone / WhatsApp</label>
+                  <input id="lp-telefone" className="lp-input" placeholder="Telefone / WhatsApp" required value={formData.telefone} onChange={e => setFormData({ ...formData, telefone: e.target.value })} />
+                  <label htmlFor="lp-mensagem" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Mensagem</label>
+                  <textarea id="lp-mensagem" className="lp-input" placeholder={service.formPlaceholder} rows={3} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
                   <button type="submit" className="lp-btn" disabled={sending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: sending ? 0.7 : 1 }}>
                     {sending ? "Enviando…" : "Solicitar Orçamento"}
                   </button>

@@ -1,7 +1,10 @@
 "use client";
 import { useState, useEffect, useRef, useMemo } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import GoogleReviewsWidget from "./components/GoogleReviewsWidget";
+import "./home.css";
+
+const GoogleReviewsWidget = dynamic(() => import("./components/GoogleReviewsWidget"), { ssr: false });
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -144,112 +147,6 @@ function FaqItem({ q, a }) {
 }
 
 
-const css = `
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --dark: #32373c;
-    --darker: #1a1d20;
-    --gray: #6b7280;
-    --light-gray: #f5f5f5;
-    --border: #e5e7eb;
-    --white: #ffffff;
-    --text: #32373c;
-    --muted: #6b7280;
-    --accent: #32373c;
-    --blue: #126798;
-    --blue-dark: #0d5280;
-    --blue-light: #e8f3f9;
-  }
-  html { scroll-behavior: smooth; }
-  body { background: #ffffff; color: #32373c; font-family: var(--font-inter), 'Helvetica Neue', Arial, sans-serif; }
-  .nav-link { color: #32373c; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-  .nav-link:hover { color: #126798; }
-  .nav-social-icon:hover { color: #32373c !important; }
-  .btn-primary { background: #126798; color: #fff; border: none; padding: 13px 28px; border-radius: 9999px; font-family: inherit; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block; letter-spacing: 0.01em; }
-  .btn-primary:hover { background: #0d5280; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(18,103,152,0.35); }
-  .btn-outline { background: transparent; color: #126798; border: 2px solid #126798; padding: 11px 28px; border-radius: 9999px; font-family: inherit; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block; }
-  .btn-outline:hover { background: #126798; color: #fff; transform: translateY(-1px); }
-  .btn-outline-white { background: transparent; color: #fff; border: 2px solid #fff; padding: 11px 28px; border-radius: 9999px; font-family: inherit; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block; }
-  .btn-outline-white:hover { background: #fff; color: #126798; }
-  .btn-whatsapp { background: #25d366; color: #fff; border: none; padding: 13px 24px; border-radius: 9999px; font-family: inherit; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; letter-spacing: 0.01em; }
-  .btn-whatsapp:hover { background: #1fba58; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
-  .hero-btns { flex-wrap: nowrap !important; }
-  .hero-btns .btn-primary, .hero-btns .btn-whatsapp, .hero-btns .btn-outline { padding: 11px 20px; font-size: 0.82rem; }
-  .service-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 32px 28px; transition: all 0.3s; display: block; text-decoration: none; color: inherit; cursor: pointer; }
-  .service-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-4px); border-color: #126798; }
-  .service-card-arrow { font-size: 0.82rem; color: #126798; font-weight: 600; margin-top: 16px; display: block; }
-  .blog-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 28px; transition: all 0.3s; display: block; text-decoration: none; color: inherit; cursor: pointer; height: 100%; box-sizing: border-box; }
-  .blog-card:hover { box-shadow: 0 8px 24px rgba(18,103,152,0.1); transform: translateY(-3px); }
-  .blog-card-slide { flex: 0 0 calc(100% / 3); padding: 0 10px; box-sizing: border-box; }
-  .tag { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 9999px; background: #32373c; color: #fff; display: inline-block; margin-bottom: 14px; }
-  .section-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #6b7280; margin-bottom: 12px; }
-  .form-input { width: 100%; background: #f9fafb; border: 1px solid var(--border); border-radius: 8px; padding: 13px 16px; color: var(--text); font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-  .form-input:focus { border-color: #126798; background: #fff; box-shadow: 0 0 0 3px rgba(18,103,152,0.08); }
-  .form-input::placeholder { color: #9ca3af; }
-  select.form-input option { background: #fff; }
-  .divider { width: 48px; height: 3px; background: #126798; border-radius: 2px; margin-bottom: 20px; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-  .fade-up { animation: fadeUp 0.6s ease both; }
-  .fade-up-1 { animation-delay: 0.05s; }
-  .fade-up-2 { animation-delay: 0.15s; }
-  .fade-up-3 { animation-delay: 0.28s; }
-  .fade-up-4 { animation-delay: 0.42s; }
-  @keyframes spin { 100% { transform: rotate(360deg); } }
-  @keyframes spinRev { 100% { transform: rotate(-360deg); } }
-  @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-16px); } 100% { transform: translateY(0); } }
-  .animate-float { animation: float 7s ease-in-out infinite; }
-  .animate-spin-slow { animation: spin 50s linear infinite; }
-  .animate-spin-rev { animation: spinRev 40s linear infinite; }
-  @keyframes waPulse {
-    0%   { box-shadow: 0 0 0 0 rgba(37,211,102,0.55), 0 4px 20px rgba(37,211,102,0.35); }
-    70%  { box-shadow: 0 0 0 16px rgba(37,211,102,0), 0 4px 20px rgba(37,211,102,0.35); }
-    100% { box-shadow: 0 0 0 0 rgba(37,211,102,0), 0 4px 20px rgba(37,211,102,0.35); }
-  }
-  .whatsapp-fab { position: fixed; bottom: 28px; right: 28px; width: 60px; height: 60px; border-radius: 50%; background: #25d366; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999; box-shadow: 0 4px 20px rgba(37,211,102,0.35); text-decoration: none; animation: waPulse 2.2s ease-out infinite; transition: transform 0.25s; }
-  .whatsapp-fab:hover { animation: none; transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.55); }
-  .whatsapp-fab-label { position: fixed; bottom: 44px; right: 100px; background: #1a1d20; color: #fff; font-size: 0.78rem; font-weight: 600; padding: 6px 12px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 998; }
-  .whatsapp-fab-label::after { content: ""; position: absolute; right: -6px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-left-color: #1a1d20; border-right: none; }
-  .whatsapp-fab:hover ~ .whatsapp-fab-label { opacity: 1; }
-  .icon-box { width: 52px; height: 52px; border-radius: 10px; background: #f3f4f6; border: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
-  .hero-badge {}
-  .category-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
-  .category-tab { background: #fff; border: 1.5px solid #e5e7eb; color: #6b7280; padding: 8px 20px; border-radius: 9999px; font-family: inherit; font-size: 0.83rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-  .category-tab:hover { border-color: #126798; color: #126798; }
-  .category-tab.active { background: #126798; border-color: #126798; color: #fff; }
-  .carousel-outer { position: relative; }
-  .carousel-overflow { overflow: hidden; border-radius: 12px; }
-  .carousel-track { display: flex; transition: transform 0.45s cubic-bezier(0.4,0,0.2,1); }
-  .product-card { flex: 0 0 calc(100% / 3); padding: 0 10px; }
-  .product-card-inner { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; transition: all 0.3s; height: 100%; }
-  .product-card-inner:hover { box-shadow: 0 8px 32px rgba(18,103,152,0.12); transform: translateY(-4px); border-color: #c5ddef; }
-  .product-img-wrap { background: #f9fafb; padding: 20px; display: flex; align-items: center; justify-content: center; height: 300px; border-bottom: 1px solid #f3f4f6; }
-  .product-img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
-  .product-info { padding: 18px 20px; }
-  .product-brand { display: inline-block; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; background: #32373c; padding: 3px 10px; border-radius: 9999px; margin-bottom: 8px; }
-  .product-name { font-size: 0.88rem; font-weight: 700; color: #1a1d20; line-height: 1.4; }
-  .product-cat { font-size: 0.75rem; color: #9ca3af; margin-top: 4px; }
-  .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; background: #fff; border: 1.5px solid #e5e7eb; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2; font-size: 1rem; color: #126798; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-  .carousel-btn:hover { background: #126798; color: #fff; border-color: #126798; }
-  .carousel-btn:disabled { opacity: 0.3; cursor: default; }
-  .carousel-btn-prev { left: -20px; }
-  .carousel-btn-next { right: -20px; }
-  .carousel-dots { display: flex; justify-content: center; gap: 7px; margin-top: 28px; }
-  .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; border: none; cursor: pointer; padding: 0; transition: all 0.2s; }
-  .carousel-dot.active { background: #126798; width: 24px; border-radius: 9999px; }
-  @media (max-width: 768px) {
-    .services-grid { grid-template-columns: 1fr !important; }
-    .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
-.contact-grid { grid-template-columns: 1fr !important; }
-    .about-grid { grid-template-columns: 1fr !important; }
-    .desktop-nav { display: none !important; }
-    .hero-btns { flex-direction: column !important; align-items: flex-start !important; }
-    .hero-visual { display: none !important; }
-    .product-card { flex: 0 0 100%; }
-    .blog-card-slide { flex: 0 0 100%; }
-    .carousel-btn-prev { left: -12px; }
-    .carousel-btn-next { right: -12px; }
-  }
-`;
 
 export default function HomeClient({ initialProducts, initialBlogPosts }) {
   const [scrolled, setScrolled] = useState(false);
@@ -409,8 +306,6 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
 
   return (
     <>
-      <style>{css}</style>
-
       {/* WhatsApp FAB */}
       <a href="https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!" className="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
         <svg viewBox="0 0 24 24" fill="white" width="30" height="30">

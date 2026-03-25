@@ -37,7 +37,7 @@ const BLOG_VISIBLE = 3;
 
 const HERO_SLIDES = [
   {
-    src: "/hero-slide-1.png",
+    src: "/hero-slide-1-v2.png",
     alt: "Técnico Autorizado ISF realizando instalação de sistema de segurança",
     caption: "Instalação profissional por técnicos autorizados",
     objectPosition: "50% 5%",
@@ -58,7 +58,7 @@ const HERO_SLIDES = [
     src: "/hero-slide-4-v2.png",
     alt: "Sistema de câmeras de segurança ISF em ambiente residencial",
     caption: "Proteção completa para sua residência",
-    objectPosition: "center",
+    objectPosition: "right center",
   },
   {
     src: "/hero-slide-5-v5.png",

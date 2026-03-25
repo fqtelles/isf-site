@@ -61,7 +61,7 @@ const HERO_SLIDES = [
     objectPosition: "center",
   },
   {
-    src: "/hero-slide-5-v2.png",
+    src: "/hero-slide-5-v3.png",
     alt: "Central de monitoramento ISF com múltiplas câmeras",
     caption: "Monitoramento 24 horas com tecnologia de ponta",
     objectPosition: "center",

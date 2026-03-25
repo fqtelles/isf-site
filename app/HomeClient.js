@@ -54,6 +54,24 @@ const HERO_SLIDES = [
     caption: "Controle total na palma da mão",
     objectPosition: "center",
   },
+  {
+    src: "/hero-slide-4.png",
+    alt: "Sistema de câmeras de segurança ISF em ambiente residencial",
+    caption: "Proteção completa para sua residência",
+    objectPosition: "center",
+  },
+  {
+    src: "/hero-slide-5.png",
+    alt: "Central de monitoramento ISF com múltiplas câmeras",
+    caption: "Monitoramento 24 horas com tecnologia de ponta",
+    objectPosition: "center",
+  },
+  {
+    src: "/hero-slide-6.jpg",
+    alt: "Equipe técnica ISF em atendimento ao cliente",
+    caption: "Atendimento especializado em Curitiba e região",
+    objectPosition: "center",
+  },
 ];
 
 const FAQS = [

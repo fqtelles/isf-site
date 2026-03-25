@@ -55,7 +55,7 @@ const HERO_SLIDES = [
     objectPosition: "center",
   },
   {
-    src: "/hero-slide-4-v2.png",
+    src: "/hero-slide-4-v3.png",
     alt: "Sistema de câmeras de segurança ISF em ambiente residencial",
     caption: "Proteção completa para sua residência",
     objectPosition: "right center",

@@ -64,7 +64,12 @@ select.form-input option { background: #fff; }
 .whatsapp-fab-label::after { content: ""; position: absolute; right: -6px; top: 50%; transform: translateY(-50%); border: 6px solid transparent; border-left-color: #1a1d20; border-right: none; }
 .whatsapp-fab:hover ~ .whatsapp-fab-label { opacity: 1; }
 .icon-box { width: 52px; height: 52px; border-radius: 10px; background: #f3f4f6; border: 1px solid #e5e7eb; display: flex; align-items: center; justify-content: center; margin-bottom: 18px; }
-.hero-badge {}
+/* Hero layout — desktop defaults */
+.hero-section { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; }
+.hero-slider-wrap { position: absolute; inset: 0; z-index: 0; }
+.hero-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.50) 45%, rgba(0,0,0,0.18) 75%, rgba(0,0,0,0.10) 100%); pointer-events: none; }
+.hero-content { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; width: 100%; padding: 120px 5% 80px; }
+
 .category-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
 .category-tab { background: #fff; border: 1.5px solid #e5e7eb; color: #6b7280; padding: 8px 20px; border-radius: 9999px; font-family: inherit; font-size: 0.83rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
 .category-tab:hover { border-color: #126798; color: #126798; }
@@ -102,12 +107,16 @@ select.form-input option { background: #fff; }
   .carousel-btn-prev { left: -12px; }
   .carousel-btn-next { right: -12px; }
 
-  /* Hero mobile: sem imagem, fundo branco */
-  .hero-slider-bg { display: none !important; }
-  .hero-supertitle { color: #126798 !important; }
-  .hero-title { color: #1a1a2e !important; }
-  .hero-desc { color: #4b5563 !important; }
-  .hero-badge-text { color: #4b5563 !important; }
-  .hero-btn-outline { color: #126798 !important; border-color: #126798 !important; }
-  .hero-btn-outline:hover { background: #126798 !important; color: #fff !important; }
+  /* Hero mobile: layout empilhado (imagem + texto abaixo) */
+  .hero-section { min-height: auto !important; flex-direction: column; padding-top: 72px; }
+  .hero-slider-wrap { position: relative; width: 100%; aspect-ratio: 4/3; }
+  .hero-overlay { background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.45) 100%); }
+  .hero-content { padding: 24px 5% 32px; background: #1a1d20; }
+  .hero-supertitle { color: rgba(255,255,255,0.6) !important; font-size: 0.7rem !important; }
+  .hero-title { font-size: 1.65rem !important; margin-bottom: 16px !important; }
+  .hero-desc { font-size: 0.9rem !important; margin-bottom: 24px !important; }
+  .hero-btns { flex-direction: column !important; align-items: stretch !important; }
+  .hero-btns > a { text-align: center; justify-content: center; }
+  .hero-badge-text { font-size: 0.78rem !important; }
+  .hero-dots-mobile { bottom: 12px !important; }
 }

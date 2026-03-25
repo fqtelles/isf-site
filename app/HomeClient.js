@@ -163,6 +163,7 @@ function Counter({ value, suffix }) {
 function HeroSlider() {
   const [active, setActive] = useState(0);
   const timerRef = useRef(null);
+  const touchX = useRef(null);
 
   const startTimer = () => {
     clearInterval(timerRef.current);
@@ -182,13 +183,28 @@ function HeroSlider() {
     startTimer();
   };
 
+  const handleTouchStart = (e) => {
+    touchX.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e) => {
+    if (touchX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchX.current;
+    if (dx < -50) go((active + 1) % HERO_SLIDES.length);
+    else if (dx > 50) go((active - 1 + HERO_SLIDES.length) % HERO_SLIDES.length);
+    touchX.current = null;
+  };
+
   return (
-    <div style={{
-      position: "relative",
-      width: "100%",
-      height: "100%",
-      overflow: "hidden",
-    }}>
+    <div
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100%",
+        overflow: "hidden",
+      }}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
       {HERO_SLIDES.map((s, i) => (
         <div key={i} style={{
           position: "absolute",
@@ -207,7 +223,7 @@ function HeroSlider() {
           />
         </div>
       ))}
-      <div style={{
+      <div className="hero-dots-mobile" style={{
         position: "absolute", bottom: 32, left: "50%", transform: "translateX(-50%)",
         display: "flex", gap: 8, zIndex: 3,
       }}>
@@ -479,17 +495,17 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       )}
 
       {/* HERO */}
-      <section id="home" className="hero-section" style={{ minHeight: "100vh", display: "flex", alignItems: "center", padding: "120px 5% 80px", position: "relative", overflow: "hidden" }}>
-        {/* Full-bleed background slider */}
-        <div className="hero-slider-bg" style={{ position: "absolute", inset: 0, zIndex: 0 }}>
-          <HeroSlider />
+      <section id="home" className="hero-section">
+        {/* Slider + overlay wrapper */}
+        <div className="hero-slider-wrap">
+          <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
+            <HeroSlider />
+          </div>
+          <div className="hero-overlay" />
         </div>
 
-        {/* Dark gradient overlay for text readability */}
-        <div className="hero-slider-bg" style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.50) 45%, rgba(0,0,0,0.18) 75%, rgba(0,0,0,0.10) 100%)", pointerEvents: "none" }} />
-
         {/* Text content */}
-        <div style={{ maxWidth: 1100, margin: "0 auto", width: "100%", position: "relative", zIndex: 2 }}>
+        <div className="hero-content">
           <div style={{ maxWidth: 620 }}>
             <div className="fade-up fade-up-1 hero-supertitle" style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
             <h1 className="fade-up fade-up-2 hero-title" style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff", marginBottom: 24 }}>

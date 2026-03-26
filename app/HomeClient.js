@@ -485,6 +485,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           <img
             src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
             alt="ISF Segurança Eletrônica"
+            width={180}
+            height={58}
             fetchPriority="high"
             style={{ height: 58, width: "auto", objectFit: "contain" }}
           />
@@ -995,6 +997,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               <img
                 src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
                 alt="ISF Segurança Eletrônica"
+                width={112}
+                height={36}
                 style={{ height: 36, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", marginBottom: 14 }}
               />
               <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.65 }}>

@@ -58,6 +58,25 @@ export default async function HomePage() {
 
   return (
     <>
+      {/* Preload LCP: primeiro slide do hero — mobile e desktop */}
+      <link
+        rel="preload"
+        as="image"
+        href="/_next/image?url=%2Fmobile-slide-1.png&w=828&q=75"
+        imageSrcSet="/_next/image?url=%2Fmobile-slide-1.png&w=828&q=75 828w, /_next/image?url=%2Fmobile-slide-1.png&w=1080&q=75 1080w"
+        imageSizes="100vw"
+        media="(max-width: 768px)"
+        fetchPriority="high"
+      />
+      <link
+        rel="preload"
+        as="image"
+        href="/_next/image?url=%2Fhero-slide-1-v2.png&w=1920&q=75"
+        imageSrcSet="/_next/image?url=%2Fhero-slide-1-v2.png&w=1200&q=75 1200w, /_next/image?url=%2Fhero-slide-1-v2.png&w=1920&q=75 1920w"
+        imageSizes="100vw"
+        media="(min-width: 769px)"
+        fetchPriority="high"
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

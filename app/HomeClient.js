@@ -168,17 +168,8 @@ function Counter({ value, suffix }) {
 
 function HeroSlider() {
   const [active, setActive] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
   const timerRef = useRef(null);
   const touchX = useRef(null);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px)");
-    setIsMobile(mq.matches);
-    const handler = (e) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
 
   const startTimer = () => {
     clearInterval(timerRef.current);
@@ -228,14 +219,23 @@ function HeroSlider() {
           transition: "opacity 0.9s ease",
           zIndex: i === active ? 1 : 0,
         }}>
-          <Image
-            src={isMobile && s.mobileSrc ? s.mobileSrc : s.src}
-            alt={s.alt}
-            fill
-            priority={i === 0}
-            sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: isMobile ? "center" : (s.objectPosition || "center") }}
-          />
+          <picture style={{ display: "block", width: "100%", height: "100%" }}>
+            {s.mobileSrc && <source media="(max-width: 768px)" srcSet={s.mobileSrc} />}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={s.src}
+              alt={s.alt}
+              className="hero-slide-img"
+              fetchPriority={i === 0 ? "high" : undefined}
+              loading={i === 0 ? "eager" : undefined}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: s.objectPosition || "center",
+              }}
+            />
+          </picture>
         </div>
       ))}
       <div className="hero-dots-mobile" style={{
@@ -472,6 +472,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           <img
             src="https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png"
             alt="ISF Segurança Eletrônica"
+            fetchPriority="high"
             style={{ height: 58, width: "auto", objectFit: "contain" }}
           />
         </a>

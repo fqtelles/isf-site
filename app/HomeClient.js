@@ -166,6 +166,10 @@ function Counter({ value, suffix }) {
   return <span ref={ref}>{count}{suffix}</span>;
 }
 
+function heroImgUrl(src, width) {
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=75`;
+}
+
 function HeroSlider() {
   const [active, setActive] = useState(0);
   const timerRef = useRef(null);
@@ -220,14 +224,23 @@ function HeroSlider() {
           zIndex: i === active ? 1 : 0,
         }}>
           <picture style={{ display: "block", width: "100%", height: "100%" }}>
-            {s.mobileSrc && <source media="(max-width: 768px)" srcSet={s.mobileSrc} />}
+            {s.mobileSrc && (
+              <source
+                media="(max-width: 768px)"
+                srcSet={`${heroImgUrl(s.mobileSrc, 828)} 828w, ${heroImgUrl(s.mobileSrc, 1080)} 1080w`}
+                sizes="100vw"
+              />
+            )}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={s.src}
+              src={heroImgUrl(s.src, 1920)}
+              srcSet={`${heroImgUrl(s.src, 1200)} 1200w, ${heroImgUrl(s.src, 1920)} 1920w`}
+              sizes="100vw"
               alt={s.alt}
               className="hero-slide-img"
               fetchPriority={i === 0 ? "high" : undefined}
               loading={i === 0 ? "eager" : undefined}
+              decoding={i === 0 ? "auto" : "async"}
               style={{
                 width: "100%",
                 height: "100%",

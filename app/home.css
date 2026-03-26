@@ -123,4 +123,5 @@ select.form-input option { background: #fff; }
   .hero-btns > a { text-align: center; justify-content: center; }
   .hero-badge-text { font-size: 0.78rem !important; }
   .hero-dots-mobile { bottom: 12px !important; }
+  .hero-slide-img { object-position: center !important; }
 }

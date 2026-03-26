@@ -38,36 +38,42 @@ const BLOG_VISIBLE = 3;
 const HERO_SLIDES = [
   {
     src: "/hero-slide-1-v2.png",
+    mobileSrc: "/mobile-slide-1.png",
     alt: "Técnico Autorizado ISF realizando instalação de sistema de segurança",
     caption: "Instalação profissional por técnicos autorizados",
     objectPosition: "50% 5%",
   },
   {
     src: "/hero-slide-2.png",
+    mobileSrc: "/mobile-slide-2.png",
     alt: "Monitore seu imóvel de qualquer lugar pelo tablet",
     caption: "Acesse suas câmeras de onde estiver",
     objectPosition: "center",
   },
   {
     src: "/hero-slide-3.png",
+    mobileSrc: "/mobile-slide-3.png",
     alt: "App de alarme residencial Intelbras no celular",
     caption: "Controle total na palma da mão",
     objectPosition: "center",
   },
   {
     src: "/hero-slide-4-v3.png",
+    mobileSrc: "/mobile-slide-4.png",
     alt: "Sistema de câmeras de segurança ISF em ambiente residencial",
     caption: "Proteção completa para sua residência",
     objectPosition: "right center",
   },
   {
     src: "/hero-slide-5-v5.png",
+    mobileSrc: "/mobile-slide-5.png",
     alt: "Central de monitoramento ISF com múltiplas câmeras",
     caption: "Monitoramento 24 horas com tecnologia de ponta",
     objectPosition: "right center",
   },
   {
     src: "/hero-slide-6.jpg",
+    mobileSrc: "/mobile-slide-6.jpg",
     alt: "Equipe técnica ISF em atendimento ao cliente",
     caption: "Atendimento especializado em Curitiba e região",
     objectPosition: "center",
@@ -162,8 +168,17 @@ function Counter({ value, suffix }) {
 
 function HeroSlider() {
   const [active, setActive] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const timerRef = useRef(null);
   const touchX = useRef(null);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 768px)");
+    setIsMobile(mq.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   const startTimer = () => {
     clearInterval(timerRef.current);
@@ -214,12 +229,12 @@ function HeroSlider() {
           zIndex: i === active ? 1 : 0,
         }}>
           <Image
-            src={s.src}
+            src={isMobile && s.mobileSrc ? s.mobileSrc : s.src}
             alt={s.alt}
             fill
             priority={i === 0}
             sizes="100vw"
-            style={{ objectFit: "cover", objectPosition: s.objectPosition || "center" }}
+            style={{ objectFit: "cover", objectPosition: isMobile ? "center" : (s.objectPosition || "center") }}
           />
         </div>
       ))}
@@ -502,13 +517,22 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <HeroSlider />
           </div>
           <div className="hero-overlay" />
+          {/* Mobile-only: título sobreposto no topo da imagem */}
+          <div className="hero-title-wrap" aria-hidden="true">
+            <div className="hero-supertitle" style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
+            <div className="hero-title" style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff" }}>
+              Há mais de 35 anos<br />
+              garantindo a sua{" "}
+              <span style={{ borderBottom: "4px solid #126798", paddingBottom: 2 }}>segurança</span>
+            </div>
+          </div>
         </div>
 
         {/* Text content */}
         <div className="hero-content">
           <div style={{ maxWidth: 620 }}>
-            <div className="fade-up fade-up-1 hero-supertitle" style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
-            <h1 className="fade-up fade-up-2 hero-title" style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff", marginBottom: 24 }}>
+            <div className="fade-up fade-up-1 hero-supertitle hero-desktop-only" style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
+            <h1 className="fade-up fade-up-2 hero-title hero-desktop-only" style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff", marginBottom: 24 }}>
               Há mais de 35 anos<br />
               garantindo a sua{" "}
               <span style={{ borderBottom: "4px solid #126798", paddingBottom: 2 }}>segurança</span>

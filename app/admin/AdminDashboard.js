@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
-import RichTextEditor from "../components/RichTextEditor";
+import dynamic from "next/dynamic";
+const RichTextEditor = dynamic(() => import("../components/RichTextEditor"), { ssr: false });
 import { slugify } from "../../lib/slugify";
 
 const CATEGORIES = ["Câmeras", "DVR / NVR", "Alarmes", "Cerca Elétrica", "Controle de Acesso"];

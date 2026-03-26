@@ -8,16 +8,14 @@
   "scripts": {
     "dev": "WATCHPACK_POLLING=true next dev",
     "build": "next build",
-    "analyze": "ANALYZE=true next build",
+    "analyze": "ANALYZE=true next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "db:seed": "node prisma/seed.js",
     "postinstall": "prisma generate"
   },
-  "devDependencies": {
-    "@next/bundle-analyzer": "^16.2.1"
-  },
   "dependencies": {
+    "@next/bundle-analyzer": "^16.2.1",
     "@prisma/client": "^5.22.0",
     "@tiptap/extension-link": "^3.20.4",
     "@tiptap/extension-placeholder": "^3.20.4",

@@ -8,10 +8,14 @@
   "scripts": {
     "dev": "WATCHPACK_POLLING=true next dev",
     "build": "next build",
+    "analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "db:seed": "node prisma/seed.js",
     "postinstall": "prisma generate"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^16.2.1"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

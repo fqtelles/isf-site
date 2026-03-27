@@ -39,6 +39,11 @@ const nextConfig = {
     return [
       // Catch-all para URLs WordPress com /index.php/
       { source: "/index.php/:path*", destination: "/", permanent: true },
+      // Catch-all para páginas AMP do WordPress
+      { source: "/amp/:path*",       destination: "/", permanent: true },
+      { source: "/amp",              destination: "/", permanent: true },
+      // Slugs antigos de produtos — redirecionar para página de serviço equivalente
+      { source: "/produtos/controle-acesso", destination: "/controle-de-acesso-curitiba", permanent: true },
       // Slugs antigos sem equivalente no novo site
       { source: "/a-empresa",        destination: "/", permanent: true },
       { source: "/servicos",         destination: "/", permanent: true },

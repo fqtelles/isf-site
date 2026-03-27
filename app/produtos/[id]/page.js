@@ -89,14 +89,10 @@ async function renderProduct(product) {
     },
     image: product.image,
     url: productUrl,
-    offers: {
-      "@type": "Offer",
-      availability: "https://schema.org/InStock",
-      seller: {
-        "@type": "LocalBusiness",
-        "@id": "https://isf.com.br/#organization",
-        name: "ISF Soluções em Segurança",
-      },
+    seller: {
+      "@type": "LocalBusiness",
+      "@id": "https://isf.com.br/#organization",
+      name: "ISF Soluções em Segurança",
     },
   };
 

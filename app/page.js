@@ -78,10 +78,11 @@ export default async function HomePage() {
         media="(min-width: 769px)"
         fetchPriority="high"
       />
-      <script
-        id="faq-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      <div
+        style={{ display: "none" }}
+        dangerouslySetInnerHTML={{
+          __html: `<script type="application/ld+json">${JSON.stringify(faqSchema)}</script>`,
+        }}
       />
       <HomeClient initialProducts={products} initialBlogPosts={blogPosts} />
     </>

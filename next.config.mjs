@@ -47,13 +47,14 @@ const nextConfig = {
       { source: "/amp",               destination: "/", permanent: true },
       // Paginação antiga do WordPress (/page/2/, /page/3/, etc.)
       { source: "/page/:path*",       destination: "/", permanent: true },
-      // Slugs antigos de produtos aninhados (com e sem trailing slash após /amp)
-      { source: "/produtos/:cat/:slug*/amp/", destination: "/", permanent: true },
-      { source: "/produtos/:cat/:slug*/amp",  destination: "/", permanent: true },
-      { source: "/produtos/:cat/:slug*",      destination: "/produtos", permanent: true },
-      // Slug de produto com equivalente no novo site (com e sem barra final)
+      // Slug de produto com equivalente no novo site — ANTES dos catch-alls
       { source: "/produtos/controle-acesso",  destination: "/controle-de-acesso-curitiba", permanent: true },
       { source: "/produtos/controle-acesso/", destination: "/controle-de-acesso-curitiba", permanent: true },
+      // Slugs antigos de produtos ANINHADOS (2+ segmentos após /produtos/)
+      // :slug+ exige pelo menos 1 segmento extra → não afeta /produtos/slug-simples
+      { source: "/produtos/:cat/:slug+/amp/", destination: "/", permanent: true },
+      { source: "/produtos/:cat/:slug+/amp",  destination: "/", permanent: true },
+      { source: "/produtos/:cat/:slug+",      destination: "/produtos", permanent: true },
       // Slugs antigos sem equivalente — sem barra final
       { source: "/a-empresa",         destination: "/", permanent: true },
       { source: "/servicos",          destination: "/", permanent: true },

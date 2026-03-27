@@ -78,6 +78,7 @@ export default async function HomePage() {
         fetchPriority="high"
       />
       <script
+        id="faq-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />

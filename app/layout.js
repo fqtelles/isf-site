@@ -41,6 +41,15 @@ export const metadata = {
   },
   alternates: { canonical: "https://isf.com.br" },
   manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png", sizes: "2419x2438" },
+    ],
+    apple: [
+      { url: "/icon.png", type: "image/png", sizes: "180x180" },
+    ],
+    shortcut: "/favicon.ico",
+  },
   other: {
     "theme-color": "#126798",
   },

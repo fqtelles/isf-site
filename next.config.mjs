@@ -35,6 +35,16 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // Catch-all para URLs WordPress com /index.php/
+      { source: "/index.php/:path*", destination: "/", permanent: true },
+      // Slugs antigos sem equivalente no novo site
+      { source: "/a-empresa",        destination: "/", permanent: true },
+      { source: "/servicos",         destination: "/", permanent: true },
+      { source: "/contato",          destination: "/", permanent: true },
+    ];
+  },
   async rewrites() {
     return {
       // Only applied if no static file matched in public/uploads/

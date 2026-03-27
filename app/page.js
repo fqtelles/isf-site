@@ -6,6 +6,7 @@ export const revalidate = 3600; // ISR: revalida a cada 1 hora
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
+  "@id": "https://isf.com.br/#faq",
   mainEntity: [
     {
       "@type": "Question",

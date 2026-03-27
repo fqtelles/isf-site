@@ -38,16 +38,27 @@ const nextConfig = {
   async redirects() {
     return [
       // Catch-all para URLs WordPress com /index.php/
-      { source: "/index.php/:path*", destination: "/", permanent: true },
-      // Catch-all para páginas AMP do WordPress
-      { source: "/amp/:path*",       destination: "/", permanent: true },
-      { source: "/amp",              destination: "/", permanent: true },
-      // Slugs antigos de produtos — redirecionar para página de serviço equivalente
-      { source: "/produtos/controle-acesso", destination: "/controle-de-acesso-curitiba", permanent: true },
-      // Slugs antigos sem equivalente no novo site
-      { source: "/a-empresa",        destination: "/", permanent: true },
-      { source: "/servicos",         destination: "/", permanent: true },
-      { source: "/contato",          destination: "/", permanent: true },
+      { source: "/index.php/:path*",  destination: "/", permanent: true },
+      // Catch-all para páginas AMP do WordPress (incluindo rotas aninhadas)
+      { source: "/amp/:path*",        destination: "/", permanent: true },
+      { source: "/amp",               destination: "/", permanent: true },
+      // Paginação antiga do WordPress (/page/2/, /page/3/, etc.)
+      { source: "/page/:path*",       destination: "/", permanent: true },
+      // Slugs antigos de produtos aninhados
+      { source: "/produtos/:cat/:slug*/amp", destination: "/", permanent: true },
+      { source: "/produtos/:cat/:slug*",     destination: "/produtos", permanent: true },
+      // Slug de produto com equivalente no novo site (com e sem barra final)
+      { source: "/produtos/controle-acesso",  destination: "/controle-de-acesso-curitiba", permanent: true },
+      { source: "/produtos/controle-acesso/", destination: "/controle-de-acesso-curitiba", permanent: true },
+      // Slugs antigos sem equivalente — sem barra final
+      { source: "/a-empresa",         destination: "/", permanent: true },
+      { source: "/servicos",          destination: "/", permanent: true },
+      { source: "/contato",           destination: "/", permanent: true },
+      // Slugs antigos sem equivalente — com barra final
+      { source: "/a-empresa/",        destination: "/", permanent: true },
+      { source: "/servicos/",         destination: "/", permanent: true },
+      { source: "/contato/",          destination: "/", permanent: true },
+      { source: "/produtos/",         destination: "/produtos", permanent: true },
     ];
   },
   async rewrites() {

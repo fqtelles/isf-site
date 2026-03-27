@@ -125,9 +125,10 @@ export default function RootLayout({ children }) {
             gtag('config', 'G-80H81158R9');
           `}
         </Script>
-        <script
+        <Script
           id="local-business-schema"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
       </head>

@@ -39,6 +39,9 @@ const nextConfig = {
     return [
       // Catch-all para URLs WordPress com /index.php/
       { source: "/index.php/:path*",  destination: "/", permanent: true },
+      // Catch-all para feeds RSS do WordPress (qualquer /feed/ em qualquer nível)
+      { source: "/:path*/feed",       destination: "/", permanent: true },
+      { source: "/:path*/feed/",      destination: "/", permanent: true },
       // Catch-all para páginas AMP do WordPress (incluindo rotas aninhadas)
       { source: "/amp/:path*",        destination: "/", permanent: true },
       { source: "/amp",               destination: "/", permanent: true },

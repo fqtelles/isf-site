@@ -62,6 +62,12 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
+      url: "https://isf.com.br/video-monitoramento-curitiba",
+      lastModified: new Date("2026-03-30"),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: "https://isf.com.br/app-de-seguranca",
       lastModified: new Date("2026-03-24"),
       changeFrequency: "monthly",

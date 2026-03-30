@@ -21,6 +21,7 @@ const SERVICES = [
   { icon: "bolt",       title: "Cerca Elétrica",     desc: "Proteção perimetral com choque e alarme sonoro integrado. Solução de alto impacto para imóveis residenciais e comerciais.",                                                    tag: null,           href: "/cerca-eletrica-curitiba" },
   { icon: "lock",       title: "Controle de Acesso", desc: "Leitores biométricos, cartão de proximidade e reconhecimento facial. Ideal para condomínios e áreas restritas.",                                                         tag: null,           href: "/controle-de-acesso-curitiba" },
   { icon: "shield",     title: "Monitoramento",      desc: "Conte com uma equipe 24 horas dedicada ao monitoramento do seu patrimônio. A ISF trabalha em parceria com as melhores empresas do ramo.",                                      tag: null,           href: "/monitoramento-curitiba" },
+  { icon: "monitor",    title: "Vídeo Monitoramento", desc: "Câmeras com inteligência artificial que detectam invasões e comportamentos suspeitos, alertando automaticamente a central de monitoramento 24h.",                              tag: "Tecnologia",   href: "/video-monitoramento-curitiba" },
   { icon: "smartphone", title: "App de Segurança",   desc: "Em um clique acesse pelo seu smartphone todas as câmeras do seu patrimônio, não importa onde estiver, basta estar conectado à internet.",                                      tag: "Comodidade",   href: "/app-de-seguranca" },
 ];
 
@@ -630,7 +631,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 800, color: "#1a1d20", marginBottom: 12, letterSpacing: "-0.02em" }}>O que a ISF oferece</h2>
             <p style={{ color: "#6b7280", fontSize: "1rem", maxWidth: 480, margin: "0 auto" }}>Tecnologia de ponta para todos os perfis de imóvel — do residencial ao corporativo. Atendemos Curitiba e toda a Região Metropolitana.</p>
           </div>
-          <div className="services-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 20 }}>
+          <div className="services-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}>
             {SERVICES.map(s => (
               <a key={s.title} href={s.href} className="service-card">
                 {s.tag && <div className="tag">{s.tag}</div>}

@@ -95,6 +95,22 @@ select.form-input option { background: #fff; }
 .carousel-dots { display: flex; justify-content: center; gap: 7px; margin-top: 28px; }
 .carousel-dot { width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; border: none; cursor: pointer; padding: 0; transition: all 0.2s; }
 .carousel-dot.active { background: #126798; width: 24px; border-radius: 9999px; }
+/* Client logos marquee */
+@keyframes marquee-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes marquee-right { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+.marquee-container { overflow: hidden; position: relative; }
+.marquee-container::before,
+.marquee-container::after { content: ""; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
+.marquee-container::before { left: 0; background: linear-gradient(to right, #fff, transparent); }
+.marquee-container::after { right: 0; background: linear-gradient(to left, #fff, transparent); }
+.marquee-track { display: flex; align-items: stretch; gap: 48px; width: max-content; animation: marquee-left 35s linear infinite; }
+.marquee-track-reverse { animation: marquee-right 35s linear infinite; }
+.marquee-container:hover .marquee-track { animation-play-state: paused; }
+.marquee-item { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 8px; flex-shrink: 0; }
+.marquee-logo { height: 48px; width: auto; max-width: 160px; object-fit: contain; opacity: 0.65; transition: opacity 0.3s; }
+.marquee-name { font-size: 0.72rem; font-weight: 600; color: #6b7280; text-align: center; white-space: nowrap; transition: color 0.3s; }
+.marquee-item:hover .marquee-logo { opacity: 1; }
+.marquee-item:hover .marquee-name { color: #1a1d20; }
 @media (max-width: 768px) {
   .services-grid { grid-template-columns: 1fr !important; }
   .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
@@ -124,4 +140,7 @@ select.form-input option { background: #fff; }
   .hero-badge-text { font-size: 0.78rem !important; }
   .hero-dots-mobile { bottom: 12px !important; }
   .hero-slide-img { object-position: center !important; }
+  .marquee-logo { height: 36px; max-width: 120px; }
+  .marquee-track { gap: 32px; animation-duration: 25s; }
+  .marquee-container::before, .marquee-container::after { width: 40px; }
 }

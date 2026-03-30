@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logos — Clientes ISF Soluções em Segurança</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f9; padding: 32px 24px; color: #333; }
+    h1 { text-align: center; font-size: 1.6rem; margin-bottom: 6px; color: #1a1a2e; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 28px; font-size: 0.88rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 18px; max-width: 1200px; margin: 0 auto; }
+    .card { background: #fff; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,.09); padding: 18px 14px 12px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .logo-wrap { width: 130px; height: 80px; display: flex; align-items: center; justify-content: center; }
+    .logo-wrap img { max-width: 130px; max-height: 80px; object-fit: contain; }
+    .company-name { font-size: 0.76rem; text-align: center; color: #444; font-weight: 600; line-height: 1.3; }
+    .btn-dl {
+      background: #1565c0; color: #fff; border: none; border-radius: 6px;
+      padding: 6px 14px; font-size: 0.74rem; cursor: pointer;
+      transition: background .15s; width: 100%;
+    }
+    .btn-dl:hover { background: #0d47a1; }
+    .btn-dl.loading { background: #888; cursor: wait; }
+    .btn-dl.done { background: #2e7d32; }
+    .note { text-align: center; margin-top: 32px; font-size: 0.82rem; color: #888; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+<h1>🏢 Logos — Clientes ISF Soluções em Segurança</h1>
+<p class="subtitle">Clique em "⬇ Baixar" para salvar cada logo no seu computador</p>
+
+<div class="grid" id="grid"></div>
+
+<p class="note">
+  ✅ <strong>AmBev.png</strong> e <strong>ISF_Solucoes_em_Seguranca.png</strong> já estão salvos nesta pasta.<br>
+  As logos carregam dos sites oficiais / Clearbit API. Se alguma não aparecer, o site pode estar offline.
+</p>
+
+<script>
+const companies = [
+  { name: "Pizzaria Baggio",                 file: "Pizzaria_Baggio.png",                  url: "https://logo.clearbit.com/pizzariabaggio.com.br",           fallback: "https://logo.clearbit.com/baggio.com.br" },
+  { name: "Rest. Casal Garcia",              file: "Rest_Casal_Garcia.png",                url: "https://logo.clearbit.com/casalgarcia.com.br",              fallback: null },
+  { name: "Chevrolet Metrosul",              file: "Chevrolet_Metrosul.png",               url: "https://logo.clearbit.com/metrosul.com.br",                 fallback: null },
+  { name: "AmBev",                           file: "AmBev.png",                            url: "https://logo.clearbit.com/ambev.com.br",                    fallback: "https://www.ambev.com.br/sites/g/files/wnfebl12286/files/styles/webp/public/2025-01/logo-grid2.png.webp?itok=7WEcJSVi" },
+  { name: "Polícia Federal do Paraná",       file: "Policia_Federal_do_Parana.png",        url: "https://www.gov.br/pf/@@site-logo/logo.png",                fallback: "https://logo.clearbit.com/pf.gov.br" },
+  { name: "Nichele Mat. de Construção",      file: "Nichele_Materiais_de_Construcao.png",  url: "https://logo.clearbit.com/nichelemateriais.com.br",         fallback: null },
+  { name: "Colégio Marista Sta. Maria",      file: "Colegio_Marista_Santa_Maria.png",      url: "https://logo.clearbit.com/maristasantamaria.com.br",        fallback: null },
+  { name: "Colégio Medianeira",              file: "Colegio_Medianeira.png",               url: "https://www.medianeira.g12.br/wp-content/uploads/2021/02/logo.png", fallback: "https://logo.clearbit.com/medianeira.g12.br" },
+  { name: "Colégio Bom Jesus",               file: "Colegio_Bom_Jesus.png",               url: "https://bomjesus.br/_img/logo.jpg",                         fallback: "https://logo.clearbit.com/bomjesus.br" },
+  { name: "UFPR",                            file: "UFPR.png",                             url: "https://ufpr.br/wp-content/themes/wpufpr_bootstrap5_portal/images/ufpr.png", fallback: "https://logo.clearbit.com/ufpr.br" },
+  { name: "Chocolates ICAB",                 file: "Chocolates_ICAB.png",                  url: "https://logo.clearbit.com/icab.com.br",                     fallback: null },
+  { name: "Escola Lápis de Cor",             file: "Escola_Lapis_de_Cor.png",              url: "https://logo.clearbit.com/escolalapisdecorc.com.br",        fallback: null },
+  { name: "Paraná Banco",                    file: "Parana_Banco.png",                     url: "https://blobportais.paranabanco.com.br/portalinstitucional/2022/09/logoparana.png", fallback: "https://logo.clearbit.com/paranabanco.com.br" },
+  { name: "Hospital Santa Cruz",             file: "Hospital_Santa_Cruz.png",              url: "https://logo.clearbit.com/santacruz.com.br",                fallback: null },
+  { name: "Panificadora Piegel",             file: "Panificadora_Piegel.png",              url: "https://logo.clearbit.com/piegel.com.br",                   fallback: null },
+  { name: "Pietà Centro Médico",             file: "Pieta_Centro_Medico.png",              url: "https://logo.clearbit.com/pietacentromedico.com.br",        fallback: null },
+  { name: "Aquecebem",                       file: "Aquecebem.png",                        url: "https://logo.clearbit.com/aquecebem.com.br",                fallback: null },
+  { name: "Daniele Pace — Cirurgia Plástica",file: "Daniele_Pace_Cirurgia_Plastica.png",   url: "https://logo.clearbit.com/danielepace.com.br",              fallback: null },
+  { name: "Rose Petenucci Chocolates",       file: "Rose_Petenucci_Chocolates.png",        url: "https://logo.clearbit.com/rosepetenucci.com.br",            fallback: null },
+  { name: "SEMPR",                           file: "SEMPR.png",                            url: "https://logo.clearbit.com/sempr.com.br",                    fallback: null },
+  { name: "Paulo Baggio — Cir. Vascular",    file: "Paulo_Baggio_Cirurgia_Vascular.png",   url: "https://logo.clearbit.com/paulobaggio.com.br",              fallback: null },
+  { name: "Glomb & Advogados",               file: "Glomb_Advogados.png",                  url: "https://logo.clearbit.com/glomb.adv.br",                    fallback: null },
+  { name: "Dra. Ruth Graf",                  file: "Dra_Ruth_Graf.png",                    url: "https://logo.clearbit.com/ruthgraf.com.br",                 fallback: null },
+  { name: "Dermo Ervas",                     file: "Dermo_Ervas.png",                      url: "https://logo.clearbit.com/dermoervas.com.br",               fallback: null },
+  { name: "Ícaro — Jardins do Graciosa",     file: "Icaro_Jardins_do_Graciosa.png",        url: "https://logo.clearbit.com/icaroresidencial.com.br",         fallback: null },
+  { name: "ISF Soluções em Segurança",       file: "ISF_Solucoes_em_Seguranca.png",        url: "https://isf.com.br/ISF_SolucoesEmSeguranca_Logo.png",       fallback: "https://logo.clearbit.com/isf.com.br" },
+  { name: "Clínica Dr. Paulo Baggio",        file: "Clinica_Dr_Paulo_Baggio.png",          url: "https://logo.clearbit.com/baggio.med.br",                   fallback: null },
+];
+
+// Download function using fetch → blob → anchor click
+async function downloadLogo(url, filename, btn) {
+  btn.textContent = '⏳ Baixando...';
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  const tryFetch = async (u) => {
+    const r = await fetch(u, { mode: 'cors' });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.blob();
+  };
+
+  try {
+    let blob;
+    try { blob = await tryFetch(url); }
+    catch(e) {
+      const c = companies.find(c => c.url === url || c.file === filename.split('/').pop());
+      if (c && c.fallback) blob = await tryFetch(c.fallback);
+      else throw e;
+    }
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+    btn.textContent = '✅ Salvo!';
+    btn.classList.remove('loading');
+    btn.classList.add('done');
+  } catch(err) {
+    btn.textContent = '⚠ Abrir manualmente';
+    btn.classList.remove('loading');
+    btn.disabled = false;
+    btn.onclick = () => window.open(url, '_blank');
+  }
+}
+
+// Build grid
+const grid = document.getElementById('grid');
+companies.forEach(c => {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const wrap = document.createElement('div');
+  wrap.className = 'logo-wrap';
+  const img = document.createElement('img');
+  img.src = c.url;
+  img.alt = c.name;
+  img.loading = 'lazy';
+  if (c.fallback) img.onerror = () => { img.onerror = null; img.src = c.fallback; };
+  wrap.appendChild(img);
+
+  const name = document.createElement('div');
+  name.className = 'company-name';
+  name.textContent = c.name;
+
+  const btn = document.createElement('button');
+  btn.className = 'btn-dl';
+  btn.textContent = '⬇ Baixar';
+  btn.onclick = () => downloadLogo(c.url, c.file, btn);
+
+  card.appendChild(wrap);
+  card.appendChild(name);
+  card.appendChild(btn);
+  grid.appendChild(card);
+});
+</script>
+</body>
+</html>

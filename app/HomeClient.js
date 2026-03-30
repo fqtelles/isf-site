@@ -31,6 +31,28 @@ const STATS = [
   { value: "300",   suffix: "+", label: "Produtos no catálogo" },
 ];
 
+const CLIENT_LOGOS_ROW1 = [
+  { src: "/logos-clientes/Polícia Federal do Paraná.png", alt: "Polícia Federal do Paraná", w: 120, h: 58 },
+  { src: "/logos-clientes/UFPR.jpg", alt: "Universidade Federal do Paraná (UFPR)", w: 80, h: 48 },
+  { src: "/logos-clientes/Paraná Banco.png", alt: "Paraná Banco", w: 120, h: 58 },
+  { src: "/logos-clientes/Glomb Advogados.png", alt: "Glomb & Advogados Associados", w: 140, h: 56, borderRadius: 14 },
+  { src: "/logos-clientes/Hospital Pietà.png", alt: "Hospital Pietà", w: 140, h: 48 },
+  { src: "/logos-clientes/Baggio-Pizzaria-e-Focacceria.webp", alt: "Baggio Pizzaria e Focacceria", w: 120, h: 48 },
+  { src: "/logos-clientes/ICAB.jpg", alt: "ICAB Chocolates", w: 100, h: 64 },
+  { src: "/logos-clientes/Escola Lápis de Cor.png", alt: "Escola Lápis de Cor", w: 120, h: 48 },
+  { src: "/logos-clientes/sempr.jpg", alt: "SEMPR", w: 100, h: 64, borderRadius: 14 },
+];
+const CLIENT_LOGOS_ROW2 = [
+  { src: "/logos-clientes/Ruth Graf.png", alt: "Dra. Ruth Graf Cirurgia Plástica", w: 120, h: 68, padding: 6, borderRadius: 14 },
+  { src: "/logos-clientes/Aquecebem.png", alt: "Aquecebem", w: 140, h: 48 },
+  { src: "/logos-clientes/Dermo Ervas.png", alt: "Dermo Ervas", w: 140, h: 48 },
+  { src: "/logos-clientes/Icaro.jpg", alt: "Condomínio Ícaro Jardins do Graciosa", w: 100, h: 48 },
+  { src: "/logos-clientes/Daniele Pace.png", alt: "Daniele Pace", w: 140, h: 48 },
+  { src: "/logos-clientes/Piegel Pàes.png", alt: "Piegel Pães", w: 120, h: 68, padding: 6, borderRadius: 14 },
+  { src: "/logos-clientes/Paulo Baggio.avif", alt: "Consultório Dr. Paulo Baggio", w: 140, h: 60 },
+  { src: "/logos-clientes/Rose Petenucci.png", alt: "Rose Petenucci", w: 140, h: 48 },
+];
+
 const PRODUCT_CATEGORIES = ["Todos", "Câmeras", "DVR / NVR", "Alarmes", "Cerca Elétrica", "Controle de Acesso"];
 const VISIBLE = 3;
 const BLOG_VISIBLE = 3;
@@ -781,6 +803,49 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <a href="#contato" className="btn-primary" style={{ background: "#fff", color: "#126798" }}>Solicitar Orçamento</a>
             <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
             <a href="tel:4133787933" className="btn-outline-white">(41) 3378-7933</a>
+          </div>
+        </div>
+      </section>
+
+      {/* CLIENTES */}
+      <section style={{ padding: "80px 5%", background: "#fff" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", marginBottom: 48 }}>
+          <div className="section-label">Nossos Clientes</div>
+          <div className="divider" />
+          <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em" }}>Empresas que confiam na ISF</h2>
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+          <div className="marquee-container">
+            <div className="marquee-track">
+              {[...CLIENT_LOGOS_ROW1, ...CLIENT_LOGOS_ROW1].map((logo, i) => (
+                <div key={i} className="marquee-item">
+                  {logo.borderRadius ? (
+                    <span style={{ display: "inline-block", borderRadius: logo.borderRadius, overflow: "hidden", lineHeight: 0, ...(logo.padding && { padding: logo.padding, background: "#fff" }) }}>
+                      <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className="marquee-logo" style={{ height: logo.h, width: logo.w, objectFit: "contain" }} />
+                    </span>
+                  ) : (
+                    <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className="marquee-logo" style={{ height: logo.h, width: logo.w, objectFit: "contain", ...(logo.padding && { padding: logo.padding }) }} />
+                  )}
+                  <span className="marquee-name">{logo.alt}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="marquee-container">
+            <div className="marquee-track marquee-track-reverse">
+              {[...CLIENT_LOGOS_ROW2, ...CLIENT_LOGOS_ROW2].map((logo, i) => (
+                <div key={i} className="marquee-item">
+                  {logo.borderRadius ? (
+                    <span style={{ display: "inline-block", borderRadius: logo.borderRadius, overflow: "hidden", lineHeight: 0, ...(logo.padding && { padding: logo.padding, background: "#fff" }) }}>
+                      <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className="marquee-logo" style={{ height: logo.h, width: logo.w, objectFit: "contain" }} />
+                    </span>
+                  ) : (
+                    <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className="marquee-logo" style={{ height: logo.h, width: logo.w, objectFit: "contain", ...(logo.padding && { padding: logo.padding }) }} />
+                  )}
+                  <span className="marquee-name">{logo.alt}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

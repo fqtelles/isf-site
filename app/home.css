@@ -111,6 +111,9 @@ select.form-input option { background: #fff; }
 .marquee-name { font-size: 0.72rem; font-weight: 600; color: #6b7280; text-align: center; white-space: nowrap; transition: color 0.3s; }
 .marquee-item:hover .marquee-logo { opacity: 1; }
 .marquee-item:hover .marquee-name { color: #1a1d20; }
+@media (max-width: 1024px) {
+  .services-grid { grid-template-columns: repeat(2,1fr) !important; }
+}
 @media (max-width: 768px) {
   .services-grid { grid-template-columns: 1fr !important; }
   .stats-grid { grid-template-columns: repeat(2,1fr) !important; }

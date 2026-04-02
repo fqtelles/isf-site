@@ -146,7 +146,7 @@ export function StatsStrip({ headline }) {
     <section style={{ background: "#32373c", padding: "56px 5%" }}>
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         {headline && (
-          <p style={{ textAlign: "center", fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: 36 }}>
+          <p style={{ textAlign: "center", fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", marginBottom: 36 }}>
             {headline}
           </p>
         )}
@@ -154,7 +154,7 @@ export function StatsStrip({ headline }) {
           {STATS.map((s) => (
             <div key={s.label} style={{ padding: "28px 20px", textAlign: "center", borderRight: "1px solid rgba(255,255,255,0.1)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
               <div style={{ fontSize: "2rem", fontWeight: 800, color: "#fff", letterSpacing: "-0.02em" }}>{s.value}</div>
-              <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.5)", marginTop: 6 }}>{s.label}</div>
+              <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.7)", marginTop: 6 }}>{s.label}</div>
             </div>
           ))}
         </div>

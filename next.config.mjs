@@ -66,6 +66,21 @@ const nextConfig = {
       { source: "/produtos/",         destination: "/produtos", permanent: true },
     ];
   },
+  async headers() {
+    return [
+      {
+        // Aplica a todas as rotas — complementa os headers do Nginx
+        // (blocos location do Nginx não herdam add_header do bloco server)
+        source: "/(.*)",
+        headers: [
+          { key: "X-Content-Type-Options",  value: "nosniff" },
+          { key: "X-Frame-Options",          value: "SAMEORIGIN" },
+          { key: "Referrer-Policy",          value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy",       value: "camera=(), microphone=(), geolocation=()" },
+        ],
+      },
+    ];
+  },
   async rewrites() {
     return {
       // Only applied if no static file matched in public/uploads/

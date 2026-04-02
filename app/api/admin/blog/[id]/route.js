@@ -37,6 +37,8 @@ export async function PUT(request, { params }) {
         ...slugData,
       },
     });
+    revalidatePath("/blog");
+    revalidatePath(`/blog/${post.slug}`);
     revalidatePath("/sitemap.xml");
     return NextResponse.json(post);
   } catch {
@@ -53,6 +55,7 @@ export async function DELETE(request, { params }) {
 
   try {
     await prisma.blogPost.delete({ where: { id } });
+    revalidatePath("/blog");
     revalidatePath("/sitemap.xml");
     return NextResponse.json({ ok: true });
   } catch {

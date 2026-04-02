@@ -1,7 +1,7 @@
 import { prisma } from "../../lib/prisma";
 import ProductsGallery from "./ProductsGallery";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // ISR: revalida a cada 1 hora (ou quando o admin salvar um produto)
 
 export const metadata = {
   title: "Catálogo de Produtos | ISF Segurança Eletrônica",

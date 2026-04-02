@@ -52,10 +52,18 @@ const faqSchema = {
 };
 
 export default async function HomePage() {
-  const [products, blogPosts] = await Promise.all([
-    prisma.product.findMany({ orderBy: { id: "asc" } }),
-    prisma.blogPost.findMany({ orderBy: { id: "asc" } }),
-  ]);
+  let products = [];
+  let blogPosts = [];
+
+  try {
+    [products, blogPosts] = await Promise.all([
+      prisma.product.findMany({ orderBy: { id: "asc" } }),
+      prisma.blogPost.findMany({ orderBy: { id: "asc" } }),
+    ]);
+  } catch (err) {
+    console.error("Erro ao carregar dados da homepage:", err);
+    // Renderiza a página normalmente com listas vazias — melhor que uma tela em branco
+  }
 
   return (
     <>

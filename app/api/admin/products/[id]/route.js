@@ -40,6 +40,8 @@ export async function PUT(request, { params }) {
       },
     });
     revalidatePath("/");
+    revalidatePath("/produtos");
+    revalidatePath(`/produtos/${product.slug}`);
     revalidatePath("/sitemap.xml");
     return NextResponse.json(product);
   } catch {
@@ -57,6 +59,7 @@ export async function DELETE(request, { params }) {
   try {
     await prisma.product.delete({ where: { id } });
     revalidatePath("/");
+    revalidatePath("/produtos");
     revalidatePath("/sitemap.xml");
     return NextResponse.json({ ok: true });
   } catch {

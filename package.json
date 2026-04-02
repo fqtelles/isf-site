@@ -28,6 +28,7 @@
     "prisma": "^5.22.0",
     "react": "^19",
     "react-dom": "^19",
-    "resend": "^6.9.4"
+    "resend": "^6.9.4",
+    "sanitize-html": "^2.17.2"
   }
 }

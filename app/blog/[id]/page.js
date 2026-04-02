@@ -4,6 +4,42 @@ import SiteShell from "../../components/SiteShell";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 import { StatsStrip, ServiceLinks, BlogFaq, FinalCta, ConversionStyles } from "../../components/ConversionSections";
 import BlogCta from "./BlogCta";
+import sanitizeHtml from "sanitize-html";
+
+const SANITIZE_OPTIONS = {
+  allowedTags: [
+    "p", "br",
+    "h2", "h3", "h4",
+    "strong", "b", "em", "i", "u", "s",
+    "a",
+    "ul", "ol", "li",
+    "blockquote",
+    "pre", "code",
+  ],
+  allowedAttributes: {
+    "a": ["href", "target", "rel"],
+    "p": ["style"],
+    "h2": ["style"],
+    "h3": ["style"],
+    "h4": ["style"],
+  },
+  allowedStyles: {
+    "*": {
+      "text-align": [/^(left|center|right|justify)$/],
+    },
+  },
+  // Força rel="noopener noreferrer" em links externos
+  transformTags: {
+    "a": (tagName, attribs) => ({
+      tagName,
+      attribs: {
+        ...attribs,
+        rel: "noopener noreferrer",
+        ...(attribs.target === "_blank" ? { target: "_blank" } : {}),
+      },
+    }),
+  },
+};
 
 export async function generateMetadata({ params }) {
   const { id: slugOrId } = await params;
@@ -62,12 +98,18 @@ async function findPost(slugOrId) {
 /** Convert content to HTML — handles both legacy plain-text and new rich HTML */
 function contentToHtml(content) {
   if (!content || !content.trim()) return "";
-  // New content from TipTap already contains HTML tags
-  if (/<[a-z][\s\S]*?>/i.test(content)) return content;
-  // Legacy plain text: wrap each double-newline block in <p>
-  return content.split(/\n\n+/).filter(Boolean)
-    .map((p) => `<p>${p.trim().replace(/\n/g, "<br>")}</p>`)
-    .join("");
+
+  let html;
+  if (/<[a-z][\s\S]*?>/i.test(content)) {
+    html = content;
+  } else {
+    // Legacy plain text: wrap each double-newline block in <p>
+    html = content.split(/\n\n+/).filter(Boolean)
+      .map((p) => `<p>${p.trim().replace(/\n/g, "<br>")}</p>`)
+      .join("");
+  }
+
+  return sanitizeHtml(html, SANITIZE_OPTIONS);
 }
 
 function renderPost(post) {

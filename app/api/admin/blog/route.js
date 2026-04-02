@@ -27,6 +27,7 @@ export async function POST(request) {
     const post = await prisma.blogPost.create({
       data: { date, title, excerpt, readTime, content: content ?? "", coverImage: coverImage ?? "", slug },
     });
+    revalidatePath("/blog");
     revalidatePath("/sitemap.xml");
     return NextResponse.json(post, { status: 201 });
   } catch {

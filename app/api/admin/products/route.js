@@ -37,6 +37,7 @@ export async function POST(request) {
       },
     });
     revalidatePath("/");
+    revalidatePath("/produtos");
     revalidatePath("/sitemap.xml");
     return NextResponse.json(product, { status: 201 });
   } catch {

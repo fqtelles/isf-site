@@ -1,7 +1,7 @@
 import { prisma } from "../../lib/prisma";
 import BlogGallery from "./BlogGallery";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600; // ISR: revalida a cada 1 hora (ou quando o admin salvar um post)
 
 export const metadata = {
   title: "Blog — Dicas de Segurança Eletrônica | ISF Segurança Eletrônica",

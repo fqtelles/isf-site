@@ -184,14 +184,11 @@ export default function RichTextEditor({ value, onChange }) {
   });
 
   // Sync when the value is reset from outside (e.g. switching posts)
-  const prevValue = useCallback(() => value, [value]);
   useEffect(() => {
     if (editor && editor.getHTML() !== value) {
-      // Avoid overwriting while user is typing by comparing previous value
       editor.commands.setContent(value || "", false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editor, prevValue]);
+  }, [editor, value]);
 
   return (
     <div style={{ border: "1px solid #e5e7eb", borderRadius: 8, background: "#fff", overflow: "hidden" }}>

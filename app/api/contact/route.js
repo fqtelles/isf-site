@@ -42,6 +42,26 @@ export async function POST(req) {
       );
     }
 
+    // Limites de tamanho
+    if (nome.trim().length > 100)
+      return NextResponse.json({ error: "Nome muito longo." }, { status: 400 });
+    if (telefone.trim().length > 20)
+      return NextResponse.json({ error: "Telefone inválido." }, { status: 400 });
+    if (email && email.length > 254)
+      return NextResponse.json({ error: "E-mail inválido." }, { status: 400 });
+    if (mensagem && mensagem.length > 5000)
+      return NextResponse.json({ error: "Mensagem muito longa (máx. 5000 caracteres)." }, { status: 400 });
+
+    // Formato de e-mail
+    if (email && email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      return NextResponse.json({ error: "Formato de e-mail inválido." }, { status: 400 });
+    }
+
+    // Formato de telefone: apenas dígitos, espaços, +, -, (, )
+    if (!/^[\d\s()+=\-]+$/.test(telefone.trim())) {
+      return NextResponse.json({ error: "Telefone inválido." }, { status: 400 });
+    }
+
     if (!process.env.RESEND_API_KEY) {
       console.error("RESEND_API_KEY não configurada.");
       return NextResponse.json(

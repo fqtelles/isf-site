@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import "./home.css";
+import styles from "./home.module.css";
 
 const GoogleReviewsWidget = dynamic(() => import("./components/GoogleReviewsWidget"), { ssr: false });
 
@@ -260,7 +260,7 @@ function HeroSlider() {
               srcSet={`${heroImgUrl(s.src, 1200)} 1200w, ${heroImgUrl(s.src, 1920)} 1920w`}
               sizes="100vw"
               alt={s.alt}
-              className="hero-slide-img"
+              className={styles['hero-slide-img']}
               fetchPriority={i === 0 ? "high" : undefined}
               loading={i === 0 ? "eager" : undefined}
               decoding={i === 0 ? "auto" : "async"}
@@ -274,7 +274,7 @@ function HeroSlider() {
           </picture>
         </div>
       ))}
-      <div className="hero-dots-mobile" style={{
+      <div className={styles['hero-dots-mobile']} style={{
         position: "absolute", bottom: 32, left: "50%", transform: "translateX(-50%)",
         display: "flex", gap: 8, zIndex: 3,
       }}>
@@ -486,12 +486,12 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
   return (
     <>
       {/* WhatsApp FAB */}
-      <a href="https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!" className="whatsapp-fab" target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
+      <a href="https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!" className={styles['whatsapp-fab']} target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
         <svg viewBox="0 0 24 24" fill="white" width="30" height="30">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
         </svg>
       </a>
-      <span className="whatsapp-fab-label">Fale conosco</span>
+      <span className={styles['whatsapp-fab-label']}>Fale conosco</span>
 
       {/* NAVBAR */}
       <nav style={{
@@ -515,18 +515,18 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           />
         </a>
 
-        <div className="desktop-nav" style={{ display: "flex", gap: 28, alignItems: "center" }}>
-          {NAV_LINKS.map(l => <a key={l.label} href={l.href} className="nav-link">{l.label}</a>)}
+        <div className={styles['desktop-nav']} style={{ display: "flex", gap: 28, alignItems: "center" }}>
+          {NAV_LINKS.map(l => <a key={l.label} href={l.href} className={styles['nav-link']}>{l.label}</a>)}
           {/* Social icons */}
           <div style={{ display: "flex", gap: 10, alignItems: "center", marginLeft: -8 }}>
-            <a href="https://www.facebook.com/isfsegurancaeletronica" target="_blank" rel="noopener noreferrer" className="nav-social-icon" aria-label="Facebook" style={{ color: "#b0b7c3", display: "flex", alignItems: "center", transition: "color 0.2s" }}>
+            <a href="https://www.facebook.com/isfsegurancaeletronica" target="_blank" rel="noopener noreferrer" className={styles['nav-social-icon']} aria-label="Facebook" style={{ color: "#b0b7c3", display: "flex", alignItems: "center", transition: "color 0.2s" }}>
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.41c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.886v2.267h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
             </a>
-            <a href="https://www.instagram.com/isfsolucoesemseguranca/" target="_blank" rel="noopener noreferrer" className="nav-social-icon" aria-label="Instagram" style={{ color: "#b0b7c3", display: "flex", alignItems: "center", transition: "color 0.2s" }}>
+            <a href="https://www.instagram.com/isfsolucoesemseguranca/" target="_blank" rel="noopener noreferrer" className={styles['nav-social-icon']} aria-label="Instagram" style={{ color: "#b0b7c3", display: "flex", alignItems: "center", transition: "color 0.2s" }}>
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
             </a>
           </div>
-          <a href="#contato" className="btn-primary" style={{ padding: "10px 22px", fontSize: "0.82rem" }}>Orçamento Grátis</a>
+          <a href="#contato" className={styles['btn-primary']} style={{ padding: "10px 22px", fontSize: "0.82rem" }}>Orçamento Grátis</a>
         </div>
 
         {/* Mobile menu button */}
@@ -542,24 +542,24 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       {mobileOpen && (
         <div style={{ position: "fixed", top: 72, left: 0, right: 0, background: "#fff", borderBottom: "1px solid #e5e7eb", zIndex: 99, padding: "16px 5%", display: "flex", flexDirection: "column", gap: 16 }}>
           {NAV_LINKS.map(l => (
-            <a key={l.label} href={l.href} className="nav-link" onClick={() => setMobileOpen(false)} style={{ padding: "6px 0", borderBottom: "1px solid #f3f4f6" }}>{l.label}</a>
+            <a key={l.label} href={l.href} className={styles['nav-link']} onClick={() => setMobileOpen(false)} style={{ padding: "6px 0", borderBottom: "1px solid #f3f4f6" }}>{l.label}</a>
           ))}
-          <a href="#contato" className="btn-primary" style={{ textAlign: "center", marginTop: 8 }} onClick={() => setMobileOpen(false)}>Orçamento Grátis</a>
+          <a href="#contato" className={styles['btn-primary']} style={{ textAlign: "center", marginTop: 8 }} onClick={() => setMobileOpen(false)}>Orçamento Grátis</a>
         </div>
       )}
 
       {/* HERO */}
-      <section id="home" className="hero-section">
+      <section id="home" className={styles['hero-section']}>
         {/* Slider + overlay wrapper */}
-        <div className="hero-slider-wrap">
+        <div className={styles['hero-slider-wrap']}>
           <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
             <HeroSlider />
           </div>
-          <div className="hero-overlay" />
+          <div className={styles['hero-overlay']} />
           {/* Mobile-only: título sobreposto no topo da imagem */}
-          <div className="hero-title-wrap" aria-hidden="true">
-            <div className="hero-supertitle" style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
-            <div className="hero-title" style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff" }}>
+          <div className={styles['hero-title-wrap']} aria-hidden="true">
+            <div className={styles['hero-supertitle']} style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
+            <div className={styles['hero-title']} style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff" }}>
               Há mais de 35 anos<br />
               garantindo a sua{" "}
               <span style={{ borderBottom: "4px solid #126798", paddingBottom: 2 }}>segurança</span>
@@ -568,25 +568,25 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
         </div>
 
         {/* Text content */}
-        <div className="hero-content">
+        <div className={styles['hero-content']}>
           <div style={{ maxWidth: 620 }}>
-            <div className="fade-up fade-up-1 hero-supertitle hero-desktop-only" style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
-            <h1 className="fade-up fade-up-2 hero-title hero-desktop-only" style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff", marginBottom: 24 }}>
+            <div className={`${styles['fade-up']} ${styles['fade-up-1']} ${styles['hero-supertitle']} ${styles['hero-desktop-only']}`} style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
+            <h1 className={`${styles['fade-up']} ${styles['fade-up-2']} ${styles['hero-title']} ${styles['hero-desktop-only']}`} style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff", marginBottom: 24 }}>
               Há mais de 35 anos<br />
               garantindo a sua{" "}
               <span style={{ borderBottom: "4px solid #126798", paddingBottom: 2 }}>segurança</span>
             </h1>
-            <p className="fade-up fade-up-3 hero-desc" style={{ fontSize: "1.12rem", lineHeight: 1.78, color: "rgba(255,255,255,0.82)", marginBottom: 40, maxWidth: 540 }}>
+            <p className={`${styles['fade-up']} ${styles['fade-up-3']} ${styles['hero-desc']}`} style={{ fontSize: "1.12rem", lineHeight: 1.78, color: "rgba(255,255,255,0.82)", marginBottom: 40, maxWidth: 540 }}>
               A necessidade de segurança sempre existiu. É o que move a ISF Soluções em Segurança todos os dias para entregar a melhor proteção ao seu imóvel, família, funcionários e patrimônio.
             </p>
-            <div className="fade-up fade-up-4 hero-btns" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#contato" className="btn-primary">Solicitar orçamento grátis</a>
-              <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
-              <a href="#servicos" className="btn-outline-white hero-btn-outline">Conheça os serviços</a>
+            <div className={`${styles['fade-up']} ${styles['fade-up-4']} ${styles['hero-btns']}`} style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <a href="#contato" className={styles['btn-primary']}>Solicitar orçamento grátis</a>
+              <a href={WA_HREF} className={styles['btn-whatsapp']} target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
+              <a href="#servicos" className={styles['btn-outline-white']}>Conheça os serviços</a>
             </div>
-            <div className="fade-up fade-up-4" style={{ marginTop: 40, display: "flex", gap: 28, flexWrap: "wrap" }}>
+            <div className={`${styles['fade-up']} ${styles['fade-up-4']}`} style={{ marginTop: 40, display: "flex", gap: 28, flexWrap: "wrap" }}>
               {["✔ 35+ anos de experiência", "✔ Revenda autorizada Intelbras", "✔ Monitoramento 24/7"].map(b => (
-                <span key={b} className="hero-badge-text" style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.65)" }}>{b}</span>
+                <span key={b} className={styles['hero-badge-text']} style={{ fontSize: "0.9rem", color: "rgba(255,255,255,0.65)" }}>{b}</span>
               ))}
             </div>
           </div>
@@ -595,7 +595,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
 
       {/* STATS */}
       <section style={{ padding: "56px 5%", background: "#32373c" }}>
-        <div className="stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, maxWidth: 1000, margin: "0 auto" }}>
+        <div className={styles['stats-grid']} style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1, maxWidth: 1000, margin: "0 auto" }}>
           {STATS.map((s, i) => (
             <div key={s.label} style={{ textAlign: "center", padding: "20px 16px", borderLeft: i > 0 ? "1px solid rgba(255,255,255,0.15)" : "none" }}>
               <div style={{ fontSize: "clamp(2rem,3.5vw,2.8rem)", fontWeight: 800, color: "#fff" }}>
@@ -611,8 +611,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       <section style={{ padding: "80px 5% 24px", background: "#f9fafb", borderTop: "1px solid #e5e7eb" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <div className="section-label">O que dizem sobre nós</div>
-            <div className="divider" style={{ margin: "0 auto 20px" }} />
+            <div className={styles['section-label']}>O que dizem sobre nós</div>
+            <div className={styles['divider']} style={{ margin: "0 auto 20px" }} />
             <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em" }}>Avaliações de Clientes</h2>
             <p style={{ color: "#6b7280", fontSize: "1rem", maxWidth: 520, margin: "12px auto 0" }}>A satisfação e proteção de nossos clientes são a nossa maior prioridade.</p>
           </div>
@@ -626,20 +626,20 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       <section id="servicos" style={{ padding: "96px 5%", background: "#f9fafb", backgroundImage: "radial-gradient(rgba(18,103,152,0.15) 1px, transparent 1px)", backgroundSize: "26px 26px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div className="section-label">Nossos Serviços e Produtos</div>
-            <div className="divider" style={{ margin: "0 auto 20px" }} />
+            <div className={styles['section-label']}>Nossos Serviços e Produtos</div>
+            <div className={styles['divider']} style={{ margin: "0 auto 20px" }} />
             <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 800, color: "#1a1d20", marginBottom: 12, letterSpacing: "-0.02em" }}>O que a ISF oferece</h2>
             <p style={{ color: "#6b7280", fontSize: "1rem", maxWidth: 480, margin: "0 auto" }}>Tecnologia de ponta para todos os perfis de imóvel — do residencial ao corporativo. Atendemos Curitiba e toda a Região Metropolitana.</p>
           </div>
-          <div className="services-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}>
+          <div className={styles['services-grid']} style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 20 }}>
             {SERVICES.map(s => (
-              <a key={s.title} href={s.href} className="service-card">
-                {s.tag && <div className="tag">{s.tag}</div>}
+              <a key={s.title} href={s.href} className={styles['service-card']}>
+                {s.tag && <div className={styles['tag']}>{s.tag}</div>}
                 {!s.tag && <div style={{ height: 32, marginBottom: 0 }} />}
-                <div className="icon-box"><Icon d={ICONS[s.icon]} size={22} color="#32373c" /></div>
+                <div className={styles['icon-box']}><Icon d={ICONS[s.icon]} size={22} color="#32373c" /></div>
                 <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: "#1a1d20", marginBottom: 10 }}>{s.title}</h3>
                 <p style={{ fontSize: "0.88rem", color: "#6b7280", lineHeight: 1.65 }}>{s.desc}</p>
-                <span className="service-card-arrow">Saiba mais →</span>
+                <span className={styles['service-card-arrow']}>Saiba mais →</span>
               </a>
             ))}
           </div>
@@ -650,18 +650,18 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       <section id="produtos" style={{ padding: "96px 5%", background: "#fff" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <div className="section-label">Equipamentos</div>
-            <div className="divider" style={{ margin: "0 auto 20px" }} />
+            <div className={styles['section-label']}>Equipamentos</div>
+            <div className={styles['divider']} style={{ margin: "0 auto 20px" }} />
             <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 800, color: "#1a1d20", marginBottom: 12, letterSpacing: "-0.02em" }}>Produtos das melhores marcas</h2>
             <p style={{ color: "#6b7280", fontSize: "1rem", maxWidth: 520, margin: "0 auto" }}>Revenda autorizada Intelbras. Trabalhamos também com Paradox, ViaWeb, HikVision e outras referências do setor para garantir máxima qualidade na sua instalação.</p>
           </div>
 
           {/* Category Tabs */}
-          <div className="category-tabs" style={{ justifyContent: "center" }}>
+          <div className={styles['category-tabs']} style={{ justifyContent: "center" }}>
             {PRODUCT_CATEGORIES.map(cat => (
               <button
                 key={cat}
-                className={`category-tab${activeCategory === cat ? " active" : ""}`}
+                className={`${styles['category-tab']}${activeCategory === cat ? ` ${styles.active}` : ""}`}
                 onClick={() => setActiveCategory(cat)}
               >{cat}</button>
             ))}
@@ -669,28 +669,28 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
 
           {/* Carousel */}
           <div
-            className="carousel-outer"
+            className={styles['carousel-outer']}
             style={{ padding: "0 24px" }}
             onMouseEnter={() => setCarouselPaused(true)}
             onMouseLeave={() => setCarouselPaused(false)}
           >
-            <button className="carousel-btn carousel-btn-prev" onClick={prevSlide} onMouseDown={() => setCarouselPaused(true)} onMouseUp={() => setCarouselPaused(false)} disabled={carouselIndex === 0} aria-label="Anterior">‹</button>
-            <div className="carousel-overflow" onTouchStart={prodTouchStart} onTouchMove={prodTouchMove} onTouchEnd={prodTouchEnd} style={{ touchAction: "pan-y" }}>
+            <button className={`${styles['carousel-btn']} ${styles['carousel-btn-prev']}`} onClick={prevSlide} onMouseDown={() => setCarouselPaused(true)} onMouseUp={() => setCarouselPaused(false)} disabled={carouselIndex === 0} aria-label="Anterior">‹</button>
+            <div className={styles['carousel-overflow']} onTouchStart={prodTouchStart} onTouchMove={prodTouchMove} onTouchEnd={prodTouchEnd} style={{ touchAction: "pan-y" }}>
               <div
                 ref={prodTrackRef}
-                className="carousel-track"
+                className={styles['carousel-track']}
                 style={{ transform: `translateX(-${carouselIndex * (100 / VISIBLE)}%)` }}
               >
                 {filteredProducts.map(p => (
-                  <div key={p.id} className="product-card">
-                    <a href={`/produtos/${p.slug || p.id}`} className="product-card-inner" style={{ display: "block", textDecoration: "none", color: "inherit" }}>
-                      <div className="product-img-wrap" style={{ position: "relative" }}>
+                  <div key={p.id} className={styles['product-card']}>
+                    <a href={`/produtos/${p.slug || p.id}`} className={styles['product-card-inner']} style={{ display: "block", textDecoration: "none", color: "inherit" }}>
+                      <div className={styles['product-img-wrap']} style={{ position: "relative" }}>
                         <Image src={p.image} alt={p.name} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "contain" }} />
                       </div>
-                      <div className="product-info">
-                        <span className="product-brand">{p.brand}</span>
-                        <div className="product-name">{p.name}</div>
-                        <div className="product-cat">{p.category}</div>
+                      <div className={styles['product-info']}>
+                        <span className={styles['product-brand']}>{p.brand}</span>
+                        <div className={styles['product-name']}>{p.name}</div>
+                        <div className={styles['product-cat']}>{p.category}</div>
                         <div style={{ marginTop: 10, fontSize: "0.72rem", color: "#126798", fontWeight: 700 }}>Ver detalhes →</div>
                       </div>
                     </a>
@@ -698,15 +698,15 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                 ))}
               </div>
             </div>
-            <button className="carousel-btn carousel-btn-next" onClick={nextSlide} onMouseDown={() => setCarouselPaused(true)} onMouseUp={() => setCarouselPaused(false)} disabled={carouselIndex >= maxIndex} aria-label="Próximo">›</button>
+            <button className={`${styles['carousel-btn']} ${styles['carousel-btn-next']}`} onClick={nextSlide} onMouseDown={() => setCarouselPaused(true)} onMouseUp={() => setCarouselPaused(false)} disabled={carouselIndex >= maxIndex} aria-label="Próximo">›</button>
           </div>
 
           {/* Dots */}
-          <div className="carousel-dots">
+          <div className={styles['carousel-dots']}>
             {Array.from({ length: maxIndex + 1 }).map((_, i) => (
               <button
                 key={i}
-                className={`carousel-dot${carouselIndex === i ? " active" : ""}`}
+                className={`${styles['carousel-dot']}${carouselIndex === i ? ` ${styles.active}` : ""}`}
                 onClick={() => setCarouselIndex(i)}
                 aria-label={`Slide ${i + 1}`}
               />
@@ -737,16 +737,16 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
 
       {/* ABOUT */}
       <section id="empresa" style={{ padding: "96px 5%", background: "#fff" }}>
-        <div className="about-grid" style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }}>
+        <div className={styles['about-grid']} style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }}>
           <div>
-            <div className="section-label">Sobre a ISF Segurança</div>
-            <div className="divider" />
+            <div className={styles['section-label']}>Sobre a ISF Segurança</div>
+            <div className={styles['divider']} />
             <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", marginBottom: 20, lineHeight: 1.2, letterSpacing: "-0.02em" }}>A melhor proteção com quem tem 35 anos de mercado</h2>
             <p style={{ color: "#6b7280", lineHeight: 1.78, marginBottom: 16, fontSize: "0.97rem" }}>A ISF atua no mercado de segurança eletrônica há mais de 35 anos, atendendo Curitiba e Região Metropolitana. Membro da ABESE, a empresa é referência em qualidade e confiabilidade.</p>
             <p style={{ color: "#6b7280", lineHeight: 1.78, marginBottom: 36, fontSize: "0.97rem" }}>Somos revenda autorizada Intelbras e trabalhamos com as principais marcas do setor, com uma equipe técnica certificada e sempre atualizada para oferecer o que há de mais moderno em segurança eletrônica.</p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#contato" className="btn-primary">Fale com um especialista</a>
-              <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
+              <a href="#contato" className={styles['btn-primary']}>Fale com um especialista</a>
+              <a href={WA_HREF} className={styles['btn-whatsapp']} target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
@@ -772,8 +772,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       <section style={{ padding: "80px 5%", background: "#f9fafb", borderTop: "1px solid #e5e7eb", backgroundImage: "radial-gradient(rgba(18,103,152,0.15) 1px, transparent 1px)", backgroundSize: "26px 26px" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
           <div style={{ marginBottom: 20, display: "flex", justifyContent: "center" }}><Icon d={ICONS.smartphone} size={44} color="#126798" /></div>
-          <div className="section-label" style={{ textAlign: "center" }}>Controle na palma da mão</div>
-          <div className="divider" style={{ margin: "0 auto 20px" }} />
+          <div className={styles['section-label']} style={{ textAlign: "center" }}>Controle na palma da mão</div>
+          <div className={styles['divider']} style={{ margin: "0 auto 20px" }} />
           <h2 style={{ fontSize: "clamp(1.6rem,3vw,2.2rem)", fontWeight: 800, color: "#1a1d20", marginBottom: 16, letterSpacing: "-0.02em" }}>
             Já imaginou ligar seu alarme do seu celular?
           </h2>
@@ -801,9 +801,9 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           <h2 style={{ fontSize: "clamp(1.6rem,3vw,2.4rem)", fontWeight: 800, color: "#fff", marginBottom: 16, letterSpacing: "-0.02em" }}>A melhor proteção e segurança com quem tem 35 anos de mercado.</h2>
           <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "1rem", marginBottom: 32 }}>Entre em contato e receba um orçamento personalizado sem compromisso. Atendemos Curitiba e Região Metropolitana.</p>
           <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-            <a href="#contato" className="btn-primary" style={{ background: "#fff", color: "#126798" }}>Solicitar Orçamento</a>
-            <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
-            <a href="tel:4133787933" className="btn-outline-white">(41) 3378-7933</a>
+            <a href="#contato" className={styles['btn-primary']} style={{ background: "#fff", color: "#126798" }}>Solicitar Orçamento</a>
+            <a href={WA_HREF} className={styles['btn-whatsapp']} target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
+            <a href="tel:4133787933" className={styles['btn-outline-white']}>(41) 3378-7933</a>
           </div>
         </div>
       </section>
@@ -811,39 +811,39 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       {/* CLIENTES */}
       <section style={{ padding: "80px 5%", background: "#fff" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto", marginBottom: 48 }}>
-          <div className="section-label">Nossos Clientes</div>
-          <div className="divider" />
+          <div className={styles['section-label']}>Nossos Clientes</div>
+          <div className={styles['divider']} />
           <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em" }}>Empresas que confiam na ISF</h2>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
-          <div className="marquee-container">
-            <div className="marquee-track">
+          <div className={styles['marquee-container']}>
+            <div className={styles['marquee-track']}>
               {[...CLIENT_LOGOS_ROW1, ...CLIENT_LOGOS_ROW1].map((logo, i) => (
-                <div key={i} className="marquee-item">
+                <div key={i} className={styles['marquee-item']}>
                   {logo.borderRadius ? (
                     <span style={{ display: "inline-block", borderRadius: logo.borderRadius, overflow: "hidden", lineHeight: 0, ...(logo.padding && { padding: logo.padding, background: "#fff" }) }}>
-                      <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className="marquee-logo" style={{ height: logo.h, width: logo.w, objectFit: "contain" }} />
+                      <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className={styles['marquee-logo']} style={{ height: logo.h, width: logo.w, objectFit: "contain" }} />
                     </span>
                   ) : (
-                    <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className="marquee-logo" style={{ height: logo.h, width: logo.w, objectFit: "contain", ...(logo.padding && { padding: logo.padding }) }} />
+                    <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className={styles['marquee-logo']} style={{ height: logo.h, width: logo.w, objectFit: "contain", ...(logo.padding && { padding: logo.padding }) }} />
                   )}
-                  <span className="marquee-name">{logo.alt}</span>
+                  <span className={styles['marquee-name']}>{logo.alt}</span>
                 </div>
               ))}
             </div>
           </div>
-          <div className="marquee-container">
-            <div className="marquee-track marquee-track-reverse">
+          <div className={styles['marquee-container']}>
+            <div className={`${styles['marquee-track']} ${styles['marquee-track-reverse']}`}>
               {[...CLIENT_LOGOS_ROW2, ...CLIENT_LOGOS_ROW2].map((logo, i) => (
-                <div key={i} className="marquee-item">
+                <div key={i} className={styles['marquee-item']}>
                   {logo.borderRadius ? (
                     <span style={{ display: "inline-block", borderRadius: logo.borderRadius, overflow: "hidden", lineHeight: 0, ...(logo.padding && { padding: logo.padding, background: "#fff" }) }}>
-                      <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className="marquee-logo" style={{ height: logo.h, width: logo.w, objectFit: "contain" }} />
+                      <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className={styles['marquee-logo']} style={{ height: logo.h, width: logo.w, objectFit: "contain" }} />
                     </span>
                   ) : (
-                    <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className="marquee-logo" style={{ height: logo.h, width: logo.w, objectFit: "contain", ...(logo.padding && { padding: logo.padding }) }} />
+                    <Image src={logo.src} alt={logo.alt} width={logo.w} height={logo.h} className={styles['marquee-logo']} style={{ height: logo.h, width: logo.w, objectFit: "contain", ...(logo.padding && { padding: logo.padding }) }} />
                   )}
-                  <span className="marquee-name">{logo.alt}</span>
+                  <span className={styles['marquee-name']}>{logo.alt}</span>
                 </div>
               ))}
             </div>
@@ -855,34 +855,34 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       <section id="blog" style={{ padding: "96px 5%", background: "#f9fafb", backgroundImage: "radial-gradient(rgba(18,103,152,0.15) 1px, transparent 1px)", backgroundSize: "26px 26px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ marginBottom: 48 }}>
-            <div className="section-label">Blog & Conteúdo</div>
-            <div className="divider" />
+            <div className={styles['section-label']}>Blog & Conteúdo</div>
+            <div className={styles['divider']} />
             <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em" }}>Dicas de segurança</h2>
           </div>
           {/* Blog Carousel */}
           <div
-            className="carousel-outer"
+            className={styles['carousel-outer']}
             style={{ padding: "0 24px" }}
             onMouseEnter={() => setBlogCarouselPaused(true)}
             onMouseLeave={() => setBlogCarouselPaused(false)}
           >
             <button
-              className="carousel-btn carousel-btn-prev"
+              className={`${styles['carousel-btn']} ${styles['carousel-btn-prev']}`}
               onClick={blogPrevSlide}
               onMouseDown={() => setBlogCarouselPaused(true)}
               onMouseUp={() => setBlogCarouselPaused(false)}
               disabled={blogCarouselIndex === 0}
               aria-label="Anterior"
             >‹</button>
-            <div className="carousel-overflow" onTouchStart={blogTouchStart} onTouchMove={blogTouchMove} onTouchEnd={blogTouchEnd} style={{ touchAction: "pan-y" }}>
+            <div className={styles['carousel-overflow']} onTouchStart={blogTouchStart} onTouchMove={blogTouchMove} onTouchEnd={blogTouchEnd} style={{ touchAction: "pan-y" }}>
               <div
                 ref={blogTrackRef}
-                className="carousel-track"
+                className={styles['carousel-track']}
                 style={{ transform: `translateX(-${blogCarouselIndex * 100}%)` }}
               >
                 {blogPosts.map(post => (
-                  <div key={post.id} className="blog-card-slide">
-                    <a href={`/blog/${post.slug || post.id}`} className="blog-card" style={{ padding: 0, overflow: "hidden" }}>
+                  <div key={post.id} className={styles['blog-card-slide']}>
+                    <a href={`/blog/${post.slug || post.id}`} className={styles['blog-card']} style={{ padding: 0, overflow: "hidden" }}>
                       {post.coverImage && (
                         <div style={{ width: "100%", height: 160, overflow: "hidden", flexShrink: 0, position: "relative" }}>
                           <Image src={post.coverImage} alt={post.title} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "cover" }} />
@@ -903,7 +903,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               </div>
             </div>
             <button
-              className="carousel-btn carousel-btn-next"
+              className={`${styles['carousel-btn']} ${styles['carousel-btn-next']}`}
               onClick={blogNextSlide}
               onMouseDown={() => setBlogCarouselPaused(true)}
               onMouseUp={() => setBlogCarouselPaused(false)}
@@ -912,11 +912,11 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             >›</button>
           </div>
           {/* Dots */}
-          <div className="carousel-dots">
+          <div className={styles['carousel-dots']}>
             {Array.from({ length: blogMaxIndex + 1 }).map((_, i) => (
               <button
                 key={i}
-                className={`carousel-dot${blogCarouselIndex === i ? " active" : ""}`}
+                className={`${styles['carousel-dot']}${blogCarouselIndex === i ? ` ${styles.active}` : ""}`}
                 onClick={() => setBlogCarouselIndex(i)}
                 aria-label={`Slide ${i + 1}`}
               />
@@ -949,8 +949,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       <section id="faq" style={{ padding: "80px 5%", background: "#fff" }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <div className="section-label">Dúvidas Frequentes</div>
-            <div className="divider" style={{ margin: "0 auto 20px" }} />
+            <div className={styles['section-label']}>Dúvidas Frequentes</div>
+            <div className={styles['divider']} style={{ margin: "0 auto 20px" }} />
             <h2 style={{ fontSize: "clamp(1.6rem,3vw,2.2rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em" }}>Perguntas frequentes</h2>
           </div>
           <div>
@@ -961,8 +961,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           <div style={{ textAlign: "center", marginTop: 40 }}>
             <p style={{ color: "#6b7280", fontSize: "0.9rem", marginBottom: 16 }}>Ainda tem dúvidas? Fale diretamente com nossa equipe.</p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="#contato" className="btn-primary">Solicitar orçamento grátis</a>
-              <a href={WA_HREF} className="btn-whatsapp" target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
+              <a href="#contato" className={styles['btn-primary']}>Solicitar orçamento grátis</a>
+              <a href={WA_HREF} className={styles['btn-whatsapp']} target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
             </div>
           </div>
         </div>
@@ -972,12 +972,12 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
       <section id="contato" style={{ padding: "96px 5%", background: "#f9fafb", backgroundImage: "radial-gradient(rgba(18,103,152,0.15) 1px, transparent 1px)", backgroundSize: "26px 26px" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div className="section-label">Fale Conosco</div>
-            <div className="divider" style={{ margin: "0 auto 20px" }} />
+            <div className={styles['section-label']}>Fale Conosco</div>
+            <div className={styles['divider']} style={{ margin: "0 auto 20px" }} />
             <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em", marginBottom: 10 }}>Solicite seu orçamento grátis</h2>
             <p style={{ color: "#6b7280", fontSize: "0.97rem" }}>Atendemos Curitiba e Região Metropolitana. Entre em contato e receba um orçamento sem compromisso.</p>
           </div>
-          <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 48 }}>
+          <div className={styles['contact-grid']} style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 48 }}>
             <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
               {[
                 { icon: "chat", label: "Telefone / WhatsApp", val: "(41) 3378-7933", href: "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!" },
@@ -1006,14 +1006,14 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                 <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
                     <label htmlFor="contact-nome" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Nome completo</label>
-                    <input id="contact-nome" className="form-input" placeholder="Nome completo" required value={formData.nome} onChange={e => setFormData({ ...formData, nome: e.target.value })} />
+                    <input id="contact-nome" className={styles['form-input']} placeholder="Nome completo" required value={formData.nome} onChange={e => setFormData({ ...formData, nome: e.target.value })} />
                     <label htmlFor="contact-email" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>E-mail</label>
-                    <input id="contact-email" className="form-input" placeholder="E-mail" type="email" required value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
+                    <input id="contact-email" className={styles['form-input']} placeholder="E-mail" type="email" required value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
                   </div>
                   <label htmlFor="contact-telefone" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Telefone / WhatsApp</label>
-                  <input id="contact-telefone" className="form-input" placeholder="Telefone / WhatsApp" value={formData.telefone} onChange={e => setFormData({ ...formData, telefone: e.target.value })} />
+                  <input id="contact-telefone" className={styles['form-input']} placeholder="Telefone / WhatsApp" value={formData.telefone} onChange={e => setFormData({ ...formData, telefone: e.target.value })} />
                   <label htmlFor="contact-servico" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Serviço de interesse</label>
-                  <select id="contact-servico" className="form-input" value={formData.servico} onChange={e => setFormData({ ...formData, servico: e.target.value })}>
+                  <select id="contact-servico" className={styles['form-input']} value={formData.servico} onChange={e => setFormData({ ...formData, servico: e.target.value })}>
                     <option value="">Serviço de interesse</option>
                     <option>Alarmes</option>
                     <option>Câmeras CFTV</option>
@@ -1023,8 +1023,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                     <option>Outros</option>
                   </select>
                   <label htmlFor="contact-mensagem" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Mensagem</label>
-                  <textarea id="contact-mensagem" className="form-input" placeholder="Descreva brevemente sua necessidade..." rows={4} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
-                  <button type="submit" className="btn-primary" disabled={formSending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: formSending ? 0.7 : 1 }}>
+                  <textarea id="contact-mensagem" className={styles['form-input']} placeholder="Descreva brevemente sua necessidade..." rows={4} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
+                  <button type="submit" className={styles['btn-primary']} disabled={formSending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: formSending ? 0.7 : 1 }}>
                     {formSending ? "Enviando…" : "Enviar Mensagem"}
                   </button>
                   {formError && <p style={{ fontSize: "0.82rem", color: "#dc2626", textAlign: "center", margin: 0 }}>{formError}</p>}

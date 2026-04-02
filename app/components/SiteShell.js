@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import styles from "./SiteShell.module.css";
 
 const NAV_LINKS = [
   { label: "Home",     href: "/" },
@@ -23,42 +24,6 @@ const FOOTER_NAV = [
 const WA_HREF =
   "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
 
-const shellCss = `
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font-inter), 'Helvetica Neue', Arial, sans-serif; color: #1a1d20; background: #fff; }
-  a { text-decoration: none; }
-
-  /* ── Navbar ── */
-  .shell-nav-link { font-size: 0.88rem; color: #6b7280; font-weight: 500; transition: color 0.2s; }
-  .shell-nav-link:hover { color: #126798; }
-  .shell-social { color: #b0b7c3; display: flex; align-items: center; transition: color 0.2s; }
-  .shell-social:hover { color: #126798; }
-  .shell-desktop-nav { display: flex; gap: 28px; align-items: center; }
-  .shell-mobile-btn { display: none; background: none; border: none; cursor: pointer; font-size: 1.5rem; color: #32373c; padding: 4px; }
-  .shell-btn-primary { background: #126798; color: #fff; border: none; padding: 10px 22px; border-radius: 9999px; font-family: inherit; font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: all 0.25s; display: inline-block; }
-  .shell-btn-primary:hover { background: #0d5280; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(18,103,152,0.35); }
-
-  /* ── WhatsApp FAB ── */
-  @keyframes shellWaPulse {
-    0%   { box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.55); }
-    70%  { box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 0 0 14px rgba(37,211,102,0); }
-    100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0); }
-  }
-  .shell-wa-fab { position: fixed; bottom: 28px; right: 28px; z-index: 999; width: 60px; height: 60px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: shellWaPulse 2.2s infinite; transition: transform 0.25s; }
-  .shell-wa-fab:hover { animation: none; transform: scale(1.1) !important; box-shadow: 0 8px 32px rgba(37,211,102,0.5) !important; }
-
-  /* ── Footer ── */
-  .shell-footer-link { font-size: 0.85rem; color: rgba(255,255,255,0.55); transition: color 0.2s; }
-  .shell-footer-link:hover { color: #fff; }
-  .shell-footer-social { color: rgba(255,255,255,0.35); display: flex; transition: color 0.2s; }
-  .shell-footer-social:hover { color: rgba(255,255,255,0.8); }
-
-  @media (max-width: 768px) {
-    .shell-desktop-nav { display: none !important; }
-    .shell-mobile-btn { display: block !important; }
-    .shell-footer-cols { flex-direction: column !important; gap: 28px !important; }
-  }
-`;
 
 export default function SiteShell({ children }) {
   const [scrolled, setScrolled] = useState(false);
@@ -72,12 +37,10 @@ export default function SiteShell({ children }) {
 
   return (
     <>
-      <style>{shellCss}</style>
-
       {/* ── WhatsApp FAB ── */}
       <a
         href={WA_HREF}
-        className="shell-wa-fab"
+        className={styles['shell-wa-fab']}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Fale conosco pelo WhatsApp"
@@ -117,9 +80,9 @@ export default function SiteShell({ children }) {
         </a>
 
         {/* Desktop nav */}
-        <div className="shell-desktop-nav">
+        <div className={styles['shell-desktop-nav']}>
           {NAV_LINKS.map((l) => (
-            <a key={l.label} href={l.href} className="shell-nav-link">
+            <a key={l.label} href={l.href} className={styles['shell-nav-link']}>
               {l.label}
             </a>
           ))}
@@ -130,7 +93,7 @@ export default function SiteShell({ children }) {
               href="https://www.facebook.com/isfsegurancaeletronica"
               target="_blank"
               rel="noopener noreferrer"
-              className="shell-social"
+              className={styles['shell-social']}
               aria-label="Facebook"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
@@ -141,7 +104,7 @@ export default function SiteShell({ children }) {
               href="https://www.instagram.com/isfsolucoesemseguranca/"
               target="_blank"
               rel="noopener noreferrer"
-              className="shell-social"
+              className={styles['shell-social']}
               aria-label="Instagram"
             >
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
@@ -150,14 +113,14 @@ export default function SiteShell({ children }) {
             </a>
           </div>
 
-          <a href="/#contato" className="shell-btn-primary">
+          <a href="/#contato" className={styles['shell-btn-primary']}>
             Orçamento Grátis
           </a>
         </div>
 
         {/* Mobile hamburger */}
         <button
-          className="shell-mobile-btn"
+          className={styles['shell-mobile-btn']}
           onClick={() => setMobileOpen((o) => !o)}
           aria-label="Menu"
         >
@@ -186,7 +149,7 @@ export default function SiteShell({ children }) {
             <a
               key={l.label}
               href={l.href}
-              className="shell-nav-link"
+              className={styles['shell-nav-link']}
               onClick={() => setMobileOpen(false)}
               style={{ padding: "6px 0", borderBottom: "1px solid #f3f4f6" }}
             >
@@ -195,7 +158,7 @@ export default function SiteShell({ children }) {
           ))}
           <a
             href="/#contato"
-            className="shell-btn-primary"
+            className={styles['shell-btn-primary']}
             style={{ textAlign: "center", marginTop: 8 }}
             onClick={() => setMobileOpen(false)}
           >
@@ -211,7 +174,7 @@ export default function SiteShell({ children }) {
       <footer style={{ padding: "48px 5% 32px", background: "#1a1d20", borderTop: "1px solid #2d3137" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div
-            className="shell-footer-cols"
+            className={styles['shell-footer-cols']}
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -256,7 +219,7 @@ export default function SiteShell({ children }) {
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {FOOTER_NAV.map((l) => (
-                  <a key={l.label} href={l.href} className="shell-footer-link">
+                  <a key={l.label} href={l.href} className={styles['shell-footer-link']}>
                     {l.label}
                   </a>
                 ))}
@@ -278,14 +241,14 @@ export default function SiteShell({ children }) {
                 Contato
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                <a href="tel:4133787933" className="shell-footer-link">
+                <a href="tel:4133787933" className={styles['shell-footer-link']}>
                   (41) 3378-7933
                 </a>
                 <a
                   href="https://api.whatsapp.com/send?phone=554133787933"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shell-footer-link"
+                  className={styles['shell-footer-link']}
                 >
                   WhatsApp (41) 99991-9191
                 </a>
@@ -323,7 +286,7 @@ export default function SiteShell({ children }) {
                   href="https://www.facebook.com/isfsegurancaeletronica"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shell-footer-social"
+                  className={styles['shell-footer-social']}
                   aria-label="Facebook ISF"
                 >
                   <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
@@ -334,7 +297,7 @@ export default function SiteShell({ children }) {
                   href="https://www.instagram.com/isfsolucoesemseguranca/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="shell-footer-social"
+                  className={styles['shell-footer-social']}
                   aria-label="Instagram ISF"
                 >
                   <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">

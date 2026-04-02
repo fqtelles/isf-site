@@ -1,7 +1,36 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { rateLimit, getIp } from "../../../lib/rate-limit";
+
+/** Escapa caracteres HTML especiais para prevenir injeção no template de e-mail */
+function esc(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+/** Remove quebras de linha para prevenir injeção de cabeçalho de e-mail */
+function safeHeader(str) {
+  if (!str) return "";
+  return String(str).replace(/[\r\n]/g, " ").trim();
+}
 
 export async function POST(req) {
+  // Rate limit: 5 envios por IP a cada hora
+  const ip = getIp(req);
+  const { allowed, resetAt } = rateLimit(`contact:${ip}`, 5, 60 * 60 * 1000);
+  if (!allowed) {
+    const retryAfter = Math.ceil((resetAt - Date.now()) / 1000);
+    return NextResponse.json(
+      { error: "Muitas solicitações. Tente novamente mais tarde." },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } }
+    );
+  }
+
   try {
     const body = await req.json();
     const { nome, email, telefone, servico, mensagem, pagina } = body;
@@ -23,8 +52,18 @@ export async function POST(req) {
 
     const resend = new Resend(process.env.RESEND_API_KEY);
 
-    const origem = servico || pagina || "Site";
-    const assunto = `Orçamento ISF: ${origem} — ${nome}`;
+    const origemRaw = servico || pagina || "Site";
+    const assunto = `Orçamento ISF: ${safeHeader(origemRaw)} — ${safeHeader(nome)}`;
+
+    // Todos os campos escapados antes de entrar no HTML
+    const nomeE     = esc(nome);
+    const emailE    = esc(email);
+    const telefoneE = esc(telefone);
+    const servicoE  = esc(servico);
+    const paginaE   = esc(pagina);
+    const origemE   = esc(origemRaw);
+    // Mensagem: escapa primeiro, depois converte \n → <br>
+    const mensagemE = mensagem ? esc(mensagem).replace(/\n/g, "<br>") : "";
 
     const html = `
 <!DOCTYPE html>
@@ -34,37 +73,37 @@ export async function POST(req) {
   <div style="max-width:560px;margin:0 auto;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
     <div style="background:#126798;padding:24px 28px;">
       <h1 style="color:#fff;margin:0;font-size:1.2rem;">Nova solicitação de orçamento</h1>
-      <p style="color:rgba(255,255,255,0.75);margin:6px 0 0;font-size:0.88rem;">ISF Soluções em Segurança — ${origem}</p>
+      <p style="color:rgba(255,255,255,0.75);margin:6px 0 0;font-size:0.88rem;">ISF Soluções em Segurança — ${origemE}</p>
     </div>
     <div style="padding:28px;">
       <table style="width:100%;border-collapse:collapse;font-size:0.93rem;">
         <tr>
           <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#6b7280;width:120px;vertical-align:top;">Nome</td>
-          <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#1a1d20;font-weight:600;">${nome}</td>
+          <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#1a1d20;font-weight:600;">${nomeE}</td>
         </tr>
-        ${email ? `
+        ${emailE ? `
         <tr>
           <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#6b7280;vertical-align:top;">E-mail</td>
-          <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#1a1d20;">${email}</td>
+          <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#1a1d20;">${emailE}</td>
         </tr>` : ""}
         <tr>
           <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#6b7280;vertical-align:top;">Telefone</td>
-          <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#1a1d20;">${telefone}</td>
+          <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#1a1d20;">${telefoneE}</td>
         </tr>
-        ${servico ? `
+        ${servicoE ? `
         <tr>
           <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#6b7280;vertical-align:top;">Serviço</td>
-          <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#1a1d20;">${servico}</td>
+          <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#1a1d20;">${servicoE}</td>
         </tr>` : ""}
-        ${pagina ? `
+        ${paginaE ? `
         <tr>
           <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#6b7280;vertical-align:top;">Página</td>
-          <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#1a1d20;">${pagina}</td>
+          <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;color:#1a1d20;">${paginaE}</td>
         </tr>` : ""}
-        ${mensagem ? `
+        ${mensagemE ? `
         <tr>
           <td style="padding:10px 0;color:#6b7280;vertical-align:top;">Mensagem</td>
-          <td style="padding:10px 0;color:#1a1d20;line-height:1.6;">${mensagem.replace(/\n/g, "<br>")}</td>
+          <td style="padding:10px 0;color:#1a1d20;line-height:1.6;">${mensagemE}</td>
         </tr>` : ""}
       </table>
     </div>

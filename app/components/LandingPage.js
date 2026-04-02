@@ -1,30 +1,8 @@
 "use client";
 import { useState } from "react";
 import SiteShell from "./SiteShell";
+import styles from "./LandingPage.module.css";
 
-const css = `
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font-inter), 'Helvetica Neue', Arial, sans-serif; color: #1a1d20; background: #fff; }
-  .lp-btn { background: #126798; color: #fff; border: none; padding: 13px 28px; border-radius: 9999px; font-family: inherit; font-weight: 600; font-size: 0.88rem; cursor: pointer; transition: all 0.25s; text-decoration: none; display: inline-block; letter-spacing: 0.01em; }
-  .lp-btn:hover { background: #0d5280; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(18,103,152,0.35); }
-  .lp-btn-wa { background: #25d366; color: #fff; display: inline-flex; align-items: center; gap: 8px; }
-  .lp-btn-wa:hover { background: #1fba58; box-shadow: 0 4px 20px rgba(37,211,102,0.4); transform: translateY(-1px); }
-  .lp-btn-outline { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,0.7); }
-  .lp-btn-outline:hover { background: rgba(255,255,255,0.15); box-shadow: none; }
-  .lp-btn-white { background: #fff; color: #126798; }
-  .lp-btn-white:hover { background: #f0f7fc; box-shadow: 0 4px 20px rgba(18,103,152,0.2); }
-  .lp-input { width: 100%; border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 13px 16px; font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
-  .lp-input:focus { border-color: #126798; box-shadow: 0 0 0 3px rgba(18,103,152,0.08); }
-  .lp-input::placeholder { color: #9ca3af; }
-  .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 16px 0; border-bottom: 1px solid #f3f4f6; }
-  .lp-icon-box { width: 48px; height: 48px; background: #f3f4f6; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; flex-shrink: 0; }
-  .faq-btn { width: 100%; background: none; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 18px 0; text-align: left; gap: 16px; border-bottom: 1px solid #e5e7eb; font-family: inherit; }
-  @media (max-width: 768px) {
-    .lp-hero-grid { grid-template-columns: 1fr !important; }
-    .lp-features-grid { grid-template-columns: 1fr !important; }
-    .lp-stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  }
-`;
 
 function WaIcon() {
   return (
@@ -65,7 +43,7 @@ function LpIcon({ name }) {
   const d = LP_ICONS[name];
   if (!d) return null;
   return (
-    <div className="lp-icon-box">
+    <div className={styles['lp-icon-box']}>
       <svg viewBox="0 0 24 24" fill="none" stroke="#32373c" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
         <path d={d} />
       </svg>
@@ -85,7 +63,7 @@ function FaqItem({ q, a }) {
   const [open, setOpen] = useState(false);
   return (
     <div>
-      <button className="faq-btn" onClick={() => setOpen(o => !o)} aria-expanded={open}>
+      <button className={styles['faq-btn']} onClick={() => setOpen(o => !o)} aria-expanded={open}>
         <span style={{ fontSize: "0.97rem", fontWeight: 700, color: "#1a1d20", lineHeight: 1.4 }}>{q}</span>
         <span style={{ fontSize: "1.2rem", color: "#6b7280", flexShrink: 0, transform: open ? "rotate(45deg)" : "none", transition: "transform 0.2s", display: "inline-block" }}>+</span>
       </button>
@@ -124,8 +102,6 @@ export default function LandingPage({ service }) {
 
   return (
     <SiteShell>
-      <style>{css}</style>
-
       {/* Back link */}
       <div style={{ background: "#f9fafb", padding: "20px 5% 0" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
@@ -138,7 +114,7 @@ export default function LandingPage({ service }) {
 
       {/* HERO */}
       <section style={{ background: "#f9fafb", padding: "32px 5% 64px" }}>
-        <div className="lp-hero-grid" style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 420px", gap: 56, alignItems: "center" }}>
+        <div className={styles['lp-hero-grid']} style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 420px", gap: 56, alignItems: "center" }}>
           <div>
             <div style={{ display: "inline-block", background: "#e8f3f9", color: "#126798", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "5px 14px", borderRadius: 9999, marginBottom: 20 }}>
               {service.badge}
@@ -150,8 +126,8 @@ export default function LandingPage({ service }) {
               {service.subtitle}
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#orcamento" className="lp-btn">Solicitar orçamento grátis</a>
-              <a href={waHref} target="_blank" rel="noopener noreferrer" className="lp-btn lp-btn-wa"><WaIcon />WhatsApp</a>
+              <a href="#orcamento" className={styles['lp-btn']}>Solicitar orçamento grátis</a>
+              <a href={waHref} target="_blank" rel="noopener noreferrer" className={`${styles['lp-btn']} ${styles['lp-btn-wa']}`}><WaIcon />WhatsApp</a>
             </div>
             <div style={{ marginTop: 28, display: "flex", gap: 24, flexWrap: "wrap" }}>
               {["✔ Orçamento gratuito", "✔ Atende Curitiba e RMC", "✔ 35+ anos de experiência"].map(b => (
@@ -174,12 +150,12 @@ export default function LandingPage({ service }) {
                 <p style={{ fontSize: "0.85rem", color: "#9ca3af", marginBottom: 22 }}>Sem compromisso. Respondemos em até 2h.</p>
                 <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                   <label htmlFor="lp-nome" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Seu nome completo</label>
-                  <input id="lp-nome" className="lp-input" placeholder="Seu nome completo" required value={formData.nome} onChange={e => setFormData({ ...formData, nome: e.target.value })} />
+                  <input id="lp-nome" className={styles['lp-input']} placeholder="Seu nome completo" required value={formData.nome} onChange={e => setFormData({ ...formData, nome: e.target.value })} />
                   <label htmlFor="lp-telefone" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Telefone / WhatsApp</label>
-                  <input id="lp-telefone" className="lp-input" placeholder="Telefone / WhatsApp" required value={formData.telefone} onChange={e => setFormData({ ...formData, telefone: e.target.value })} />
+                  <input id="lp-telefone" className={styles['lp-input']} placeholder="Telefone / WhatsApp" required value={formData.telefone} onChange={e => setFormData({ ...formData, telefone: e.target.value })} />
                   <label htmlFor="lp-mensagem" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Mensagem</label>
-                  <textarea id="lp-mensagem" className="lp-input" placeholder={service.formPlaceholder} rows={3} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
-                  <button type="submit" className="lp-btn" disabled={sending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: sending ? 0.7 : 1 }}>
+                  <textarea id="lp-mensagem" className={styles['lp-input']} placeholder={service.formPlaceholder} rows={3} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
+                  <button type="submit" className={styles['lp-btn']} disabled={sending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: sending ? 0.7 : 1 }}>
                     {sending ? "Enviando…" : "Solicitar Orçamento"}
                   </button>
                   {formError && <p style={{ fontSize: "0.82rem", color: "#dc2626", margin: 0 }}>{formError}</p>}
@@ -196,7 +172,7 @@ export default function LandingPage({ service }) {
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800, color: "#111827", marginBottom: 40, textAlign: "center", letterSpacing: "-0.02em" }}>
             Por que escolher a ISF para {service.name.toLowerCase()}?
           </h2>
-          <div className="lp-features-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+          <div className={styles['lp-features-grid']} style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
             {service.benefits.map(b => (
               <div key={b.title} style={{ padding: "28px 24px", background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: 12 }}>
                 <LpIcon name={b.icon} />
@@ -217,7 +193,7 @@ export default function LandingPage({ service }) {
           <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.97rem", marginBottom: 40 }}>
             Mais de 35 anos protegendo Curitiba e Região Metropolitana.
           </p>
-          <div className="lp-stats-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1, borderTop: "1px solid rgba(255,255,255,0.1)", borderLeft: "1px solid rgba(255,255,255,0.1)" }}>
+          <div className={styles['lp-stats-grid']} style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1, borderTop: "1px solid rgba(255,255,255,0.1)", borderLeft: "1px solid rgba(255,255,255,0.1)" }}>
             {[
               { n: "35+",     l: "Anos de mercado" },
               { n: "30.000+", l: "Atendimentos realizados" },
@@ -240,7 +216,7 @@ export default function LandingPage({ service }) {
             O que está incluso no serviço
           </h2>
           {service.checklist.map(item => (
-            <div key={item} className="check-item">
+            <div key={item} className={styles['check-item']}>
               <CheckIcon />
               <span style={{ fontSize: "0.95rem", color: "#374151", lineHeight: 1.5 }}>{item}</span>
             </div>
@@ -270,8 +246,8 @@ export default function LandingPage({ service }) {
             Orçamento gratuito e sem compromisso. Atendemos Curitiba e toda a Região Metropolitana.
           </p>
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-            <a href="#orcamento" className="lp-btn lp-btn-white">Solicitar Orçamento</a>
-            <a href={waHref} target="_blank" rel="noopener noreferrer" className="lp-btn lp-btn-wa"><WaIcon />WhatsApp</a>
+            <a href="#orcamento" className={`${styles['lp-btn']} ${styles['lp-btn-white']}`}>Solicitar Orçamento</a>
+            <a href={waHref} target="_blank" rel="noopener noreferrer" className={`${styles['lp-btn']} ${styles['lp-btn-wa']}`}><WaIcon />WhatsApp</a>
           </div>
         </div>
       </section>

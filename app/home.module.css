@@ -1,5 +1,5 @@
-* { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
+:global(*) { box-sizing: border-box; margin: 0; padding: 0; }
+:global(:root) {
   --dark: #32373c;
   --darker: #1a1d20;
   --gray: #6b7280;
@@ -13,8 +13,8 @@
   --blue-dark: #0d5280;
   --blue-light: #e8f3f9;
 }
-html { scroll-behavior: smooth; }
-body { background: #ffffff; color: #32373c; font-family: var(--font-inter), 'Helvetica Neue', Arial, sans-serif; }
+:global(html) { scroll-behavior: smooth; }
+:global(body) { background: #ffffff; color: #32373c; font-family: var(--font-inter), 'Helvetica Neue', Arial, sans-serif; }
 .nav-link { color: #32373c; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
 .nav-link:hover { color: #126798; }
 .nav-social-icon:hover { color: #32373c !important; }
@@ -39,7 +39,7 @@ body { background: #ffffff; color: #32373c; font-family: var(--font-inter), 'Hel
 .form-input { width: 100%; background: #f9fafb; border: 1px solid var(--border); border-radius: 8px; padding: 13px 16px; color: var(--text); font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color 0.2s; }
 .form-input:focus { border-color: #126798; background: #fff; box-shadow: 0 0 0 3px rgba(18,103,152,0.08); }
 .form-input::placeholder { color: #9ca3af; }
-select.form-input option { background: #fff; }
+select.form-input :global(option) { background: #fff; }
 .divider { width: 48px; height: 3px; background: #126798; border-radius: 2px; margin-bottom: 20px; }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 .fade-up { animation: fadeUp 0.6s ease both; }

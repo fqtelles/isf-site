@@ -1,0 +1,124 @@
+/* ── Navbar ── */
+.shell-nav-link {
+  font-size: 0.88rem;
+  color: #6b7280;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.shell-nav-link:hover {
+  color: #126798;
+}
+
+.shell-social {
+  color: #b0b7c3;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+.shell-social:hover {
+  color: #126798;
+}
+
+.shell-desktop-nav {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.shell-mobile-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: #32373c;
+  padding: 4px;
+}
+
+.shell-btn-primary {
+  background: #126798;
+  color: #fff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.25s;
+  display: inline-block;
+}
+.shell-btn-primary:hover {
+  background: #0d5280;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(18, 103, 152, 0.35);
+}
+
+/* ── WhatsApp FAB ── */
+@keyframes shellWaPulse {
+  0% {
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4),
+      0 0 0 0 rgba(37, 211, 102, 0.55);
+  }
+  70% {
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4),
+      0 0 0 14px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4),
+      0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+
+.shell-wa-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 999;
+  width: 60px;
+  height: 60px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: shellWaPulse 2.2s infinite;
+  transition: transform 0.25s;
+}
+.shell-wa-fab:hover {
+  animation: none;
+  transform: scale(1.1) !important;
+  box-shadow: 0 8px 32px rgba(37, 211, 102, 0.5) !important;
+}
+
+/* ── Footer ── */
+.shell-footer-link {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.55);
+  transition: color 0.2s;
+}
+.shell-footer-link:hover {
+  color: #fff;
+}
+
+.shell-footer-social {
+  color: rgba(255, 255, 255, 0.35);
+  display: flex;
+  transition: color 0.2s;
+}
+.shell-footer-social:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 768px) {
+  .shell-desktop-nav {
+    display: none !important;
+  }
+  .shell-mobile-btn {
+    display: block !important;
+  }
+  .shell-footer-cols {
+    flex-direction: column !important;
+    gap: 28px !important;
+  }
+}

@@ -14,7 +14,7 @@
   --blue-light: #e8f3f9;
 }
 :global(html) { scroll-behavior: smooth; }
-:global(body) { background: #ffffff; color: #32373c; font-family: var(--font-inter), 'Helvetica Neue', Arial, sans-serif; }
+:global(body) { background: #ffffff; color: #32373c; font-family: var(--font-inter), 'Helvetica Neue', Arial, sans-serif; } /* font also set in globals.css for all pages */
 .nav-link { color: #32373c; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
 .nav-link:hover { color: #126798; }
 .nav-social-icon:hover { color: #32373c !important; }

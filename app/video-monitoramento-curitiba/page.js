@@ -8,12 +8,12 @@ export const metadata = {
   openGraph: {
     title: "Vídeo Monitoramento Inteligente em Curitiba | ISF Segurança",
     description: "Vídeo monitoramento com IA e vídeo analítico em Curitiba. Câmeras inteligentes que alertam a central 24h. Orçamento gratuito.",
-    url: "https://isf.com.br/video-monitoramento-curitiba",
+    url: "https://isf.com.br/video-monitoramento-curitiba/",
     type: "website",
     images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "Vídeo Monitoramento Inteligente em Curitiba — ISF Segurança Eletrônica" }],
   },
   twitter: { card: "summary_large_image" },
-  alternates: { canonical: "https://isf.com.br/video-monitoramento-curitiba" },
+  alternates: { canonical: "https://isf.com.br/video-monitoramento-curitiba/" },
 };
 
 const serviceSchema = {
@@ -27,7 +27,7 @@ const serviceSchema = {
     name: "ISF Soluções em Segurança",
   },
   areaServed: { "@type": "City", name: "Curitiba" },
-  url: "https://isf.com.br/video-monitoramento-curitiba",
+  url: "https://isf.com.br/video-monitoramento-curitiba/",
 };
 
 const service = {

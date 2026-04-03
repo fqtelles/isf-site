@@ -8,12 +8,12 @@ export const metadata = {
   openGraph: {
     title: "App de Segurança em Curitiba | ISF Segurança",
     description: "Monitore câmeras e controle alarmes pelo celular. Curitiba e RMC. Orçamento gratuito.",
-    url: "https://isf.com.br/app-de-seguranca",
+    url: "https://isf.com.br/app-de-seguranca/",
     type: "website",
     images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "App de Segurança — ISF Segurança Eletrônica" }],
   },
   twitter: { card: "summary_large_image" },
-  alternates: { canonical: "https://isf.com.br/app-de-seguranca" },
+  alternates: { canonical: "https://isf.com.br/app-de-seguranca/" },
 };
 
 const serviceSchema = {
@@ -27,7 +27,7 @@ const serviceSchema = {
     name: "ISF Soluções em Segurança",
   },
   areaServed: { "@type": "City", name: "Curitiba" },
-  url: "https://isf.com.br/app-de-seguranca",
+  url: "https://isf.com.br/app-de-seguranca/",
 };
 
 const service = {

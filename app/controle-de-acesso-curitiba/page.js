@@ -8,12 +8,12 @@ export const metadata = {
   openGraph: {
     title: "Controle de Acesso em Curitiba | ISF Segurança",
     description: "Catracas, biometria e controle de acesso em Curitiba. Orçamento gratuito.",
-    url: "https://isf.com.br/controle-de-acesso-curitiba",
+    url: "https://isf.com.br/controle-de-acesso-curitiba/",
     type: "website",
     images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "Controle de Acesso em Curitiba — ISF Segurança Eletrônica" }],
   },
   twitter: { card: "summary_large_image" },
-  alternates: { canonical: "https://isf.com.br/controle-de-acesso-curitiba" },
+  alternates: { canonical: "https://isf.com.br/controle-de-acesso-curitiba/" },
 };
 
 const serviceSchema = {
@@ -27,7 +27,7 @@ const serviceSchema = {
     name: "ISF Soluções em Segurança",
   },
   areaServed: { "@type": "City", name: "Curitiba" },
-  url: "https://isf.com.br/controle-de-acesso-curitiba",
+  url: "https://isf.com.br/controle-de-acesso-curitiba/",
 };
 
 const service = {

@@ -8,12 +8,12 @@ export const metadata = {
   openGraph: {
     title: "Alarme Residencial e Empresarial em Curitiba | ISF Segurança",
     description: "Instalação de alarmes em Curitiba. 35 anos de experiência. Orçamento gratuito.",
-    url: "https://isf.com.br/alarmes-curitiba",
+    url: "https://isf.com.br/alarmes-curitiba/",
     type: "website",
     images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "Alarmes em Curitiba — ISF Segurança Eletrônica" }],
   },
   twitter: { card: "summary_large_image" },
-  alternates: { canonical: "https://isf.com.br/alarmes-curitiba" },
+  alternates: { canonical: "https://isf.com.br/alarmes-curitiba/" },
 };
 
 const serviceSchema = {
@@ -27,7 +27,7 @@ const serviceSchema = {
     name: "ISF Soluções em Segurança",
   },
   areaServed: { "@type": "City", name: "Curitiba" },
-  url: "https://isf.com.br/alarmes-curitiba",
+  url: "https://isf.com.br/alarmes-curitiba/",
 };
 
 const service = {

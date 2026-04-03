@@ -7,11 +7,11 @@ export const metadata = {
   title: "Blog — Dicas de Segurança Eletrônica | ISF Segurança Eletrônica",
   description:
     "Artigos e dicas sobre câmeras de segurança, alarmes, cerca elétrica e controle de acesso. Conteúdo especializado da ISF — 35 anos protegendo Curitiba.",
-  alternates: { canonical: "https://isf.com.br/blog" },
+  alternates: { canonical: "https://isf.com.br/blog/" },
   openGraph: {
     title: "Blog | ISF Segurança Eletrônica",
     description: "Dicas e artigos sobre segurança eletrônica, câmeras, alarmes e monitoramento em Curitiba.",
-    url: "https://isf.com.br/blog",
+    url: "https://isf.com.br/blog/",
     siteName: "ISF Segurança Eletrônica",
     locale: "pt_BR",
     type: "website",

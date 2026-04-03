@@ -285,7 +285,7 @@ export default function BlogGallery({ posts }) {
           ) : (
             <div className="blog-grid">
               {filtered.map(post => (
-                <a key={post.id} href={`/blog/${post.slug || post.id}`} className="blog-card">
+                <a key={post.id} href={`/blog/${post.slug || post.id}/`} className="blog-card">
                   <div className="blog-card-img" style={{ position: "relative" }}>
                     {post.coverImage ? (
                       <Image src={post.coverImage} alt={post.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" style={{ objectFit: "cover" }} />

@@ -147,7 +147,7 @@ function WaIcon() {
 function ProductCard({ p }) {
   const [imgError, setImgError] = useState(false);
   return (
-    <a href={`/produtos/${p.slug || p.id}`} className="prod-card">
+    <a href={`/produtos/${p.slug || p.id}/`} className="prod-card">
       <div className="prod-card-img" style={{ position: "relative" }}>
         {p.image && !imgError ? (
           <Image src={p.image} alt={p.name} fill sizes="(max-width: 768px) 50vw, 25vw" style={{ objectFit: "contain" }} onError={() => setImgError(true)} />

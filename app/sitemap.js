@@ -32,55 +32,55 @@ export default async function sitemap() {
       priority: 1,
     },
     {
-      url: "https://isf.com.br/alarmes-curitiba",
+      url: "https://isf.com.br/alarmes-curitiba/",
       lastModified: new Date("2026-03-24"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: "https://isf.com.br/cameras-seguranca-curitiba",
+      url: "https://isf.com.br/cameras-seguranca-curitiba/",
       lastModified: new Date("2026-03-24"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: "https://isf.com.br/cerca-eletrica-curitiba",
+      url: "https://isf.com.br/cerca-eletrica-curitiba/",
       lastModified: new Date("2026-03-24"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: "https://isf.com.br/controle-de-acesso-curitiba",
+      url: "https://isf.com.br/controle-de-acesso-curitiba/",
       lastModified: new Date("2026-03-24"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: "https://isf.com.br/monitoramento-curitiba",
+      url: "https://isf.com.br/monitoramento-curitiba/",
       lastModified: new Date("2026-03-24"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: "https://isf.com.br/video-monitoramento-curitiba",
+      url: "https://isf.com.br/video-monitoramento-curitiba/",
       lastModified: new Date("2026-03-30"),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: "https://isf.com.br/app-de-seguranca",
+      url: "https://isf.com.br/app-de-seguranca/",
       lastModified: new Date("2026-03-24"),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
-      url: "https://isf.com.br/produtos",
+      url: "https://isf.com.br/produtos/",
       lastModified: latestProductDate,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
-      url: "https://isf.com.br/blog",
+      url: "https://isf.com.br/blog/",
       lastModified: latestPostDate,
       changeFrequency: "weekly",
       priority: 0.8,
@@ -88,14 +88,14 @@ export default async function sitemap() {
   ];
 
   const blogPages = posts.map((post) => ({
-    url: `https://isf.com.br/blog/${post.slug || post.id}`,
+    url: `https://isf.com.br/blog/${post.slug || post.id}/`,
     lastModified: post.createdAt,
     changeFrequency: "monthly",
     priority: 0.7,
   }));
 
   const productPages = products.map((product) => ({
-    url: `https://isf.com.br/produtos/${product.slug || product.id}`,
+    url: `https://isf.com.br/produtos/${product.slug || product.id}/`,
     lastModified: product.createdAt,
     changeFrequency: "monthly",
     priority: 0.6,

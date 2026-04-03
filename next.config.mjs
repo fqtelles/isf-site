@@ -6,6 +6,7 @@ const withBundleAnalyzer = bundleAnalyzer({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  trailingSlash: true,
   experimental: {
     optimizeCss: true,
   },
@@ -20,11 +21,7 @@ const nextConfig = {
         protocol: "https",
         hostname: "isf.com.br",
       },
-      {
-        protocol: "https",
-        hostname: "www.isf.com.br",
-      },
-      {
+{
         protocol: "https",
         hostname: "**.intelbras.com.br",
       },
@@ -51,13 +48,13 @@ const nextConfig = {
       // Paginação antiga do WordPress (/page/2/, /page/3/, etc.)
       { source: "/page/:path*",       destination: "/", permanent: true },
       // Slug de produto com equivalente no novo site — ANTES dos catch-alls
-      { source: "/produtos/controle-acesso",  destination: "/controle-de-acesso-curitiba", permanent: true },
-      { source: "/produtos/controle-acesso/", destination: "/controle-de-acesso-curitiba", permanent: true },
+      { source: "/produtos/controle-acesso",  destination: "/controle-de-acesso-curitiba/", permanent: true },
+      { source: "/produtos/controle-acesso/", destination: "/controle-de-acesso-curitiba/", permanent: true },
       // Slugs antigos de produtos ANINHADOS (2+ segmentos após /produtos/)
       // :slug+ exige pelo menos 1 segmento extra → não afeta /produtos/slug-simples
       { source: "/produtos/:cat/:slug+/amp/", destination: "/", permanent: true },
       { source: "/produtos/:cat/:slug+/amp",  destination: "/", permanent: true },
-      { source: "/produtos/:cat/:slug+",      destination: "/produtos", permanent: true },
+      { source: "/produtos/:cat/:slug+",      destination: "/produtos/", permanent: true },
       // Slugs antigos sem equivalente — sem barra final
       { source: "/a-empresa",         destination: "/", permanent: true },
       { source: "/servicos",          destination: "/", permanent: true },
@@ -66,7 +63,6 @@ const nextConfig = {
       { source: "/a-empresa/",        destination: "/", permanent: true },
       { source: "/servicos/",         destination: "/", permanent: true },
       { source: "/contato/",          destination: "/", permanent: true },
-      { source: "/produtos/",         destination: "/produtos", permanent: true },
     ];
   },
   async headers() {

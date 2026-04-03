@@ -16,13 +16,13 @@ const NAV_LINKS = [
 ];
 
 const SERVICES = [
-  { icon: "alarm",      title: "Alarmes",           desc: "Garanta proteção 24 horas para o seu patrimônio, uma medida de segurança que traz tranquilidade. Oferecemos soluções com e sem fio.",                                          tag: "Mais popular", href: "/alarmes-curitiba" },
-  { icon: "camera",     title: "Câmeras CFTV",       desc: "Instalação de câmeras HD, zoom, infravermelho, auto-íris ou imagem noturna. Trabalhamos com várias marcas para atender a sua necessidade.",                                    tag: null,           href: "/cameras-seguranca-curitiba" },
-  { icon: "bolt",       title: "Cerca Elétrica",     desc: "Proteção perimetral com choque e alarme sonoro integrado. Solução de alto impacto para imóveis residenciais e comerciais.",                                                    tag: null,           href: "/cerca-eletrica-curitiba" },
-  { icon: "lock",       title: "Controle de Acesso", desc: "Leitores biométricos, cartão de proximidade e reconhecimento facial. Ideal para condomínios e áreas restritas.",                                                         tag: null,           href: "/controle-de-acesso-curitiba" },
-  { icon: "shield",     title: "Monitoramento",      desc: "Conte com uma equipe 24 horas dedicada ao monitoramento do seu patrimônio. A ISF trabalha em parceria com as melhores empresas do ramo.",                                      tag: null,           href: "/monitoramento-curitiba" },
-  { icon: "monitor",    title: "Vídeo Monitoramento", desc: "Câmeras com inteligência artificial que detectam invasões e comportamentos suspeitos, alertando automaticamente a central de monitoramento 24h.",                              tag: "Tecnologia",   href: "/video-monitoramento-curitiba" },
-  { icon: "smartphone", title: "App de Segurança",   desc: "Em um clique acesse pelo seu smartphone todas as câmeras do seu patrimônio, não importa onde estiver, basta estar conectado à internet.",                                      tag: "Comodidade",   href: "/app-de-seguranca" },
+  { icon: "alarm",      title: "Alarmes",           desc: "Garanta proteção 24 horas para o seu patrimônio, uma medida de segurança que traz tranquilidade. Oferecemos soluções com e sem fio.",                                          tag: "Mais popular", href: "/alarmes-curitiba/" },
+  { icon: "camera",     title: "Câmeras CFTV",       desc: "Instalação de câmeras HD, zoom, infravermelho, auto-íris ou imagem noturna. Trabalhamos com várias marcas para atender a sua necessidade.",                                    tag: null,           href: "/cameras-seguranca-curitiba/" },
+  { icon: "bolt",       title: "Cerca Elétrica",     desc: "Proteção perimetral com choque e alarme sonoro integrado. Solução de alto impacto para imóveis residenciais e comerciais.",                                                    tag: null,           href: "/cerca-eletrica-curitiba/" },
+  { icon: "lock",       title: "Controle de Acesso", desc: "Leitores biométricos, cartão de proximidade e reconhecimento facial. Ideal para condomínios e áreas restritas.",                                                         tag: null,           href: "/controle-de-acesso-curitiba/" },
+  { icon: "shield",     title: "Monitoramento",      desc: "Conte com uma equipe 24 horas dedicada ao monitoramento do seu patrimônio. A ISF trabalha em parceria com as melhores empresas do ramo.",                                      tag: null,           href: "/monitoramento-curitiba/" },
+  { icon: "monitor",    title: "Vídeo Monitoramento", desc: "Câmeras com inteligência artificial que detectam invasões e comportamentos suspeitos, alertando automaticamente a central de monitoramento 24h.",                              tag: "Tecnologia",   href: "/video-monitoramento-curitiba/" },
+  { icon: "smartphone", title: "App de Segurança",   desc: "Em um clique acesse pelo seu smartphone todas as câmeras do seu patrimônio, não importa onde estiver, basta estar conectado à internet.",                                      tag: "Comodidade",   href: "/app-de-seguranca/" },
 ];
 
 const STATS = [
@@ -683,7 +683,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               >
                 {filteredProducts.map(p => (
                   <div key={p.id} className={styles['product-card']}>
-                    <a href={`/produtos/${p.slug || p.id}`} className={styles['product-card-inner']} style={{ display: "block", textDecoration: "none", color: "inherit" }}>
+                    <a href={`/produtos/${p.slug || p.id}/`} className={styles['product-card-inner']} style={{ display: "block", textDecoration: "none", color: "inherit" }}>
                       <div className={styles['product-img-wrap']} style={{ position: "relative" }}>
                         <Image src={p.image} alt={p.name} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "contain" }} />
                       </div>
@@ -716,7 +716,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           {/* Ver todos */}
           <div style={{ textAlign: "center", marginTop: 40 }}>
             <a
-              href="/produtos"
+              href="/produtos/"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 background: "#126798", color: "#fff",
@@ -882,7 +882,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               >
                 {blogPosts.map(post => (
                   <div key={post.id} className={styles['blog-card-slide']}>
-                    <a href={`/blog/${post.slug || post.id}`} className={styles['blog-card']} style={{ padding: 0, overflow: "hidden" }}>
+                    <a href={`/blog/${post.slug || post.id}/`} className={styles['blog-card']} style={{ padding: 0, overflow: "hidden" }}>
                       {post.coverImage && (
                         <div style={{ width: "100%", height: 160, overflow: "hidden", flexShrink: 0, position: "relative" }}>
                           <Image src={post.coverImage} alt={post.title} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "cover" }} />
@@ -926,7 +926,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           {/* Ver todos os posts */}
           <div style={{ textAlign: "center", marginTop: 40 }}>
             <a
-              href="/blog"
+              href="/blog/"
               style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 background: "#126798", color: "#fff",

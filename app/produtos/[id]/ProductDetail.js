@@ -278,7 +278,7 @@ export default function ProductDetail({ product, related }) {
             <p style={{ fontSize: "0.88rem", color: C.muted, marginBottom: 28 }}>Outros produtos da categoria {product.category}</p>
             <div className="related-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 20 }}>
               {related.map(p => (
-                <a key={p.id} href={`/produtos/${p.slug || p.id}`} className="related-card">
+                <a key={p.id} href={`/produtos/${p.slug || p.id}/`} className="related-card">
                   <div style={{ background: C.bg, padding: 20, display: "flex", alignItems: "center", justifyContent: "center", height: 160, borderBottom: `1px solid ${C.border}`, position: "relative" }}>
                     <Image src={p.image} alt={p.name} fill sizes="25vw" style={{ objectFit: "contain", padding: 20 }} />
                   </div>

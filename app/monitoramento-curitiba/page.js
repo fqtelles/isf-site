@@ -8,12 +8,12 @@ export const metadata = {
   openGraph: {
     title: "Monitoramento 24h em Curitiba | ISF Segurança",
     description: "Monitoramento de alarmes e câmeras 24h em Curitiba. Orçamento gratuito.",
-    url: "https://isf.com.br/monitoramento-curitiba",
+    url: "https://isf.com.br/monitoramento-curitiba/",
     type: "website",
     images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "Monitoramento 24h em Curitiba — ISF Segurança Eletrônica" }],
   },
   twitter: { card: "summary_large_image" },
-  alternates: { canonical: "https://isf.com.br/monitoramento-curitiba" },
+  alternates: { canonical: "https://isf.com.br/monitoramento-curitiba/" },
 };
 
 const serviceSchema = {
@@ -27,7 +27,7 @@ const serviceSchema = {
     name: "ISF Soluções em Segurança",
   },
   areaServed: { "@type": "City", name: "Curitiba" },
-  url: "https://isf.com.br/monitoramento-curitiba",
+  url: "https://isf.com.br/monitoramento-curitiba/",
 };
 
 const service = {

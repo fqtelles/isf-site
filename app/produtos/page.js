@@ -7,11 +7,11 @@ export const metadata = {
   title: "Catálogo de Produtos | ISF Segurança Eletrônica",
   description:
     "Catálogo completo de produtos de segurança eletrônica: câmeras, alarmes, DVR/NVR, cerca elétrica e controle de acesso. Revenda autorizada Intelbras em Curitiba.",
-  alternates: { canonical: "https://isf.com.br/produtos" },
+  alternates: { canonical: "https://isf.com.br/produtos/" },
   openGraph: {
     title: "Catálogo de Produtos | ISF Segurança Eletrônica",
     description: "Câmeras, alarmes, DVR/NVR, cerca elétrica e controle de acesso. Revenda autorizada Intelbras em Curitiba.",
-    url: "https://isf.com.br/produtos",
+    url: "https://isf.com.br/produtos/",
     siteName: "ISF Segurança Eletrônica",
     locale: "pt_BR",
     type: "website",

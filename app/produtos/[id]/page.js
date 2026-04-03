@@ -9,7 +9,7 @@ export async function generateMetadata({ params }) {
   if (!product) return {};
   const desc = product.description ||
     `${product.name} da ${product.brand}. Adquira com a ISF, revenda autorizada em Curitiba.`;
-  const url = `https://isf.com.br/produtos/${product.slug || product.id}`;
+  const url = `https://isf.com.br/produtos/${product.slug || product.id}/`;
   return {
     title: `${product.name} — ISF Segurança Eletrônica`,
     description: desc,

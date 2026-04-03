@@ -51,7 +51,7 @@ export async function generateMetadata({ params }) {
     openGraph: {
       title: `${post.title} | ISF Segurança Eletrônica`,
       description: post.excerpt,
-      url: `https://isf.com.br/blog/${post.slug || post.id}`,
+      url: `https://isf.com.br/blog/${post.slug || post.id}/`,
       siteName: "ISF Segurança Eletrônica",
       locale: "pt_BR",
       type: "article",
@@ -65,8 +65,8 @@ export async function generateMetadata({ params }) {
     },
     twitter: { card: "summary_large_image" },
     alternates: post.slug
-      ? { canonical: `https://isf.com.br/blog/${post.slug}` }
-      : { canonical: `https://isf.com.br/blog/${post.id}` },
+      ? { canonical: `https://isf.com.br/blog/${post.slug}/` }
+      : { canonical: `https://isf.com.br/blog/${post.id}/` },
   };
 }
 

@@ -4,13 +4,14 @@ import BlogGallery from "./BlogGallery";
 export const revalidate = 3600; // ISR: revalida a cada 1 hora (ou quando o admin salvar um post)
 
 export const metadata = {
-  title: "Blog — Dicas de Segurança Eletrônica | ISF Segurança Eletrônica",
+  title: "Blog de Segurança Eletrônica | Dicas e Artigos — ISF",
   description:
-    "Artigos e dicas sobre câmeras de segurança, alarmes, cerca elétrica e controle de acesso. Conteúdo especializado da ISF — 35 anos protegendo Curitiba.",
+    "Artigos sobre câmeras, alarmes, cerca elétrica e controle de acesso da equipe ISF. Dicas para proteger residências e empresas em Curitiba.",
   alternates: { canonical: "https://isf.com.br/blog/" },
   openGraph: {
-    title: "Blog | ISF Segurança Eletrônica",
-    description: "Dicas e artigos sobre segurança eletrônica, câmeras, alarmes e monitoramento em Curitiba.",
+    title: "Blog de Segurança Eletrônica | Dicas e Artigos — ISF",
+    description:
+      "Artigos sobre câmeras, alarmes, cerca elétrica e controle de acesso da equipe ISF. Dicas para proteger residências e empresas em Curitiba.",
     url: "https://isf.com.br/blog/",
     siteName: "ISF Segurança Eletrônica",
     locale: "pt_BR",
@@ -19,8 +20,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog | ISF Segurança Eletrônica",
-    description: "Dicas e artigos sobre segurança eletrônica em Curitiba.",
+    title: "Blog de Segurança Eletrônica | Dicas e Artigos — ISF",
+    description:
+      "Artigos sobre câmeras, alarmes, cerca elétrica e controle de acesso da equipe ISF. Dicas em Curitiba.",
     images: ["https://isf.com.br/og-image.jpg"],
   },
 };

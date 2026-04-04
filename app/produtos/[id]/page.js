@@ -76,7 +76,7 @@ async function renderProduct(product) {
     images: (() => { try { return JSON.parse(p.images); } catch { return []; } })(),
   }));
 
-  const productUrl = `https://isf.com.br/produtos/${product.slug || product.id}`;
+  const productUrl = `https://isf.com.br/produtos/${product.slug || product.id}/`;
 
   const productSchema = {
     "@context": "https://schema.org",
@@ -87,12 +87,23 @@ async function renderProduct(product) {
       "@type": "Brand",
       name: product.brand,
     },
+    manufacturer: {
+      "@type": "Organization",
+      name: product.brand,
+    },
+    category: product.category,
     image: product.image,
     url: productUrl,
-    seller: {
-      "@type": "LocalBusiness",
-      "@id": "https://isf.com.br/#organization",
-      name: "ISF Soluções em Segurança",
+    offers: {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      priceCurrency: "BRL",
+      price: "0",
+      seller: {
+        "@type": "Organization",
+        name: "ISF Segurança Eletrônica",
+        url: "https://isf.com.br",
+      },
     },
   };
 

@@ -5,11 +5,13 @@ export const revalidate = 86400; // 24 horas
 export default async function sitemap() {
   const [posts, products] = await Promise.all([
     prisma.blogPost.findMany({
-      select: { id: true, slug: true, createdAt: true },
+      where: { slug: { not: null } },
+      select: { slug: true, createdAt: true },
       orderBy: { id: "asc" },
     }),
     prisma.product.findMany({
-      select: { id: true, slug: true, createdAt: true },
+      where: { slug: { not: null } },
+      select: { slug: true, createdAt: true },
       orderBy: { id: "asc" },
     }),
   ]);
@@ -27,7 +29,7 @@ export default async function sitemap() {
   const staticPages = [
     {
       url: "https://isf.com.br",
-      lastModified: now,
+      lastModified: new Date("2026-03-30"),
       changeFrequency: "weekly",
       priority: 1,
     },
@@ -88,14 +90,14 @@ export default async function sitemap() {
   ];
 
   const blogPages = posts.map((post) => ({
-    url: `https://isf.com.br/blog/${post.slug || post.id}/`,
+    url: `https://isf.com.br/blog/${post.slug}/`,
     lastModified: post.createdAt,
     changeFrequency: "monthly",
     priority: 0.7,
   }));
 
   const productPages = products.map((product) => ({
-    url: `https://isf.com.br/produtos/${product.slug || product.id}/`,
+    url: `https://isf.com.br/produtos/${product.slug}/`,
     lastModified: product.createdAt,
     changeFrequency: "monthly",
     priority: 0.6,

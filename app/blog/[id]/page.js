@@ -79,13 +79,13 @@ export default async function BlogPostPage({ params }) {
     if (!post) notFound();
     if (post.slug) permanentRedirect(`/blog/${post.slug}`);
     // fallback if slug not yet set
-    return renderPost(post);
+    return await renderPost(post);
   }
 
   // Slug lookup
   const post = await prisma.blogPost.findFirst({ where: { slug: slugOrId } });
   if (!post) notFound();
-  return renderPost(post);
+  return await renderPost(post);
 }
 
 async function findPost(slugOrId) {
@@ -112,14 +112,22 @@ function contentToHtml(content) {
   return sanitizeHtml(html, SANITIZE_OPTIONS);
 }
 
-function renderPost(post) {
+async function renderPost(post) {
   const bodyHtml = contentToHtml(post.content);
+
+  const related = await prisma.blogPost.findMany({
+    where: { NOT: { id: post.id }, slug: { not: null } },
+    take: 3,
+    orderBy: { id: "desc" },
+    select: { id: true, slug: true, title: true, excerpt: true, coverImage: true, date: true, readTime: true },
+  });
 
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
     description: post.excerpt,
+    image: post.coverImage || "https://isf.com.br/og-image.jpg",
     datePublished: post.createdAt,
     dateModified: post.createdAt,
     author: {
@@ -137,7 +145,7 @@ function renderPost(post) {
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://isf.com.br/blog/${post.slug || post.id}`,
+      "@id": `https://isf.com.br/blog/${post.slug || post.id}/`,
     },
   };
 
@@ -145,7 +153,7 @@ function renderPost(post) {
     <SiteShell>
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://isf.com.br" },
-        { name: "Blog", url: "https://isf.com.br/blog" },
+        { name: "Blog", url: "https://isf.com.br/blog/" },
         { name: post.title },
       ]} />
       <script
@@ -157,7 +165,7 @@ function renderPost(post) {
         <div style={{ maxWidth: 960, margin: "0 auto", padding: "56px 5% 80px" }}>
 
           {/* Back + Breadcrumb */}
-          <a href="/#blog" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: "0.82rem", color: "#6b7280", textDecoration: "none", fontWeight: 500, marginBottom: 16 }}>
+          <a href="/blog/" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: "0.82rem", color: "#6b7280", textDecoration: "none", fontWeight: 500, marginBottom: 16 }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
             Voltar
           </a>
@@ -175,7 +183,7 @@ function renderPost(post) {
           >
             <a href="/" style={{ color: "#126798" }}>Home</a>
             <span>›</span>
-            <a href="/#blog" style={{ color: "#126798" }}>Blog</a>
+            <a href="/blog/" style={{ color: "#126798" }}>Blog</a>
             <span>›</span>
             <span style={{ color: "#1a1d20", fontWeight: 600 }}>{post.title}</span>
           </div>
@@ -251,6 +259,40 @@ function renderPost(post) {
             <p style={{ color: "#9ca3af", fontStyle: "italic", fontSize: "0.9rem" }}>
               Conteúdo completo em breve.
             </p>
+          )}
+
+          {/* Posts relacionados */}
+          {related.length > 0 && (
+            <div style={{ marginTop: 56, paddingTop: 40, borderTop: "1px solid #e5e7eb" }}>
+              <h2 style={{ fontSize: "1.25rem", fontWeight: 800, color: "#111827", marginBottom: 24 }}>
+                Leia também
+              </h2>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
+                {related.map((p) => (
+                  <a
+                    key={p.id}
+                    href={`/blog/${p.slug}/`}
+                    style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, overflow: "hidden", textDecoration: "none", transition: "box-shadow 0.2s, transform 0.2s" }}
+                    onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(18,103,152,0.10)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "none"; }}
+                  >
+                    {p.coverImage ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={p.coverImage} alt={p.title} style={{ width: "100%", height: 140, objectFit: "cover", display: "block" }} />
+                    ) : (
+                      <div style={{ width: "100%", height: 140, background: "#f0f7fc", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#126798" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                      </div>
+                    )}
+                    <div style={{ padding: "16px 18px" }}>
+                      <span style={{ fontSize: "0.7rem", color: "#6b7280", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em" }}>{p.date}</span>
+                      <p style={{ fontSize: "0.9rem", fontWeight: 700, color: "#111827", lineHeight: 1.4, margin: "6px 0 8px" }}>{p.title}</p>
+                      <p style={{ fontSize: "0.8rem", color: "#6b7280", lineHeight: 1.5, margin: 0, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{p.excerpt}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
           )}
 
           {/* CTA */}

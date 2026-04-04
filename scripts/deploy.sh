@@ -81,5 +81,9 @@ npm run build
 echo "[5/5] Reiniciando aplicação..."
 pm2 restart isf-site
 
+echo "[+] Limpando cache do Nginx e recarregando..."
+rm -rf /var/cache/nginx/isf/*
+nginx -t && systemctl reload nginx
+
 echo ""
 echo "Deploy concluído! pm2 logs isf-site para ver os logs."

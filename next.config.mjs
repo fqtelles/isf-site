@@ -50,6 +50,20 @@ const nextConfig = {
       // Slug de produto com equivalente no novo site — ANTES dos catch-alls
       { source: "/produtos/controle-acesso",  destination: "/controle-de-acesso-curitiba/", permanent: true },
       { source: "/produtos/controle-acesso/", destination: "/controle-de-acesso-curitiba/", permanent: true },
+      // URLs do WordPress com produto inexistente — redirecionadas para a categoria mais próxima
+      { source: "/produtos/camaera-im7-full-360",   destination: "/cameras-seguranca-curitiba/", permanent: true },
+      { source: "/produtos/camaera-im7-full-360/",  destination: "/cameras-seguranca-curitiba/", permanent: true },
+      { source: "/produtos/gravador-xbp-400-hd",    destination: "/cameras-seguranca-curitiba/", permanent: true },
+      { source: "/produtos/gravador-xbp-400-hd/",   destination: "/cameras-seguranca-curitiba/", permanent: true },
+      { source: "/produtos/central-de-cerca-eletrica",  destination: "/cerca-eletrica-curitiba/", permanent: true },
+      { source: "/produtos/central-de-cerca-eletrica/", destination: "/cerca-eletrica-curitiba/", permanent: true },
+      { source: "/produtos/sensor-ativo-barreira-30m",  destination: "/alarmes-curitiba/", permanent: true },
+      { source: "/produtos/sensor-ativo-barreira-30m/", destination: "/alarmes-curitiba/", permanent: true },
+      // IDs numéricos e slugs inválidos → listagem de produtos
+      { source: "/produtos/3",   destination: "/produtos/", permanent: true },
+      { source: "/produtos/3/",  destination: "/produtos/", permanent: true },
+      { source: "/produtos/c-2",  destination: "/produtos/", permanent: true },
+      { source: "/produtos/c-2/", destination: "/produtos/", permanent: true },
       // Slugs antigos de produtos ANINHADOS (2+ segmentos após /produtos/)
       // :slug+ exige pelo menos 1 segmento extra → não afeta /produtos/slug-simples
       { source: "/produtos/:cat/:slug+/amp/", destination: "/", permanent: true },

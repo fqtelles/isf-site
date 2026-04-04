@@ -72,6 +72,11 @@ const service = {
       desc: "Planos de manutenção periódica para garantir o funcionamento contínuo do sistema e prevenir falhas.",
     },
   ],
+  relatedLinks: [
+    { label: "Alarmes Residenciais e Comerciais em Curitiba", href: "/alarmes-curitiba/" },
+    { label: "Monitoramento de Alarmes 24h",                  href: "/monitoramento-curitiba/" },
+    { label: "Catálogo de Produtos de Segurança Perimetral",  href: "/produtos/" },
+  ],
   checklist: [
     "Visita técnica e medição do perímetro gratuitamente",
     "Projeto personalizado conforme norma ABNT NBR IEC 60335-2-76",

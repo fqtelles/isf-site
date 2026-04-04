@@ -72,6 +72,11 @@ const service = {
       desc: "Suporte técnico pós-instalação e planos de manutenção preventiva. Equipe disponível para atendimento em Curitiba e RMC.",
     },
   ],
+  relatedLinks: [
+    { label: "Vídeo Monitoramento com Inteligência Artificial", href: "/video-monitoramento-curitiba/" },
+    { label: "Monitoramento de Alarmes 24h",                   href: "/monitoramento-curitiba/" },
+    { label: "Catálogo de Câmeras e DVR",                      href: "/produtos/" },
+  ],
   checklist: [
     "Visita técnica gratuita e projeto de CFTV personalizado",
     "Câmeras HD, Full HD ou 4K conforme necessidade",

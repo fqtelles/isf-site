@@ -72,6 +72,11 @@ const service = {
       desc: "Atendimento em toda Curitiba e Região Metropolitana: São José dos Pinhais, Colombo, Pinhais, Araucária e mais.",
     },
   ],
+  relatedLinks: [
+    { label: "Câmeras de Segurança em Curitiba", href: "/cameras-seguranca-curitiba/" },
+    { label: "Monitoramento de Alarmes 24h",     href: "/monitoramento-curitiba/" },
+    { label: "Catálogo de Produtos de Alarme",   href: "/produtos/" },
+  ],
   checklist: [
     "Visita técnica gratuita para avaliação do imóvel",
     "Projeto personalizado conforme necessidade",

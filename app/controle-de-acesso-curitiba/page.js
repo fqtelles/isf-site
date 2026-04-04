@@ -67,6 +67,11 @@ const service = {
       desc: "Cadastre usuários, conceda ou bloqueie acessos pelo computador ou smartphone, de qualquer lugar.",
     },
   ],
+  relatedLinks: [
+    { label: "Câmeras de Segurança em Curitiba",  href: "/cameras-seguranca-curitiba/" },
+    { label: "Alarmes Residenciais e Comerciais", href: "/alarmes-curitiba/" },
+    { label: "Catálogo de Controle de Acesso",    href: "/produtos/" },
+  ],
   checklist: [
     "Visita técnica gratuita e projeto personalizado",
     "Leitores biométricos, de cartão ou facial conforme necessidade",

@@ -15,10 +15,20 @@ const NAV_LINKS = [
 const FOOTER_NAV = [
   { label: "Home",     href: "/" },
   { label: "Serviços", href: "/#servicos" },
-  { label: "Produtos", href: "/#produtos" },
+  { label: "Produtos", href: "/produtos/" },
   { label: "Empresa",  href: "/#empresa" },
-  { label: "Blog",     href: "/#blog" },
+  { label: "Blog",     href: "/blog/" },
   { label: "Contato",  href: "/#contato" },
+];
+
+const FOOTER_SERVICES = [
+  { label: "Alarmes Residenciais e Comerciais", href: "/alarmes-curitiba/" },
+  { label: "Câmeras de Segurança CFTV",         href: "/cameras-seguranca-curitiba/" },
+  { label: "Cerca Elétrica",                    href: "/cerca-eletrica-curitiba/" },
+  { label: "Controle de Acesso",                href: "/controle-de-acesso-curitiba/" },
+  { label: "Monitoramento 24h",                 href: "/monitoramento-curitiba/" },
+  { label: "Vídeo Monitoramento com IA",        href: "/video-monitoramento-curitiba/" },
+  { label: "App de Segurança",                  href: "/app-de-seguranca/" },
 ];
 
 const WA_HREF =
@@ -220,6 +230,29 @@ export default function SiteShell({ children }) {
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {FOOTER_NAV.map((l) => (
                   <a key={l.label} href={l.href} className={styles['shell-footer-link']}>
+                    {l.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Services */}
+            <div>
+              <div
+                style={{
+                  fontSize: "0.72rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "rgba(255,255,255,0.35)",
+                  marginBottom: 14,
+                }}
+              >
+                Serviços
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {FOOTER_SERVICES.map((l) => (
+                  <a key={l.href} href={l.href} className={styles['shell-footer-link']}>
                     {l.label}
                   </a>
                 ))}

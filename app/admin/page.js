@@ -1,9 +1,17 @@
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { prisma } from "../../lib/prisma";
 import AdminDashboard from "./AdminDashboard";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("admin_token")?.value;
+  if (!token || token !== process.env.ADMIN_SECRET) {
+    redirect("/admin/login/");
+  }
+
   const [products, blogPosts] = await Promise.all([
     prisma.product.findMany({ orderBy: { id: "asc" } }),
     prisma.blogPost.findMany({ orderBy: { id: "desc" } }),

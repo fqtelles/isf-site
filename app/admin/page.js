@@ -9,7 +9,7 @@ export default async function AdminPage() {
   const cookieStore = await cookies();
   const token = cookieStore.get("admin_token")?.value;
   if (!token || token !== process.env.ADMIN_SECRET) {
-    redirect("/admin/login/");
+    redirect("/admin/login");
   }
 
   const [products, blogPosts] = await Promise.all([

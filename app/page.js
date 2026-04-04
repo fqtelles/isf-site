@@ -3,6 +3,30 @@ import HomeClient from "./HomeClient";
 
 export const revalidate = 3600; // ISR: revalida a cada 1 hora
 
+export const metadata = {
+  title: "ISF Soluções em Segurança | Curitiba desde 1988",
+  description:
+    "Revenda autorizada Intelbras em Curitiba. Câmeras, alarmes, cerca elétrica, controle de acesso e monitoramento 24h. 35+ anos. Solicite orçamento grátis.",
+  alternates: { canonical: "https://isf.com.br" },
+  openGraph: {
+    title: "ISF Soluções em Segurança | Curitiba desde 1988",
+    description:
+      "Revenda autorizada Intelbras em Curitiba. Câmeras, alarmes, cerca elétrica, controle de acesso e monitoramento 24h. 35+ anos. Solicite orçamento grátis.",
+    url: "https://isf.com.br",
+    siteName: "ISF Segurança Eletrônica",
+    locale: "pt_BR",
+    type: "website",
+    images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "ISF Soluções em Segurança — Curitiba" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ISF Soluções em Segurança | Curitiba desde 1988",
+    description:
+      "Revenda autorizada Intelbras em Curitiba. Câmeras, alarmes, cerca elétrica, controle de acesso e monitoramento 24h. 35+ anos. Solicite orçamento grátis.",
+    images: ["https://isf.com.br/og-image.jpg"],
+  },
+};
+
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",

@@ -2,13 +2,16 @@ import LandingPage from "../components/LandingPage";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
-  title: "App de Segurança para Câmeras e Alarmes em Curitiba | ISF Segurança Eletrônica",
+  title: "Monitore Câmeras e Alarmes pelo Celular em Curitiba | ISF",
   description:
-    "Acesse câmeras e alarmes pelo celular de qualquer lugar. A ISF configura o acesso remoto ao seu sistema de segurança em Curitiba. Orçamento gratuito.",
+    "Veja câmeras ao vivo, arme o alarme e receba alertas em tempo real pelo smartphone. A ISF configura o acesso remoto ao seu sistema em Curitiba e RMC.",
   openGraph: {
-    title: "App de Segurança em Curitiba | ISF Segurança",
-    description: "Monitore câmeras e controle alarmes pelo celular. Curitiba e RMC. Orçamento gratuito.",
+    title: "Monitore Câmeras e Alarmes pelo Celular em Curitiba | ISF",
+    description:
+      "Veja câmeras ao vivo, arme o alarme e receba alertas em tempo real pelo smartphone. A ISF configura o acesso remoto ao seu sistema em Curitiba e RMC.",
     url: "https://isf.com.br/app-de-seguranca/",
+    siteName: "ISF Segurança Eletrônica",
+    locale: "pt_BR",
     type: "website",
     images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "App de Segurança — ISF Segurança Eletrônica" }],
   },

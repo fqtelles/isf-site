@@ -2,13 +2,16 @@ import LandingPage from "../components/LandingPage";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
-  title: "Câmeras de Segurança em Curitiba — CFTV e IP | ISF Segurança Eletrônica",
+  title: "Câmeras de Segurança em Curitiba | Full HD e 4K — ISF",
   description:
-    "Instalação de câmeras de segurança CFTV e IP em Curitiba e Região Metropolitana. HD, Full HD, visão noturna, acesso remoto pelo celular. Orçamento gratuito.",
+    "Câmeras CFTV e IP Full HD e 4K com visão noturna e acesso pelo celular. Instalação em Curitiba e RMC. Revenda Intelbras. Orçamento grátis.",
   openGraph: {
-    title: "Câmeras de Segurança em Curitiba | ISF Segurança",
-    description: "Instalação de câmeras CFTV em Curitiba. Full HD, visão noturna. Orçamento gratuito.",
+    title: "Câmeras de Segurança em Curitiba | Full HD e 4K — ISF",
+    description:
+      "Câmeras CFTV e IP Full HD e 4K com visão noturna e acesso pelo celular. Instalação em Curitiba e RMC. Revenda Intelbras. Orçamento grátis.",
     url: "https://isf.com.br/cameras-seguranca-curitiba/",
+    siteName: "ISF Segurança Eletrônica",
+    locale: "pt_BR",
     type: "website",
     images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "Câmeras de Segurança em Curitiba — ISF Segurança Eletrônica" }],
   },

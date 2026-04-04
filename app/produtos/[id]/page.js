@@ -8,14 +8,15 @@ export async function generateMetadata({ params }) {
   const product = await findProduct(slugOrId);
   if (!product) return {};
   const desc = product.description ||
-    `${product.name} da ${product.brand}. Adquira com a ISF, revenda autorizada em Curitiba.`;
+    `${product.name} ${product.brand} disponível no catálogo ISF. Instalação profissional em Curitiba e RMC. Consulte disponibilidade.`;
+  const title = `${product.name} — ${product.category} | ISF`;
   const url = `https://isf.com.br/produtos/${product.slug || product.id}/`;
   return {
-    title: `${product.name} — ISF Segurança Eletrônica`,
+    title,
     description: desc,
     alternates: product.slug ? { canonical: url } : undefined,
     openGraph: {
-      title: `${product.name} — ISF Segurança Eletrônica`,
+      title,
       description: desc,
       url,
       siteName: "ISF Segurança Eletrônica",
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product.name} — ISF Segurança Eletrônica`,
+      title,
       description: desc,
       images: [product.image || "https://isf.com.br/og-image.jpg"],
     },

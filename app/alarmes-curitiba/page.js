@@ -2,13 +2,16 @@ import LandingPage from "../components/LandingPage";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
-  title: "Alarme Residencial e Empresarial em Curitiba | ISF Segurança Eletrônica",
+  title: "Alarmes Residenciais e Comerciais em Curitiba | ISF",
   description:
-    "Instalação de alarmes residenciais e empresariais em Curitiba e Região Metropolitana. 35+ anos de experiência, revenda autorizada Intelbras. Orçamento gratuito.",
+    "Sistemas de alarme com monitoramento 24h para residências, empresas e condomínios em Curitiba. Técnicos certificados. Orçamento grátis.",
   openGraph: {
-    title: "Alarme Residencial e Empresarial em Curitiba | ISF Segurança",
-    description: "Instalação de alarmes em Curitiba. 35 anos de experiência. Orçamento gratuito.",
+    title: "Alarmes Residenciais e Comerciais em Curitiba | ISF",
+    description:
+      "Sistemas de alarme com monitoramento 24h para residências, empresas e condomínios em Curitiba. Técnicos certificados. Orçamento grátis.",
     url: "https://isf.com.br/alarmes-curitiba/",
+    siteName: "ISF Segurança Eletrônica",
+    locale: "pt_BR",
     type: "website",
     images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "Alarmes em Curitiba — ISF Segurança Eletrônica" }],
   },

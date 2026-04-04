@@ -2,11 +2,11 @@ import LandingPage from "../components/LandingPage";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
-  title: "Câmeras de Segurança em Curitiba | Full HD e 4K — ISF",
+  title: "Câmeras de Segurança em Curitiba | ISF Segurança",
   description:
     "Câmeras CFTV e IP Full HD e 4K com visão noturna e acesso pelo celular. Instalação em Curitiba e RMC. Revenda Intelbras. Orçamento grátis.",
   openGraph: {
-    title: "Câmeras de Segurança em Curitiba | Full HD e 4K — ISF",
+    title: "Câmeras de Segurança em Curitiba | ISF Segurança",
     description:
       "Câmeras CFTV e IP Full HD e 4K com visão noturna e acesso pelo celular. Instalação em Curitiba e RMC. Revenda Intelbras. Orçamento grátis.",
     url: "https://isf.com.br/cameras-seguranca-curitiba/",

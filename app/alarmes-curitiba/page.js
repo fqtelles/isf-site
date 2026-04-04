@@ -2,11 +2,11 @@ import LandingPage from "../components/LandingPage";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
-  title: "Alarmes Residenciais e Comerciais em Curitiba | ISF",
+  title: "Alarmes Residenciais e Comerciais em Curitiba | ISF Segurança",
   description:
     "Sistemas de alarme com monitoramento 24h para residências, empresas e condomínios em Curitiba. Técnicos certificados. Orçamento grátis.",
   openGraph: {
-    title: "Alarmes Residenciais e Comerciais em Curitiba | ISF",
+    title: "Alarmes Residenciais e Comerciais em Curitiba | ISF Segurança",
     description:
       "Sistemas de alarme com monitoramento 24h para residências, empresas e condomínios em Curitiba. Técnicos certificados. Orçamento grátis.",
     url: "https://isf.com.br/alarmes-curitiba/",

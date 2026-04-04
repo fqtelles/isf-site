@@ -2,11 +2,11 @@ import LandingPage from "../components/LandingPage";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
-  title: "Monitore Câmeras e Alarmes pelo Celular em Curitiba | ISF",
+  title: "Câmeras e Alarme pelo Celular em Curitiba | ISF Segurança",
   description:
     "Veja câmeras ao vivo, arme o alarme e receba alertas em tempo real pelo smartphone. A ISF configura o acesso remoto ao seu sistema em Curitiba e RMC.",
   openGraph: {
-    title: "Monitore Câmeras e Alarmes pelo Celular em Curitiba | ISF",
+    title: "Câmeras e Alarme pelo Celular em Curitiba | ISF Segurança",
     description:
       "Veja câmeras ao vivo, arme o alarme e receba alertas em tempo real pelo smartphone. A ISF configura o acesso remoto ao seu sistema em Curitiba e RMC.",
     url: "https://isf.com.br/app-de-seguranca/",

@@ -2,13 +2,13 @@ import LandingPage from "../components/LandingPage";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
-  title: "Vídeo Monitoramento com IA em Curitiba | ISF",
+  title: "Vídeo Monitoramento com IA em Curitiba | ISF Segurança",
   description:
-    "Câmeras com IA que detectam invasões e alertam a central 24h. Vídeo monitoramento inteligente em Curitiba e RMC. Orçamento gratuito.",
+    "Vídeo monitoramento com Inteligência Artificial em Curitiba e RMC. Câmeras com vídeo analítico que detectam invasões, comportamentos suspeitos e alertam a central 24h. Orçamento gratuito.",
   openGraph: {
-    title: "Vídeo Monitoramento com IA em Curitiba | ISF",
+    title: "Vídeo Monitoramento com IA em Curitiba | ISF Segurança",
     description:
-      "Câmeras com IA que detectam invasões e alertam a central 24h. Vídeo monitoramento inteligente em Curitiba e RMC. Orçamento gratuito.",
+      "Vídeo monitoramento com Inteligência Artificial em Curitiba e RMC. Câmeras com vídeo analítico que detectam invasões, comportamentos suspeitos e alertam a central 24h. Orçamento gratuito.",
     url: "https://isf.com.br/video-monitoramento-curitiba/",
     siteName: "ISF Segurança Eletrônica",
     locale: "pt_BR",

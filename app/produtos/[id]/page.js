@@ -8,8 +8,8 @@ export async function generateMetadata({ params }) {
   const product = await findProduct(slugOrId);
   if (!product) return {};
   const desc = product.description ||
-    `${product.name} ${product.brand} disponível no catálogo ISF. Instalação profissional em Curitiba e RMC. Consulte disponibilidade.`;
-  const title = `${product.name} — ${product.category} | ISF`;
+    `${product.name} ${product.brand} disponível no catálogo da ISF. Instalação profissional em Curitiba e RMC. Consulte disponibilidade.`;
+  const title = `${product.name} — ${product.category} | ISF Segurança - Curitiba`;
   const url = `https://isf.com.br/produtos/${product.slug || product.id}/`;
   return {
     title,

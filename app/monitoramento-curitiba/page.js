@@ -2,12 +2,12 @@ import LandingPage from "../components/LandingPage";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
-  title: "Monitoramento de Alarmes 24h em Curitiba | ISF Segurança Eletrônica",
+  title: "Monitoramento de Alarmes 24h em Curitiba | ISF Segurança",
   description:
     "Monitoramento eletrônico 24 horas em Curitiba e Região Metropolitana. Câmeras, alarmes e sensores monitorados por equipe especializada. Orçamento gratuito.",
   openGraph: {
-    title: "Monitoramento 24h em Curitiba | ISF Segurança",
-    description: "Monitoramento de alarmes e câmeras 24h em Curitiba. Orçamento gratuito.",
+    title: "Monitoramento de Alarmes 24h em Curitiba | ISF Segurança",
+    description: "Monitoramento eletrônico 24 horas em Curitiba e Região Metropolitana. Câmeras, alarmes e sensores monitorados por equipe especializada. Orçamento gratuito.",
     url: "https://isf.com.br/monitoramento-curitiba/",
     type: "website",
     images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "Monitoramento 24h em Curitiba — ISF Segurança Eletrônica" }],

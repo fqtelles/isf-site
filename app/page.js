@@ -4,14 +4,14 @@ import HomeClient from "./HomeClient";
 export const revalidate = 3600; // ISR: revalida a cada 1 hora
 
 export const metadata = {
-  title: "ISF Soluções em Segurança | Curitiba desde 1988",
+  title: "ISF Soluções em Segurança | Alarmes e Câmeras em Curitiba desde 1988",
   description:
-    "Revenda autorizada Intelbras em Curitiba. Câmeras, alarmes, cerca elétrica, controle de acesso e monitoramento 24h. 35+ anos. Solicite orçamento grátis.",
+    "Câmeras, alarmes, cerca elétrica, controle de acesso e monitoramento 24h. 35+ anos. Revenda autorizada Intelbras em Curitiba. Solicite orçamento grátis.",
   alternates: { canonical: "https://isf.com.br" },
   openGraph: {
-    title: "ISF Soluções em Segurança | Curitiba desde 1988",
+    title: "ISF Soluções em Segurança | Alarmes e Câmeras em Curitiba desde 1988",
     description:
-      "Revenda autorizada Intelbras em Curitiba. Câmeras, alarmes, cerca elétrica, controle de acesso e monitoramento 24h. 35+ anos. Solicite orçamento grátis.",
+      "Câmeras, alarmes, cerca elétrica, controle de acesso e monitoramento 24h. 35+ anos. Revenda autorizada Intelbras em Curitiba. Solicite orçamento grátis.",
     url: "https://isf.com.br",
     siteName: "ISF Segurança Eletrônica",
     locale: "pt_BR",
@@ -20,9 +20,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ISF Soluções em Segurança | Curitiba desde 1988",
+    title: "ISF Soluções em Segurança | Alarmes e Câmeras em Curitiba desde 1988",
     description:
-      "Revenda autorizada Intelbras em Curitiba. Câmeras, alarmes, cerca elétrica, controle de acesso e monitoramento 24h. 35+ anos. Solicite orçamento grátis.",
+      "Câmeras, alarmes, cerca elétrica, controle de acesso e monitoramento 24h. 35+ anos. Revenda autorizada Intelbras em Curitiba. Solicite orçamento grátis.",
     images: ["https://isf.com.br/og-image.jpg"],
   },
 };

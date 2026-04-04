@@ -46,10 +46,10 @@ export async function generateMetadata({ params }) {
   const post = await findPost(slugOrId);
   if (!post) return {};
   return {
-    title: `${post.title} | ISF Segurança Eletrônica`,
+    title: `${post.title} | ISF Segurança`,
     description: post.excerpt,
     openGraph: {
-      title: `${post.title} | ISF Segurança Eletrônica`,
+      title: `${post.title} | ISF Segurança`,
       description: post.excerpt,
       url: `https://isf.com.br/blog/${post.slug || post.id}/`,
       siteName: "ISF Segurança Eletrônica",

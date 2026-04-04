@@ -69,6 +69,11 @@ const service = {
       desc: "Planos a partir de um valor mensal acessível. Sem fidelidade e sem taxa de adesão para clientes ISF.",
     },
   ],
+  relatedLinks: [
+    { label: "Alarmes Residenciais e Comerciais em Curitiba",   href: "/alarmes-curitiba/" },
+    { label: "Vídeo Monitoramento com Inteligência Artificial", href: "/video-monitoramento-curitiba/" },
+    { label: "Câmeras de Segurança em Curitiba",               href: "/cameras-seguranca-curitiba/" },
+  ],
   checklist: [
     "Compatível com alarmes das principais marcas (Intelbras, JFL, DSC, Paradox)",
     "Monitoramento via IP (internet) ou GSM (linha celular)",

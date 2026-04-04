@@ -102,13 +102,16 @@ export default function LandingPage({ service }) {
 
   return (
     <SiteShell>
-      {/* Back link */}
+      {/* Breadcrumb */}
       <div style={{ background: "#f9fafb", padding: "20px 5% 0" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: "0.82rem", color: "#6b7280", textDecoration: "none", fontWeight: 500 }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-            Voltar
-          </a>
+          <nav aria-label="Breadcrumb" style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
+            <a href="/" style={{ fontSize: "0.82rem", color: "#6b7280", textDecoration: "none", fontWeight: 500 }}>Início</a>
+            <span style={{ fontSize: "0.82rem", color: "#9ca3af" }}>›</span>
+            <a href="/#servicos" style={{ fontSize: "0.82rem", color: "#6b7280", textDecoration: "none", fontWeight: 500 }}>Serviços</a>
+            <span style={{ fontSize: "0.82rem", color: "#9ca3af" }}>›</span>
+            <span style={{ fontSize: "0.82rem", color: "#374151", fontWeight: 600 }}>{service.name}</span>
+          </nav>
         </div>
       </div>
 
@@ -223,6 +226,38 @@ export default function LandingPage({ service }) {
           ))}
         </div>
       </section>
+
+      {/* VEJA TAMBÉM */}
+      {service.relatedLinks && service.relatedLinks.length > 0 && (
+        <section style={{ padding: "48px 5%", background: "#fff", borderTop: "1px solid #e5e7eb" }}>
+          <div style={{ maxWidth: 760, margin: "0 auto" }}>
+            <h2 style={{ fontSize: "1.1rem", fontWeight: 700, color: "#374151", marginBottom: 16 }}>
+              Veja também
+            </h2>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+              {service.relatedLinks.map(link => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  style={{
+                    display: "inline-block",
+                    padding: "8px 18px",
+                    background: "#f3f4f6",
+                    border: "1px solid #e5e7eb",
+                    borderRadius: 9999,
+                    fontSize: "0.87rem",
+                    color: "#126798",
+                    textDecoration: "none",
+                    fontWeight: 500,
+                  }}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       <section style={{ padding: "72px 5%", background: "#f9fafb" }}>

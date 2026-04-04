@@ -72,6 +72,11 @@ const service = {
       desc: "Nossa equipe realiza toda a configuração do app, da rede e do roteador para garantir acesso estável, seguro e sem complicações.",
     },
   ],
+  relatedLinks: [
+    { label: "Câmeras de Segurança em Curitiba",      href: "/cameras-seguranca-curitiba/" },
+    { label: "Alarmes Residenciais e Comerciais",     href: "/alarmes-curitiba/" },
+    { label: "Monitoramento de Alarmes 24h",          href: "/monitoramento-curitiba/" },
+  ],
   checklist: [
     "Configuração de acesso remoto para câmeras (DVR/NVR)",
     "Configuração de acesso remoto para central de alarme",

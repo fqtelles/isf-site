@@ -72,6 +72,11 @@ const service = {
       desc: "Histórico completo de eventos com imagens e vídeos. Relatórios de incidentes para análise de segurança, auditorias e uso como prova em ocorrências.",
     },
   ],
+  relatedLinks: [
+    { label: "Câmeras de Segurança CFTV em Curitiba", href: "/cameras-seguranca-curitiba/" },
+    { label: "Monitoramento de Alarmes 24h",           href: "/monitoramento-curitiba/" },
+    { label: "Catálogo de Câmeras com IA",             href: "/produtos/" },
+  ],
   checklist: [
     "Câmeras com vídeo analítico integrado (Intelbras, Hikvision)",
     "Detecção inteligente de intrusão e cruzamento de perímetro",

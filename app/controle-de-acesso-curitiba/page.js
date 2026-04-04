@@ -2,13 +2,16 @@ import LandingPage from "../components/LandingPage";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
-  title: "Controle de Acesso em Curitiba — Biometria e Cartão | ISF Segurança Eletrônica",
+  title: "Controle de Acesso em Curitiba | Biometria — ISF",
   description:
-    "Instalação de controle de acesso em Curitiba: catracas, biometria, cartão de proximidade e reconhecimento facial. Ideal para condomínios e empresas. Orçamento gratuito.",
+    "Catracas, biometria, cartão de proximidade e reconhecimento facial em Curitiba. Ideal para condomínios e empresas. Orçamento gratuito.",
   openGraph: {
-    title: "Controle de Acesso em Curitiba | ISF Segurança",
-    description: "Catracas, biometria e controle de acesso em Curitiba. Orçamento gratuito.",
+    title: "Controle de Acesso em Curitiba | Biometria — ISF",
+    description:
+      "Catracas, biometria, cartão de proximidade e reconhecimento facial em Curitiba. Ideal para condomínios e empresas. Orçamento gratuito.",
     url: "https://isf.com.br/controle-de-acesso-curitiba/",
+    siteName: "ISF Segurança Eletrônica",
+    locale: "pt_BR",
     type: "website",
     images: [{ url: "https://isf.com.br/og-image.jpg", width: 1200, height: 630, alt: "Controle de Acesso em Curitiba — ISF Segurança Eletrônica" }],
   },

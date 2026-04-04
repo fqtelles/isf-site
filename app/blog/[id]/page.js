@@ -267,14 +267,14 @@ async function renderPost(post) {
               <h2 style={{ fontSize: "1.25rem", fontWeight: 800, color: "#111827", marginBottom: 24 }}>
                 Leia também
               </h2>
+              <style>{`.blog-related-card:hover{box-shadow:0 8px 24px rgba(18,103,152,0.10);transform:translateY(-2px)}`}</style>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 20 }}>
                 {related.map((p) => (
                   <a
                     key={p.id}
                     href={`/blog/${p.slug}/`}
+                    className="blog-related-card"
                     style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, overflow: "hidden", textDecoration: "none", transition: "box-shadow 0.2s, transform 0.2s" }}
-                    onMouseEnter={e => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(18,103,152,0.10)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "none"; }}
                   >
                     {p.coverImage ? (
                       // eslint-disable-next-line @next/next/no-img-element

@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { prisma } from "../../lib/prisma";
 import AdminDashboard from "./AdminDashboard";
+import LoginForm from "./login/LoginForm";
 
 export const dynamic = "force-dynamic";
 
@@ -9,7 +9,7 @@ export default async function AdminPage() {
   const cookieStore = await cookies();
   const token = cookieStore.get("admin_token")?.value;
   if (!token || token !== process.env.ADMIN_SECRET) {
-    redirect("/admin/login");
+    return <LoginForm />;
   }
 
   const [products, blogPosts] = await Promise.all([

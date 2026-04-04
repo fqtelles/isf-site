@@ -17,7 +17,7 @@ export function proxy(request) {
   // Autenticação do painel admin
   const { pathname } = request.nextUrl;
   if (pathname.startsWith("/admin")) {
-    if (pathname === "/admin/login") {
+    if (pathname === "/admin/login" || pathname === "/admin/login/") {
       return NextResponse.next();
     }
     const token = request.cookies.get("admin_token")?.value;

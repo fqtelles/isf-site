@@ -2,13 +2,13 @@ import LandingPage from "../components/LandingPage";
 import BreadcrumbSchema from "../components/BreadcrumbSchema";
 
 export const metadata = {
-  title: "Cerca Elétrica em Curitiba | Instalação ABNT — ISF",
+  title: "Cerca Elétrica em Curitiba — Instalação e Manutenção | ISF Segurança",
   description:
-    "Instalação de cerca elétrica em Curitiba conforme ABNT. Residencial, comercial e condomínios. Manutenção preventiva e corretiva. Orçamento gratuito.",
+    "Instalação e manutenção de cerca elétrica em Curitiba e Região Metropolitana. Conforme norma técnica ABNT. Residencial, comercial e condomínios. Orçamento gratuito.",
   openGraph: {
-    title: "Cerca Elétrica em Curitiba | Instalação ABNT — ISF",
+    title: "Cerca Elétrica em Curitiba — Instalação e Manutenção | ISF Segurança",
     description:
-      "Instalação de cerca elétrica em Curitiba conforme ABNT. Residencial, comercial e condomínios. Manutenção preventiva e corretiva. Orçamento gratuito.",
+      "Instalação e manutenção de cerca elétrica em Curitiba e Região Metropolitana. Conforme norma técnica ABNT. Residencial, comercial e condomínios. Orçamento gratuito.",
     url: "https://isf.com.br/cerca-eletrica-curitiba/",
     siteName: "ISF Segurança Eletrônica",
     locale: "pt_BR",

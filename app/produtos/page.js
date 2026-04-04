@@ -4,12 +4,12 @@ import ProductsGallery from "./ProductsGallery";
 export const revalidate = 3600; // ISR: revalida a cada 1 hora (ou quando o admin salvar um produto)
 
 export const metadata = {
-  title: "Catálogo de Produtos de Segurança Eletrônica | ISF Curitiba",
+  title: "Catálogo de Produtos Curitiba | ISF Soluções em Segurança",
   description:
     "Câmeras, alarmes, DVR/NVR, cerca elétrica e controle de acesso. 300+ produtos. Revenda Intelbras. Instalação em Curitiba. Consulte disponibilidade.",
   alternates: { canonical: "https://isf.com.br/produtos/" },
   openGraph: {
-    title: "Catálogo de Produtos de Segurança Eletrônica | ISF Curitiba",
+    title: "Catálogo de Produtos Curitiba | ISF Soluções em Segurança",
     description:
       "Câmeras, alarmes, DVR/NVR, cerca elétrica e controle de acesso. 300+ produtos. Revenda Intelbras. Instalação em Curitiba. Consulte disponibilidade.",
     url: "https://isf.com.br/produtos/",

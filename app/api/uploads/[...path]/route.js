@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { readFile } from "fs/promises";
-import { join, resolve, extname } from "path";
+import { join, resolve, extname, relative, isAbsolute } from "path";
 
 const MIME_TYPES = {
   ".jpg": "image/jpeg",
@@ -19,8 +19,9 @@ export async function GET(request, { params }) {
   const uploadsDir = join(process.cwd(), "public", "uploads");
   const filePath = resolve(join(uploadsDir, ...pathParts));
 
-  // Prevent path traversal
-  if (!filePath.startsWith(uploadsDir + "/") && filePath !== uploadsDir) {
+  // Prevent path traversal in a way that works on both Windows and POSIX paths.
+  const relativePath = relative(uploadsDir, filePath);
+  if (relativePath.startsWith("..") || isAbsolute(relativePath)) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
 

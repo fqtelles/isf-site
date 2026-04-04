@@ -10,7 +10,7 @@
     "build": "next build",
     "analyze": "ANALYZE=true next build --webpack",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "node scripts/lint.js",
     "db:seed": "node prisma/seed.js",
     "postinstall": "prisma generate"
   },

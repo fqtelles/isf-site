@@ -210,7 +210,7 @@ const products = [
     category: "Controle de Acesso",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbWZ7vzMi4yx6foOuDfXI2P9zY0fxtg3FJqg&s",
     images: [],
-    description: "Atendimento, visualização e abertura de portas remotamente, integração com câmeras Multi HD® e controle de tudo pelo app Allo Plus. Conexão Wi-Fi.\nTecnologia Multi HD® de alta qualidade de imagem no display touch screen 7" e compatibilidade com câmeras extras HD e Full HD.\n",
+    description: "Atendimento, visualização e abertura de portas remotamente, integração com câmeras Multi HD® e controle de tudo pelo app Allo Plus. Conexão Wi-Fi.\nTecnologia Multi HD® de alta qualidade de imagem no display touch screen 7\" e compatibilidade com câmeras extras HD e Full HD.\n",
     video: "",
     slug: "v",
   },

@@ -10,11 +10,6 @@ const nextConfig = {
   experimental: {
     optimizeCss: true,
   },
-  turbopack: {
-    resolve: {
-      symlinks: false,
-    },
-  },
   images: {
     remotePatterns: [
       {

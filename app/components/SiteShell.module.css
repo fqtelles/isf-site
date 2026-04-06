@@ -3,6 +3,7 @@
   font-size: 0.88rem;
   color: #6b7280;
   font-weight: 500;
+  text-decoration: none;
   transition: color 0.2s;
 }
 .shell-nav-link:hover {
@@ -13,6 +14,7 @@
   color: #b0b7c3;
   display: flex;
   align-items: center;
+  text-decoration: none;
   transition: color 0.2s;
 }
 .shell-social:hover {
@@ -47,6 +49,7 @@
   cursor: pointer;
   transition: all 0.25s;
   display: inline-block;
+  text-decoration: none;
 }
 .shell-btn-primary:hover {
   background: #0d5280;
@@ -95,6 +98,7 @@
 .shell-footer-link {
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
   transition: color 0.2s;
 }
 .shell-footer-link:hover {
@@ -104,6 +108,7 @@
 .shell-footer-social {
   color: rgba(255, 255, 255, 0.35);
   display: flex;
+  text-decoration: none;
   transition: color 0.2s;
 }
 .shell-footer-social:hover {

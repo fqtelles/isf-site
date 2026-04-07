@@ -13,7 +13,7 @@ export async function PUT(request, { params }) {
 
   try {
     const body = await request.json();
-    const { date, title, excerpt, readTime, content, coverImage, slug: rawSlug } = body;
+    const { date, title, excerpt, readTime, content, coverImage, slug: rawSlug, publishedAt } = body;
 
     let slugData = {};
     if (rawSlug !== undefined) {
@@ -33,7 +33,8 @@ export async function PUT(request, { params }) {
         ...(excerpt !== undefined && { excerpt }),
         ...(readTime !== undefined && { readTime }),
         ...(content    !== undefined && { content }),
-        ...(coverImage !== undefined && { coverImage }),
+        ...(coverImage  !== undefined && { coverImage }),
+        ...(publishedAt !== undefined && publishedAt !== "" && { publishedAt: new Date(publishedAt) }),
         ...slugData,
       },
     });

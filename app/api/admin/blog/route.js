@@ -6,7 +6,7 @@ import { slugify, uniqueSlug } from "../../../../lib/slugify";
 
 export async function GET() {
   if (!(await requireAdmin())) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
-  const posts = await prisma.blogPost.findMany({ orderBy: { id: "desc" } });
+  const posts = await prisma.blogPost.findMany({ orderBy: { publishedAt: "desc" } });
   return NextResponse.json(posts);
 }
 
@@ -15,7 +15,7 @@ export async function POST(request) {
 
   try {
     const body = await request.json();
-    const { date, title, excerpt, readTime, content, coverImage, slug: rawSlug } = body;
+    const { date, title, excerpt, readTime, content, coverImage, slug: rawSlug, publishedAt } = body;
 
     if (!date || !title || !excerpt || !readTime) {
       return NextResponse.json({ error: "Todos os campos são obrigatórios" }, { status: 400 });
@@ -25,7 +25,13 @@ export async function POST(request) {
     const slug = await uniqueSlug(base, async (s) => !!(await prisma.blogPost.findFirst({ where: { slug: s } })));
 
     const post = await prisma.blogPost.create({
-      data: { date, title, excerpt, readTime, content: content ?? "", coverImage: coverImage ?? "", slug },
+      data: {
+        date, title, excerpt, readTime,
+        content: content ?? "",
+        coverImage: coverImage ?? "",
+        slug,
+        ...(publishedAt && { publishedAt: new Date(publishedAt) }),
+      },
     });
     revalidatePath("/blog");
     revalidatePath("/sitemap.xml");

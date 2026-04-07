@@ -4,7 +4,7 @@ import { prisma } from "../../../lib/prisma";
 export async function GET() {
   try {
     const posts = await prisma.blogPost.findMany({
-      orderBy: { id: "desc" },
+      orderBy: { publishedAt: "desc" },
       take: 200,
     });
     return NextResponse.json(posts);

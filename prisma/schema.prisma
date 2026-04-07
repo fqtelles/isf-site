@@ -30,5 +30,6 @@ model BlogPost {
   content     String   @default("")
   coverImage  String   @default("")
   slug        String?  @unique
+  publishedAt DateTime @default(now())
   createdAt   DateTime @default(now())
 }

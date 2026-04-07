@@ -456,7 +456,7 @@ function ProductsTab({ products, setProducts }) {
 // BLOG TAB
 // ──────────────────────────────────────────────
 function BlogTab({ posts, setPosts }) {
-  const emptyForm = { date: "", title: "", excerpt: "", readTime: "", content: "", coverImage: "", coverImageMode: "url", slug: "", slugEdited: false };
+  const emptyForm = { date: "", publishedAt: "", title: "", excerpt: "", readTime: "", content: "", coverImage: "", coverImageMode: "url", slug: "", slugEdited: false };
   const [showForm, setShowForm]     = useState(false);
   const [form, setForm]             = useState(emptyForm);
   const [editId, setEditId]         = useState(null);
@@ -471,7 +471,7 @@ function BlogTab({ posts, setPosts }) {
   function openCreate() { setEditId(null); setForm(emptyForm); setCoverPreview(""); setError(""); setShowForm(true); }
   function openEdit(p)  {
     setEditId(p.id);
-    setForm({ date: p.date, title: p.title, excerpt: p.excerpt, readTime: p.readTime, content: p.content || "", coverImage: p.coverImage || "", coverImageMode: "url", slug: p.slug || "", slugEdited: true });
+    setForm({ date: p.date, publishedAt: p.publishedAt ? new Date(p.publishedAt).toISOString().split("T")[0] : "", title: p.title, excerpt: p.excerpt, readTime: p.readTime, content: p.content || "", coverImage: p.coverImage || "", coverImageMode: "url", slug: p.slug || "", slugEdited: true });
     setCoverPreview(p.coverImage || "");
     setError(""); setShowForm(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -488,7 +488,7 @@ function BlogTab({ posts, setPosts }) {
   async function handleSave(e) {
     e.preventDefault();
     setSaving(true); setError("");
-    const payload = { ...form, slug: form.slug || form.title, coverImage: form.coverImage || "" };
+    const payload = { ...form, slug: form.slug || form.title, coverImage: form.coverImage || "", publishedAt: form.publishedAt || undefined };
     const res = await fetch(editId ? `/api/admin/blog/${editId}` : "/api/admin/blog", {
       method: editId ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
@@ -521,8 +521,18 @@ function BlogTab({ posts, setPosts }) {
         <div style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: 12, padding: 28, marginBottom: 28 }}>
           <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: C.dark, marginBottom: 20 }}>{editId ? "Editar Artigo" : "Novo Artigo"}</h3>
           <form onSubmit={handleSave} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 14 }}>
               <Input label="Data (exibição)" value={form.date} onChange={e => setForm(f => ({ ...f, date: e.target.value }))} placeholder="ex: Mar 2025" required />
+              <div>
+                <div style={{ fontSize: "0.72rem", fontWeight: 700, color: C.muted, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 4 }}>Data de publicação</div>
+                <input
+                  type="date"
+                  value={form.publishedAt}
+                  onChange={e => setForm(f => ({ ...f, publishedAt: e.target.value }))}
+                  style={{ width: "100%", background: C.bg, border: `1px solid ${C.border}`, borderRadius: 8, padding: "10px 12px", fontFamily: "inherit", fontSize: "0.88rem", color: C.dark, outline: "none", boxSizing: "border-box" }}
+                />
+                <p style={{ fontSize: "0.72rem", color: C.muted, marginTop: 4 }}>Define a ordem de exibição.</p>
+              </div>
               <Input label="Tempo de leitura" value={form.readTime} onChange={e => setForm(f => ({ ...f, readTime: e.target.value }))} placeholder="ex: 4 min" required />
             </div>
             <Input label="Título" value={form.title} onChange={e => {

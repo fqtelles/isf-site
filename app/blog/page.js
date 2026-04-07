@@ -28,6 +28,6 @@ export const metadata = {
 };
 
 export default async function BlogPage() {
-  const posts = await prisma.blogPost.findMany({ orderBy: { publishedAt: "desc" } });
+  const posts = await prisma.blogPost.findMany({ orderBy: [{ publishedAt: "desc" }, { id: "desc" }] });
   return <BlogGallery posts={posts} />;
 }

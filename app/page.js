@@ -82,7 +82,7 @@ export default async function HomePage() {
   try {
     [products, blogPosts] = await Promise.all([
       prisma.product.findMany({ orderBy: { id: "asc" } }),
-      prisma.blogPost.findMany({ orderBy: { publishedAt: "desc" } }),
+      prisma.blogPost.findMany({ orderBy: [{ publishedAt: "desc" }, { id: "desc" }] }),
     ]);
   } catch (err) {
     console.error("Erro ao carregar dados da homepage:", err);

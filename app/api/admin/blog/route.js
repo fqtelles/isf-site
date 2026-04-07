@@ -6,7 +6,7 @@ import { slugify, uniqueSlug } from "../../../../lib/slugify";
 
 export async function GET() {
   if (!(await requireAdmin())) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
-  const posts = await prisma.blogPost.findMany({ orderBy: { publishedAt: "desc" } });
+  const posts = await prisma.blogPost.findMany({ orderBy: [{ publishedAt: "desc" }, { id: "desc" }] });
   return NextResponse.json(posts);
 }
 

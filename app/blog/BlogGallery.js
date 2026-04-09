@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import SiteShell from "../components/SiteShell";
 import { StatsStrip, BlogFaq, FinalCta, ConversionStyles } from "../components/ConversionSections";
-import QuoteModal from "../components/QuoteModal";
+import LazyQuoteModal from "../components/LazyQuoteModal";
 
 const galleryCss = `
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -100,8 +100,8 @@ const galleryCss = `
     color: #126798;
   }
   .blog-card-read {
-    font-size: 0.7rem;
-    color: #9ca3af;
+    font-size: 0.75rem;
+    color: #4b5563;
     display: flex;
     align-items: center;
     gap: 4px;
@@ -196,15 +196,15 @@ export default function BlogGallery({ posts }) {
         <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative", zIndex: 1 }}>
 
           {/* Breadcrumb */}
-          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.78rem", color: "rgba(255,255,255,0.55)", marginBottom: 18 }}>
-            <a href="/" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}>Home</a>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, fontSize: "0.8rem", color: "rgba(255,255,255,0.82)", marginBottom: 18 }}>
+            <a href="/" style={{ color: "rgba(255,255,255,0.92)", textDecoration: "none" }}>Home</a>
             <span>›</span>
             <span style={{ color: "#fff" }}>Blog</span>
           </div>
 
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: 32, flexWrap: "wrap" }}>
             <div>
-              <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: 8 }}>
+              <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.88)", marginBottom: 8 }}>
                 Dicas & Conteúdo
               </div>
               <h1 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, color: "#fff", lineHeight: 1.2, letterSpacing: "-0.02em", marginBottom: 10 }}>
@@ -217,7 +217,7 @@ export default function BlogGallery({ posts }) {
 
             {/* CTA buttons */}
             <div style={{ display: "flex", flexDirection: "column", gap: 12, minWidth: 220 }}>
-              <QuoteModal
+              <LazyQuoteModal
                 label="Solicitar Orçamento Grátis"
                 context="Blog ISF"
                 buttonStyle={{
@@ -336,7 +336,7 @@ export default function BlogGallery({ posts }) {
               </p>
             </div>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", flexShrink: 0 }}>
-              <QuoteModal
+              <LazyQuoteModal
                 label="Solicitar Orçamento"
                 context="Blog ISF"
                 buttonStyle={{

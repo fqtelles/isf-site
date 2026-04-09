@@ -181,8 +181,22 @@ function SummaryCard() {
 export default function GoogleReviewsWidget() {
   const [current, setCurrent] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [paused, setPaused] = useState(false);
   const reviews = reviewsData.reviews;
+  const reviewControlBaseStyle = {
+    width: 36,
+    height: 36,
+    borderRadius: "50%",
+    border: "1px solid #e5e7eb",
+    background: "#fff",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transition: "transform 0.2s ease, opacity 0.2s ease",
+    willChange: "transform",
+    transform: "translateZ(0)",
+    backfaceVisibility: "hidden",
+  };
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -197,15 +211,6 @@ export default function GoogleReviewsWidget() {
   const prev = () => setCurrent(c => (c === 0 ? maxIndex : c - 1));
   const next = () => setCurrent(c => (c === maxIndex ? 0 : c + 1));
 
-  // Auto-scroll a cada 4s, para ao hover
-  useEffect(() => {
-    if (paused) return;
-    const timer = setInterval(() => {
-      setCurrent(c => (c === maxIndex ? 0 : c + 1));
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [paused, maxIndex]);
-
   const visible = reviews.slice(current, current + visibleCount);
 
   return (
@@ -216,10 +221,7 @@ export default function GoogleReviewsWidget() {
       </div>
 
       {/* Carrossel de reviews */}
-      <div
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-      >
+      <div>
         <div style={{
           display: "grid",
           gridTemplateColumns: `repeat(${visibleCount}, 1fr)`,
@@ -235,13 +237,7 @@ export default function GoogleReviewsWidget() {
             <button
               onClick={prev}
               aria-label="Avaliação anterior"
-              style={{
-                width: 36, height: 36, borderRadius: "50%",
-                border: "1px solid #e5e7eb", background: "#fff",
-                cursor: "pointer",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                transition: "all 0.2s",
-              }}
+              style={reviewControlBaseStyle}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">
                 <path d="M15 18l-6-6 6-6"/>
@@ -249,36 +245,55 @@ export default function GoogleReviewsWidget() {
             </button>
 
             {/* Dots */}
-            <div style={{ display: "flex", gap: 6 }}>
+            <div style={{ display: "flex", gap: 12 }}>
               {Array.from({ length: maxIndex + 1 }).map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setCurrent(i)}
                   aria-label={`Avaliação ${i + 1}`}
                   style={{
-                    width: i === current ? 20 : 8,
-                    height: 8,
+                    width: 44,
+                    height: 44,
+                    minWidth: 44,
+                    minHeight: 44,
                     borderRadius: 9999,
                     border: "none",
-                    background: i === current ? "#126798" : "#d1d5db",
+                    background: "transparent",
                     cursor: "pointer",
                     padding: 0,
-                    transition: "all 0.3s",
+                    position: "relative",
+                    overflow: "visible",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transform: "translateZ(0)",
+                    backfaceVisibility: "hidden",
                   }}
-                />
+                >
+                  <span
+                    style={{
+                      position: "absolute",
+                      width: 20,
+                      height: 8,
+                      top: "50%",
+                      left: "50%",
+                      borderRadius: 9999,
+                      background: "#126798",
+                      opacity: i === current ? 1 : 0.28,
+                      transform: `translate(-50%, -50%) scaleX(${i === current ? 1 : 0.4})`,
+                      transformOrigin: "center",
+                      transition: "transform 0.3s ease, opacity 0.3s ease",
+                      willChange: "transform, opacity",
+                    }}
+                  />
+                </button>
               ))}
             </div>
 
             <button
               onClick={next}
               aria-label="Próxima avaliação"
-              style={{
-                width: 36, height: 36, borderRadius: "50%",
-                border: "1px solid #e5e7eb", background: "#fff",
-                cursor: "pointer",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                transition: "all 0.2s",
-              }}
+              style={reviewControlBaseStyle}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">
                 <path d="M9 18l6-6-6-6"/>

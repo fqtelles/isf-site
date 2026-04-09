@@ -1,5 +1,5 @@
 "use client";
-import QuoteModal from "../../components/QuoteModal";
+import LazyQuoteModal from "../../components/LazyQuoteModal";
 
 const WA_BLOG_HREF =
   "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20li%20um%20artigo%20no%20blog%20e%20gostaria%20de%20um%20or%C3%A7amento!";
@@ -45,7 +45,7 @@ export default function BlogCta({ postTitle }) {
           </svg>
           WhatsApp
         </a>
-        <QuoteModal
+        <LazyQuoteModal
           label="Solicitar orçamento grátis →"
           context={postTitle ? `Blog: ${postTitle}` : "Blog"}
           buttonStyle={{ fontSize: "0.88rem", padding: "11px 24px" }}

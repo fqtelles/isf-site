@@ -1,4 +1,4 @@
-import { prisma } from "../../lib/prisma";
+import { findManyBlogPosts } from "../../lib/blog-posts";
 import BlogGallery from "./BlogGallery";
 
 export const revalidate = 3600; // ISR: revalida a cada 1 hora (ou quando o admin salvar um post)
@@ -28,6 +28,6 @@ export const metadata = {
 };
 
 export default async function BlogPage() {
-  const posts = await prisma.blogPost.findMany({ orderBy: [{ publishedAt: "desc" }, { id: "desc" }] });
+  const posts = await findManyBlogPosts({ orderBy: [{ publishedAt: "desc" }, { id: "desc" }] });
   return <BlogGallery posts={posts} />;
 }

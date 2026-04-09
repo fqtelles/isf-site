@@ -1,8 +1,7 @@
-"use client";
-import { useState } from "react";
 import SiteShell from "./SiteShell";
 import styles from "./LandingPage.module.css";
-
+import LandingPageLeadForm from "./LandingPageLeadForm";
+import LandingPageFaq from "./LandingPageFaq";
 
 function WaIcon() {
   return (
@@ -13,37 +12,38 @@ function WaIcon() {
 }
 
 const LP_ICONS = {
-  bell:         "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9",
-  phone:        "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z",
-  shield:       "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
-  badge:        "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z",
-  bolt:         "M13 10V3L4 14h7v7l9-11h-7z",
-  pin:          "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z",
-  camera:       "M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z",
-  moon:         "M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z",
-  database:     "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4",
-  building:     "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
-  wrench:       "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065zM15 12a3 3 0 11-6 0 3 3 0 016 0z",
-  clock:        "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
-  link:         "M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1",
-  chart:        "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
-  coin:         "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
-  finger:       "M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11",
-  card:         "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z",
-  face:         "M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
-  barrier:      "M3 7h18M3 12h18M3 17h18",
-  film:         "M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z",
-  users:        "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z",
-  lock:         "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
-  clipboard:    "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
-  home:         "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
+  bell: "M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9",
+  phone: "M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z",
+  shield: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z",
+  badge: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z",
+  bolt: "M13 10V3L4 14h7v7l9-11h-7z",
+  pin: "M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0zM15 11a3 3 0 11-6 0 3 3 0 016 0z",
+  camera: "M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z",
+  moon: "M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z",
+  database: "M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4",
+  building: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
+  wrench: "M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065zM15 12a3 3 0 11-6 0 3 3 0 016 0z",
+  clock: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z",
+  link: "M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1",
+  chart: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
+  coin: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+  finger: "M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11",
+  card: "M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z",
+  face: "M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+  barrier: "M3 7h18M3 12h18M3 17h18",
+  film: "M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z",
+  users: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z",
+  lock: "M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z",
+  clipboard: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
+  home: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
 };
 
 function LpIcon({ name }) {
   const d = LP_ICONS[name];
   if (!d) return null;
+
   return (
-    <div className={styles['lp-icon-box']}>
+    <div className={styles["lp-icon-box"]}>
       <svg viewBox="0 0 24 24" fill="none" stroke="#32373c" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" width="22" height="22">
         <path d={d} />
       </svg>
@@ -59,50 +59,11 @@ function CheckIcon() {
   );
 }
 
-function FaqItem({ q, a }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div>
-      <button className={styles['faq-btn']} onClick={() => setOpen(o => !o)} aria-expanded={open}>
-        <span style={{ fontSize: "0.97rem", fontWeight: 700, color: "#1a1d20", lineHeight: 1.4 }}>{q}</span>
-        <span style={{ fontSize: "1.2rem", color: "#6b7280", flexShrink: 0, transform: open ? "rotate(45deg)" : "none", transition: "transform 0.2s", display: "inline-block" }}>+</span>
-      </button>
-      {open && <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.72, paddingBottom: 18 }}>{a}</p>}
-    </div>
-  );
-}
-
 export default function LandingPage({ service }) {
-  const [formData, setFormData] = useState({ nome: "", telefone: "", mensagem: "" });
-  const [sent, setSent] = useState(false);
-  const [sending, setSending] = useState(false);
-  const [formError, setFormError] = useState("");
-
   const waHref = `https://api.whatsapp.com/send?phone=554133787933&text=Olá%2C%20quero%20um%20orçamento%20de%20${encodeURIComponent(service.name)}!`;
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSending(true);
-    setFormError("");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, servico: service.name }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Erro desconhecido");
-      setSent(true);
-    } catch (err) {
-      setFormError(err.message || "Erro ao enviar. Tente pelo WhatsApp.");
-    } finally {
-      setSending(false);
-    }
-  };
 
   return (
     <SiteShell>
-      {/* Breadcrumb */}
       <div style={{ background: "#f9fafb", padding: "20px 5% 0" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <nav aria-label="Breadcrumb" style={{ display: "flex", alignItems: "center", gap: 6, flexWrap: "wrap" }}>
@@ -115,9 +76,8 @@ export default function LandingPage({ service }) {
         </div>
       </div>
 
-      {/* HERO */}
       <section style={{ background: "#f9fafb", padding: "32px 5% 64px" }}>
-        <div className={styles['lp-hero-grid']} style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 420px", gap: 56, alignItems: "center" }}>
+        <div className={styles["lp-hero-grid"]} style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 420px", gap: 56, alignItems: "center" }}>
           <div>
             <div style={{ display: "inline-block", background: "#e8f3f9", color: "#126798", fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", padding: "5px 14px", borderRadius: 9999, marginBottom: 20 }}>
               {service.badge}
@@ -129,65 +89,37 @@ export default function LandingPage({ service }) {
               {service.subtitle}
             </p>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-              <a href="#orcamento" className={styles['lp-btn']}>Solicitar orçamento grátis</a>
-              <a href={waHref} target="_blank" rel="noopener noreferrer" className={`${styles['lp-btn']} ${styles['lp-btn-wa']}`}><WaIcon />WhatsApp</a>
+              <a href="#orcamento" className={styles["lp-btn"]}>Solicitar orçamento grátis</a>
+              <a href={waHref} target="_blank" rel="noopener noreferrer" className={`${styles["lp-btn"]} ${styles["lp-btn-wa"]}`}><WaIcon />WhatsApp</a>
             </div>
             <div style={{ marginTop: 28, display: "flex", gap: 24, flexWrap: "wrap" }}>
-              {["✔ Orçamento gratuito", "✔ Atende Curitiba e RMC", "✔ 35+ anos de experiência"].map(b => (
-                <span key={b} style={{ fontSize: "0.82rem", color: "#6b7280" }}>{b}</span>
+              {["✔ Orçamento gratuito", "✔ Atende Curitiba e RMC", "✔ 35+ anos de experiência"].map((badge) => (
+                <span key={badge} style={{ fontSize: "0.82rem", color: "#6b7280" }}>{badge}</span>
               ))}
             </div>
           </div>
 
-          {/* FORM inline */}
-          <div id="orcamento" style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 16, padding: "36px 32px", boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
-            {sent ? (
-              <div style={{ textAlign: "center", padding: "32px 0" }}>
-                <div style={{ fontSize: "2.4rem", marginBottom: 14 }}>✅</div>
-                <h3 style={{ fontWeight: 800, fontSize: "1.2rem", color: "#111827", marginBottom: 8 }}>Mensagem enviada!</h3>
-                <p style={{ color: "#6b7280", fontSize: "0.9rem" }}>Nossa equipe entrará em contato em breve.</p>
-              </div>
-            ) : (
-              <>
-                <h2 style={{ fontSize: "1.2rem", fontWeight: 800, color: "#111827", marginBottom: 6 }}>Orçamento gratuito</h2>
-                <p style={{ fontSize: "0.85rem", color: "#9ca3af", marginBottom: 22 }}>Sem compromisso. Respondemos em até 2h.</p>
-                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  <label htmlFor="lp-nome" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Seu nome completo</label>
-                  <input id="lp-nome" className={styles['lp-input']} placeholder="Seu nome completo" required value={formData.nome} onChange={e => setFormData({ ...formData, nome: e.target.value })} />
-                  <label htmlFor="lp-telefone" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Telefone / WhatsApp</label>
-                  <input id="lp-telefone" className={styles['lp-input']} placeholder="Telefone / WhatsApp" required value={formData.telefone} onChange={e => setFormData({ ...formData, telefone: e.target.value })} />
-                  <label htmlFor="lp-mensagem" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Mensagem</label>
-                  <textarea id="lp-mensagem" className={styles['lp-input']} placeholder={service.formPlaceholder} rows={3} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
-                  <button type="submit" className={styles['lp-btn']} disabled={sending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: sending ? 0.7 : 1 }}>
-                    {sending ? "Enviando…" : "Solicitar Orçamento"}
-                  </button>
-                  {formError && <p style={{ fontSize: "0.82rem", color: "#dc2626", margin: 0 }}>{formError}</p>}
-                </form>
-              </>
-            )}
-          </div>
+          <LandingPageLeadForm service={service} />
         </div>
       </section>
 
-      {/* BENEFÍCIOS */}
       <section style={{ padding: "72px 5%", background: "#fff" }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800, color: "#111827", marginBottom: 40, textAlign: "center", letterSpacing: "-0.02em" }}>
             Por que escolher a ISF para {service.name.toLowerCase()}?
           </h2>
-          <div className={styles['lp-features-grid']} style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
-            {service.benefits.map(b => (
-              <div key={b.title} style={{ padding: "28px 24px", background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: 12 }}>
-                <LpIcon name={b.icon} />
-                <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#111827", marginBottom: 8 }}>{b.title}</h3>
-                <p style={{ fontSize: "0.87rem", color: "#6b7280", lineHeight: 1.65 }}>{b.desc}</p>
+          <div className={styles["lp-features-grid"]} style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+            {service.benefits.map((benefit) => (
+              <div key={benefit.title} style={{ padding: "28px 24px", background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: 12 }}>
+                <LpIcon name={benefit.icon} />
+                <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#111827", marginBottom: 8 }}>{benefit.title}</h3>
+                <p style={{ fontSize: "0.87rem", color: "#6b7280", lineHeight: 1.65 }}>{benefit.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* DIFERENCIAIS ISF */}
       <section style={{ padding: "64px 5%", background: "#32373c" }}>
         <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
           <h2 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, color: "#fff", marginBottom: 12, letterSpacing: "-0.02em" }}>
@@ -196,30 +128,29 @@ export default function LandingPage({ service }) {
           <p style={{ color: "rgba(255,255,255,0.65)", fontSize: "0.97rem", marginBottom: 40 }}>
             Mais de 35 anos protegendo Curitiba e Região Metropolitana.
           </p>
-          <div className={styles['lp-stats-grid']} style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1, borderTop: "1px solid rgba(255,255,255,0.1)", borderLeft: "1px solid rgba(255,255,255,0.1)" }}>
+          <div className={styles["lp-stats-grid"]} style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 1, borderTop: "1px solid rgba(255,255,255,0.1)", borderLeft: "1px solid rgba(255,255,255,0.1)" }}>
             {[
-              { n: "35+",     l: "Anos de mercado" },
+              { n: "35+", l: "Anos de mercado" },
               { n: "30.000+", l: "Atendimentos realizados" },
-              { n: "5.000+",  l: "Clientes ativos" },
-              { n: "24/7",    l: "Monitoramento" },
-            ].map(s => (
-              <div key={s.l} style={{ padding: "24px 16px", textAlign: "center", borderRight: "1px solid rgba(255,255,255,0.1)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
-                <div style={{ fontSize: "1.8rem", fontWeight: 800, color: "#fff" }}>{s.n}</div>
-                <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.55)", marginTop: 4 }}>{s.l}</div>
+              { n: "5.000+", l: "Clientes ativos" },
+              { n: "24/7", l: "Monitoramento" },
+            ].map((stat) => (
+              <div key={stat.l} style={{ padding: "24px 16px", textAlign: "center", borderRight: "1px solid rgba(255,255,255,0.1)", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+                <div style={{ fontSize: "1.8rem", fontWeight: 800, color: "#fff" }}>{stat.n}</div>
+                <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.55)", marginTop: 4 }}>{stat.l}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CHECKLIST */}
       <section style={{ padding: "72px 5%", background: "#fff" }}>
         <div style={{ maxWidth: 760, margin: "0 auto" }}>
           <h2 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, color: "#111827", marginBottom: 32, letterSpacing: "-0.02em" }}>
             O que está incluso no serviço
           </h2>
-          {service.checklist.map(item => (
-            <div key={item} className={styles['check-item']}>
+          {service.checklist.map((item) => (
+            <div key={item} className={styles["check-item"]}>
               <CheckIcon />
               <span style={{ fontSize: "0.95rem", color: "#374151", lineHeight: 1.5 }}>{item}</span>
             </div>
@@ -227,7 +158,6 @@ export default function LandingPage({ service }) {
         </div>
       </section>
 
-      {/* VEJA TAMBÉM */}
       {service.relatedLinks && service.relatedLinks.length > 0 && (
         <section style={{ padding: "48px 5%", background: "#fff", borderTop: "1px solid #e5e7eb" }}>
           <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -235,7 +165,7 @@ export default function LandingPage({ service }) {
               Veja também
             </h2>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-              {service.relatedLinks.map(link => (
+              {service.relatedLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
@@ -259,19 +189,8 @@ export default function LandingPage({ service }) {
         </section>
       )}
 
-      {/* FAQ */}
-      <section style={{ padding: "72px 5%", background: "#f9fafb" }}>
-        <div style={{ maxWidth: 760, margin: "0 auto" }}>
-          <h2 style={{ fontSize: "clamp(1.4rem, 3vw, 2rem)", fontWeight: 800, color: "#111827", marginBottom: 40, textAlign: "center", letterSpacing: "-0.02em" }}>
-            Perguntas frequentes
-          </h2>
-          {service.faqs.map(faq => (
-            <FaqItem key={faq.q} q={faq.q} a={faq.a} />
-          ))}
-        </div>
-      </section>
+      <LandingPageFaq faqs={service.faqs} />
 
-      {/* CTA FINAL */}
       <section style={{ padding: "80px 5%", background: "#126798" }}>
         <div style={{ maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
           <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: 800, color: "#fff", marginBottom: 16, letterSpacing: "-0.02em" }}>
@@ -281,12 +200,11 @@ export default function LandingPage({ service }) {
             Orçamento gratuito e sem compromisso. Atendemos Curitiba e toda a Região Metropolitana.
           </p>
           <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-            <a href="#orcamento" className={`${styles['lp-btn']} ${styles['lp-btn-white']}`}>Solicitar Orçamento</a>
-            <a href={waHref} target="_blank" rel="noopener noreferrer" className={`${styles['lp-btn']} ${styles['lp-btn-wa']}`}><WaIcon />WhatsApp</a>
+            <a href="#orcamento" className={`${styles["lp-btn"]} ${styles["lp-btn-white"]}`}>Solicitar Orçamento</a>
+            <a href={waHref} target="_blank" rel="noopener noreferrer" className={`${styles["lp-btn"]} ${styles["lp-btn-wa"]}`}><WaIcon />WhatsApp</a>
           </div>
         </div>
       </section>
-
     </SiteShell>
   );
 }

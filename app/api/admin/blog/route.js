@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { prisma } from "../../../../lib/prisma";
+import { createBlogPost, findFirstBlogPost, findManyBlogPosts } from "../../../../lib/blog-posts";
 import { requireAdmin } from "../../../../lib/auth";
 import { slugify, uniqueSlug } from "../../../../lib/slugify";
 
 export async function GET() {
   if (!(await requireAdmin())) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
-  const posts = await prisma.blogPost.findMany({ orderBy: [{ publishedAt: "desc" }, { id: "desc" }] });
+  const posts = await findManyBlogPosts({ orderBy: [{ publishedAt: "desc" }, { id: "desc" }] });
   return NextResponse.json(posts);
 }
 
@@ -22,9 +22,9 @@ export async function POST(request) {
     }
 
     const base = rawSlug ? slugify(rawSlug) : slugify(title).slice(0, 70).replace(/-+$/, "");
-    const slug = await uniqueSlug(base, async (s) => !!(await prisma.blogPost.findFirst({ where: { slug: s } })));
+    const slug = await uniqueSlug(base, async (s) => !!(await findFirstBlogPost({ where: { slug: s }, select: { id: true } })));
 
-    const post = await prisma.blogPost.create({
+    const post = await createBlogPost({
       data: {
         date, title, excerpt, readTime,
         content: content ?? "",

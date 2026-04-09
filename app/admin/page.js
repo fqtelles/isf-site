@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { prisma } from "../../lib/prisma";
+import { findManyBlogPosts } from "../../lib/blog-posts";
 import AdminDashboard from "./AdminDashboard";
 import LoginForm from "./login/LoginForm";
 
@@ -14,7 +15,7 @@ export default async function AdminPage() {
 
   const [products, blogPosts] = await Promise.all([
     prisma.product.findMany({ orderBy: { id: "asc" } }),
-    prisma.blogPost.findMany({ orderBy: { id: "desc" } }),
+    findManyBlogPosts({ orderBy: { id: "desc" } }),
   ]);
 
   return (

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
-import { prisma } from "../../../../../lib/prisma";
+import { deleteBlogPost, findFirstBlogPost, updateBlogPost } from "../../../../../lib/blog-posts";
 import { requireAdmin } from "../../../../../lib/auth";
 import { slugify, uniqueSlug } from "../../../../../lib/slugify";
 
@@ -19,13 +19,13 @@ export async function PUT(request, { params }) {
     if (rawSlug !== undefined) {
       const base = slugify(rawSlug).slice(0, 70).replace(/-+$/, "");
       const slug = await uniqueSlug(base, async (s) => {
-        const found = await prisma.blogPost.findFirst({ where: { slug: s } });
+        const found = await findFirstBlogPost({ where: { slug: s }, select: { id: true } });
         return !!(found && found.id !== id);
       });
       slugData = { slug };
     }
 
-    const post = await prisma.blogPost.update({
+    const post = await updateBlogPost({
       where: { id },
       data: {
         ...(date    !== undefined && { date }),
@@ -55,7 +55,7 @@ export async function DELETE(request, { params }) {
   if (isNaN(id)) return NextResponse.json({ error: "ID inválido" }, { status: 400 });
 
   try {
-    await prisma.blogPost.delete({ where: { id } });
+    await deleteBlogPost({ where: { id } });
     revalidatePath("/blog");
     revalidatePath("/sitemap.xml");
     return NextResponse.json({ ok: true });

@@ -1,4 +1,5 @@
 import { prisma } from "../lib/prisma";
+import { findManyBlogPosts } from "../lib/blog-posts";
 import HomeClient from "./HomeClient";
 
 export const revalidate = 3600; // ISR: revalida a cada 1 hora
@@ -82,7 +83,7 @@ export default async function HomePage() {
   try {
     [products, blogPosts] = await Promise.all([
       prisma.product.findMany({ orderBy: { id: "asc" } }),
-      prisma.blogPost.findMany({ orderBy: [{ publishedAt: "desc" }, { id: "desc" }] }),
+      findManyBlogPosts({ orderBy: [{ publishedAt: "desc" }, { id: "desc" }] }),
     ]);
   } catch (err) {
     console.error("Erro ao carregar dados da homepage:", err);

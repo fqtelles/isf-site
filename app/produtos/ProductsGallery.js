@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import SiteShell from "../components/SiteShell";
 import { StatsStrip, WhyISF, FinalCta, ConversionStyles } from "../components/ConversionSections";
-import QuoteModal from "../components/QuoteModal";
+import LazyQuoteModal from "../components/LazyQuoteModal";
 
 const CATEGORIES = ["Todos", "Câmeras", "DVR / NVR", "Alarmes", "Cerca Elétrica", "Controle de Acesso"];
 
@@ -209,7 +209,7 @@ export default function ProductsGallery({ products }) {
 
             {/* CTA buttons */}
             <div style={{ display: "flex", flexDirection: "column", gap: 12, minWidth: 220 }}>
-              <QuoteModal
+              <LazyQuoteModal
                 label="Solicitar Orçamento Grátis"
                 context="Catálogo de Produtos"
                 buttonStyle={{
@@ -308,7 +308,7 @@ export default function ProductsGallery({ products }) {
               </p>
             </div>
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap", flexShrink: 0 }}>
-              <QuoteModal
+              <LazyQuoteModal
                 label="Solicitar Orçamento"
                 context="Catálogo de Produtos"
                 buttonStyle={{

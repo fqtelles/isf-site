@@ -15,8 +15,11 @@ export default function QuoteModal({
   context = "Site",
   buttonStyle = {},
   buttonClass = "",
+  hideTrigger = false,
+  startOpen = false,
+  onAfterClose,
 }) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(startOpen);
   const [form, setForm] = useState({ nome: "", telefone: "", email: "", mensagem: "" });
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -55,30 +58,33 @@ export default function QuoteModal({
       setSent(false);
       setError("");
       setForm({ nome: "", telefone: "", email: "", mensagem: "" });
+      onAfterClose?.();
     }, 300);
   }
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className={buttonClass}
-        style={{
-          display: "inline-block",
-          background: "#126798",
-          color: "#fff",
-          padding: "12px 24px",
-          borderRadius: 9999,
-          fontWeight: 600,
-          fontSize: "0.88rem",
-          border: "none",
-          cursor: "pointer",
-          fontFamily: "inherit",
-          ...buttonStyle,
-        }}
-      >
-        {label}
-      </button>
+      {!hideTrigger && (
+        <button
+          onClick={() => setOpen(true)}
+          className={buttonClass}
+          style={{
+            display: "inline-block",
+            background: "#126798",
+            color: "#fff",
+            padding: "12px 24px",
+            borderRadius: 9999,
+            fontWeight: 600,
+            fontSize: "0.88rem",
+            border: "none",
+            cursor: "pointer",
+            fontFamily: "inherit",
+            ...buttonStyle,
+          }}
+        >
+          {label}
+        </button>
+      )}
 
       {open && (
         <div

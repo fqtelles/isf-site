@@ -4,6 +4,11 @@ import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
 
+const HERO_LCP_MOBILE_828 = "/_next/image?url=%2Fmobile-slide-1.png&w=828&q=75";
+const HERO_LCP_MOBILE_1080 = "/_next/image?url=%2Fmobile-slide-1.png&w=1080&q=75";
+const HERO_LCP_DESKTOP_1200 = "/_next/image?url=%2Fhero-slide-1-v2.png&w=1200&q=75";
+const HERO_LCP_DESKTOP_1920 = "/_next/image?url=%2Fhero-slide-1-v2.png&w=1920&q=75";
+
 export const metadata = {
   title: "ISF Soluções em Segurança | Alarmes, Câmeras e Monitoramento em Curitiba",
   description:
@@ -122,6 +127,22 @@ export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR" className={inter.variable}>
       <head>
+        <link
+          rel="preload"
+          as="image"
+          href={HERO_LCP_MOBILE_828}
+          media="(max-width: 768px)"
+          imageSrcSet={`${HERO_LCP_MOBILE_828} 828w, ${HERO_LCP_MOBILE_1080} 1080w`}
+          imageSizes="100vw"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href={HERO_LCP_DESKTOP_1200}
+          media="(min-width: 769px)"
+          imageSrcSet={`${HERO_LCP_DESKTOP_1200} 1200w, ${HERO_LCP_DESKTOP_1920} 1920w`}
+          imageSizes="100vw"
+        />
         {/* Google Analytics 4 */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-80H81158R9"

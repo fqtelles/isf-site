@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import QuoteModal from "./QuoteModal";
+import LazyQuoteModal from "./LazyQuoteModal";
 
 const WA_HREF =
   "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
@@ -295,7 +295,7 @@ export function FinalCta({ context }) {
           Orçamento gratuito e sem compromisso. Atendemos Curitiba e toda a Região Metropolitana há mais de 35 anos.
         </p>
         <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-          <QuoteModal
+          <LazyQuoteModal
             label="Solicitar Orçamento"
             context={context || "Site"}
             buttonStyle={{

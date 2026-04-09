@@ -1,10 +1,26 @@
 "use client";
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import styles from "./home.module.css";
+import styles from "./home-critical.module.css";
 
 const GoogleReviewsWidget = dynamic(() => import("./components/GoogleReviewsWidget"), { ssr: false });
+const HomeProductsSection = dynamic(() => import("./components/home/HomeProductsSection"), {
+  ssr: false,
+  loading: () => <SectionPlaceholder id="produtos" minHeight={720} />,
+});
+const HomeBlogSection = dynamic(() => import("./components/home/HomeBlogSection"), {
+  ssr: false,
+  loading: () => <SectionPlaceholder id="blog" minHeight={640} background="#f9fafb" />,
+});
+const HomeFaqSection = dynamic(() => import("./components/home/HomeFaqSection"), {
+  ssr: false,
+  loading: () => <SectionPlaceholder id="faq" minHeight={520} />,
+});
+const HomeContactSection = dynamic(() => import("./components/home/HomeContactSection"), {
+  ssr: false,
+  loading: () => <SectionPlaceholder id="contato" minHeight={840} background="#f9fafb" />,
+});
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -219,6 +235,7 @@ function HeroSlider() {
   const handleTouchStart = (e) => {
     touchX.current = e.touches[0].clientX;
   };
+
   const handleTouchEnd = (e) => {
     if (touchX.current === null) return;
     const dx = e.changedTouches[0].clientX - touchX.current;
@@ -262,7 +279,6 @@ function HeroSlider() {
               alt={s.alt}
               className={styles['hero-slide-img']}
               fetchPriority={i === 0 ? "high" : undefined}
-              loading={i === 0 ? "eager" : undefined}
               decoding={i === 0 ? "auto" : "async"}
               style={{
                 width: "100%",
@@ -300,29 +316,8 @@ function HeroSlider() {
   );
 }
 
-function FaqItem({ q, a }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div style={{ borderBottom: "1px solid #e5e7eb" }}>
-      <button
-        onClick={() => setOpen(o => !o)}
-        style={{
-          width: "100%", background: "none", border: "none", cursor: "pointer",
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          padding: "20px 0", textAlign: "left", gap: 16,
-        }}
-        aria-expanded={open}
-      >
-        <span style={{ fontSize: "0.97rem", fontWeight: 700, color: "#1a1d20", lineHeight: 1.4 }}>{q}</span>
-        <span style={{ flexShrink: 0, transform: open ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.25s" }}>
-          <Icon d={ICONS.chevron} size={20} color="#6b7280" />
-        </span>
-      </button>
-      {open && (
-        <p style={{ fontSize: "0.9rem", color: "#6b7280", lineHeight: 1.72, paddingBottom: 20, margin: 0 }}>{a}</p>
-      )}
-    </div>
-  );
+function SectionPlaceholder({ id, minHeight, background = "#fff" }) {
+  return <section id={id} aria-hidden="true" style={{ minHeight, background }} />;
 }
 
 
@@ -330,112 +325,6 @@ function FaqItem({ q, a }) {
 export default function HomeClient({ initialProducts, initialBlogPosts }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [formData, setFormData] = useState({ nome: "", email: "", telefone: "", servico: "", mensagem: "" });
-  const [formSent, setFormSent] = useState(false);
-  const [formSending, setFormSending] = useState(false);
-  const [formError, setFormError] = useState("");
-  const [activeCategory, setActiveCategory] = useState("Todos");
-  const [carouselIndex, setCarouselIndex] = useState(0);
-  const [products, setProducts] = useState(initialProducts);
-  const [blogPosts, setBlogPosts] = useState(initialBlogPosts);
-
-  const shuffledProducts = useMemo(() => {
-    const arr = [...products];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    // Ensure at least one camera is visible in the first VISIBLE slots
-    const hasCameraFirst = arr.slice(0, VISIBLE).some(p => p.category === "Câmeras");
-    if (!hasCameraFirst) {
-      const cameraIdx = arr.findIndex(p => p.category === "Câmeras");
-      if (cameraIdx !== -1) {
-        const swapPos = Math.floor(Math.random() * VISIBLE);
-        [arr[swapPos], arr[cameraIdx]] = [arr[cameraIdx], arr[swapPos]];
-      }
-    }
-    return arr;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const filteredProducts = activeCategory === "Todos"
-    ? shuffledProducts
-    : products.filter(p => p.category === activeCategory);
-  const maxIndex = Math.max(0, filteredProducts.length - VISIBLE);
-
-  const [carouselPaused, setCarouselPaused] = useState(false);
-  const prodTouchX = useRef(null);
-  const prodTrackRef = useRef(null);
-  const prodIndexRef = useRef(carouselIndex);
-  prodIndexRef.current = carouselIndex;
-
-  const prevSlide = () => setCarouselIndex(i => Math.max(0, i - 1));
-  const nextSlide = () => setCarouselIndex(i => Math.min(maxIndex, i + 1));
-
-  const prodTouchStart = e => {
-    prodTouchX.current = e.touches[0].clientX;
-    setCarouselPaused(true);
-    if (prodTrackRef.current) prodTrackRef.current.style.transition = "none";
-  };
-  const prodTouchMove = e => {
-    if (prodTouchX.current === null) return;
-    const dx = e.touches[0].clientX - prodTouchX.current;
-    if (prodTrackRef.current) {
-      prodTrackRef.current.style.transform =
-        `translateX(calc(-${prodIndexRef.current * (100 / VISIBLE)}% + ${dx}px))`;
-    }
-  };
-  const prodTouchEnd = e => {
-    if (prodTouchX.current === null) return;
-    const dx = e.changedTouches[0].clientX - prodTouchX.current;
-    if (prodTrackRef.current) prodTrackRef.current.style.transition = "";
-    if (dx < -30) nextSlide();
-    else if (dx > 30) prevSlide();
-    else if (prodTrackRef.current) {
-      prodTrackRef.current.style.transform =
-        `translateX(-${prodIndexRef.current * (100 / VISIBLE)}%)`;
-    }
-    prodTouchX.current = null;
-    setCarouselPaused(false);
-  };
-
-  // Blog carousel
-  const [blogCarouselIndex, setBlogCarouselIndex] = useState(0);
-  const [blogCarouselPaused, setBlogCarouselPaused] = useState(false);
-  const blogMaxIndex = Math.max(0, Math.ceil(blogPosts.length / BLOG_VISIBLE) - 1);
-  const blogPrevSlide = () => setBlogCarouselIndex(i => Math.max(0, i - 1));
-  const blogNextSlide = () => setBlogCarouselIndex(i => Math.min(blogMaxIndex, i + 1));
-  const blogTouchX = useRef(null);
-  const blogTrackRef = useRef(null);
-  const blogIndexRef = useRef(blogCarouselIndex);
-  blogIndexRef.current = blogCarouselIndex;
-
-  const blogTouchStart = e => {
-    blogTouchX.current = e.touches[0].clientX;
-    setBlogCarouselPaused(true);
-    if (blogTrackRef.current) blogTrackRef.current.style.transition = "none";
-  };
-  const blogTouchMove = e => {
-    if (blogTouchX.current === null) return;
-    const dx = e.touches[0].clientX - blogTouchX.current;
-    if (blogTrackRef.current) {
-      blogTrackRef.current.style.transform =
-        `translateX(calc(-${blogIndexRef.current * 100}% + ${dx}px))`;
-    }
-  };
-  const blogTouchEnd = e => {
-    if (blogTouchX.current === null) return;
-    const dx = e.changedTouches[0].clientX - blogTouchX.current;
-    if (blogTrackRef.current) blogTrackRef.current.style.transition = "";
-    if (dx < -30) blogNextSlide();
-    else if (dx > 30) blogPrevSlide();
-    else if (blogTrackRef.current) {
-      blogTrackRef.current.style.transform =
-        `translateX(-${blogIndexRef.current * 100}%)`;
-    }
-    blogTouchX.current = null;
-    setBlogCarouselPaused(false);
-  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -443,45 +332,6 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    setCarouselIndex(0);
-  }, [activeCategory]);
-
-  useEffect(() => {
-    if (carouselPaused) return;
-    const timer = setInterval(() => {
-      setCarouselIndex(i => (i >= maxIndex ? 0 : i + 1));
-    }, 6000);
-    return () => clearInterval(timer);
-  }, [maxIndex, carouselPaused]);
-
-  useEffect(() => {
-    if (blogCarouselPaused) return;
-    const timer = setInterval(() => {
-      setBlogCarouselIndex(i => (i >= blogMaxIndex ? 0 : i + 1));
-    }, 7000);
-    return () => clearInterval(timer);
-  }, [blogMaxIndex, blogCarouselPaused]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormSending(true);
-    setFormError("");
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, pagina: "Homepage" }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Erro desconhecido");
-      setFormSent(true);
-    } catch (err) {
-      setFormError(err.message || "Erro ao enviar. Tente pelo WhatsApp.");
-    } finally {
-      setFormSending(false);
-    }
-  };
 
   return (
     <>
@@ -558,7 +408,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           <div className={styles['hero-overlay']} />
           {/* Mobile-only: título sobreposto no topo da imagem */}
           <div className={styles['hero-title-wrap']} aria-hidden="true">
-            <div className={styles['hero-supertitle']} style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 8 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
+            <div className={styles['hero-supertitle']} style={{ fontSize: "0.82rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.92)", marginBottom: 8 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
             <div className={styles['hero-title']} style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff" }}>
               Há mais de 35 anos<br />
               garantindo a sua{" "}
@@ -570,7 +420,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
         {/* Text content */}
         <div className={styles['hero-content']}>
           <div style={{ maxWidth: 620 }}>
-            <div className={`${styles['fade-up']} ${styles['fade-up-1']} ${styles['hero-supertitle']} ${styles['hero-desktop-only']}`} style={{ fontSize: "0.78rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 16 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
+            <div className={`${styles['fade-up']} ${styles['fade-up-1']} ${styles['hero-supertitle']} ${styles['hero-desktop-only']}`} style={{ fontSize: "0.82rem", fontWeight: 700, letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(255,255,255,0.92)", marginBottom: 16 }}>Desde 1988 · Curitiba e Região Metropolitana</div>
             <h1 className={`${styles['fade-up']} ${styles['fade-up-2']} ${styles['hero-title']} ${styles['hero-desktop-only']}`} style={{ fontSize: "clamp(2.4rem,4.5vw,3.8rem)", fontWeight: 800, lineHeight: 1.1, letterSpacing: "-0.03em", color: "#fff", marginBottom: 24 }}>
               Há mais de 35 anos<br />
               garantindo a sua{" "}
@@ -645,95 +495,8 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           </div>
         </div>
       </section>
-
       {/* PRODUCTS */}
-      <section id="produtos" style={{ padding: "96px 5%", background: "#fff" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <div className={styles['section-label']}>Equipamentos</div>
-            <div className={styles['divider']} style={{ margin: "0 auto 20px" }} />
-            <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.6rem)", fontWeight: 800, color: "#1a1d20", marginBottom: 12, letterSpacing: "-0.02em" }}>Produtos das melhores marcas</h2>
-            <p style={{ color: "#6b7280", fontSize: "1rem", maxWidth: 520, margin: "0 auto" }}>Revenda autorizada Intelbras. Trabalhamos também com Paradox, ViaWeb, HikVision e outras referências do setor para garantir máxima qualidade na sua instalação.</p>
-          </div>
-
-          {/* Category Tabs */}
-          <div className={styles['category-tabs']} style={{ justifyContent: "center" }}>
-            {PRODUCT_CATEGORIES.map(cat => (
-              <button
-                key={cat}
-                className={`${styles['category-tab']}${activeCategory === cat ? ` ${styles.active}` : ""}`}
-                onClick={() => setActiveCategory(cat)}
-              >{cat}</button>
-            ))}
-          </div>
-
-          {/* Carousel */}
-          <div
-            className={styles['carousel-outer']}
-            style={{ padding: "0 24px" }}
-            onMouseEnter={() => setCarouselPaused(true)}
-            onMouseLeave={() => setCarouselPaused(false)}
-          >
-            <button className={`${styles['carousel-btn']} ${styles['carousel-btn-prev']}`} onClick={prevSlide} onMouseDown={() => setCarouselPaused(true)} onMouseUp={() => setCarouselPaused(false)} disabled={carouselIndex === 0} aria-label="Anterior">‹</button>
-            <div className={styles['carousel-overflow']} onTouchStart={prodTouchStart} onTouchMove={prodTouchMove} onTouchEnd={prodTouchEnd} style={{ touchAction: "pan-y" }}>
-              <div
-                ref={prodTrackRef}
-                className={styles['carousel-track']}
-                style={{ transform: `translateX(-${carouselIndex * (100 / VISIBLE)}%)` }}
-              >
-                {filteredProducts.map(p => (
-                  <div key={p.id} className={styles['product-card']}>
-                    <a href={`/produtos/${p.slug || p.id}/`} className={styles['product-card-inner']} style={{ display: "block", textDecoration: "none", color: "inherit" }}>
-                      <div className={styles['product-img-wrap']} style={{ position: "relative" }}>
-                        <Image src={p.image} alt={p.name} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "contain" }} />
-                      </div>
-                      <div className={styles['product-info']}>
-                        <span className={styles['product-brand']}>{p.brand}</span>
-                        <div className={styles['product-name']}>{p.name}</div>
-                        <div className={styles['product-cat']}>{p.category}</div>
-                        <div style={{ marginTop: 10, fontSize: "0.72rem", color: "#126798", fontWeight: 700 }}>Ver detalhes →</div>
-                      </div>
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <button className={`${styles['carousel-btn']} ${styles['carousel-btn-next']}`} onClick={nextSlide} onMouseDown={() => setCarouselPaused(true)} onMouseUp={() => setCarouselPaused(false)} disabled={carouselIndex >= maxIndex} aria-label="Próximo">›</button>
-          </div>
-
-          {/* Dots */}
-          <div className={styles['carousel-dots']}>
-            {Array.from({ length: maxIndex + 1 }).map((_, i) => (
-              <button
-                key={i}
-                className={`${styles['carousel-dot']}${carouselIndex === i ? ` ${styles.active}` : ""}`}
-                onClick={() => setCarouselIndex(i)}
-                aria-label={`Slide ${i + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Ver todos */}
-          <div style={{ textAlign: "center", marginTop: 40 }}>
-            <a
-              href="/produtos/"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                background: "#126798", color: "#fff",
-                padding: "14px 36px", borderRadius: 9999,
-                fontFamily: "inherit", fontWeight: 700, fontSize: "0.92rem",
-                textDecoration: "none", transition: "all 0.25s",
-                boxShadow: "0 4px 20px rgba(18,103,152,0.28)",
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#0d5280"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "#126798"; e.currentTarget.style.transform = "none"; }}
-            >
-              Ver catálogo completo
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </a>
-          </div>
-        </div>
-      </section>
+      <HomeProductsSection products={initialProducts} />
 
       {/* ABOUT */}
       <section id="empresa" style={{ padding: "96px 5%", background: "#fff" }}>
@@ -850,208 +613,12 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           </div>
         </div>
       </section>
-
       {/* BLOG */}
-      <section id="blog" style={{ padding: "96px 5%", background: "#f9fafb", backgroundImage: "radial-gradient(rgba(18,103,152,0.15) 1px, transparent 1px)", backgroundSize: "26px 26px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ marginBottom: 48 }}>
-            <div className={styles['section-label']}>Blog & Conteúdo</div>
-            <div className={styles['divider']} />
-            <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em" }}>Dicas de segurança</h2>
-          </div>
-          {/* Blog Carousel */}
-          <div
-            className={styles['carousel-outer']}
-            style={{ padding: "0 24px" }}
-            onMouseEnter={() => setBlogCarouselPaused(true)}
-            onMouseLeave={() => setBlogCarouselPaused(false)}
-          >
-            <button
-              className={`${styles['carousel-btn']} ${styles['carousel-btn-prev']}`}
-              onClick={blogPrevSlide}
-              onMouseDown={() => setBlogCarouselPaused(true)}
-              onMouseUp={() => setBlogCarouselPaused(false)}
-              disabled={blogCarouselIndex === 0}
-              aria-label="Anterior"
-            >‹</button>
-            <div className={styles['carousel-overflow']} onTouchStart={blogTouchStart} onTouchMove={blogTouchMove} onTouchEnd={blogTouchEnd} style={{ touchAction: "pan-y" }}>
-              <div
-                ref={blogTrackRef}
-                className={styles['carousel-track']}
-                style={{ transform: `translateX(-${blogCarouselIndex * 100}%)` }}
-              >
-                {blogPosts.map(post => (
-                  <div key={post.id} className={styles['blog-card-slide']}>
-                    <a href={`/blog/${post.slug || post.id}/`} className={styles['blog-card']} style={{ padding: 0, overflow: "hidden" }}>
-                      {post.coverImage && (
-                        <div style={{ width: "100%", height: 160, overflow: "hidden", flexShrink: 0, position: "relative" }}>
-                          <Image src={post.coverImage} alt={post.title} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "cover" }} />
-                        </div>
-                      )}
-                      <div style={{ padding: "20px 22px 22px" }}>
-                        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 14 }}>
-                          <span style={{ fontSize: "0.72rem", color: "#32373c", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: 700 }}>{post.date}</span>
-                          <span style={{ fontSize: "0.72rem", color: "#9ca3af" }}>⏱ {post.readTime}</span>
-                        </div>
-                        <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#1a1d20", lineHeight: 1.45, marginBottom: 10 }}>{post.title}</h3>
-                        <p style={{ fontSize: "0.85rem", color: "#6b7280", lineHeight: 1.62, marginBottom: 18 }}>{post.excerpt}</p>
-                        <span style={{ fontSize: "0.82rem", color: "#126798", fontWeight: 600 }}>Ler artigo →</span>
-                      </div>
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <button
-              className={`${styles['carousel-btn']} ${styles['carousel-btn-next']}`}
-              onClick={blogNextSlide}
-              onMouseDown={() => setBlogCarouselPaused(true)}
-              onMouseUp={() => setBlogCarouselPaused(false)}
-              disabled={blogCarouselIndex >= blogMaxIndex}
-              aria-label="Próximo"
-            >›</button>
-          </div>
-          {/* Dots */}
-          <div className={styles['carousel-dots']}>
-            {Array.from({ length: blogMaxIndex + 1 }).map((_, i) => (
-              <button
-                key={i}
-                className={`${styles['carousel-dot']}${blogCarouselIndex === i ? ` ${styles.active}` : ""}`}
-                onClick={() => setBlogCarouselIndex(i)}
-                aria-label={`Slide ${i + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Ver todos os posts */}
-          <div style={{ textAlign: "center", marginTop: 40 }}>
-            <a
-              href="/blog/"
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                background: "#126798", color: "#fff",
-                padding: "14px 36px", borderRadius: 9999,
-                fontFamily: "inherit", fontWeight: 700, fontSize: "0.92rem",
-                textDecoration: "none", transition: "all 0.25s",
-                boxShadow: "0 4px 20px rgba(18,103,152,0.28)",
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = "#0d5280"; e.currentTarget.style.transform = "translateY(-1px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.background = "#126798"; e.currentTarget.style.transform = "none"; }}
-            >
-              Ver todos os artigos
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </a>
-          </div>
-        </div>
-      </section>
-
+      <HomeBlogSection blogPosts={initialBlogPosts} />
       {/* FAQ */}
-      <section id="faq" style={{ padding: "80px 5%", background: "#fff" }}>
-        <div style={{ maxWidth: 760, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <div className={styles['section-label']}>Dúvidas Frequentes</div>
-            <div className={styles['divider']} style={{ margin: "0 auto 20px" }} />
-            <h2 style={{ fontSize: "clamp(1.6rem,3vw,2.2rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em" }}>Perguntas frequentes</h2>
-          </div>
-          <div>
-            {FAQS.map(faq => (
-              <FaqItem key={faq.q} q={faq.q} a={faq.a} />
-            ))}
-          </div>
-          <div style={{ textAlign: "center", marginTop: 40 }}>
-            <p style={{ color: "#6b7280", fontSize: "0.9rem", marginBottom: 16 }}>Ainda tem dúvidas? Fale diretamente com nossa equipe.</p>
-            <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-              <a href="#contato" className={styles['btn-primary']}>Solicitar orçamento grátis</a>
-              <a href={WA_HREF} className={styles['btn-whatsapp']} target="_blank" rel="noopener noreferrer"><WaIcon />WhatsApp</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <HomeFaqSection faqs={FAQS} />
       {/* CONTACT */}
-      <section id="contato" style={{ padding: "96px 5%", background: "#f9fafb", backgroundImage: "radial-gradient(rgba(18,103,152,0.15) 1px, transparent 1px)", backgroundSize: "26px 26px" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <div className={styles['section-label']}>Fale Conosco</div>
-            <div className={styles['divider']} style={{ margin: "0 auto 20px" }} />
-            <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em", marginBottom: 10 }}>Solicite seu orçamento grátis</h2>
-            <p style={{ color: "#6b7280", fontSize: "0.97rem" }}>Atendemos Curitiba e Região Metropolitana. Entre em contato e receba um orçamento sem compromisso.</p>
-          </div>
-          <div className={styles['contact-grid']} style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 48 }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {[
-                { icon: "chat", label: "Telefone / WhatsApp", val: "(41) 3378-7933", href: "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!" },
-                { icon: "pin", label: "Endereço", val: "R. Omar Dutra, 52 — São Lourenço, Curitiba-PR" },
-                { icon: "clock", label: "Horário de atendimento", val: "Segunda a sexta: 8h30 – 18h00" },
-              ].map(item => (
-                <div key={item.label} style={{ display: "flex", gap: 14, alignItems: "flex-start", padding: "18px 20px", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10 }}>
-                  <div style={{ flexShrink: 0, marginTop: 2 }}><Icon d={ICONS[item.icon]} size={18} color="#6b7280" /></div>
-                  <div>
-                    <div style={{ fontSize: "0.72rem", color: "#6b7280", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 2 }}>{item.label}</div>
-                    <div style={{ color: "#1a1d20", fontSize: "0.9rem", fontWeight: 500 }}>
-                      {item.href ? <a href={item.href} target="_blank" rel="noopener noreferrer" style={{ color: "#1a1d20", textDecoration: "none" }}>{item.val}</a> : item.val}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 14, padding: 36 }}>
-              {formSent ? (
-                <div style={{ textAlign: "center", padding: "40px 0" }}>
-                  <div style={{ fontSize: "2.8rem", marginBottom: 16 }}>✅</div>
-                  <h3 style={{ color: "#1a1d20", fontWeight: 800, fontSize: "1.3rem", marginBottom: 8 }}>Mensagem enviada!</h3>
-                  <p style={{ color: "#6b7280" }}>Entraremos em contato em breve.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-                    <label htmlFor="contact-nome" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Nome completo</label>
-                    <input id="contact-nome" className={styles['form-input']} placeholder="Nome completo" required value={formData.nome} onChange={e => setFormData({ ...formData, nome: e.target.value })} />
-                    <label htmlFor="contact-email" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>E-mail</label>
-                    <input id="contact-email" className={styles['form-input']} placeholder="E-mail" type="email" required value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
-                  </div>
-                  <label htmlFor="contact-telefone" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Telefone / WhatsApp</label>
-                  <input id="contact-telefone" className={styles['form-input']} placeholder="Telefone / WhatsApp" value={formData.telefone} onChange={e => setFormData({ ...formData, telefone: e.target.value })} />
-                  <label htmlFor="contact-servico" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Serviço de interesse</label>
-                  <select id="contact-servico" className={styles['form-input']} value={formData.servico} onChange={e => setFormData({ ...formData, servico: e.target.value })}>
-                    <option value="">Serviço de interesse</option>
-                    <option>Alarmes</option>
-                    <option>Câmeras CFTV</option>
-                    <option>Monitoramento</option>
-                    <option>Cerca Elétrica</option>
-                    <option>Controle de Acesso</option>
-                    <option>Outros</option>
-                  </select>
-                  <label htmlFor="contact-mensagem" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Mensagem</label>
-                  <textarea id="contact-mensagem" className={styles['form-input']} placeholder="Descreva brevemente sua necessidade..." rows={4} style={{ resize: "none" }} value={formData.mensagem} onChange={e => setFormData({ ...formData, mensagem: e.target.value })} />
-                  <button type="submit" className={styles['btn-primary']} disabled={formSending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: formSending ? 0.7 : 1 }}>
-                    {formSending ? "Enviando…" : "Enviar Mensagem"}
-                  </button>
-                  {formError && <p style={{ fontSize: "0.82rem", color: "#dc2626", textAlign: "center", margin: 0 }}>{formError}</p>}
-                  <p style={{ fontSize: "0.75rem", color: "#9ca3af", textAlign: "center" }}>Seus dados estão seguros. Nunca enviamos spam.</p>
-                </form>
-              )}
-            </div>
-          </div>
-
-          {/* MAPA */}
-          <div style={{ marginTop: 48 }}>
-            <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "#9ca3af", marginBottom: 12 }}>Como chegar</div>
-            <div style={{ border: "2px solid #c5ddef", borderRadius: 14, overflow: "hidden", boxShadow: "0 4px 24px rgba(18,103,152,0.10)" }}>
-              <iframe
-                src="https://maps.google.com/maps?q=ISF+Seguran%C3%A7a+Eletr%C3%B4nica,+Curitiba,+PR&t=&z=16&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="340"
-                style={{ border: 0, display: "block" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Localização ISF Segurança Eletrônica — R. Omar Dutra, 52, Curitiba-PR"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomeContactSection />
 
       {/* FOOTER */}
       <footer style={{ padding: "48px 5% 32px", background: "#1a1d20", borderTop: "1px solid #2d3137" }}>
@@ -1067,37 +634,37 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
                 height={36}
                 style={{ height: 36, width: "auto", objectFit: "contain", filter: "brightness(0) invert(1)", marginBottom: 14 }}
               />
-              <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.65 }}>
+              <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.65 }}>
                 Segurança eletrônica em Curitiba e Região Metropolitana há mais de 35 anos.
               </p>
             </div>
             {/* Links */}
             <div>
-              <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 14 }}>Navegação</div>
+              <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 14 }}>Navegação</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 {[{ label: "Home", href: "#home" }, { label: "Serviços", href: "#servicos" }, { label: "Produtos", href: "#produtos" }, { label: "Empresa", href: "#empresa" }, { label: "Blog", href: "#blog" }, { label: "Contato", href: "#contato" }].map(l => (
-                  <a key={l.label} href={l.href} style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.55)", textDecoration: "none", transition: "color 0.2s" }}
+                  <a key={l.label} href={l.href} style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.72)", textDecoration: "none", transition: "color 0.2s" }}
                     onMouseEnter={e => e.target.style.color = "#fff"}
-                    onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.55)"}
+                    onMouseLeave={e => e.target.style.color = "rgba(255,255,255,0.72)"}
                   >{l.label}</a>
                 ))}
               </div>
             </div>
             {/* Contact */}
             <div>
-              <div style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.35)", marginBottom: 14 }}>Contato</div>
+              <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 14 }}>Contato</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                <a href="tel:4133787933" style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>(41) 3378-7933</a>
-                <a href="https://api.whatsapp.com/send?phone=554133787933" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>WhatsApp (41) 99991-9191</a>
-                <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.4)" }}>Seg–Sex: 8h30–18h00</span>
-                <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.4)" }}>R. Omar Dutra, 52 — Curitiba, PR</span>
+                <a href="tel:4133787933" style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.72)", textDecoration: "none" }}>(41) 3378-7933</a>
+                <a href="https://api.whatsapp.com/send?phone=554133787933" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.72)", textDecoration: "none" }}>WhatsApp (41) 99991-9191</a>
+                <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.7)" }}>Seg–Sex: 8h30–18h00</span>
+                <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.7)" }}>R. Omar Dutra, 52 — Curitiba, PR</span>
               </div>
             </div>
           </div>
           <div style={{ borderTop: "1px solid #2d3137", paddingTop: 20, display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
-            <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>© 2025 ISF Soluções em Segurança · Todos os direitos reservados</div>
+            <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.68)" }}>© 2025 ISF Soluções em Segurança · Todos os direitos reservados</div>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>CNPJ registrado · Curitiba, PR</div>
+              <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.68)" }}>CNPJ registrado · Curitiba, PR</div>
               <div style={{ display: "flex", gap: 10 }}>
                 <a href="https://www.facebook.com/isfsegurancaeletronica" target="_blank" rel="noopener noreferrer" aria-label="Facebook ISF" style={{ color: "rgba(255,255,255,0.35)", transition: "color 0.2s", display: "flex" }}
                   onMouseEnter={e => e.currentTarget.style.color="rgba(255,255,255,0.75)"}

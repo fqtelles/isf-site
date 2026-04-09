@@ -34,6 +34,11 @@ const FOOTER_SERVICES = [
 const WA_HREF =
   "https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!";
 
+const COPYRIGHT_YEAR = new Intl.DateTimeFormat("pt-BR", {
+  year: "numeric",
+  timeZone: "America/Sao_Paulo",
+}).format(new Date());
+
 
 export default function SiteShell({ children }) {
   const [scrolled, setScrolled] = useState(false);
@@ -208,7 +213,7 @@ export default function SiteShell({ children }) {
                   marginBottom: 14,
                 }}
               />
-              <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.65 }}>
+              <p style={{ fontSize: "0.82rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.65 }}>
                 Segurança eletrônica em Curitiba e Região Metropolitana há mais de 35 anos.
               </p>
             </div>
@@ -217,11 +222,11 @@ export default function SiteShell({ children }) {
             <div>
               <div
                 style={{
-                  fontSize: "0.72rem",
+                  fontSize: "0.75rem",
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.35)",
+                  color: "rgba(255,255,255,0.7)",
                   marginBottom: 14,
                 }}
               >
@@ -240,11 +245,11 @@ export default function SiteShell({ children }) {
             <div>
               <div
                 style={{
-                  fontSize: "0.72rem",
+                  fontSize: "0.75rem",
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.35)",
+                  color: "rgba(255,255,255,0.7)",
                   marginBottom: 14,
                 }}
               >
@@ -263,11 +268,11 @@ export default function SiteShell({ children }) {
             <div>
               <div
                 style={{
-                  fontSize: "0.72rem",
+                  fontSize: "0.75rem",
                   fontWeight: 700,
                   letterSpacing: "0.12em",
                   textTransform: "uppercase",
-                  color: "rgba(255,255,255,0.35)",
+                  color: "rgba(255,255,255,0.7)",
                   marginBottom: 14,
                 }}
               >
@@ -285,10 +290,10 @@ export default function SiteShell({ children }) {
                 >
                   WhatsApp (41) 99991-9191
                 </a>
-                <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.4)" }}>
+                <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.7)" }}>
                   Seg–Sex: 8h30–18h00
                 </span>
-                <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.4)" }}>
+                <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.7)" }}>
                   R. Omar Dutra, 52 — Curitiba, PR
                 </span>
               </div>
@@ -307,11 +312,11 @@ export default function SiteShell({ children }) {
               gap: 12,
             }}
           >
-            <div suppressHydrationWarning style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>
-              © {new Date().getFullYear()} ISF Soluções em Segurança · Todos os direitos reservados
+            <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.68)" }}>
+              © {COPYRIGHT_YEAR} ISF Soluções em Segurança · Todos os direitos reservados
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.3)" }}>
+              <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.68)" }}>
                 CNPJ registrado · Curitiba, PR
               </div>
               <div style={{ display: "flex", gap: 10 }}>

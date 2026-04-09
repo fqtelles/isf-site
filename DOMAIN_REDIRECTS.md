@@ -32,6 +32,32 @@ Se não cobrir www ainda:
 certbot --nginx --expand -d isf.com.br -d www.isf.com.br
 ```
 
+## HTTP/2
+
+O Nginx do projeto deve anunciar HTTP/2 nos blocos HTTPS de `isf.com.br` e `www.isf.com.br`:
+
+```nginx
+listen 443 ssl http2;
+```
+
+Verificar no servidor:
+
+```bash
+nginx -t
+systemctl reload nginx
+
+curl --http2 -I https://isf.com.br
+curl --http2 -I https://www.isf.com.br
+```
+
+Esperado:
+- Negociação HTTP/2 no domínio canônico
+- Redirect `301` de `https://www.isf.com.br` para `https://isf.com.br`
+- Certificado válido para ambos os hosts
+
+Validação externa:
+- [KeyCDN HTTP/2 Test](https://tools.keycdn.com/http2-test)
+
 ## Verificação
 
 ```bash

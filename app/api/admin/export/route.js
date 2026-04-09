@@ -1,5 +1,6 @@
 import { requireAdmin } from "../../../../lib/auth";
 import { prisma } from "../../../../lib/prisma";
+import { findManyBlogPosts } from "../../../../lib/blog-posts";
 import { slugify } from "../../../../lib/slugify";
 
 export async function GET() {
@@ -11,7 +12,7 @@ export async function GET() {
   }
 
   const products = await prisma.product.findMany({ orderBy: { id: "asc" } });
-  const blogPosts = await prisma.blogPost.findMany({ orderBy: { id: "asc" } });
+  const blogPosts = await findManyBlogPosts({ orderBy: { id: "asc" } });
 
   // Build unique slugs for products, regenerating bad ones from the name
   const usedProductSlugs = new Set();

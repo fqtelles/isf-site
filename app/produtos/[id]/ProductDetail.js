@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import SiteShell from "../../components/SiteShell";
 import { StatsStrip, WhyISF, CategoryFaq, FinalCta, ConversionStyles } from "../../components/ConversionSections";
-import QuoteModal from "../../components/QuoteModal";
+import LazyQuoteModal from "../../components/LazyQuoteModal";
 
 function WaIcon() {
   return (
@@ -244,7 +244,7 @@ export default function ProductDetail({ product, related }) {
                 >
                   <WaIcon /> WhatsApp
                 </a>
-                <QuoteModal
+                <LazyQuoteModal
                   label="Solicitar Orçamento"
                   context={`Produto: ${product.name}`}
                   buttonClass="btn-primary"

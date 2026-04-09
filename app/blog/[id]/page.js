@@ -1,5 +1,5 @@
 import { notFound, permanentRedirect } from "next/navigation";
-import { prisma } from "../../../lib/prisma";
+import { findFirstBlogPost, findManyBlogPosts, findUniqueBlogPost } from "../../../lib/blog-posts";
 import SiteShell from "../../components/SiteShell";
 import BreadcrumbSchema from "../../components/BreadcrumbSchema";
 import { StatsStrip, ServiceLinks, BlogFaq, FinalCta, ConversionStyles } from "../../components/ConversionSections";
@@ -75,7 +75,7 @@ export default async function BlogPostPage({ params }) {
 
   // Numeric ID → permanent redirect to slug URL (SEO 301)
   if (/^\d+$/.test(slugOrId)) {
-    const post = await prisma.blogPost.findUnique({ where: { id: parseInt(slugOrId, 10) } });
+    const post = await findUniqueBlogPost({ where: { id: parseInt(slugOrId, 10) } });
     if (!post) notFound();
     if (post.slug) permanentRedirect(`/blog/${post.slug}`);
     // fallback if slug not yet set
@@ -83,16 +83,16 @@ export default async function BlogPostPage({ params }) {
   }
 
   // Slug lookup
-  const post = await prisma.blogPost.findFirst({ where: { slug: slugOrId } });
+  const post = await findFirstBlogPost({ where: { slug: slugOrId } });
   if (!post) notFound();
   return await renderPost(post);
 }
 
 async function findPost(slugOrId) {
   if (/^\d+$/.test(slugOrId)) {
-    return prisma.blogPost.findUnique({ where: { id: parseInt(slugOrId, 10) } });
+    return findUniqueBlogPost({ where: { id: parseInt(slugOrId, 10) } });
   }
-  return prisma.blogPost.findFirst({ where: { slug: slugOrId } });
+  return findFirstBlogPost({ where: { slug: slugOrId } });
 }
 
 /** Convert content to HTML — handles both legacy plain-text and new rich HTML */
@@ -115,7 +115,7 @@ function contentToHtml(content) {
 async function renderPost(post) {
   const bodyHtml = contentToHtml(post.content);
 
-  const related = await prisma.blogPost.findMany({
+  const related = await findManyBlogPosts({
     where: { NOT: { id: post.id }, slug: { not: null } },
     take: 3,
     orderBy: { id: "desc" },

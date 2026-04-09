@@ -9,6 +9,12 @@ const nextConfig = {
   trailingSlash: true,
   experimental: {
     optimizeCss: true,
+    optimizePackageImports: [
+      "@heroicons/react",
+      "react-icons",
+      "@tiptap/react",
+      "@tiptap/pm",
+    ],
   },
   images: {
     remotePatterns: [
@@ -81,9 +87,6 @@ const nextConfig = {
         // (blocos location do Nginx não herdam add_header do bloco server)
         source: "/(.*)",
         headers: [
-          { key: "X-Content-Type-Options",  value: "nosniff" },
-          { key: "X-Frame-Options",          value: "SAMEORIGIN" },
-          { key: "Referrer-Policy",          value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy",       value: "camera=(), microphone=(), geolocation=()" },
         ],
       },

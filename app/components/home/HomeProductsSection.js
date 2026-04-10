@@ -39,6 +39,7 @@ export default function HomeProductsSection({ products }) {
   const [carouselPage, setCarouselPage] = useState(0);
   const [visibleCount, setVisibleCount] = useState(DESKTOP_VISIBLE);
   const [loadedCount, setLoadedCount] = useState(PRODUCT_BATCH);
+  const [isPaused, setIsPaused] = useState(false);
   const prodTouchX = useRef(null);
   const prodTrackRef = useRef(null);
   const loadMoreRef = useRef(null);
@@ -142,7 +143,7 @@ export default function HomeProductsSection({ products }) {
   const goToPage = (page) => setCarouselPage(Math.max(0, Math.min(maxPage, page)));
 
   useEffect(() => {
-    if (maxPage <= 0) return undefined;
+    if (maxPage <= 0 || isPaused) return undefined;
 
     autoPlayRef.current = setInterval(() => {
       setCarouselPage((page) => (page >= maxPage ? 0 : page + 1));
@@ -151,7 +152,7 @@ export default function HomeProductsSection({ products }) {
     return () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     };
-  }, [maxPage]);
+  }, [isPaused, maxPage]);
 
   const handleTouchStart = (event) => {
     prodTouchX.current = event.touches[0].clientX;
@@ -209,7 +210,12 @@ export default function HomeProductsSection({ products }) {
           ))}
         </div>
 
-        <div className={styles["carousel-outer"]} style={{ padding: "0 24px" }}>
+        <div
+          className={styles["carousel-outer"]}
+          style={{ padding: "0 24px" }}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           {maxPage > 0 && (
             <button
               className={`${styles["carousel-btn"]} ${styles["carousel-btn-prev"]}`}
@@ -314,7 +320,7 @@ export default function HomeProductsSection({ products }) {
               boxShadow: "0 4px 20px rgba(18,103,152,0.28)",
             }}
           >
-            Ver cat\u00e1logo completo
+            Ver catálogo completo
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <polyline points="9 18 15 12 9 6" />
             </svg>

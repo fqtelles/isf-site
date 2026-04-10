@@ -8,6 +8,7 @@ const BLOG_VISIBLE = 3;
 
 export default function HomeBlogSection({ blogPosts }) {
   const [blogCarouselIndex, setBlogCarouselIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
   const blogMaxIndex = Math.max(0, Math.ceil(blogPosts.length / BLOG_VISIBLE) - 1);
   const blogTouchX = useRef(null);
   const blogTrackRef = useRef(null);
@@ -19,7 +20,7 @@ export default function HomeBlogSection({ blogPosts }) {
   const nextSlide = () => setBlogCarouselIndex((index) => (index >= blogMaxIndex ? 0 : index + 1));
 
   useEffect(() => {
-    if (blogMaxIndex <= 0) return undefined;
+    if (blogMaxIndex <= 0 || isPaused) return undefined;
 
     autoPlayRef.current = setInterval(() => {
       setBlogCarouselIndex((index) => (index >= blogMaxIndex ? 0 : index + 1));
@@ -28,7 +29,7 @@ export default function HomeBlogSection({ blogPosts }) {
     return () => {
       if (autoPlayRef.current) clearInterval(autoPlayRef.current);
     };
-  }, [blogMaxIndex]);
+  }, [blogMaxIndex, isPaused]);
 
   const handleTouchStart = (event) => {
     blogTouchX.current = event.touches[0].clientX;
@@ -76,7 +77,12 @@ export default function HomeBlogSection({ blogPosts }) {
           </h2>
         </div>
 
-        <div className={styles["carousel-outer"]} style={{ padding: "0 24px" }}>
+        <div
+          className={styles["carousel-outer"]}
+          style={{ padding: "0 24px" }}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+        >
           <button className={`${styles["carousel-btn"]} ${styles["carousel-btn-prev"]}`} onClick={prevSlide} aria-label="Anterior">
             &#8249;
           </button>

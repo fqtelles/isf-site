@@ -1,5 +1,5 @@
 ﻿"use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import styles from "./home-critical.module.css";
@@ -21,6 +21,23 @@ const HomeContactSection = dynamic(() => import("./components/home/HomeContactSe
   ssr: false,
   loading: () => <SectionPlaceholder id="contato" minHeight={840} background="#f9fafb" />,
 });
+
+function LazySection({ children, id, minHeight, background = "#fff" }) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") { setVisible(true); return; }
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } }, { rootMargin: "200px" });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return (
+    <div ref={ref}>
+      {visible ? children : <SectionPlaceholder id={id} minHeight={minHeight} background={background} />}
+    </div>
+  );
+}
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
@@ -306,7 +323,9 @@ function HeroSlider() {
               background: i === active ? "#fff" : "rgba(255,255,255,0.45)",
               border: "none",
               cursor: "pointer",
-              padding: 0,
+              padding: "10px 0",
+              boxSizing: "content-box",
+              backgroundClip: "content-box",
               transition: "all 0.35s ease",
             }}
           />
@@ -317,7 +336,7 @@ function HeroSlider() {
 }
 
 function SectionPlaceholder({ id, minHeight, background = "#fff" }) {
-  return <section id={id} aria-hidden="true" style={{ minHeight, background }} />;
+  return <section id={id} style={{ minHeight, background }} />;
 }
 
 
@@ -335,6 +354,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
 
   return (
     <>
+      <main>
       {/* WhatsApp FAB */}
       <a href="https://api.whatsapp.com/send?phone=554133787933&text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20gostaria%20de%20um%20or%C3%A7amento!" className={styles['whatsapp-fab']} target="_blank" rel="noopener noreferrer" aria-label="Fale conosco pelo WhatsApp">
         <svg viewBox="0 0 24 24" fill="white" width="30" height="30">
@@ -466,9 +486,11 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
             <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em" }}>Avaliações de Clientes</h2>
             <p style={{ color: "#6b7280", fontSize: "1rem", maxWidth: 520, margin: "12px auto 0" }}>A satisfação e proteção de nossos clientes são a nossa maior prioridade.</p>
           </div>
-          <div style={{ width: "100%", overflow: "hidden", paddingTop: 16 }}>
-            <GoogleReviewsWidget />
-          </div>
+          <LazySection id="reviews-lazy" minHeight={200} background="#f9fafb">
+            <div style={{ width: "100%", overflow: "hidden", paddingTop: 16 }}>
+              <GoogleReviewsWidget />
+            </div>
+          </LazySection>
         </div>
       </section>
 
@@ -496,7 +518,9 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
         </div>
       </section>
       {/* PRODUCTS */}
-      <HomeProductsSection products={initialProducts} />
+      <LazySection id="produtos" minHeight={720}>
+        <HomeProductsSection products={initialProducts} />
+      </LazySection>
 
       {/* ABOUT */}
       <section id="empresa" style={{ padding: "96px 5%", background: "#fff" }}>
@@ -614,11 +638,17 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
         </div>
       </section>
       {/* BLOG */}
-      <HomeBlogSection blogPosts={initialBlogPosts} />
+      <LazySection id="blog" minHeight={640} background="#f9fafb">
+        <HomeBlogSection blogPosts={initialBlogPosts} />
+      </LazySection>
       {/* FAQ */}
-      <HomeFaqSection faqs={FAQS} />
+      <LazySection id="faq" minHeight={520}>
+        <HomeFaqSection faqs={FAQS} />
+      </LazySection>
       {/* CONTACT */}
-      <HomeContactSection />
+      <LazySection id="contato" minHeight={840} background="#f9fafb">
+        <HomeContactSection />
+      </LazySection>
 
       {/* FOOTER */}
       <footer style={{ padding: "48px 5% 32px", background: "#1a1d20", borderTop: "1px solid #2d3137" }}>
@@ -681,6 +711,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
           </div>
         </div>
       </footer>
+      </main>
     </>
   );
 }

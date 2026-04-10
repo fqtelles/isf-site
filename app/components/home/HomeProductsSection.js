@@ -241,7 +241,8 @@ export default function HomeProductsSection({ products }) {
                 <div
                   key={`page-${windowStart + pageIndex}`}
                   className={styles["product-page"]}
-                  aria-hidden={windowStart + pageIndex !== carouselPage}
+                  aria-hidden={windowStart + pageIndex !== carouselPage || undefined}
+                  inert={windowStart + pageIndex !== carouselPage ? true : undefined}
                 >
                   {page.map((product) => (
                     <div key={product.id} className={styles["product-card"]}>

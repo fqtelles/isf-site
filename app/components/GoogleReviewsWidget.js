@@ -78,7 +78,7 @@ function ReviewCard({ review }) {
             <div style={{ fontWeight: 700, fontSize: "0.92rem", color: "#1a1d20", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
               {review.author}
             </div>
-            <div style={{ fontSize: "0.78rem", color: "#9ca3af" }}>{review.relativeDate}</div>
+            <div style={{ fontSize: "0.78rem", color: "#6b7280" }}>{review.relativeDate}</div>
           </div>
         </div>
         <GoogleIcon size={22} />

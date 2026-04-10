@@ -134,6 +134,7 @@ export default function RootLayout({ children }) {
           media="(max-width: 768px)"
           imageSrcSet={`${HERO_LCP_MOBILE_828} 828w, ${HERO_LCP_MOBILE_1080} 1080w`}
           imageSizes="100vw"
+          fetchPriority="high"
         />
         <link
           rel="preload"
@@ -142,6 +143,7 @@ export default function RootLayout({ children }) {
           media="(min-width: 769px)"
           imageSrcSet={`${HERO_LCP_DESKTOP_1200} 1200w, ${HERO_LCP_DESKTOP_1920} 1920w`}
           imageSizes="100vw"
+          fetchPriority="high"
         />
         {/* Google Analytics 4 */}
         <Script

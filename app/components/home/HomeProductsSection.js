@@ -6,10 +6,10 @@ import styles from "../../home.module.css";
 
 const PRODUCT_CATEGORIES = [
   "Todos",
-  "C\u00e2meras",
+  "Câmeras",
   "DVR / NVR",
   "Alarmes",
-  "Cerca El\u00e9trica",
+  "Cerca Elétrica",
   "Controle de Acesso",
 ];
 const DESKTOP_VISIBLE = 3;
@@ -56,10 +56,10 @@ export default function HomeProductsSection({ products }) {
 
     const hasCameraFirst = items
       .slice(0, DESKTOP_VISIBLE)
-      .some((product) => product.category === "C\u00e2meras");
+      .some((product) => product.category === "Câmeras");
 
     if (!hasCameraFirst) {
-      const cameraIndex = items.findIndex((product) => product.category === "C\u00e2meras");
+      const cameraIndex = items.findIndex((product) => product.category === "Câmeras");
 
       if (cameraIndex !== -1) {
         const swapPosition = Math.floor(Math.random() * DESKTOP_VISIBLE);
@@ -194,7 +194,7 @@ export default function HomeProductsSection({ products }) {
             Produtos das melhores marcas
           </h2>
           <p style={{ color: "#6b7280", fontSize: "1rem", maxWidth: 520, margin: "0 auto" }}>
-            Revenda autorizada Intelbras. Trabalhamos tamb\u00e9m com Paradox, ViaWeb, HikVision e outras refer\u00eancias do setor para garantir m\u00e1xima qualidade na sua instala\u00e7\u00e3o.
+            Revenda autorizada Intelbras. Trabalhamos também com Paradox, ViaWeb, HikVision e outras referências do setor para garantir máxima qualidade na sua instalação.
           </p>
         </div>
 
@@ -278,7 +278,7 @@ export default function HomeProductsSection({ products }) {
             <button
               className={`${styles["carousel-btn"]} ${styles["carousel-btn-next"]}`}
               onClick={nextSlide}
-              aria-label="Pr\u00f3ximo"
+              aria-label="Próximo"
             >
               &#8250;
             </button>

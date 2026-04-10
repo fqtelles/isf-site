@@ -70,10 +70,10 @@ export default function HomeBlogSection({ blogPosts }) {
     >
       <div style={{ maxWidth: 1100, margin: "0 auto" }}>
         <div style={{ marginBottom: 48 }}>
-          <div className={styles["section-label"]}>Blog & Conteudo</div>
+          <div className={styles["section-label"]}>Blog & Conteúdo</div>
           <div className={styles.divider} />
           <h2 style={{ fontSize: "clamp(1.8rem,3vw,2.4rem)", fontWeight: 800, color: "#1a1d20", letterSpacing: "-0.02em" }}>
-            Dicas de seguranca
+            Dicas de segurança
           </h2>
         </div>
 
@@ -124,7 +124,7 @@ export default function HomeBlogSection({ blogPosts }) {
               ))}
             </div>
           </div>
-          <button className={`${styles["carousel-btn"]} ${styles["carousel-btn-next"]}`} onClick={nextSlide} aria-label="Proximo">
+          <button className={`${styles["carousel-btn"]} ${styles["carousel-btn-next"]}`} onClick={nextSlide} aria-label="Próximo">
             &#8250;
           </button>
         </div>

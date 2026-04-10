@@ -104,7 +104,7 @@ export default function HomeContactSection() {
                 <label htmlFor="contact-mensagem" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Mensagem</label>
                 <textarea id="contact-mensagem" className={styles["form-input"]} placeholder="Descreva brevemente sua necessidade..." rows={4} style={{ resize: "none" }} value={formData.mensagem} onChange={(e) => setFormData({ ...formData, mensagem: e.target.value })} />
                 <button type="submit" className={styles["btn-primary"]} disabled={formSending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: formSending ? 0.7 : 1 }}>
-                  {formSending ? "Enviando…" : "Enviar Mensagem"}
+                  {formSending ? "Enviando..." : "Enviar Mensagem"}
                 </button>
                 {formError && <p style={{ fontSize: "0.82rem", color: "#dc2626", textAlign: "center", margin: 0 }}>{formError}</p>}
                 <p style={{ fontSize: "0.75rem", color: "#9ca3af", textAlign: "center" }}>Seus dados estão seguros. Nunca enviamos spam.</p>

@@ -255,9 +255,7 @@ export default function GoogleReviewsWidget() {
                 </svg>
               </button>
 
-              <div style={{ fontSize: "0.78rem", color: "#6b7280", fontWeight: 600, minWidth: 140, textAlign: "center" }}>
-                Avaliacoes {current + 1} a {Math.min(current + visibleCount, reviews.length)} de {reviews.length}
-              </div>
+              <div aria-hidden="true" style={{ minWidth: 140, height: 1 }} />
 
               <button onClick={next} aria-label="Proxima avaliacao" style={reviewControlBaseStyle}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">

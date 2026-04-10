@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { timingSafeEqual } from "crypto";
 import { rateLimit, getIp } from "../../../../lib/rate-limit";
+import { ADMIN_SESSION_COOKIE, ADMIN_SESSION_TTL_MS, createAdminSessionToken } from "../../../../lib/auth";
 
 function safeCompare(a, b) {
   try {
@@ -32,11 +33,16 @@ export async function POST(request) {
       return NextResponse.json({ error: "Senha incorreta" }, { status: 401 });
     }
 
-    const maxAge = 60 * 60 * 24; // 24 horas
+    const sessionToken = createAdminSessionToken();
+    if (!sessionToken) {
+      return NextResponse.json({ error: "Configuração de autenticação incompleta" }, { status: 500 });
+    }
+
+    const maxAge = Math.floor(ADMIN_SESSION_TTL_MS / 1000);
     const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
     return NextResponse.json({ ok: true }, {
       headers: {
-        "Set-Cookie": `admin_token=${process.env.ADMIN_SECRET}; HttpOnly; Path=/; SameSite=Strict${secure}; Max-Age=${maxAge}`,
+        "Set-Cookie": `${ADMIN_SESSION_COOKIE}=${sessionToken}; HttpOnly; Path=/; SameSite=Strict${secure}; Max-Age=${maxAge}`,
       },
     });
   } catch {
@@ -48,7 +54,7 @@ export async function DELETE() {
   const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
   return NextResponse.json({ ok: true }, {
     headers: {
-      "Set-Cookie": `admin_token=; HttpOnly; Path=/; SameSite=Strict${secure}; Max-Age=0`,
+      "Set-Cookie": `${ADMIN_SESSION_COOKIE}=; HttpOnly; Path=/; SameSite=Strict${secure}; Max-Age=0`,
     },
   });
 }

@@ -1,15 +1,13 @@
-import { cookies } from "next/headers";
 import { prisma } from "../../lib/prisma";
 import { findManyBlogPosts } from "../../lib/blog-posts";
+import { requireAdmin } from "../../lib/auth";
 import AdminDashboard from "./AdminDashboard";
 import LoginForm from "./login/LoginForm";
 
 export const dynamic = "force-dynamic";
 
 export default async function AdminPage() {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("admin_token")?.value;
-  if (!token || token !== process.env.ADMIN_SECRET) {
+  if (!(await requireAdmin())) {
     return <LoginForm />;
   }
 

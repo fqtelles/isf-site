@@ -10,6 +10,7 @@ APP_DIR="/var/www/isf-site"
 BRANCH="main"
 UPLOADS_DIR="$APP_DIR/public/uploads"
 BACKUP_DIR="/var/backups/isf-uploads"
+APPLY_MIGRATIONS="${APPLY_MIGRATIONS:-0}"
 
 echo "========================================"
 echo "  Deploy ISF Segurança"
@@ -73,7 +74,13 @@ npm ci --omit=dev
 
 echo "[3/5] Atualizando banco de dados..."
 npx prisma generate
-npx prisma db push --accept-data-loss
+if [ "$APPLY_MIGRATIONS" = "1" ]; then
+  echo "  -> APPLY_MIGRATIONS=1 detectado. Aplicando migrations com prisma migrate deploy..."
+  npx prisma migrate deploy
+else
+  echo "  -> Schema não será alterado neste deploy."
+  echo "  -> Para aplicar migrations versionadas, execute: APPLY_MIGRATIONS=1 bash scripts/deploy.sh"
+fi
 
 echo "[4/5] Build de produção..."
 npm run build

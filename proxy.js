@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+const ADMIN_SESSION_COOKIE = "admin_token";
+
 const csp = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -43,8 +45,8 @@ export function proxy(request) {
     if (pathname === "/admin/login" || pathname === "/admin/login/") {
       return withSecurityHeaders(NextResponse.next());
     }
-    const token = request.cookies.get("admin_token")?.value;
-    if (!token || token !== process.env.ADMIN_SECRET) {
+    const token = request.cookies.get(ADMIN_SESSION_COOKIE)?.value;
+    if (!token) {
       return withSecurityHeaders(NextResponse.redirect(new URL("/admin/login", request.url)));
     }
   }

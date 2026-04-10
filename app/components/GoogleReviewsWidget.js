@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import reviewsData from "../../lib/google-reviews.json";
 
 // Google "G" colorido SVG
@@ -182,6 +182,7 @@ export default function GoogleReviewsWidget() {
   const [current, setCurrent] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const reviews = reviewsData.reviews;
+  const autoPlayRef = useRef(null);
   const reviewControlBaseStyle = {
     width: 36,
     height: 36,
@@ -212,6 +213,18 @@ export default function GoogleReviewsWidget() {
   const next = () => setCurrent(c => (c === maxIndex ? 0 : c + 1));
 
   const visible = reviews.slice(current, current + visibleCount);
+
+  useEffect(() => {
+    if (maxIndex <= 0) return undefined;
+
+    autoPlayRef.current = setInterval(() => {
+      setCurrent((c) => (c === maxIndex ? 0 : c + 1));
+    }, 4800);
+
+    return () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    };
+  }, [maxIndex]);
 
   return (
     <div style={{ width: "100%" }}>

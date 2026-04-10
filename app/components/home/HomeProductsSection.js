@@ -43,6 +43,7 @@ export default function HomeProductsSection({ products }) {
   const prodTrackRef = useRef(null);
   const loadMoreRef = useRef(null);
   const trackOffsetRef = useRef(0);
+  const autoPlayRef = useRef(null);
 
   const shuffledProducts = useMemo(() => {
     const items = [...products];
@@ -136,9 +137,21 @@ export default function HomeProductsSection({ products }) {
     return () => observer.disconnect();
   }, [filteredProducts.length, loadedCount]);
 
-  const prevSlide = () => setCarouselPage((page) => Math.max(0, page - 1));
-  const nextSlide = () => setCarouselPage((page) => Math.min(maxPage, page + 1));
+  const prevSlide = () => setCarouselPage((page) => (page === 0 ? maxPage : page - 1));
+  const nextSlide = () => setCarouselPage((page) => (page >= maxPage ? 0 : page + 1));
   const goToPage = (page) => setCarouselPage(Math.max(0, Math.min(maxPage, page)));
+
+  useEffect(() => {
+    if (maxPage <= 0) return undefined;
+
+    autoPlayRef.current = setInterval(() => {
+      setCarouselPage((page) => (page >= maxPage ? 0 : page + 1));
+    }, 5200);
+
+    return () => {
+      if (autoPlayRef.current) clearInterval(autoPlayRef.current);
+    };
+  }, [maxPage]);
 
   const handleTouchStart = (event) => {
     prodTouchX.current = event.touches[0].clientX;
@@ -201,7 +214,6 @@ export default function HomeProductsSection({ products }) {
             <button
               className={`${styles["carousel-btn"]} ${styles["carousel-btn-prev"]}`}
               onClick={prevSlide}
-              disabled={carouselPage === 0}
               aria-label="Anterior"
             >
               &#8249;
@@ -260,7 +272,6 @@ export default function HomeProductsSection({ products }) {
             <button
               className={`${styles["carousel-btn"]} ${styles["carousel-btn-next"]}`}
               onClick={nextSlide}
-              disabled={carouselPage >= maxPage}
               aria-label="Pr\u00f3ximo"
             >
               &#8250;

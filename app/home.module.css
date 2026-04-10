@@ -37,12 +37,12 @@ select.form-input :global(option) { background: #fff; }
 .animate-spin-slow { animation: spin 50s linear infinite; }
 .animate-spin-rev { animation: spinRev 40s linear infinite; }
 @keyframes waPulse {
-  0%   { transform: scale(1); opacity: 0.55; }
-  50%  { transform: scale(1.18); opacity: 0.18; }
-  100% { transform: scale(1.32); opacity: 0; }
+  0%   { transform: scale(0.9); opacity: 0.5; }
+  55%  { transform: scale(1.24); opacity: 0.22; }
+  100% { transform: scale(1.48); opacity: 0; }
 }
 .whatsapp-fab { position: fixed; bottom: 28px; right: 28px; width: 60px; height: 60px; border-radius: 50%; background: #25d366; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 999; box-shadow: 0 4px 20px rgba(37,211,102,0.35); text-decoration: none; transition: transform 0.25s ease, opacity 0.25s ease; will-change: transform; transform: translateZ(0); backface-visibility: hidden; isolation: isolate; }
-.whatsapp-fab::before { content: ""; position: absolute; inset: 0; border-radius: 50%; background: rgba(37,211,102,0.35); animation: waPulse 2.2s ease-out infinite; will-change: transform, opacity; transform: translateZ(0); backface-visibility: hidden; pointer-events: none; z-index: 0; }
+.whatsapp-fab::before { content: ""; position: absolute; inset: -8px; border-radius: 50%; background: rgba(37,211,102,0.32); animation: waPulse 1.9s ease-out infinite; will-change: transform, opacity; transform: translateZ(0); backface-visibility: hidden; pointer-events: none; z-index: 0; }
 .whatsapp-fab > * { position: relative; z-index: 1; }
 .whatsapp-fab:hover { transform: translateZ(0) scale(1.08); }
 .whatsapp-fab:hover::before { animation-play-state: paused; opacity: 0; }

@@ -34,6 +34,7 @@ export async function POST(request) {
       },
     });
     revalidatePath("/blog");
+    revalidatePath(`/blog/${slug}`);
     revalidatePath("/sitemap.xml");
     return NextResponse.json(post, { status: 201 });
   } catch {

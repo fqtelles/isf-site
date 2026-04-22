@@ -1,3 +1,5 @@
+export const revalidate = 3600;
+
 import { notFound, permanentRedirect } from "next/navigation";
 import { findFirstBlogPost, findManyBlogPosts, findUniqueBlogPost } from "../../../lib/blog-posts";
 import SiteShell from "../../components/SiteShell";

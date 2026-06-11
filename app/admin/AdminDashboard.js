@@ -193,7 +193,7 @@ function ProductsTab({ products, setProducts }) {
 
   // search + sort state
   const [search, setSearch]   = useState("");
-  const [sortKey, setSortKey] = useState(null);   // null = ordem padrão | "name" | "createdAt"
+  const [sortKey, setSortKey] = useState("name"); // null = ordem padrão | "name" | "createdAt"
   const [sortDir, setSortDir] = useState("asc");
 
   function toggleSort(key) {

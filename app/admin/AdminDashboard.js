@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo } from "react";
 import dynamic from "next/dynamic";
 const RichTextEditor = dynamic(() => import("../components/RichTextEditor"), { ssr: false });
 import { slugify } from "../../lib/slugify";
@@ -191,6 +191,31 @@ function ProductsTab({ products, setProducts }) {
   // gallery URL input state
   const [galleryUrlInput, setGalleryUrlInput] = useState("");
 
+  // search + sort state
+  const [search, setSearch]   = useState("");
+  const [sortKey, setSortKey] = useState(null);   // null = ordem padrão | "name" | "createdAt"
+  const [sortDir, setSortDir] = useState("asc");
+
+  function toggleSort(key) {
+    if (sortKey === key) { setSortDir(d => d === "asc" ? "desc" : "asc"); }
+    else { setSortKey(key); setSortDir("asc"); }
+  }
+
+  const visible = useMemo(() => {
+    const norm = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+    let list = products;
+    if (search.trim()) list = list.filter(p => norm(p.name).includes(norm(search)));
+    if (sortKey) {
+      list = [...list].sort((a, b) => {
+        const r = sortKey === "name"
+          ? a.name.localeCompare(b.name, "pt-BR", { sensitivity: "base" })
+          : new Date(a.createdAt) - new Date(b.createdAt);
+        return sortDir === "asc" ? r : -r;
+      });
+    }
+    return list;
+  }, [products, search, sortKey, sortDir]);
+
   return (
     <div>
       {/* Header */}
@@ -378,27 +403,79 @@ function ProductsTab({ products, setProducts }) {
         </div>
       )}
 
+      {/* ── SEARCH ── */}
+      {products.length > 0 && (
+        <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+          <div style={{ position: "relative", flex: 1, maxWidth: 360 }}>
+            <span style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", fontSize: "0.85rem", pointerEvents: "none" }}>🔍</span>
+            <input
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Buscar produto por nome..."
+              style={{ width: "100%", background: C.bg, border: `1px solid ${C.border}`, borderRadius: 8, padding: "10px 34px", fontFamily: "inherit", fontSize: "0.88rem", color: C.dark, outline: "none", boxSizing: "border-box" }}
+            />
+            {search && (
+              <button type="button" onClick={() => setSearch("")}
+                style={{ position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)", width: 20, height: 20, borderRadius: "50%", background: C.border, color: C.muted, border: "none", fontSize: "0.75rem", fontWeight: 900, cursor: "pointer", lineHeight: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                ×
+              </button>
+            )}
+          </div>
+          {search.trim() && (
+            <span style={{ fontSize: "0.8rem", color: C.muted, whiteSpace: "nowrap" }}>
+              {visible.length} de {products.length} produto{products.length !== 1 ? "s" : ""}
+            </span>
+          )}
+        </div>
+      )}
+
       {/* ── TABLE ── */}
       {products.length === 0 ? (
         <div style={{ textAlign: "center", padding: "48px 0", color: C.muted, border: `1px dashed ${C.border}`, borderRadius: 12 }}>
           <p style={{ fontWeight: 700 }}>Nenhum produto cadastrado</p>
           <p style={{ fontSize: "0.83rem", marginTop: 4 }}>Clique em "+ Novo Produto" para começar</p>
         </div>
+      ) : visible.length === 0 ? (
+        <div style={{ textAlign: "center", padding: "48px 0", color: C.muted, border: `1px dashed ${C.border}`, borderRadius: 12 }}>
+          <p style={{ fontWeight: 700 }}>Nenhum produto encontrado para "{search}"</p>
+          <p style={{ fontSize: "0.83rem", marginTop: 4 }}>Tente outro termo ou limpe a busca</p>
+        </div>
       ) : (
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", background: C.white, border: `1px solid ${C.border}`, borderRadius: 12, overflow: "hidden" }}>
             <thead>
               <tr style={{ background: C.bg, borderBottom: `1px solid ${C.border}` }}>
-                {["Imagem", "Nome", "Marca", "Categoria", "Detalhes", "Ações"].map(h => (
-                  <th key={h} style={{ padding: "12px 16px", fontSize: "0.72rem", fontWeight: 700, color: C.muted, textAlign: "left", letterSpacing: "0.06em", textTransform: "uppercase" }}>{h}</th>
+                {[
+                  { label: "Imagem" },
+                  { label: "Nome", key: "name" },
+                  { label: "Marca" },
+                  { label: "Categoria" },
+                  { label: "Data", key: "createdAt" },
+                  { label: "Detalhes" },
+                  { label: "Ações" },
+                ].map(h => (
+                  <th key={h.label}
+                    onClick={h.key ? () => toggleSort(h.key) : undefined}
+                    title={h.key ? "Clique para ordenar" : undefined}
+                    style={{ padding: "12px 16px", fontSize: "0.72rem", fontWeight: 700, textAlign: "left", letterSpacing: "0.06em", textTransform: "uppercase",
+                      color: h.key && sortKey === h.key ? C.blue : C.muted,
+                      cursor: h.key ? "pointer" : "default", userSelect: "none", whiteSpace: "nowrap" }}>
+                    {h.label}
+                    {h.key && (
+                      <span style={{ marginLeft: 5, opacity: sortKey === h.key ? 1 : 0.35 }}>
+                        {sortKey === h.key ? (sortDir === "asc" ? "↑" : "↓") : "↕"}
+                      </span>
+                    )}
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {products.map((p, i) => {
+              {visible.map((p, i) => {
                 const imgs = (() => { try { return JSON.parse(p.images || "[]"); } catch { return []; } })();
                 return (
-                  <tr key={p.id} style={{ borderBottom: i < products.length - 1 ? `1px solid ${C.border}` : "none" }}>
+                  <tr key={p.id} style={{ borderBottom: i < visible.length - 1 ? `1px solid ${C.border}` : "none" }}>
                     <td style={{ padding: "12px 16px" }}>
                       <div style={{ width: 52, height: 52, background: C.bg, border: `1px solid ${C.border}`, borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -410,6 +487,9 @@ function ProductsTab({ products, setProducts }) {
                       <span style={{ display: "inline-block", fontSize: "0.65rem", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: "#fff", background: C.gray, padding: "3px 10px", borderRadius: 9999 }}>{p.brand}</span>
                     </td>
                     <td style={{ padding: "12px 16px", fontSize: "0.83rem", color: C.muted }}>{p.category}</td>
+                    <td style={{ padding: "12px 16px", fontSize: "0.8rem", color: C.muted, whiteSpace: "nowrap" }}>
+                      {p.createdAt ? new Date(p.createdAt).toLocaleDateString("pt-BR") : "—"}
+                    </td>
                     <td style={{ padding: "12px 16px" }}>
                       <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                         {imgs.length > 0 && (

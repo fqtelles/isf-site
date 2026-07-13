@@ -31,5 +31,8 @@
     "react-dom": "^19",
     "resend": "^6.9.4",
     "sanitize-html": "^2.17.2"
+  },
+  "overrides": {
+    "postcss": "8.5.19"
   }
 }

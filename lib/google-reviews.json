@@ -1,15 +1,31 @@
 {
   "businessName": "ISF Soluções em Segurança",
   "rating": 4.8,
-  "totalReviews": 33,
+  "totalReviews": 35,
   "profileUrl": "https://maps.app.goo.gl/g4LfZgmNfKspRp8g6",
   "reviews": [
+    {
+      "id": 26,
+      "author": "Cleverson Souza",
+      "authorInitials": "CS",
+      "rating": 5,
+      "relativeDate": "um mês atrás",
+      "text": "Empresa seria, sempre disponivel para tirar duvidas, resposta rápida, realizam um ótimo atendimento e entrega técnica. Ótimo custo beneficio."
+    },
+    {
+      "id": 25,
+      "author": "Marcos Yanase",
+      "authorInitials": "MY",
+      "rating": 5,
+      "relativeDate": "4 meses atrás",
+      "text": "Necessitei um serviço de instalação de cerca elétrica. Atendimento profissional desde o primeiro contato no WhatsApp; orçamento pontual e rápido com valor justo; instalação excelente, com atenção aos detalhes. Com certeza indicarei a qualquer familiar ou amigo que precisar."
+    },
     {
       "id": 1,
       "author": "Rita de Cassia Graf",
       "authorInitials": "RG",
       "rating": 5,
-      "relativeDate": "2 semanas atrás",
+      "relativeDate": "4 meses atrás",
       "text": "Sempre muito bem atendida! Empresa com muita experiência e compromisso com o cliente!"
     },
     {
@@ -17,7 +33,7 @@
       "author": "Delson Volpato",
       "authorInitials": "DV",
       "rating": 5,
-      "relativeDate": "5 meses atrás",
+      "relativeDate": "9 meses atrás",
       "text": "Se você precisa de soluções em segurança e monitoramento, pode chamar a ISF. São extremamente profissionais e um atendimento nota 10. Indico muito."
     },
     {
@@ -25,7 +41,7 @@
       "author": "André Silva",
       "authorInitials": "AS",
       "rating": 5,
-      "relativeDate": "2 meses atrás",
+      "relativeDate": "6 meses atrás",
       "text": "Bom serviço, rápido, pontual e extremamente profissional. Recomendo."
     },
     {
@@ -33,7 +49,7 @@
       "author": "Juliana Ruaro",
       "authorInitials": "JR",
       "rating": 5,
-      "relativeDate": "5 meses atrás",
+      "relativeDate": "9 meses atrás",
       "text": "Atendimento rápido e eficiente, profissionais muito responsáveis de trabalho impecável!"
     },
     {
@@ -195,14 +211,6 @@
       "rating": 5,
       "relativeDate": "6 anos atrás",
       "text": "Legal"
-    },
-    {
-      "id": 25,
-      "author": "Marcos Yanase",
-      "authorInitials": "MY",
-      "rating": 5,
-      "relativeDate": "2 semanas atrás",
-      "text": "Necessitei um serviço de instalação de cerca elétrica. Atendimento profissional desde o primeiro contato no WhatsApp; orçamento pontual e rápido com valor justo; instalação excelente, com atenção aos detalhes. Com certeza indicarei a qualquer familiar ou amigo que precisar."
     }
   ]
 }

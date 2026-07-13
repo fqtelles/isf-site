@@ -86,7 +86,7 @@ function ReviewCard({ review }) {
 
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         <Stars count={review.rating} size={15} />
-        <span style={{ display: "inline-flex", alignItems: "center" }} title="Avaliacao verificada">
+        <span style={{ display: "inline-flex", alignItems: "center" }} title="Avaliação verificada">
           <VerifiedIcon size={15} />
         </span>
       </div>
@@ -137,10 +137,10 @@ function SummaryCard() {
 
       <div style={{ textAlign: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 2 }}>
-          <span style={{ fontSize: "2rem", fontWeight: 800, color: "#1a1d20", lineHeight: 1 }}>{rating}</span>
+          <span style={{ fontSize: "2rem", fontWeight: 800, color: "#1a1d20", lineHeight: 1 }}>{String(rating).replace(".", ",")}</span>
           <Stars count={5} size={20} />
         </div>
-        <div style={{ fontSize: "0.78rem", color: "#6b7280" }}>Baseado em {totalReviews}+ avaliacoes</div>
+        <div style={{ fontSize: "0.78rem", color: "#6b7280" }}>Baseado em {totalReviews} avaliações</div>
       </div>
 
       <div style={{ width: 1, height: 40, background: "#e5e7eb" }} />
@@ -249,7 +249,7 @@ export default function GoogleReviewsWidget() {
         {reviews.length > visibleCount && (
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12 }}>
-              <button onClick={prev} aria-label="Avaliacao anterior" style={reviewControlBaseStyle}>
+              <button onClick={prev} aria-label="Avaliação anterior" style={reviewControlBaseStyle}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">
                   <path d="M15 18l-6-6 6-6" />
                 </svg>
@@ -257,7 +257,7 @@ export default function GoogleReviewsWidget() {
 
               <div aria-hidden="true" style={{ minWidth: 140, height: 1 }} />
 
-              <button onClick={next} aria-label="Proxima avaliacao" style={reviewControlBaseStyle}>
+              <button onClick={next} aria-label="Próxima avaliação" style={reviewControlBaseStyle}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#374151" strokeWidth="2">
                   <path d="M9 18l6-6-6-6" />
                 </svg>
@@ -272,7 +272,7 @@ export default function GoogleReviewsWidget() {
                 <button
                   key={index}
                   onClick={() => setCurrent(index)}
-                  aria-label={`Avaliacao ${index + 1}`}
+                  aria-label={`Avaliação ${index + 1}`}
                   style={{
                     width: 44,
                     height: 44,

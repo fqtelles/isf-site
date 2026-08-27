@@ -3,7 +3,7 @@ import { useState } from "react";
 import styles from "./LandingPage.module.css";
 
 export default function LandingPageLeadForm({ service }) {
-  const [formData, setFormData] = useState({ nome: "", telefone: "", mensagem: "" });
+  const [formData, setFormData] = useState({ nome: "", telefone: "", email: "", mensagem: "" });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [formError, setFormError] = useState("");
@@ -46,6 +46,8 @@ export default function LandingPageLeadForm({ service }) {
             <input id="lp-nome" className={styles["lp-input"]} placeholder="Seu nome completo" required value={formData.nome} onChange={(e) => setFormData({ ...formData, nome: e.target.value })} />
             <label htmlFor="lp-telefone" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Telefone / WhatsApp</label>
             <input id="lp-telefone" className={styles["lp-input"]} placeholder="Telefone / WhatsApp" required value={formData.telefone} onChange={(e) => setFormData({ ...formData, telefone: e.target.value })} />
+            <label htmlFor="lp-email" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>E-mail</label>
+            <input id="lp-email" type="email" className={styles["lp-input"]} placeholder="E-mail" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
             <label htmlFor="lp-mensagem" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Mensagem</label>
             <textarea id="lp-mensagem" className={styles["lp-input"]} placeholder={service.formPlaceholder} rows={3} style={{ resize: "none" }} value={formData.mensagem} onChange={(e) => setFormData({ ...formData, mensagem: e.target.value })} />
             <button type="submit" className={styles["lp-btn"]} disabled={sending} style={{ width: "100%", textAlign: "center", borderRadius: 8, opacity: sending ? 0.7 : 1 }}>

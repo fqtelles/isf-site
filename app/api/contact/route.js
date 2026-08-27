@@ -35,9 +35,9 @@ export async function POST(req) {
     const body = await req.json();
     const { nome, email, telefone, servico, mensagem, pagina } = body;
 
-    if (!nome?.trim() || !telefone?.trim()) {
+    if (!nome?.trim() || !telefone?.trim() || !email?.trim()) {
       return NextResponse.json(
-        { error: "Nome e telefone são obrigatórios." },
+        { error: "Nome, telefone e e-mail são obrigatórios." },
         { status: 400 }
       );
     }
@@ -47,13 +47,13 @@ export async function POST(req) {
       return NextResponse.json({ error: "Nome muito longo." }, { status: 400 });
     if (telefone.trim().length > 20)
       return NextResponse.json({ error: "Telefone inválido." }, { status: 400 });
-    if (email && email.length > 254)
+    if (email.length > 254)
       return NextResponse.json({ error: "E-mail inválido." }, { status: 400 });
     if (mensagem && mensagem.length > 5000)
       return NextResponse.json({ error: "Mensagem muito longa (máx. 5000 caracteres)." }, { status: 400 });
 
     // Formato de e-mail
-    if (email && email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       return NextResponse.json({ error: "Formato de e-mail inválido." }, { status: 400 });
     }
 

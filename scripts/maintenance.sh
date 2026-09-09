@@ -23,6 +23,8 @@ GDRIVE_RETENTION=90           # dias de retenção dos logs no Google Drive
 DISK_THRESHOLD=80             # % de uso do disco para emitir aviso
 MEM_THRESHOLD=85              # % de uso de memória para emitir aviso
 CERT_WARN_DAYS=30             # dias antes do vencimento para emitir aviso de SSL
+SSH_TOP_N=10                  # quantos IPs mais agressivos verificar contra o fail2ban
+SSH_DANGER_THRESHOLD=20       # falhas em 7 dias a partir das quais um IP é considerado "perigoso"
 
 TIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
 DATE=$(date '+%Y-%m-%d')
@@ -282,15 +284,53 @@ FAILED_COUNT=$(journalctl -u "$SSH_UNIT" --since "7 days ago" --no-pager -q 2>/d
 
 log "Tentativas de login SSH com falha (últimos 7 dias): $FAILED_COUNT"
 if [ "$FAILED_COUNT" -gt 100 ]; then
-  warn "Alto volume de tentativas de login SSH: $FAILED_COUNT. Considere revisar fail2ban."
+  warn "Alto volume de tentativas de login SSH: $FAILED_COUNT."
 fi
 
-log "Top 5 IPs com falha de autenticação:"
-journalctl -u "$SSH_UNIT" --since "7 days ago" --no-pager -q 2>/dev/null \
+TOP_OFFENDERS=$(journalctl -u "$SSH_UNIT" --since "7 days ago" --no-pager -q 2>/dev/null \
   | grep "Failed password" \
   | grep -oP 'from \K[\d.]+' \
-  | sort | uniq -c | sort -rn | head -5 \
-  | tee -a "$LOG_FILE" || log "  (nenhum ou comando não disponível)"
+  | sort | uniq -c | sort -rn | head -"$SSH_TOP_N" || true)
+
+log "Top $SSH_TOP_N IPs com falha de autenticação:"
+if [ -n "$TOP_OFFENDERS" ]; then
+  log "$TOP_OFFENDERS"
+else
+  log "  (nenhum ou comando não disponível)"
+fi
+
+# Confere se os IPs mais agressivos (>= SSH_DANGER_THRESHOLD falhas) já estão
+# banidos pelo fail2ban, em qualquer jail ativo — não só o sshd.
+UNBANNED_OFFENDERS="não verificado (fail2ban ausente/inativo)"
+if command -v fail2ban-client &>/dev/null && systemctl is-active --quiet fail2ban 2>/dev/null; then
+  UNBANNED_OFFENDERS=""
+  JAILS=$(fail2ban-client status 2>/dev/null | grep "Jail list" | sed 's/.*://' | tr ',' '\n' | tr -d ' ')
+  BANNED_IPS=""
+  for jail in $JAILS; do
+    JAIL_BANNED=$(fail2ban-client status "$jail" 2>/dev/null | grep "Banned IP list:" | sed 's/.*Banned IP list://')
+    BANNED_IPS="$BANNED_IPS $JAIL_BANNED"
+  done
+
+  if [ -n "$TOP_OFFENDERS" ]; then
+    while read -r count ip; do
+      [ -z "$ip" ] && continue
+      if [ "$count" -ge "$SSH_DANGER_THRESHOLD" ]; then
+        if echo "$BANNED_IPS" | grep -qw "$ip"; then
+          log "  -> $ip ($count tentativas): banido"
+        else
+          warn "IP perigoso NÃO banido pelo fail2ban: $ip ($count tentativas nos últimos 7 dias)."
+          UNBANNED_OFFENDERS="$UNBANNED_OFFENDERS $ip($count)"
+        fi
+      fi
+    done <<< "$TOP_OFFENDERS"
+  fi
+
+  if [ -z "$UNBANNED_OFFENDERS" ]; then
+    success "Todos os IPs mais agressivos (>= $SSH_DANGER_THRESHOLD tentativas) já estão banidos pelo fail2ban."
+  fi
+else
+  warn "fail2ban não encontrado ou inativo. Não foi possível verificar se os IPs mais agressivos estão banidos."
+fi
 
 success "Verificação de segurança concluída."
 
@@ -424,6 +464,7 @@ else
      SM_APP="$APP_STATUS" \
      SM_REBOOT="$REBOOT_PENDING" \
      SM_SSH_FAILED="$FAILED_COUNT" \
+     SM_SSH_UNBANNED="${UNBANNED_OFFENDERS:-nenhum}" \
      SM_DB="${INTEGRITY:-não verificado}" \
      python3 <<'PYEOF'
 import base64
@@ -457,6 +498,7 @@ rows = [
     ("App isf-site (PM2)", os.environ["SM_APP"]),
     ("Reboot pendente", os.environ["SM_REBOOT"]),
     ("Falhas de login SSH (7d)", os.environ["SM_SSH_FAILED"]),
+    ("IPs perigosos não banidos", os.environ["SM_SSH_UNBANNED"]),
     ("Integridade do banco", os.environ["SM_DB"]),
 ]
 rows_html = "".join(

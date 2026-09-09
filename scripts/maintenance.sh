@@ -29,6 +29,13 @@ DATE=$(date '+%Y-%m-%d')
 WARNINGS=0
 ERRORS=0
 
+# Cron/root não carregam o nvm por padrão — sem isso, "pm2" não é encontrado
+# mesmo com a aplicação rodando normalmente.
+for nvm_bin in /root/.nvm/versions/node/*/bin; do
+  [ -d "$nvm_bin" ] && PATH="$PATH:$nvm_bin"
+done
+export PATH
+
 # ---------------------------------------------------------------------------
 # Funções auxiliares
 # ---------------------------------------------------------------------------
@@ -366,6 +373,92 @@ if command -v rclone &>/dev/null; then
   fi
 else
   warn "rclone não instalado. Log NÃO enviado para o Google Drive."
+fi
+
+# ---------------------------------------------------------------------------
+# Envio do relatório por e-mail (reaproveita o Resend já usado no formulário
+# de contato — RESEND_API_KEY já configurado em .env)
+# ---------------------------------------------------------------------------
+log ""
+log "Enviando relatório por e-mail..."
+
+if [ -f "$APP_DIR/.env" ]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "$APP_DIR/.env"
+  set +a
+fi
+
+# MAINTENANCE_EMAIL é opcional em .env; por padrão usa o mesmo CONTACT_EMAIL
+# que já recebe os leads do site.
+MAINTENANCE_EMAIL_TO="${MAINTENANCE_EMAIL:-${CONTACT_EMAIL:-}}"
+
+if [ -z "${RESEND_API_KEY:-}" ] || [ -z "$MAINTENANCE_EMAIL_TO" ]; then
+  warn "RESEND_API_KEY ou e-mail de destino (MAINTENANCE_EMAIL/CONTACT_EMAIL) não configurado em .env. Relatório não enviado por e-mail."
+elif ! command -v python3 &>/dev/null; then
+  warn "python3 não encontrado. Relatório não enviado por e-mail."
+else
+  if [ "$ERRORS" -gt 0 ]; then
+    STATUS_LABEL="FALHA"
+  elif [ "$WARNINGS" -gt 0 ]; then
+    STATUS_LABEL="ATENÇÃO"
+  else
+    STATUS_LABEL="SUCESSO"
+  fi
+
+  if RESEND_API_KEY="$RESEND_API_KEY" \
+     RESEND_FROM="${RESEND_FROM:-ISF Site <onboarding@resend.dev>}" \
+     MAIL_TO="$MAINTENANCE_EMAIL_TO" \
+     MAIL_SUBJECT="Manutenção ISF — $STATUS_LABEL — $DATE ($WARNINGS aviso(s), $ERRORS erro(s))" \
+     LOG_PATH="$LOG_FILE" \
+     python3 <<'PYEOF'
+import json
+import os
+import urllib.request
+
+log_path = os.environ["LOG_PATH"]
+with open(log_path, "r", errors="replace") as f:
+    text = f.read()
+
+# Mantém no e-mail só a execução mais recente, não o log acumulado inteiro.
+marker = "Manutenção ISF Segurança — início"
+idx = text.rfind(marker)
+if idx != -1:
+    start = text.rfind("========================================", 0, idx)
+    text = text[start if start != -1 else idx:]
+
+escaped = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+html = f"<pre style='font-family:monospace;font-size:12px;white-space:pre-wrap'>{escaped}</pre>"
+
+payload = json.dumps({
+    "from": os.environ["RESEND_FROM"],
+    "to": os.environ["MAIL_TO"],
+    "subject": os.environ["MAIL_SUBJECT"],
+    "html": html,
+}).encode("utf-8")
+
+req = urllib.request.Request(
+    "https://api.resend.com/emails",
+    data=payload,
+    method="POST",
+    headers={
+        "Authorization": f"Bearer {os.environ['RESEND_API_KEY']}",
+        "Content-Type": "application/json",
+    },
+)
+try:
+    with urllib.request.urlopen(req, timeout=15) as resp:
+        resp.read()
+        raise SystemExit(0 if resp.status < 300 else 1)
+except Exception as e:
+    print(f"Erro ao enviar e-mail: {e}")
+    raise SystemExit(1)
+PYEOF
+  then
+    success "Relatório enviado por e-mail para $MAINTENANCE_EMAIL_TO."
+  else
+    warn "Falha ao enviar relatório por e-mail."
+  fi
 fi
 
 log ""

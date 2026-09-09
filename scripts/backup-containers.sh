@@ -59,12 +59,18 @@ EXCLUDES=(
   ".hermes/patchright/**"      # venv do patchright
   ".local/lib/node_modules/**"
   ".local/share/uv/**"         # interpretadores CPython baixados pelo uv
-  "**/node_modules/**"
-  "**/.venv/**"
-  "**/venv/**"
-  "**/venvs/**"                # o plural existe e não era pego pelos padrões acima
-  "**/__pycache__/**"
-  "**/*.pyc"
+  # Padrões sem "/" inicial e sem "**/" na frente casam em qualquer nível da
+  # árvore, que é a forma documentada de excluir um diretório onde ele estiver.
+  "node_modules/**"
+  # Ambientes Python: excluídos por ESTRUTURA, não por nome. Acertar o nome não
+  # funciona — aqui existem .venv, .venvs, .venv-docx-revision e .hermes/venvs.
+  # Todo ambiente instalado tem site-packages, então é isso que pega todos de
+  # uma vez, reforçado pelo --exclude-if-present pyvenv.cfg mais abaixo.
+  "site-packages/**"
+  ".venv*/**"
+  "venv*/**"
+  "__pycache__/**"
+  "*.pyc"
 )
 
 # ---------------------------------------------------------------------------
@@ -105,6 +111,10 @@ EXCLUDE_ARGS=()
 for pattern in "${EXCLUDES[@]}"; do
   EXCLUDE_ARGS+=(--exclude "$pattern")
 done
+
+# Rede de segurança para os padrões acima: pyvenv.cfg existe na raiz de todo
+# virtualenv, então isso pega qualquer um que tenha escapado pelo nome.
+EXCLUDE_ARGS+=(--exclude-if-present pyvenv.cfg)
 
 # ---------------------------------------------------------------------------
 # Tamanho do conjunto que será enviado

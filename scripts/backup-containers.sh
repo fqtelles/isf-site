@@ -58,9 +58,11 @@ EXCLUDES=(
   ".hermes/bin/**"
   ".hermes/patchright/**"      # venv do patchright
   ".local/lib/node_modules/**"
+  ".local/share/uv/**"         # interpretadores CPython baixados pelo uv
   "**/node_modules/**"
   "**/.venv/**"
   "**/venv/**"
+  "**/venvs/**"                # o plural existe e não era pego pelos padrões acima
   "**/__pycache__/**"
   "**/*.pyc"
 )
@@ -134,12 +136,16 @@ fi
 # ---------------------------------------------------------------------------
 log "Sincronizando para $RCLONE_REMOTE:$DEST_PATH ..."
 
+# O gargalo aqui é quantidade de arquivos, não banda: cada arquivo pequeno paga
+# uma ida e volta na API do Drive mais a cifragem. Com transfers=4 o ritmo fica
+# em ~1 arquivo/s, o que levaria horas. Paralelizar mais é o que resolve.
 nice -n 19 ionice -c3 rclone sync "$SOURCE_DIR" "$RCLONE_REMOTE:$DEST_PATH/current" \
   "${EXCLUDE_ARGS[@]}" \
   --links \
   --backup-dir "$RCLONE_REMOTE:$DEST_PATH/_versions/$DATE" \
-  --transfers 4 \
-  --checkers 8 \
+  --transfers 16 \
+  --checkers 16 \
+  --fast-list \
   --log-file="$LOG_FILE" \
   --log-level INFO \
   --stats-one-line \

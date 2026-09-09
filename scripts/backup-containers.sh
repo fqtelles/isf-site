@@ -173,14 +173,19 @@ log "========================================"
 # =============================================================================
 # COMO CRIAR O REMOTE CRIPTOGRAFADO (uma vez só)
 #
-#   # 1. Gere e GUARDE estas duas senhas em um gerenciador de senhas.
-#   #    Sem elas o backup é irrecuperável — nem você nem ninguém consegue ler.
+#   # 1. Gere uma senha forte e GUARDE em um gerenciador de senhas ANTES de
+#   #    seguir. Sem ela o backup é irrecuperável — nem você nem ninguém lê.
+#   openssl rand -base64 24
+#
+#   # 2. Crie o remote com a senha gerada acima.
+#   #    O parâmetro password2 (salt) é opcional e foi deixado de fora: sem ele
+#   #    o rclone usa um salt padrão. Isso só enfraquece o cifrado se a senha
+#   #    for fraca, por isso a senha precisa ser longa e aleatória.
 #   rclone config create gdrive-crypt crypt \
 #     remote=gdrive:Hermes-Backups-Crypt \
-#     password="$(rclone obscure 'SUA-SENHA-AQUI')" \
-#     password2="$(rclone obscure 'SEU-SALT-AQUI')"
+#     password="$(rclone obscure 'SUA-SENHA-AQUI')"
 #
-#   # 2. Confirme que funciona
+#   # 3. Confirme que funciona
 #   rclone lsd gdrive-crypt:
 #
 # Os arquivos sobem com nome e conteúdo criptografados: o Google vê apenas

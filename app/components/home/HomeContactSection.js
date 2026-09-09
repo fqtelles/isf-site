@@ -90,7 +90,7 @@ export default function HomeContactSection() {
                   <input id="contact-email" className={styles["form-input"]} placeholder="E-mail" type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} />
                 </div>
                 <label htmlFor="contact-telefone" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Telefone / WhatsApp</label>
-                <input id="contact-telefone" className={styles["form-input"]} placeholder="Telefone / WhatsApp" value={formData.telefone} onChange={(e) => setFormData({ ...formData, telefone: e.target.value })} />
+                <input id="contact-telefone" className={styles["form-input"]} placeholder="Telefone / WhatsApp" required value={formData.telefone} onChange={(e) => setFormData({ ...formData, telefone: e.target.value })} />
                 <label htmlFor="contact-servico" style={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap" }}>Serviço de interesse</label>
                 <select id="contact-servico" className={styles["form-input"]} value={formData.servico} onChange={(e) => setFormData({ ...formData, servico: e.target.value })}>
                   <option value="">Serviço de interesse</option>

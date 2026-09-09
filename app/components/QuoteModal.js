@@ -170,13 +170,14 @@ export default function QuoteModal({
                   </div>
                   <div>
                     <label style={{ display: "block", fontSize: "0.8rem", fontWeight: 600, color: "#374151", marginBottom: 5 }}>
-                      E-mail <span style={{ color: "#9ca3af", fontWeight: 400 }}>(opcional)</span>
+                      E-mail <span style={{ color: "#ef4444" }}>*</span>
                     </label>
                     <input
                       name="email"
                       type="email"
                       value={form.email}
                       onChange={handleChange}
+                      required
                       placeholder="seu@email.com"
                       style={inputStyle}
                     />

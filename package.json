@@ -33,6 +33,6 @@
     "sanitize-html": "^2.17.2"
   },
   "overrides": {
-    "postcss": "8.5.19"
+    "postcss": "8.5.28"
   }
 }

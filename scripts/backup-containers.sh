@@ -39,6 +39,7 @@ DEST_PATH="hermes-backup/$CONTAINER"
 
 VERSIONS_RETENTION=30          # dias de retenção das versões antigas
 LOG_FILE="/var/log/isf-containers-backup.log"
+LOCK_FILE="/var/lock/isf-containers-backup.lock"
 
 DATE=$(date '+%Y-%m-%d')
 DRY_RUN=0
@@ -84,6 +85,20 @@ fail() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] ERRO: $1" | tee -a "$LOG_FILE"
   exit 1
 }
+
+# ---------------------------------------------------------------------------
+# Trava de execução exclusiva
+#
+# Sem isso, duas execuções sincronizam o mesmo destino ao mesmo tempo, cada uma
+# com sua própria lista de exclusões, e o log fica intercalado e ilegível — foi
+# o que aconteceu quando três instâncias ficaram vivas simultaneamente. Também
+# protege o cron: se um backup passar de 24h, o próximo espera em vez de somar.
+# ---------------------------------------------------------------------------
+exec 9>"$LOCK_FILE"
+if ! flock -n 9; then
+  log "Outro backup já está em execução. Nada a fazer."
+  exit 0
+fi
 
 # ---------------------------------------------------------------------------
 # Verificações

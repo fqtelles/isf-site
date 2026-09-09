@@ -189,6 +189,62 @@ else
   warn "Nenhuma renovação automática de SSL detectada (certbot.timer ou cron)."
 fi
 
+# Containers LXD: avisa se algum existir e não estiver rodando. Não usa lista
+# fixa de nomes — qualquer container novo passa a ser verificado sozinho.
+# /snap/bin não está no PATH de shell não-interativo, daí o caminho explícito.
+LXC_BIN=""
+for candidato in lxc /snap/bin/lxc; do
+  command -v "$candidato" &>/dev/null && { LXC_BIN="$candidato"; break; }
+done
+
+CONTAINERS_PARADOS=""
+if [ -n "$LXC_BIN" ]; then
+  while IFS=, read -r c_nome c_estado; do
+    [ -z "$c_nome" ] && continue
+    if [ "$c_estado" = "RUNNING" ]; then
+      success "Container $c_nome está rodando."
+    else
+      error "Container $c_nome está em estado '$c_estado'."
+      CONTAINERS_PARADOS="$CONTAINERS_PARADOS $c_nome($c_estado)"
+    fi
+  done < <("$LXC_BIN" list --format csv -c ns 2>/dev/null)
+else
+  log "LXD não encontrado. Pulando verificação de containers."
+fi
+
+# ---------------------------------------------------------------------------
+# 3.1 Frescor dos backups
+#
+# O script antes só olhava o TAMANHO do log de backup, para truncar — nunca se
+# o backup tinha acontecido. Foi assim que cinco meses sem backup passaram sem
+# ninguém notar. Agora lê a marca que cada script de backup escreve apenas
+# após verificar o próprio resultado, e trata atraso como ERRO, não aviso.
+# ---------------------------------------------------------------------------
+section "[3.1/9] Frescor dos backups"
+
+BACKUPS_ATRASADOS=""
+
+check_backup_freshness() {
+  local nome="$1" stamp="$2" max_dias="$3"
+
+  if [ ! -f "$stamp" ]; then
+    error "Backup '$nome': nunca registrou uma execução verificada ($stamp ausente)."
+    BACKUPS_ATRASADOS="$BACKUPS_ATRASADOS $nome(sem registro)"
+    return
+  fi
+
+  local idade_dias=$(( ( $(date +%s) - $(stat -c %Y "$stamp") ) / 86400 ))
+  if [ "$idade_dias" -gt "$max_dias" ]; then
+    error "Backup '$nome': último sucesso há ${idade_dias} dias (limite: ${max_dias})."
+    BACKUPS_ATRASADOS="$BACKUPS_ATRASADOS $nome(${idade_dias}d)"
+  else
+    success "Backup '$nome': último sucesso há ${idade_dias} dia(s)."
+  fi
+}
+
+check_backup_freshness "site" "/var/lib/isf-backups/site.last-success" 2
+check_backup_freshness "containers" "/var/lib/isf-backups/containers.last-success" 9
+
 # ---------------------------------------------------------------------------
 # 4. Verificação do SSL
 # ---------------------------------------------------------------------------
@@ -475,6 +531,8 @@ else
      SM_SSH_FAILED="$FAILED_COUNT" \
      SM_SSH_UNBANNED="${UNBANNED_OFFENDERS:-nenhum}" \
      SM_DB="${INTEGRITY:-não verificado}" \
+     SM_BACKUPS="${BACKUPS_ATRASADOS:-em dia}" \
+     SM_CONTAINERS="${CONTAINERS_PARADOS:-todos rodando}" \
      SM_WARN_LIST="$WARN_LIST_JOINED" \
      SM_ERROR_LIST="$ERROR_LIST_JOINED" \
      python3 <<'PYEOF'
@@ -507,6 +565,8 @@ rows = [
     ("Memória", os.environ["SM_MEM"]),
     ("CPU load (1 min)", os.environ["SM_LOAD"]),
     ("App isf-site (PM2)", os.environ["SM_APP"]),
+    ("Containers", os.environ["SM_CONTAINERS"]),
+    ("Backups", os.environ["SM_BACKUPS"]),
     ("Reboot pendente", os.environ["SM_REBOOT"]),
     ("Falhas de login SSH (7d)", os.environ["SM_SSH_FAILED"]),
     ("IPs perigosos não banidos", os.environ["SM_SSH_UNBANNED"]),

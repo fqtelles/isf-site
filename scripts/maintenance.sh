@@ -445,6 +445,9 @@ req = urllib.request.Request(
     headers={
         "Authorization": f"Bearer {os.environ['RESEND_API_KEY']}",
         "Content-Type": "application/json",
+        # O User-Agent padrão do urllib ("Python-urllib/3.x") é bloqueado
+        # pelo WAF (Cloudflare error 1010, "browser signature banned").
+        "User-Agent": "isf-maintenance-script/1.0",
     },
 )
 try:

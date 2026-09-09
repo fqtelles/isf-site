@@ -189,9 +189,11 @@ else
   warn "Nenhuma renovação automática de SSL detectada (certbot.timer ou cron)."
 fi
 
-# Containers LXD: avisa se algum existir e não estiver rodando. Não usa lista
-# fixa de nomes — qualquer container novo passa a ser verificado sozinho.
-# /snap/bin não está no PATH de shell não-interativo, daí o caminho explícito.
+# Containers LXD: apenas reporta, nunca age. Um container pode estar parado de
+# propósito, então isso é aviso e não erro — e a manutenção não tenta iniciar
+# nem parar nada. Não usa lista fixa de nomes: qualquer container novo passa a
+# ser verificado sozinho. /snap/bin não está no PATH de shell não-interativo,
+# daí procurar o caminho explícito.
 LXC_BIN=""
 for candidato in lxc /snap/bin/lxc; do
   command -v "$candidato" &>/dev/null && { LXC_BIN="$candidato"; break; }
@@ -204,7 +206,7 @@ if [ -n "$LXC_BIN" ]; then
     if [ "$c_estado" = "RUNNING" ]; then
       success "Container $c_nome está rodando."
     else
-      error "Container $c_nome está em estado '$c_estado'."
+      warn "Container $c_nome está em estado '$c_estado'."
       CONTAINERS_PARADOS="$CONTAINERS_PARADOS $c_nome($c_estado)"
     fi
   done < <("$LXC_BIN" list --format csv -c ns 2>/dev/null)

@@ -88,7 +88,11 @@ log "========================================"
 command -v rclone &>/dev/null || fail "rclone não instalado."
 [ -d "$SOURCE_DIR" ] || fail "Diretório de origem não encontrado: $SOURCE_DIR"
 
-if ! rclone lsd "$RCLONE_REMOTE:" &>/dev/null; then
+# mkdir em vez de lsd: é idempotente, valida o acesso ao remote e ainda cria a
+# pasta de destino caso ainda não exista — um remote novo aponta para uma pasta
+# que só passa a existir no primeiro envio, e um "lsd" nela falha com
+# "directory not found" mesmo estando tudo certo.
+if ! rclone mkdir "$RCLONE_REMOTE:$DEST_PATH" 2>/dev/null; then
   fail "Remote '$RCLONE_REMOTE' não configurado ou inacessível. Veja as instruções no fim de $0."
 fi
 

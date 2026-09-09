@@ -28,6 +28,8 @@ TIMESTAMP=$(date '+%Y-%m-%d_%H-%M-%S')
 DATE=$(date '+%Y-%m-%d')
 WARNINGS=0
 ERRORS=0
+APP_STATUS="desconhecido"
+REBOOT_PENDING="não"
 
 # Cron/root não carregam o nvm por padrão — sem isso, "pm2" não é encontrado
 # mesmo com a aplicação rodando normalmente.
@@ -92,6 +94,7 @@ apt-get autoremove -y 2>&1 | tee -a "$LOG_FILE"
 apt-get autoclean -y 2>&1 | tee -a "$LOG_FILE"
 
 if [ -f /var/run/reboot-required ]; then
+  REBOOT_PENDING="sim"
   warn "Reboot necessário após atualização do kernel. Reinicie manualmente em uma janela de manutenção."
 else
   success "Sistema atualizado. Nenhum reboot necessário."
@@ -411,7 +414,19 @@ else
      MAIL_TO="$MAINTENANCE_EMAIL_TO" \
      MAIL_SUBJECT="Manutenção ISF — $STATUS_LABEL — $DATE ($WARNINGS aviso(s), $ERRORS erro(s))" \
      LOG_PATH="$LOG_FILE" \
+     LOG_DATE="$DATE" \
+     SM_STATUS="$STATUS_LABEL" \
+     SM_WARNINGS="$WARNINGS" \
+     SM_ERRORS="$ERRORS" \
+     SM_DISK="${DISK_USAGE}%" \
+     SM_MEM="${MEM_USAGE}%" \
+     SM_LOAD="${LOAD_1MIN} (${CPU_CORES} cores)" \
+     SM_APP="$APP_STATUS" \
+     SM_REBOOT="$REBOOT_PENDING" \
+     SM_SSH_FAILED="$FAILED_COUNT" \
+     SM_DB="${INTEGRITY:-não verificado}" \
      python3 <<'PYEOF'
+import base64
 import json
 import os
 import urllib.error
@@ -419,23 +434,57 @@ import urllib.request
 
 log_path = os.environ["LOG_PATH"]
 with open(log_path, "r", errors="replace") as f:
-    text = f.read()
+    full_text = f.read()
 
-# Mantém no e-mail só a execução mais recente, não o log acumulado inteiro.
+# Mantém no anexo só a execução mais recente, não o log acumulado inteiro.
 marker = "Manutenção ISF Segurança — início"
-idx = text.rfind(marker)
+idx = full_text.rfind(marker)
 if idx != -1:
-    start = text.rfind("========================================", 0, idx)
-    text = text[start if start != -1 else idx:]
+    start = full_text.rfind("========================================", 0, idx)
+    run_text = full_text[start if start != -1 else idx:]
+else:
+    run_text = full_text
 
-escaped = text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
-html = f"<pre style='font-family:monospace;font-size:12px;white-space:pre-wrap'>{escaped}</pre>"
+status = os.environ["SM_STATUS"]
+status_color = {"SUCESSO": "#16a34a", "ATENÇÃO": "#d97706", "FALHA": "#dc2626"}.get(status, "#374151")
+
+rows = [
+    ("Status", status),
+    ("Avisos / Erros", f"{os.environ['SM_WARNINGS']} / {os.environ['SM_ERRORS']}"),
+    ("Disco (/)", os.environ["SM_DISK"]),
+    ("Memória", os.environ["SM_MEM"]),
+    ("CPU load (1 min)", os.environ["SM_LOAD"]),
+    ("App isf-site (PM2)", os.environ["SM_APP"]),
+    ("Reboot pendente", os.environ["SM_REBOOT"]),
+    ("Falhas de login SSH (7d)", os.environ["SM_SSH_FAILED"]),
+    ("Integridade do banco", os.environ["SM_DB"]),
+]
+rows_html = "".join(
+    f"<tr><td style='padding:6px 12px;color:#6b7280;border-bottom:1px solid #f0f0f0;'>{label}</td>"
+    f"<td style='padding:6px 12px;color:#1a1d20;font-weight:600;border-bottom:1px solid #f0f0f0;'>{value}</td></tr>"
+    for label, value in rows
+)
+
+html = f"""
+<div style="font-family:Arial,sans-serif;">
+  <h2 style="margin:0 0 4px;color:{status_color};">Manutenção ISF — {status}</h2>
+  <p style="margin:0 0 16px;color:#6b7280;font-size:0.9rem;">{os.environ['LOG_DATE']}</p>
+  <table style="border-collapse:collapse;font-size:0.9rem;">{rows_html}</table>
+  <p style="margin:20px 0 0;color:#6b7280;font-size:0.85rem;">Log completo desta execução em anexo.</p>
+</div>
+"""
+
+attachment_content = base64.b64encode(run_text.encode("utf-8")).decode("ascii")
 
 payload = json.dumps({
     "from": os.environ["RESEND_FROM"],
     "to": os.environ["MAIL_TO"],
     "subject": os.environ["MAIL_SUBJECT"],
     "html": html,
+    "attachments": [{
+        "filename": f"maintenance_{os.environ['LOG_DATE']}.log",
+        "content": attachment_content,
+    }],
 }).encode("utf-8")
 
 req = urllib.request.Request(

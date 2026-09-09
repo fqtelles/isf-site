@@ -414,6 +414,7 @@ else
      python3 <<'PYEOF'
 import json
 import os
+import urllib.error
 import urllib.request
 
 log_path = os.environ["LOG_PATH"]
@@ -450,6 +451,10 @@ try:
     with urllib.request.urlopen(req, timeout=15) as resp:
         resp.read()
         raise SystemExit(0 if resp.status < 300 else 1)
+except urllib.error.HTTPError as e:
+    body = e.read().decode(errors="replace")
+    print(f"Erro ao enviar e-mail: HTTP {e.code} {e.reason} — {body}")
+    raise SystemExit(1)
 except Exception as e:
     print(f"Erro ao enviar e-mail: {e}")
     raise SystemExit(1)

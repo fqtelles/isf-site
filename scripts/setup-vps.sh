@@ -16,16 +16,39 @@ echo "  Setup ISF Segurança — VPS com Nginx"
 echo "========================================"
 
 # --------------------------------------------------------------------------
-# 1. Dependências do sistema
+# 1. Swap
+#
+# Sem swap, um pico de memória vira OOM killer matando processo em vez de
+# degradar desempenho. 2GB é amortecedor, não extensão de RAM: com muito swap
+# um vazamento faz a máquina agonizar por horas, o que é pior que falhar rápido
+# e o PM2 reerguer. swappiness 10 porque o padrão 60 manda página ociosa pro
+# disco mesmo sobrando RAM, o que só piora latência num servidor.
 # --------------------------------------------------------------------------
-echo "[1/9] Instalando dependências do sistema..."
+echo "[1/10] Configurando swap..."
+if [ -f /swapfile ] || swapon --show | grep -q .; then
+    echo "  -> Swap já configurado. Pulando."
+else
+    fallocate -l 2G /swapfile
+    chmod 600 /swapfile
+    mkswap /swapfile
+    swapon /swapfile
+    echo '/swapfile none swap sw 0 0' >> /etc/fstab
+    echo 'vm.swappiness=10' > /etc/sysctl.d/99-swappiness.conf
+    sysctl -w vm.swappiness=10
+    echo "  -> Swap de 2GB ativo e persistente no boot."
+fi
+
+# --------------------------------------------------------------------------
+# 2. Dependências do sistema
+# --------------------------------------------------------------------------
+echo "[2/10] Instalando dependências do sistema..."
 apt-get update -qq
 apt-get install -y curl git nginx certbot python3-certbot-nginx openssl
 
 # --------------------------------------------------------------------------
-# 2. Node.js 20 via NodeSource
+# 3. Node.js 20 via NodeSource
 # --------------------------------------------------------------------------
-echo "[2/9] Instalando Node.js 20..."
+echo "[3/10] Instalando Node.js 20..."
 if ! command -v node &> /dev/null; then
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
     apt-get install -y nodejs
@@ -33,15 +56,15 @@ fi
 echo "Node $(node -v) / npm $(npm -v)"
 
 # --------------------------------------------------------------------------
-# 3. PM2
+# 4. PM2
 # --------------------------------------------------------------------------
-echo "[3/9] Instalando PM2..."
+echo "[4/10] Instalando PM2..."
 npm install -g pm2
 
 # --------------------------------------------------------------------------
-# 4. Clonar repositório
+# 5. Clonar repositório
 # --------------------------------------------------------------------------
-echo "[4/9] Clonando repositório na branch $BRANCH..."
+echo "[5/10] Clonando repositório na branch $BRANCH..."
 mkdir -p /var/www
 if [ -d "$APP_DIR" ]; then
     echo "Diretório já existe, atualizando..."
@@ -55,15 +78,15 @@ fi
 cd "$APP_DIR"
 
 # --------------------------------------------------------------------------
-# 5. Instalar dependências Node
+# 6. Instalar dependências Node
 # --------------------------------------------------------------------------
-echo "[5/9] Instalando dependências npm..."
+echo "[6/10] Instalando dependências npm..."
 npm ci --omit=dev
 
 # --------------------------------------------------------------------------
-# 6. Arquivo .env de produção
+# 7. Arquivo .env de produção
 # --------------------------------------------------------------------------
-echo "[6/9] Configurando variáveis de ambiente..."
+echo "[7/10] Configurando variáveis de ambiente..."
 if [ ! -f "$APP_DIR/.env" ]; then
     echo "ATENÇÃO: crie o arquivo .env em $APP_DIR com as variáveis abaixo:"
     echo "  ADMIN_PASSWORD=<senha-do-admin>"
@@ -77,23 +100,23 @@ if [ ! -f "$APP_DIR/.env" ]; then
 fi
 
 # --------------------------------------------------------------------------
-# 7. Banco de dados + seed
+# 8. Banco de dados + seed
 # --------------------------------------------------------------------------
-echo "[7/9] Inicializando banco de dados..."
+echo "[8/10] Inicializando banco de dados..."
 npx prisma generate
 npx prisma db push --accept-data-loss
 npm run db:seed
 
 # --------------------------------------------------------------------------
-# 8. Build do Next.js
+# 9. Build do Next.js
 # --------------------------------------------------------------------------
-echo "[8/9] Fazendo build de produção..."
+echo "[9/10] Fazendo build de produção..."
 npm run build
 
 # --------------------------------------------------------------------------
-# 9. PM2 — iniciar e configurar no boot
+# 10. PM2 — iniciar e configurar no boot
 # --------------------------------------------------------------------------
-echo "[9/9] Iniciando aplicação com PM2..."
+echo "[10/10] Iniciando aplicação com PM2..."
 mkdir -p /var/log/pm2
 pm2 start "$APP_DIR/ecosystem.config.js"
 pm2 save

@@ -90,6 +90,48 @@ else
 fi
 
 # ---------------------------------------------------------------------------
+# 3.1 Camada criptografada
+#
+# O backup inclui .env (ADMIN_PASSWORD, ADMIN_SECRET, RESEND_API_KEY) e o
+# banco (dados pessoais dos leads do site) — backup-to-gdrive.sh exige o
+# remote "gdrive-crypt" sobre o "gdrive" configurado acima.
+# ---------------------------------------------------------------------------
+echo ""
+echo "[3.1/5] Configurando camada criptografada (gdrive-crypt)..."
+echo ""
+
+if rclone lsd gdrive-crypt: &> /dev/null 2>&1; then
+  echo "  -> Remote 'gdrive-crypt' já configurado e funcional!"
+else
+  echo "  ================================================================"
+  echo "  ATENÇÃO: a senha abaixo é a ÚNICA forma de ler estes backups."
+  echo "  Sem ela, nem você recupera os dados — nem o suporte do Google."
+  echo "  ================================================================"
+  echo ""
+  GENERATED_PASSWORD=$(openssl rand -base64 24)
+  echo "  Senha gerada: $GENERATED_PASSWORD"
+  echo ""
+  echo "  Salve agora em um gerenciador de senhas (Bitwarden, 1Password etc)."
+  echo ""
+  read -p "  Já salvou a senha? Pressione Enter para continuar..."
+  echo ""
+
+  rclone config create gdrive-crypt crypt \
+    remote="gdrive:ISF-Backups-Crypt" \
+    password="$(rclone obscure "$GENERATED_PASSWORD")"
+
+  rclone mkdir gdrive-crypt: 2>/dev/null || true
+
+  if rclone lsd gdrive-crypt: &> /dev/null 2>&1; then
+    echo "  -> Remote 'gdrive-crypt' criado com sucesso!"
+  else
+    echo "  -> ERRO: falha ao criar ou validar 'gdrive-crypt'."
+    echo "     Veja as instruções manuais no final de scripts/backup-containers.sh."
+    exit 1
+  fi
+fi
+
+# ---------------------------------------------------------------------------
 # 4. Criar diretórios e permissões
 # ---------------------------------------------------------------------------
 echo ""
@@ -131,7 +173,7 @@ echo "  Setup concluído!"
 echo "========================================"
 echo ""
 echo "  Backup automático: diariamente às 3h da manhã"
-echo "  Destino: Google Drive > ISF-Backups/"
+echo "  Destino: Google Drive > ISF-Backups/ (criptografado via gdrive-crypt)"
 echo "  Retenção: 30 dias"
 echo "  Log: $LOG_FILE"
 echo ""

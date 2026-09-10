@@ -8,7 +8,9 @@ set -euo pipefail
 
 APP_DIR="/var/www/isf-site"
 RESTORE_TMP="/var/backups/isf-restore"
-RCLONE_REMOTE="gdrive"
+# Precisa acompanhar o remote em backup-to-gdrive.sh — mudar um sem o outro
+# quebra a restauração dos backups mais recentes.
+RCLONE_REMOTE="gdrive-crypt"
 GDRIVE_FOLDER="ISF-Backups"
 
 # Cores para output
@@ -38,7 +40,7 @@ if ! command -v rclone &> /dev/null; then
 fi
 
 if ! rclone lsd "$RCLONE_REMOTE:" &> /dev/null; then
-  err "Remote '$RCLONE_REMOTE' não configurado. Execute setup-backup.sh primeiro."
+  err "Remote '$RCLONE_REMOTE' não configurado. Veja as instruções de criação no final de scripts/backup-containers.sh."
   exit 1
 fi
 

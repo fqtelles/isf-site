@@ -17,7 +17,10 @@ BACKUP_TMP="/var/backups/isf-gdrive"
 DB_PATH="$APP_DIR/prisma/dev.db"
 PUBLIC_DIR="$APP_DIR/public"
 LOG_FILE="/var/log/isf-backup.log"
-RCLONE_REMOTE="gdrive"
+# Remote criptografado: o backup inclui o .env (ADMIN_PASSWORD, ADMIN_SECRET,
+# RESEND_API_KEY) e o banco (dados pessoais dos leads do site). "gdrive" segue
+# existindo no rclone.conf só para o restore ler os backups antigos.
+RCLONE_REMOTE="gdrive-crypt"
 GDRIVE_FOLDER="ISF-Backups"
 RETENTION_DAYS=30
 
@@ -158,7 +161,7 @@ if ! command -v rclone &> /dev/null; then
 fi
 
 if ! rclone lsd "$RCLONE_REMOTE:" &> /dev/null; then
-  log "  -> ERRO: Remote '$RCLONE_REMOTE' não configurado. Execute setup-backup.sh primeiro."
+  log "  -> ERRO: Remote '$RCLONE_REMOTE' não configurado. Veja as instruções de criação no final de scripts/backup-containers.sh."
   exit 1
 fi
 

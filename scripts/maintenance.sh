@@ -65,6 +65,21 @@ error() {
   ((ERRORS++)) || true
 }
 
+# Dead-man switch: um monitor externo espera um ping a cada execução. Se não
+# chegar — cron parado, VPS fora do ar, script morto no meio — o alerta vem de
+# fora. Nenhuma verificação daqui de dentro cobre isso, porque quem avisaria é
+# justamente o que não está rodando.
+# A URL fica em HEALTHCHECK_MAINTENANCE_URL no .env; sem ela, isso é inerte.
+hc_ping() {
+  [ -n "${HEALTHCHECK_MAINTENANCE_URL:-}" ] || return 0
+  # Falha de ping nunca derruba a manutenção.
+  curl -fsS -m 10 --retry 3 -o /dev/null "${HEALTHCHECK_MAINTENANCE_URL}${1:-}" || true
+}
+
+# Cobre morte inesperada. O desfecho normal é sinalizado no relatório final,
+# conforme a contagem de erros.
+trap 'rc=$?; if [ "$rc" -ne 0 ]; then hc_ping "/fail"; fi' EXIT
+
 section() {
   log ""
   log "------------------------------------------------------------"
@@ -75,6 +90,17 @@ section() {
 # ---------------------------------------------------------------------------
 # Início
 # ---------------------------------------------------------------------------
+# Carregado aqui, e não só na seção de e-mail, porque o ping de início precisa
+# da URL antes de qualquer verificação rodar.
+if [ -f "$APP_DIR/.env" ]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "$APP_DIR/.env"
+  set +a
+fi
+
+hc_ping "/start"
+
 log ""
 log "========================================"
 log "  Manutenção ISF Segurança — início"
@@ -486,13 +512,6 @@ fi
 log ""
 log "Enviando relatório por e-mail..."
 
-if [ -f "$APP_DIR/.env" ]; then
-  set -a
-  # shellcheck disable=SC1090
-  source "$APP_DIR/.env"
-  set +a
-fi
-
 # MAINTENANCE_EMAIL é opcional em .env; por padrão usa o mesmo CONTACT_EMAIL
 # que já recebe os leads do site.
 MAINTENANCE_EMAIL_TO="${MAINTENANCE_EMAIL:-${CONTACT_EMAIL:-}}"
@@ -649,6 +668,15 @@ PYEOF
   else
     warn "Falha ao enviar relatório por e-mail."
   fi
+fi
+
+# Erro na manutenção conta como falha para o monitor externo: o relatório pode
+# até chegar por e-mail, mas se algo estiver quebrado o alerta não depende de
+# alguém ter lido o e-mail.
+if [ "$ERRORS" -gt 0 ]; then
+  hc_ping "/fail"
+else
+  hc_ping
 fi
 
 log ""

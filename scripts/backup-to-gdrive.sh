@@ -35,13 +35,39 @@ log() {
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
 }
 
+# Dead-man switch: um monitor externo espera um ping a cada execução. Se o ping
+# não chegar — cron parado, VPS fora do ar, script morto no meio — o alerta vem
+# de fora. Nenhuma verificação rodando dentro da VPS cobre esses casos, porque
+# quem avisaria é justamente o que não está rodando.
+# A URL fica em HEALTHCHECK_SITE_BACKUP_URL no .env; sem ela, isso é inerte.
+if [ -f "$APP_DIR/.env" ]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "$APP_DIR/.env"
+  set +a
+fi
+
+hc_ping() {
+  [ -n "${HEALTHCHECK_SITE_BACKUP_URL:-}" ] || return 0
+  # Nunca deixa o monitoramento derrubar o backup: falha de ping é ignorada.
+  curl -fsS -m 10 --retry 3 -o /dev/null "${HEALTHCHECK_SITE_BACKUP_URL}${1:-}" || true
+}
+
 cleanup() {
+  local rc=$?
   if [ -d "$BACKUP_DIR" ]; then
     rm -rf "$BACKUP_DIR"
     log "Pasta temporária removida: $BACKUP_DIR"
   fi
+  # Qualquer saída diferente de zero — inclusive morte no meio por set -e —
+  # avisa o monitor. O ping de sucesso é enviado explicitamente no fim.
+  if [ "$rc" -ne 0 ]; then
+    hc_ping "/fail"
+  fi
 }
 trap cleanup EXIT
+
+hc_ping "/start"
 
 # ---------------------------------------------------------------------------
 # Início
@@ -207,6 +233,8 @@ done
 # ---------------------------------------------------------------------------
 # Resumo
 # ---------------------------------------------------------------------------
+hc_ping
+
 TOTAL_SIZE=$(du -sh "$BACKUP_DIR" 2>/dev/null | cut -f1)
 log "========================================"
 log "  Backup concluído! Tamanho total: $TOTAL_SIZE"

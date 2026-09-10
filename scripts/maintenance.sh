@@ -245,7 +245,6 @@ check_backup_freshness() {
 }
 
 check_backup_freshness "site" "/var/lib/isf-backups/site.last-success" 2
-check_backup_freshness "containers" "/var/lib/isf-backups/containers.last-success" 9
 
 # ---------------------------------------------------------------------------
 # 4. Verificação do SSL

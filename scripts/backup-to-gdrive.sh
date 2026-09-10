@@ -21,6 +21,10 @@ RCLONE_REMOTE="gdrive"
 GDRIVE_FOLDER="ISF-Backups"
 RETENTION_DAYS=30
 
+# Marca de último backup verificado. É o que o maintenance.sh usa para saber se
+# os backups estão realmente acontecendo — só é escrita após a verificação.
+SUCCESS_STAMP="/var/lib/isf-backups/site.last-success"
+
 TIMESTAMP=$(date +%Y-%m-%d_%H-%M-%S)
 BACKUP_DIR="$BACKUP_TMP/$TIMESTAMP"
 
@@ -140,8 +144,48 @@ nice -n 19 rclone copy "$BACKUP_DIR/" "$RCLONE_REMOTE:$GDRIVE_FOLDER/$TIMESTAMP/
 log "  -> Upload concluído!"
 
 # ---------------------------------------------------------------------------
+# Verificação do que subiu
+#
+# As etapas acima apenas AVISAM e seguem quando não encontram o banco ou a
+# pasta public/. Sem esta verificação, um backup vazio seria considerado bom e
+# a limpeza abaixo continuaria apagando os backups antigos que ainda prestavam
+# — em 30 dias, nenhuma cópia aproveitável, silenciosamente.
+# ---------------------------------------------------------------------------
+BACKUP_VERIFICADO=1
+
+for artefato in database.sqlite public.tar.gz config.tar.gz; do
+  if [ ! -f "$BACKUP_DIR/$artefato" ]; then
+    log "  -> ERRO: $artefato não foi gerado neste backup."
+    BACKUP_VERIFICADO=0
+  fi
+done
+
+# Confirma que o que existe localmente chegou íntegro ao destino
+if [ "$BACKUP_VERIFICADO" -eq 1 ]; then
+  if rclone check "$BACKUP_DIR/" "$RCLONE_REMOTE:$GDRIVE_FOLDER/$TIMESTAMP/" --one-way 2>&1 | tail -3 | tee -a "$LOG_FILE" | grep -q "0 differences found"; then
+    log "  -> Verificação OK: destino confere com a origem."
+  else
+    log "  -> ERRO: destino não confere com a origem."
+    BACKUP_VERIFICADO=0
+  fi
+fi
+
+if [ "$BACKUP_VERIFICADO" -eq 1 ]; then
+  mkdir -p "$(dirname "$SUCCESS_STAMP")"
+  date '+%Y-%m-%d %H:%M:%S' > "$SUCCESS_STAMP"
+fi
+
+# ---------------------------------------------------------------------------
 # 5. Limpeza de backups antigos no Google Drive
 # ---------------------------------------------------------------------------
+if [ "$BACKUP_VERIFICADO" -ne 1 ]; then
+  log "[5/5] Backup NÃO verificado — limpeza cancelada para preservar os backups antigos."
+  log "========================================"
+  log "  Backup FALHOU a verificação. Investigue antes da próxima execução."
+  log "========================================"
+  exit 1
+fi
+
 log "[5/5] Removendo backups com mais de ${RETENTION_DAYS} dias no Google Drive..."
 
 rclone lsd "$RCLONE_REMOTE:$GDRIVE_FOLDER/" 2>/dev/null | while read -r _ _ _ folder_name; do

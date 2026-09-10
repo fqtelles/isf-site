@@ -40,6 +40,7 @@ DEST_PATH="hermes-backup/$CONTAINER"
 VERSIONS_RETENTION=30          # dias de retenção das versões antigas
 LOG_FILE="/var/log/isf-containers-backup.log"
 LOCK_FILE="/var/lock/isf-containers-backup.lock"
+SUCCESS_STAMP="/var/lib/isf-backups/containers.last-success"
 
 DATE=$(date '+%Y-%m-%d')
 DRY_RUN=0
@@ -177,6 +178,9 @@ nice -n 19 ionice -c3 rclone sync "$SOURCE_DIR" "$RCLONE_REMOTE:$DEST_PATH/curre
   --stats 60s
 
 log "  -> Sync concluído."
+
+mkdir -p "$(dirname "$SUCCESS_STAMP")"
+date '+%Y-%m-%d %H:%M:%S' > "$SUCCESS_STAMP"
 
 # ---------------------------------------------------------------------------
 # Limpeza das versões antigas

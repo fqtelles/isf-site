@@ -101,7 +101,8 @@ echo "[3.1/5] Configurando camada criptografada (gdrive-crypt)..."
 echo ""
 
 if rclone lsd gdrive-crypt: &> /dev/null 2>&1; then
-  echo "  -> Remote 'gdrive-crypt' já configurado e funcional!"
+  CRYPT_TARGET=$(rclone config show gdrive-crypt 2>/dev/null | grep '^remote =' | cut -d= -f2 | tr -d ' ')
+  echo "  -> Remote 'gdrive-crypt' já configurado e funcional! (aponta para ${CRYPT_TARGET:-desconhecido})"
 else
   echo "  ================================================================"
   echo "  ATENÇÃO: a senha abaixo é a ÚNICA forma de ler estes backups."

@@ -685,7 +685,7 @@ export default function HomeClient({ initialProducts, initialBlogPosts }) {
               <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: 14 }}>Contato</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 <a href="tel:4133787933" style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.72)", textDecoration: "none" }}>(41) 3378-7933</a>
-                <a href="https://api.whatsapp.com/send?phone=554133787933" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.72)", textDecoration: "none" }}>WhatsApp (41) 99991-9191</a>
+                <a href="https://api.whatsapp.com/send?phone=554133787933" target="_blank" rel="noopener noreferrer" style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.72)", textDecoration: "none" }}>WhatsApp (41) 3378-7933</a>
                 <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.7)" }}>Seg–Sex: 8h30–18h00</span>
                 <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.7)" }}>R. Omar Dutra, 52 — Curitiba, PR</span>
               </div>

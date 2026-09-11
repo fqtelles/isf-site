@@ -288,7 +288,7 @@ export default function SiteShell({ children }) {
                   rel="noopener noreferrer"
                   className={styles['shell-footer-link']}
                 >
-                  WhatsApp (41) 99991-9191
+                  WhatsApp (41) 3378-7933
                 </a>
                 <span style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.7)" }}>
                   Seg–Sex: 8h30–18h00
